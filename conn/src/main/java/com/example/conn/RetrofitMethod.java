@@ -21,11 +21,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CommonMethod {
+public class RetrofitMethod {
     String TAG = "로그";
 
     private HashMap<String , Object> params = new HashMap<>();
-    public CommonMethod setParams(String key , Object value){
+    public RetrofitMethod setParams(String key , Object value){
         params.put(key,value);
         return this;
     }

@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.conn.ApiClient;
-import com.example.conn.CommonMethod;
+import com.example.conn.RetrofitMethod;
 
 //텍스트 사이즈
 //네비게이션 20dp
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         ApiClient.setBASEURL("http://192.168.0.116/middle/");
 
-        new CommonMethod().setParams("a", "1").setParams("b", "2").sendPost("hmstest", new CommonMethod.CallBackResult() {
+        new RetrofitMethod().setParams("a", "1").setParams("b", "2").sendPost("hmstest", new RetrofitMethod.CallBackResult() {
             @Override
             public void result(boolean isResult, String data) {
                 Log.d(TAG, "result: " + isResult);
