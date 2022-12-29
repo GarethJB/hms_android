@@ -12,4 +12,10 @@
     <color name="second_color">#4FB5E6</color>
     <color name="text_color">#353535</color>
 
+    <!-- Jungwon -->
+    <color name="gray">#BBBBBB</color>
+    <color name="gray2">#969696</color>
+    <color name="gray3">#666666</color>
+    <color name="gray4">#424242</color>
+
 </resources>
