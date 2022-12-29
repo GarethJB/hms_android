@@ -1,18 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- 상단메뉴바 -->
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/icon_menu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:src="@drawable/logo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+            <TextView
+                android:text="YH-hospital"
+                android:textSize="20dp"
+                android:textColor="#2F6299"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <ImageView
+            android:src="@drawable/icon_search"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- 메인화면 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+        <RelativeLayout
+            android:background="@drawable/main_back"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="300dp">
+            <LinearLayout
+                android:id="@+id/line_notice"
+                android:background="#2F6299"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:orientation="vertical"></LinearLayout>
+            <LinearLayout
+                android:background="#4FB5E6"
+                android:layout_toLeftOf="@id/line_notice"
+                android:layout_alignParentBottom="true"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:orientation="vertical"></LinearLayout>
+            <LinearLayout
+                android:background="#ffffff"
+                android:layout_above="@+id/line_notice"
+                android:layout_alignParentRight="true"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:orientation="vertical"></LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>
