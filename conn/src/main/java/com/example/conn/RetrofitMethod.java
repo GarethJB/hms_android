@@ -30,7 +30,6 @@ public class RetrofitMethod {
         return this;
     }
 
-
     public void sendPost(String url , CallBackResult callback){
         ApiInterface apiInterface = new ApiClient().getApiClient().create(ApiInterface.class);
         Call<String> apiTest =  apiInterface.connPost(url , params);
