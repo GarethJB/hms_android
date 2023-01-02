@@ -12,7 +12,6 @@ import com.example.conn.RetrofitMethod;
 
 public class MainActivity extends AppCompatActivity {
     String TAG = "로그";
-
     ActivityMainBinding bind;
 
     @Override
