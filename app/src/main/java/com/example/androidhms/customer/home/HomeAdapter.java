@@ -1,4 +1,4 @@
-package com.example.androidhms.customer.adapter;
+package com.example.androidhms.customer.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;

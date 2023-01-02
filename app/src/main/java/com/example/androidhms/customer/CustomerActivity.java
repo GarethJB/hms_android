@@ -1,5 +1,6 @@
 package com.example.androidhms.customer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -8,14 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
-import com.example.androidhms.customer.fragment.HomeFragment;
-import com.example.androidhms.customer.fragment.InfoFragment;
-import com.example.androidhms.customer.fragment.LocationFragment;
-import com.example.androidhms.customer.fragment.ReservationFragment;
+import com.example.androidhms.customer.reservation.ReservationActivity;
+import com.example.androidhms.customer.home.HomeFragment;
+import com.example.androidhms.customer.info.InfoFragment;
 import com.example.androidhms.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeActivity extends AppCompatActivity {
+public class CustomerActivity extends AppCompatActivity {
     ActivityHomeBinding bind;
 
 
@@ -34,7 +34,8 @@ public class HomeActivity extends AppCompatActivity {
                 if(item.getItemId() == R.id.btm_item1){
                     changeFragment(new HomeFragment());
                 }else if(item.getItemId() == R.id.btm_item2){
-                    changeFragment(new ReservationFragment());
+                    Intent intent = new Intent(CustomerActivity.this, ReservationActivity.class);
+                    startActivity(intent);
                 }else if(item.getItemId() == R.id.btm_item3){
                     changeFragment(new LocationFragment());
                 }else if(item.getItemId() == R.id.btm_item4){

@@ -1,4 +1,4 @@
-package com.example.androidhms.customer.fragment;
+package com.example.androidhms.customer.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
-import com.example.androidhms.customer.adapter.HomeAdapter;
 
 
 public class HomeFragment extends Fragment {
