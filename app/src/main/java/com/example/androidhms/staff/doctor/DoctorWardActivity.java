@@ -1,4 +1,4 @@
-package com.example.androidhms.staff.nurse;
+package com.example.androidhms.staff.doctor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,12 +6,11 @@ import android.os.Bundle;
 
 import com.example.androidhms.R;
 
-public class NurseOutPatientActivity extends AppCompatActivity {
+public class DoctorWardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_outpatient);
+        setContentView(R.layout.activity_doctor_ward);
     }
-
 }

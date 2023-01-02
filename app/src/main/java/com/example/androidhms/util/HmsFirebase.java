@@ -5,8 +5,8 @@ import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
-import com.example.androidhms.staff.messenger.ChatVO;
-import com.example.androidhms.staff.messenger.StaffVO;
+import com.example.androidhms.staff.vo.ChatVO;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +36,10 @@ public class HmsFirebase {
         dbRef.child("chatRoom").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String key = staffList.get(0).getStaff_id() + "0000" + staffList.get(1).getStaff_id();
+                String key;
+                if (staffList.get(0).getStaff_id() < staffList.get(1).getStaff_id()) {
+                    key = staffList.get(0).getStaff_id() + "0000" + staffList.get(1).getStaff_id();
+                } else key = staffList.get(1).getStaff_id() + "0000" + staffList.get(0).getStaff_id();
                 dbRef.child("chatRoom").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

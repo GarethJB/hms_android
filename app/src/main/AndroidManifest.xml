@@ -16,6 +16,41 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".staff.LookupActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".staff.ScheduleActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".staff.doctor.DoctorWardActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".staff.doctor.DoctorOutpatientActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".staff.nurse.NurseWardActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".staff.messenger.ChatActivity"
             android:exported="false">
             <meta-data
@@ -30,7 +65,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".staff.nurse.NurseOutPatientActivity"
+            android:name=".staff.nurse.NurseOutpatientActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

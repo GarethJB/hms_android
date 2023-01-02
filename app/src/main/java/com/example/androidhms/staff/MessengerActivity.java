@@ -3,6 +3,7 @@ package com.example.androidhms.staff;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,6 +11,7 @@ import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMessengerBinding;
 import com.example.androidhms.staff.messenger.MessengerFragment;
 import com.example.androidhms.staff.messenger.MessengerStaffFragment;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.ActivityUtil;
 
 public class MessengerActivity extends AppCompatActivity {
@@ -18,15 +20,22 @@ public class MessengerActivity extends AppCompatActivity {
     private MessengerFragment messengerFragment;
     private MessengerStaffFragment messengerStaffFragment;
     private ActivityUtil util;
+    private StaffVO staff;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityMessengerBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+        Intent intent = getIntent();
+        staff = (StaffVO) intent.getSerializableExtra("staff");
 
+        bundle = new Bundle();
+        bundle.putSerializable("staff", staff);
         util = new ActivityUtil(this);
         messengerStaffFragment = new MessengerStaffFragment();
+        messengerStaffFragment.setArguments(bundle);
 
         util.addFragment(bind.flContainer.getId(), messengerStaffFragment);
         util.showFragment(messengerStaffFragment);
@@ -49,6 +58,7 @@ public class MessengerActivity extends AppCompatActivity {
                 } else if (v.getId() == R.id.iv_messenger) {
                     if (messengerFragment == null) {
                         messengerFragment = new MessengerFragment();
+                        messengerFragment.setArguments(bundle);
                         util.addFragment(bind.flContainer.getId(), messengerFragment);
                     }
                     util.hideFragment(messengerStaffFragment);

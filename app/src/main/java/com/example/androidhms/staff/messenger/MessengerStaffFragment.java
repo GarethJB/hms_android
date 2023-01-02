@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 
 import com.example.androidhms.databinding.FragmentMessengerStaffBinding;
 import com.example.androidhms.staff.messenger.adapter.MessengerStaffAdapter;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
-import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,18 +30,30 @@ public class MessengerStaffFragment extends Fragment {
     private ArrayList<StaffVO> staffList;
     private ArrayList<StaffVO> chatMemberList;
     private HmsFirebase fb;
+    private Bundle bundle;
+    private StaffVO staff;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         bind = FragmentMessengerStaffBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
-        ApiClient.setBASEURL("http://192.168.0.25/hms/");
+        bundle = getArguments();
+        staff = (StaffVO) bundle.getSerializable("staff");
+
+        bind.tvName.setText(staff.getName() + "님");
         new RetrofitMethod().sendPost("getstaff.ap", new RetrofitMethod.CallBackResult() {
             @Override
             public void result(boolean isResult, String data) {
                 if (isResult) {
                     staffList = new Gson().fromJson(data, new TypeToken<ArrayList<StaffVO>>(){}.getType());
+                    // 자기 자신은 채팅 상대방에서 제외
+                    for (int i = 0; i < staffList.size(); i++) {
+                        if (staffList.get(i).getStaff_id() == staff.getStaff_id()) {
+                            staffList.remove(i);
+                            break;
+                        }
+                    }
                     Util.setRecyclerView(getContext(), bind.rvMessengerStaff,
                             new MessengerStaffAdapter(MessengerStaffFragment.this, staffList), true);
                     bind.rvMessengerStaff.post(() -> {
@@ -63,7 +75,7 @@ public class MessengerStaffFragment extends Fragment {
     public View.OnClickListener onGetChatClick(int position) {
         return v -> {
             chatMemberList = new ArrayList<>();
-            chatMemberList.add(new StaffVO(0, 1, "간호사"));
+            chatMemberList.add(staff);
             chatMemberList.add(staffList.get(position));
             fb.getChatRoom(chatMemberList);
         };
@@ -78,6 +90,7 @@ public class MessengerStaffFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), ChatActivity.class);
                         intent.putExtra("name", chatMemberList.get(1).getName());
                         intent.putExtra("key", msg.obj.toString());
+                        intent.putExtra("staff", staff);
                         startActivity(intent);
                     } else fb.getChatRoom(chatMemberList);
                 }

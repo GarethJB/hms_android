@@ -10,7 +10,7 @@ import com.example.androidhms.R;
 import com.example.androidhms.databinding.RvChatBinding;
 import com.example.androidhms.databinding.RvMychatBinding;
 import com.example.androidhms.staff.messenger.ChatActivity;
-import com.example.androidhms.staff.messenger.ChatVO;
+import com.example.androidhms.staff.vo.ChatVO;
 
 import java.util.ArrayList;
 

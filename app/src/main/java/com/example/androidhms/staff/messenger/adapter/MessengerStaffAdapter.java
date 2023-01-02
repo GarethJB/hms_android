@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.RvMessengerStaffBinding;
 import com.example.androidhms.staff.messenger.MessengerStaffFragment;
-import com.example.androidhms.staff.messenger.StaffVO;
+import com.example.androidhms.staff.vo.StaffVO;
 
 import java.util.ArrayList;
 

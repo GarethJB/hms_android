@@ -10,9 +10,10 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 
-import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityChatBinding;
 import com.example.androidhms.staff.messenger.adapter.ChatRoomAdapter;
+import com.example.androidhms.staff.vo.ChatVO;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 
@@ -23,6 +24,7 @@ public class ChatActivity extends AppCompatActivity {
     private ActivityChatBinding bind;
     private HmsFirebase fb;
     private String key;
+    private StaffVO staff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         key = intent.getStringExtra("key");
+        staff = (StaffVO) intent.getSerializableExtra("staff");
 
         bind.tvChatroom.setText(name);
         bind.btSend.setOnClickListener(onSendClick());
@@ -46,7 +49,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (msg.what == HmsFirebase.GET_CHAT_SUCCESS) {
                     ArrayList<ChatVO> chatList = (ArrayList<ChatVO>) msg.obj;
                     Util.setRecyclerView(ChatActivity.this, bind.rvChat,
-                            new ChatRoomAdapter(ChatActivity.this, chatList, "간호사"), true);
+                            new ChatRoomAdapter(ChatActivity.this, chatList, staff.getName()), true);
                 }
             }
         };
@@ -56,7 +59,7 @@ public class ChatActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fb.sendChat(key, new ChatVO("간호사", bind.etContent.getText().toString()));
+                fb.sendChat(key, new ChatVO(staff.getName(), bind.etContent.getText().toString()));
             }
         };
     }

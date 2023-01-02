@@ -77,6 +77,7 @@
             android:paddingStart="20dp"/>
 
         <CheckBox
+            android:id="@+id/cb_autologin"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:text="자동 로그인 설정"

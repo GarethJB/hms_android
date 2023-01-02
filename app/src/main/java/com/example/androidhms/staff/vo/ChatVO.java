@@ -1,4 +1,4 @@
-package com.example.androidhms.staff.messenger;
+package com.example.androidhms.staff.vo;
 
 import com.example.androidhms.util.Util;
 
