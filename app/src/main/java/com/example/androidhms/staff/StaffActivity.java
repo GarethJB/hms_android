@@ -10,8 +10,8 @@ import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffBinding;
 import com.example.androidhms.staff.doctor.DoctorOutpatientActivity;
 import com.example.androidhms.staff.doctor.DoctorWardActivity;
+import com.example.androidhms.staff.lookup.LookupActivity;
 import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.staff.nurse.NurseOutpatientActivity;
 import com.example.androidhms.staff.nurse.NurseWardActivity;
 
 public class StaffActivity extends AppCompatActivity {
@@ -28,6 +28,7 @@ public class StaffActivity extends AppCompatActivity {
         staff = (StaffVO) intent.getSerializableExtra("staff");
 
         bind.tvName.setText(staff.getName());
+        bind.rlLookup.setOnClickListener(onMenuClick());
         bind.rlOutpatient.setOnClickListener(onMenuClick());
         bind.rlWard.setOnClickListener(onMenuClick());
         bind.rlSchedule.setOnClickListener(onMenuClick());
@@ -41,11 +42,13 @@ public class StaffActivity extends AppCompatActivity {
                 if (v.getId() == R.id.rl_lookup) {
                     intent = new Intent(StaffActivity.this, LookupActivity.class);
                 } else if (v.getId() == R.id.rl_outpatient) {
-                    intent = new Intent(StaffActivity.this, DoctorWardActivity.class);
+                    intent = new Intent(StaffActivity.this, DoctorOutpatientActivity.class);
                 } else if (v.getId() == R.id.rl_ward) {
-                    // intent = new Intent(StaffActivity.this, ScheduleActivity.class)
+                    intent = new Intent(StaffActivity.this, DoctorWardActivity.class);
                 } else if (v.getId() == R.id.rl_messanger) {
                     intent = new Intent(StaffActivity.this, MessengerActivity.class);
+                } else if (v.getId() == R.id.rl_schedule) {
+                    intent = new Intent(StaffActivity.this, ScheduleActivity.class);
                 }
             } else if (staff.getStaff_level() == 2) {
                 if (v.getId() == R.id.rl_lookup) {
@@ -56,6 +59,8 @@ public class StaffActivity extends AppCompatActivity {
                     // intent = new Intent(StaffActivity.this, ScheduleActivity.class)
                 } else if (v.getId() == R.id.rl_messanger) {
                     intent = new Intent(StaffActivity.this, MessengerActivity.class);
+                } else if (v.getId() == R.id.rl_schedule) {
+                    intent = new Intent(StaffActivity.this, ScheduleActivity.class);
                 }
             }
             intent.putExtra("staff", staff);

@@ -4,37 +4,137 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".staff.doctor.DoctorOutpatientActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".staff.doctor.DoctorOutpatientActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <com.google.android.material.tabs.TabLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:scrollbarSize="2dp"
-        app:tabTextAppearance="@style/tab_text"
-        app:tabTextColor="@color/gray"
-        app:tabSelectedTextColor="@color/main_color"
-        app:tabIndicatorColor="@color/main_color">
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="10dp">
 
-        <com.google.android.material.tabs.TabItem
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="환자조회"/>
+            android:text="접수현황"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"/>
 
-        <com.google.android.material.tabs.TabItem
+        <Button
+            android:id="@+id/bt_preday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="예약현황"/>
+            android:text="이전날"
+            android:textSize="16dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/second_color"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/bt_nextday"/>
 
-    </com.google.android.material.tabs.TabLayout>
+        <Button
+            android:id="@+id/bt_nextday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="다음날"
+            android:textSize="16dp"
+            android:backgroundTint="@color/second_color"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"/>
 
-    <FrameLayout
-        android:id="@+id/fl_container"
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="날짜"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginEnd="15dp"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:drawableEnd="@drawable/calendar_multiselect_outline"
+            android:focusable="false"
+            android:inputType="date"
+            android:paddingStart="5dp"
+            android:backgroundTint="@color/gray"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="순번"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="예약시간"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="환자명"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="예약내역"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="비고"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_medical_record"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/round_box_lightgray"
+        android:padding="10dp" />
+
 
 </LinearLayout>
