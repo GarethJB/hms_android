@@ -7,34 +7,13 @@
     tools:context=".customer.reservation.StepOneFragment">
 
     <LinearLayout
-        android:background="@color/main_color"
-        android:gravity="center"
-        android:paddingVertical="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:text="STEP 1"
-            android:textSize="20dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:text="진료과 선택"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
         android:layout_marginVertical="20dp"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/tv_dept1"
             android:text="가정의학과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
@@ -43,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_dept2"
             android:text="산부인과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
@@ -51,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_dept3"
             android:text="신경외과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
@@ -59,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_dept4"
             android:text="이비인후과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
@@ -67,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_dept5"
             android:text="내과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
@@ -75,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_dept6"
             android:text="심장진료학과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
@@ -83,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_dept7"
             android:text="통증의학과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
