@@ -4,63 +4,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".staff.lookup.MedicalRecordFragment">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:text="진료기록"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+    tools:context=".staff.outpatient.MedicalRecordFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableEnd="@drawable/calendar_multiselect_outline"
-            android:focusable="false"
-            android:inputType="date"
-            android:paddingStart="5dp"
-            android:backgroundTint="@color/gray"
-            android:textSize="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:text="~"
+            android:layout_height="match_parent"
+            android:text="진료기록"
             android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center"/>
 
-        <EditText
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableEnd="@drawable/calendar_multiselect_outline"
-            android:focusable="false"
-            android:inputType="date"
-            android:paddingStart="5dp"
-            android:backgroundTint="@color/gray"
-            android:textSize="16dp" />
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/gray"
+                android:drawableEnd="@drawable/calendar_multiselect_outline"
+                android:focusable="false"
+                android:inputType="date"
+                android:paddingStart="5dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:text="~"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/gray"
+                android:drawableEnd="@drawable/calendar_multiselect_outline"
+                android:focusable="false"
+                android:inputType="date"
+                android:paddingStart="5dp"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:layout_marginHorizontal="15dp"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="환자명"
+            android:textSize="16dp" />
+
 
         <TextView
             android:layout_width="0dp"
@@ -85,7 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="15dp"
-        android:layout_weight="0.6"
+        android:layout_weight="0.8"
         android:background="@drawable/round_box_lightgray"
         android:padding="10dp" />
 
@@ -98,79 +117,88 @@
         android:textSize="20dp"
         android:textStyle="bold" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_box_lightgray"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="· 날짜 : "
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="· 진단명 : "
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_treatment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/round_box_lightgray"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:paddingHorizontal="10dp"
+            android:textSize="16dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="· 날짜 : "
-                android:textSize="16dp"
-                android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="· 처방 : "
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:textSize="16dp" />
+        <TextView
+            android:id="@+id/tv_prescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:textSize="16dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="· 진료의사 : "
-                android:textSize="16dp"
-                android:textStyle="bold" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_doctor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:textSize="16dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="· 진단명 : "
-                android:textSize="16dp"
-                android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="메모"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"/>
 
-            <TextView
-                android:id="@+id/tv_treatment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:textSize="16dp" />
+        <Button
+            android:id="@+id/bt_save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="저장"
+            android:textSize="16dp"
+            android:backgroundTint="@color/second_color"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="· 처방 : "
-                android:textSize="16dp"
-                android:textStyle="bold" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_prescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:textSize="16dp"
+        android:background="@drawable/round_box_lightgray"/>
 
 </LinearLayout>

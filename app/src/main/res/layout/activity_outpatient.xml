@@ -4,37 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".staff.nurse.NurseOutpatientActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".staff.outpatient.OutpatientActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-    
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightgray"/>
+
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_outpatient"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:scrollbarSize="2dp"
-        app:tabTextAppearance="@style/tab_text"
-        app:tabTextColor="@color/gray"
+        android:elevation="3dp"
         app:tabSelectedTextColor="@color/main_color"
-        app:tabIndicatorColor="@color/main_color">
+        app:tabIndicatorColor="@color/main_color"
+        app:tabTextAppearance="@style/tab_text">
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="환자조회"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="접수현황"/>
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="예약현황"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="진료기록"/>
 
     </com.google.android.material.tabs.TabLayout>
-    
+
     <FrameLayout
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+
 
 </LinearLayout>

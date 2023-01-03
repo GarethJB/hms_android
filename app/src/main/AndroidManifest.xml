@@ -23,28 +23,30 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".staff.ScheduleActivity"
+            android:name=".staff.schedule.ScheduleActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".staff.ward.DoctorWardActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".staff.doctor.DoctorWardActivity"
-            android:exported="false">
+            android:name=".staff.outpatient.OutpatientActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".staff.doctor.DoctorOutpatientActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".staff.nurse.NurseWardActivity"
+            android:name=".staff.ward.NurseWardActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -58,14 +60,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".staff.MessengerActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".staff.nurse.NurseOutpatientActivity"
+            android:name=".staff.messenger.MessengerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

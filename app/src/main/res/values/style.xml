@@ -3,6 +3,7 @@
     <style name="tab_text" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">16dp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/main_color</item>
     </style>
     <style name="tv_table" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">16dp</item>

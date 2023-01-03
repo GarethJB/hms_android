@@ -1,4 +1,4 @@
-package com.example.androidhms.staff.lookup;
+package com.example.androidhms.staff.outpatient;
 
 import android.os.Bundle;
 
@@ -10,12 +10,11 @@ import android.view.ViewGroup;
 
 import com.example.androidhms.R;
 
-public class PatientInfoFragment extends Fragment {
+public class MedicalRecordFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_patient_info, container, false);
+        return inflater.inflate(R.layout.fragment_medical_record, container, false);
     }
 }

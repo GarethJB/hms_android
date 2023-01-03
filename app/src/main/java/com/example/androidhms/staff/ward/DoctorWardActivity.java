@@ -1,4 +1,4 @@
-package com.example.androidhms.staff.doctor;
+package com.example.androidhms.staff.ward;
 
 import androidx.appcompat.app.AppCompatActivity;
 

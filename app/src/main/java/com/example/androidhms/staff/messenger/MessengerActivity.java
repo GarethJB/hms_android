@@ -1,4 +1,4 @@
-package com.example.androidhms.staff;
+package com.example.androidhms.staff.messenger;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -9,8 +9,6 @@ import android.view.View;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMessengerBinding;
-import com.example.androidhms.staff.messenger.MessengerFragment;
-import com.example.androidhms.staff.messenger.MessengerStaffFragment;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.ActivityUtil;
 

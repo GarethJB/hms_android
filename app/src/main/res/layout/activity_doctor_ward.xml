@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".staff.doctor.DoctorWardActivity"
+    tools:context=".staff.ward.DoctorWardActivity"
     android:orientation="vertical">
 
     <include
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="담당 입원환자"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -74,12 +74,35 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_medical_record"
+            android:id="@+id/rv_mypatient"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/round_box_lightgray"
             android:padding="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="환자상태기록"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_medical_record"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_box_lightgray"
+            android:padding="10dp" />
 
     </LinearLayout>
 
