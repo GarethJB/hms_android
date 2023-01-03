@@ -4,18 +4,23 @@ import java.io.Serializable;
 
 public class StaffVO implements Serializable {
 
-    private int staff_id, department_id, staff_level;
-    private String name;
+    private int staff_id, staff_level, department_id;
+    private String name, department_name;
 
-    public StaffVO(int staff_id, int department_id, int staff_level, String name) {
+    public StaffVO(int staff_id, int staff_level, int department_id, String name, String department_name) {
         this.staff_id = staff_id;
-        this.department_id = department_id;
         this.staff_level = staff_level;
+        this.department_id = department_id;
         this.name = name;
+        this.department_name = department_name;
     }
 
     public int getStaff_id() {
         return staff_id;
+    }
+
+    public int getStaff_level() {
+        return staff_level;
     }
 
     public int getDepartment_id() {
@@ -26,8 +31,7 @@ public class StaffVO implements Serializable {
         return name;
     }
 
-    public int getStaff_level() {
-        return staff_level;
+    public String getDepartment_name() {
+        return department_name;
     }
-
 }

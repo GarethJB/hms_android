@@ -38,8 +38,8 @@ public class HmsFirebase {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String key;
                 if (staffList.get(0).getStaff_id() < staffList.get(1).getStaff_id()) {
-                    key = staffList.get(0).getStaff_id() + "0000" + staffList.get(1).getStaff_id();
-                } else key = staffList.get(1).getStaff_id() + "0000" + staffList.get(0).getStaff_id();
+                    key = staffList.get(0).getStaff_id() + "--" + staffList.get(1).getStaff_id();
+                } else key = staffList.get(1).getStaff_id() + "--" + staffList.get(0).getStaff_id();
                 dbRef.child("chatRoom").child(key).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,7 +76,7 @@ public class HmsFirebase {
         dbRef.child("chatRoom").child(key).child("chat").addValueEventListener(getChatListener);
     }
 
-    private ValueEventListener getChatListener = new ValueEventListener() {
+    private final ValueEventListener getChatListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             ArrayList<ChatVO> chatList = new ArrayList<>();

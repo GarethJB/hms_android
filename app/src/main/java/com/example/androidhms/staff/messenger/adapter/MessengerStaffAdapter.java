@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAdapter.MessengerStaffViewHolder> {
 
-    private MessengerStaffFragment fragment;
-    private ArrayList<StaffVO> staffList;
+    private final MessengerStaffFragment fragment;
+    private final ArrayList<StaffVO> staffList;
 
     public MessengerStaffAdapter(MessengerStaffFragment fragment, ArrayList<StaffVO> staffList) {
         this.fragment = fragment;
@@ -32,8 +32,12 @@ public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAd
 
     @Override
     public void onBindViewHolder(@NonNull MessengerStaffViewHolder holder, int position) {
-        holder.bind.tvStaffname.setText(staffList.get(position).getName());
-        holder.bind.tvStaffdepart.setText(String.valueOf(staffList.get(position).getDepartment_id()));
+        StaffVO vo = staffList.get(position);
+        holder.bind.tvStaffname.setText(vo.getName());
+        String department = vo.getDepartment_name();
+        if (vo.getStaff_level() == 1) department += " 의사";
+        else department += " 간호사";
+        holder.bind.tvStaffdepart.setText(department);
         holder.bind.rlGetchat.setOnClickListener(fragment.onGetChatClick(position));
     }
 
@@ -52,7 +56,7 @@ public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAd
         return position;
     }
 
-    public class MessengerStaffViewHolder extends RecyclerView.ViewHolder {
+    public static class MessengerStaffViewHolder extends RecyclerView.ViewHolder {
 
         public RvMessengerStaffBinding bind;
 

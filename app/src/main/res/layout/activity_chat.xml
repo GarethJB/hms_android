@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_chat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".staff.messenger.ChatActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".staff.messenger.ChatActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -15,46 +16,61 @@
         android:id="@+id/tv_chatroom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="20dp"
         android:text="채팅방이름"
         android:textSize="24dp"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"/>
+        android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_chat"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="10dp"/>
+        android:layout_height="1dp"
+        android:background="@color/lightgray" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/lightmain_color"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_chat"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginVertical="5dp"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/et_content"
-            android:hint="내용"
-            android:textSize="20dp"
-            android:paddingLeft="10dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="15dp"
             android:layout_weight="4"
-            android:layout_marginEnd="15dp"/>
+            android:hint="내용"
+            android:paddingStart="5dp"
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/bt_send"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:backgroundTint="@color/second_color"
             android:text="전송"
-            android:textSize="20dp"
             android:textColor="@color/white"
-            android:backgroundTint="@color/second_color"/>
+            android:textSize="16dp" />
 
     </LinearLayout>
+
 
 </LinearLayout>

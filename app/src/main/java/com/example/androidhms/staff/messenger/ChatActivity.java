@@ -3,12 +3,14 @@ package com.example.androidhms.staff.messenger;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.androidhms.databinding.ActivityChatBinding;
 import com.example.androidhms.staff.messenger.adapter.ChatRoomAdapter;
@@ -25,6 +27,7 @@ public class ChatActivity extends AppCompatActivity {
     private HmsFirebase fb;
     private String key;
     private StaffVO staff;
+    private ArrayList<ChatVO> chatList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,13 @@ public class ChatActivity extends AppCompatActivity {
 
         bind.tvChatroom.setText(name);
         bind.btSend.setOnClickListener(onSendClick());
+        bind.etContent.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) new Handler().postDelayed(
+                    () -> bind.rvChat.scrollToPosition(chatList.size() - 1), 200);
+        });
+        bind.etContent.setOnClickListener(v ->
+                new Handler().postDelayed(() ->
+                        bind.rvChat.scrollToPosition(chatList.size() - 1), 200));
         fb.getChat(key);
         setContentView(bind.getRoot());
     }
@@ -47,9 +57,10 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 if (msg.what == HmsFirebase.GET_CHAT_SUCCESS) {
-                    ArrayList<ChatVO> chatList = (ArrayList<ChatVO>) msg.obj;
+                    chatList = (ArrayList<ChatVO>) msg.obj;
                     Util.setRecyclerView(ChatActivity.this, bind.rvChat,
                             new ChatRoomAdapter(ChatActivity.this, chatList, staff.getName()), true);
+                    bind.rvChat.scrollToPosition(chatList.size() - 1);
                 }
             }
         };
@@ -60,7 +71,9 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fb.sendChat(key, new ChatVO(staff.getName(), bind.etContent.getText().toString()));
+                bind.etContent.setText("");
             }
         };
     }
+
 }

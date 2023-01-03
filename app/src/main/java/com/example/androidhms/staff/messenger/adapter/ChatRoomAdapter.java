@@ -11,6 +11,7 @@ import com.example.androidhms.databinding.RvChatBinding;
 import com.example.androidhms.databinding.RvMychatBinding;
 import com.example.androidhms.staff.messenger.ChatActivity;
 import com.example.androidhms.staff.vo.ChatVO;
+import com.example.androidhms.util.Util;
 
 import java.util.ArrayList;
 
@@ -37,14 +38,19 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
     @Override
     public void onBindViewHolder(@NonNull ChatRoomViewHolder holder, int position) {
         ChatVO vo = chatList.get(position);
+        String time = Util.getChatTime(vo.getTime());
         if (vo.getName().equals(myName)) {
-            holder.myBind.tvName.setText(vo.getName());
+            if (position != 0 && vo.getName().equals(chatList.get(position - 1).getName())) {
+                holder.myBind.tvName.setVisibility(View.GONE);
+            } else holder.myBind.tvName.setText(vo.getName());
             holder.myBind.tvContent.setText(vo.getContent());
-            holder.myBind.tvTime.setText(vo.getTime());
+            holder.myBind.tvTime.setText(time);
         } else {
-            holder.bind.tvName.setText(vo.getName());
+            if (position != 0 && vo.getName().equals(chatList.get(position - 1).getName())) {
+                holder.bind.tvName.setVisibility(View.GONE);
+            } else holder.bind.tvName.setText(vo.getName());
             holder.bind.tvContent.setText(vo.getContent());
-            holder.bind.tvTime.setText(vo.getTime());
+            holder.bind.tvTime.setText(time);
         }
     }
 

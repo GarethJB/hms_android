@@ -1,9 +1,6 @@
 package com.example.androidhms.util;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
-import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,10 +19,12 @@ public class Util {
         rv.setItemAnimator(null);
     }
 
-    public static String getChatTime() {
-        StringBuilder sb = new StringBuilder(new Timestamp(System.currentTimeMillis()).toString());
-        // 2023-01-02 00:20:10.377
-        return sb.substring(5, 16);
+    public static String getChatTimeStamp() {
+        return new Timestamp(System.currentTimeMillis()).toString();
+    }
+
+    public static String getChatTime(String time) {
+        return new StringBuilder(time).substring(11, 16);
     }
 
 }

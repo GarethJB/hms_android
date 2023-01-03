@@ -27,12 +27,12 @@
 
         <Spinner
             android:id="@+id/bt_nextday"
-            android:layout_width="150dp"
+            android:layout_width="160dp"
             android:layout_height="match_parent"
             android:layout_marginVertical="5dp"
             android:text="다음날"
             android:textSize="16dp"
-            android:backgroundTint="@color/second_color"
+            android:background="@drawable/spinner_white"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"/>
 

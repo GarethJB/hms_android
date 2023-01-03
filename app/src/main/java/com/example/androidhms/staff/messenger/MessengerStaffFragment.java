@@ -41,7 +41,7 @@ public class MessengerStaffFragment extends Fragment {
         bundle = getArguments();
         staff = (StaffVO) bundle.getSerializable("staff");
 
-        bind.tvName.setText(staff.getName() + "님");
+        bind.tvName.setText(staff.getName());
         new RetrofitMethod().sendPost("getstaff.ap", new RetrofitMethod.CallBackResult() {
             @Override
             public void result(boolean isResult, String data) {
