@@ -45,7 +45,8 @@ public class StaffActivity extends AppCompatActivity {
             } else if (v.getId() == R.id.rl_outpatient) {
                 intent = new Intent(StaffActivity.this, OutpatientActivity.class);
             } else if (v.getId() == R.id.rl_ward) {
-                if (staff.getDepartment_id() < 130) {
+                // 진료과 간호사, 병동 간호사 구분
+                if (staff.getDepartment_id() < 150) {
                     intent = new Intent(StaffActivity.this, DoctorWardActivity.class);
                 } else {
                     intent = new Intent(StaffActivity.this, NurseWardActivity.class);
