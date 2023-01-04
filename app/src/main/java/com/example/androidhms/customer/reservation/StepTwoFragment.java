@@ -18,7 +18,7 @@ public class StepTwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_step_two, container, false);
+        View v = inflater.inflate(R.layout.fragment_customer_step_two, container, false);
 
         rcv_staff = v.findViewById(R.id.rcv_staff);
 

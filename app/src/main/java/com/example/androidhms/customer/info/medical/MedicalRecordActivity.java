@@ -11,6 +11,6 @@ public class MedicalRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medical);
+        setContentView(R.layout.activity_customer_medical);
     }
 }
