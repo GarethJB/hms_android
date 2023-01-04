@@ -5,12 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.androidhms.R;
+import com.example.androidhms.databinding.ActivityNurseWardBinding;
+import com.example.androidhms.util.CalendarDialog;
+import com.example.androidhms.util.Util;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 public class NurseWardActivity extends AppCompatActivity {
+
+    private ActivityNurseWardBinding bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nurse_ward);
+        bind = ActivityNurseWardBinding.inflate(getLayoutInflater());
+        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
+        Util.setEditTextDate(this, getLayoutInflater(), bind.etDate, new CalendarDialog.SetDateClickListener() {
+            @Override
+            public void setDateClick(CalendarDay date, CalendarDialog dialog) {
+                String selectedDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
+                bind.etDate.setText(selectedDate);
+                dialog.dismiss();
+            }
+        });
+        setContentView(bind.getRoot());
     }
 }

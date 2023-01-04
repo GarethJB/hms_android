@@ -25,6 +25,7 @@ public class MessengerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityMessengerBinding.inflate(getLayoutInflater());
+        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
         setContentView(bind.getRoot());
         Intent intent = getIntent();
         staff = (StaffVO) intent.getSerializableExtra("staff");

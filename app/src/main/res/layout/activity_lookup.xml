@@ -39,7 +39,7 @@
             android:drawableEnd="@drawable/ic_baseline_search_24" />
 
         <Button
-            android:id="@+id/bt_search"
+            android:id="@+id/btn_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

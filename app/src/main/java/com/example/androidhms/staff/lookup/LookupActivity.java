@@ -17,6 +17,7 @@ public class LookupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityLookupBinding.inflate(getLayoutInflater());
+        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
         setContentView(bind.getRoot());
     }
 }

@@ -89,14 +89,14 @@
         android:layout_weight="3.5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rl_lookup"
+            android:id="@+id/cl_lookup"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginEnd="20dp"
             android:background="@color/main_color"
             android:elevation="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/rl_ward"
-            app:layout_constraintEnd_toStartOf="@+id/rl_outpatient"
+            app:layout_constraintBottom_toTopOf="@+id/cl_ward"
+            app:layout_constraintEnd_toStartOf="@+id/cl_outpatient"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,18 +126,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rl_ward"
+            android:id="@+id/cl_ward"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginEnd="20dp"
             android:background="@color/second_color"
             android:elevation="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/rl_schedule"
-            app:layout_constraintEnd_toStartOf="@+id/rl_messanger"
+            app:layout_constraintBottom_toTopOf="@+id/cl_schedule"
+            app:layout_constraintEnd_toStartOf="@+id/cl_messanger"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rl_lookup">
+            app:layout_constraintTop_toBottomOf="@+id/cl_lookup">
 
             <ImageView
                 android:layout_width="90dp"
@@ -164,15 +164,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rl_outpatient"
+            android:id="@+id/cl_outpatient"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="@color/white"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/rl_lookup"
-            app:layout_constraintTop_toTopOf="@+id/rl_lookup">
+            app:layout_constraintStart_toEndOf="@+id/cl_lookup"
+            app:layout_constraintTop_toTopOf="@+id/cl_lookup">
 
             <ImageView
                 android:layout_width="90dp"
@@ -196,16 +196,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rl_messanger"
+            android:id="@+id/cl_messanger"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="@color/main_color"
             android:elevation="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/rl_ward"
+            app:layout_constraintBottom_toBottomOf="@+id/cl_ward"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/rl_ward"
-            app:layout_constraintTop_toTopOf="@+id/rl_ward">
+            app:layout_constraintStart_toEndOf="@+id/cl_ward"
+            app:layout_constraintTop_toTopOf="@+id/cl_ward">
 
             <ImageView
                 android:layout_width="80dp"
@@ -232,14 +232,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rl_schedule"
+            android:id="@+id/cl_schedule"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="@color/white"
             android:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/rl_ward"
-            app:layout_constraintTop_toBottomOf="@+id/rl_ward">
+            app:layout_constraintStart_toStartOf="@+id/cl_ward"
+            app:layout_constraintTop_toBottomOf="@+id/cl_ward">
 
             <ImageView
                 android:layout_width="90dp"

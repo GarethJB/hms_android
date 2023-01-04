@@ -26,7 +26,7 @@
             android:layout_centerVertical="true"/>
 
         <Button
-            android:id="@+id/bt_preday"
+            android:id="@+id/btn_preday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이전날"
@@ -34,10 +34,10 @@
             android:layout_marginEnd="10dp"
             android:backgroundTint="@color/second_color"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/bt_nextday"/>
+            android:layout_toStartOf="@id/btn_nextday"/>
 
         <Button
-            android:id="@+id/bt_nextday"
+            android:id="@+id/btn_nextday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="다음날"
@@ -65,6 +65,7 @@
             android:layout_marginEnd="15dp"/>
 
         <EditText
+            android:id="@+id/et_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -146,17 +147,18 @@
         android:layout_marginBottom="10dp">
 
         <Button
+            android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="삭제"
             android:textSize="16dp"
             android:backgroundTint="@color/second_color"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/bt_save"
+            android:layout_toStartOf="@+id/btn_save"
             android:layout_marginEnd="10dp"/>
 
         <Button
-            android:id="@+id/bt_save"
+            android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="저장"

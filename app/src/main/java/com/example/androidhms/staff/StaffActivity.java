@@ -30,30 +30,30 @@ public class StaffActivity extends AppCompatActivity {
         staff = (StaffVO) intent.getSerializableExtra("staff");
 
         bind.tvName.setText(staff.getName());
-        bind.rlLookup.setOnClickListener(onMenuClick());
-        bind.rlOutpatient.setOnClickListener(onMenuClick());
-        bind.rlWard.setOnClickListener(onMenuClick());
-        bind.rlSchedule.setOnClickListener(onMenuClick());
-        bind.rlMessanger.setOnClickListener(onMenuClick());
+        bind.clLookup.setOnClickListener(onMenuClick());
+        bind.clOutpatient.setOnClickListener(onMenuClick());
+        bind.clWard.setOnClickListener(onMenuClick());
+        bind.clSchedule.setOnClickListener(onMenuClick());
+        bind.clMessanger.setOnClickListener(onMenuClick());
     }
 
     private View.OnClickListener onMenuClick() {
         return v -> {
             Intent intent = null;
-            if (v.getId() == R.id.rl_lookup) {
+            if (v.getId() == R.id.cl_lookup) {
                 intent = new Intent(StaffActivity.this, LookupActivity.class);
-            } else if (v.getId() == R.id.rl_outpatient) {
+            } else if (v.getId() == R.id.cl_outpatient) {
                 intent = new Intent(StaffActivity.this, OutpatientActivity.class);
-            } else if (v.getId() == R.id.rl_ward) {
+            } else if (v.getId() == R.id.cl_ward) {
                 // 진료과 간호사, 병동 간호사 구분
                 if (staff.getDepartment_id() < 150) {
                     intent = new Intent(StaffActivity.this, DoctorWardActivity.class);
                 } else {
                     intent = new Intent(StaffActivity.this, NurseWardActivity.class);
                 }
-            } else if (v.getId() == R.id.rl_messanger) {
+            } else if (v.getId() == R.id.cl_messanger) {
                 intent = new Intent(StaffActivity.this, MessengerActivity.class);
-            } else if (v.getId() == R.id.rl_schedule) {
+            } else if (v.getId() == R.id.cl_schedule) {
                 intent = new Intent(StaffActivity.this, ScheduleActivity.class);
             }
             intent.putExtra("staff", staff);

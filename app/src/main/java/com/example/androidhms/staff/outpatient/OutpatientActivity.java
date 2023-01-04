@@ -21,6 +21,7 @@ public class OutpatientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityOutpatientBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+        bind.toolbar.ivLeft.setOnClickListener(v -> finish());
 
         recordFragment = new MedicalRecordFragment();
         receiptFragment = new ReceiptFragment();
@@ -54,6 +55,8 @@ public class OutpatientActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 }

@@ -33,6 +33,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityChatBinding.inflate(getLayoutInflater());
+        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
         fb = new HmsFirebase(this, firebaseHandler());
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
