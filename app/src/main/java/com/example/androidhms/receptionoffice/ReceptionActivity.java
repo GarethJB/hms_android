@@ -1,19 +1,19 @@
-package com.example.androidhms.receptionoffice.reception;
+package com.example.androidhms.receptionoffice;
 //datepicker
 
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.androidhms.receptionoffice.appointment.AppointFragment;
-import com.example.androidhms.receptionoffice.home.ReceptionHomeFragment;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMainBinding;
+import com.example.androidhms.receptionoffice.appointment.AppointFragment;
+import com.example.androidhms.receptionoffice.home.ReceptionHomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 //datepicker
 

@@ -1,14 +1,13 @@
-package com.example.androidhms.receptionoffice.reception;
+package com.example.androidhms.receptionoffice;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
 
