@@ -6,19 +6,14 @@
     android:gravity="center_vertical"
     android:layout_marginBottom="5dp">
     <TextView
-        android:text="1월"
+        android:id="@+id/tv_date"
+        android:text="1월 2일"
         android:textSize="14dp"
         android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
-        android:text="02일"
-        android:textSize="14dp"
-        android:textColor="@color/black"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
+        android:id="@+id/tv_time"
         android:text="09 : 45"
         android:textSize="14dp"
         android:textColor="@color/black"
@@ -27,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
+        android:id="@+id/tv_department"
         android:text="신경외과"
         android:textSize="14dp"
         android:textColor="@color/black"
@@ -34,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
+        android:id="@+id/tv_name"
         android:text="홍길동"
         android:textSize="14dp"
         android:textColor="@color/black"
@@ -42,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
+        android:id="@+id/tv_rank"
         android:text="교수"
         android:textSize="14dp"
         android:textColor="@color/black"

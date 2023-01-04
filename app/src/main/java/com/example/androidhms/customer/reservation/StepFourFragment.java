@@ -1,22 +1,30 @@
 package com.example.androidhms.customer.reservation;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.androidhms.R;
+import androidx.fragment.app.Fragment;
+
+import com.example.androidhms.databinding.FragmentStepFourBinding;
 
 public class StepFourFragment extends Fragment {
+    FragmentStepFourBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_step_four, container, false);
+        bind = FragmentStepFourBinding.inflate(inflater, container, false);
 
-        return v;
+
+        return bind.getRoot();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bind = null;
+    }
+
 }

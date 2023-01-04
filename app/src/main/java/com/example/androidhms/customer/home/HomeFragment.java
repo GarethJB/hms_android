@@ -5,41 +5,39 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidhms.R;
 import com.example.androidhms.customer.join.JoinActivity;
+import com.example.androidhms.databinding.FragmentHomeBinding;
 
 
 public class HomeFragment extends Fragment {
-    RecyclerView rcv_introduce;
-    Button btn_join;
+    FragmentHomeBinding bind;
 
+    // 고객용 메인페이지, 의료진 소개, 회원가입 화면 연결
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        bind = FragmentHomeBinding.inflate(inflater, container, false);
 
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
-
-        RecyclerView rcv_introduce = v.findViewById(R.id.rcv_introduce);
-
-        btn_join = v.findViewById(R.id.btn_join);
-        btn_join.setOnClickListener(v1 -> {
+        bind.btnJoin.setOnClickListener(v1 -> {
             Intent intent = new Intent(getActivity(), JoinActivity.class);
             startActivity(intent);
         });
 
         HomeAdapter adapter = new HomeAdapter(inflater, getContext());
 
-        rcv_introduce.setAdapter(adapter);
-        rcv_introduce.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        bind.rcvIntroduceStaff.setAdapter(adapter);
+        bind.rcvIntroduceStaff.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
+        return bind.getRoot();
+    }
 
-
-        return v;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bind = null;
     }
 }

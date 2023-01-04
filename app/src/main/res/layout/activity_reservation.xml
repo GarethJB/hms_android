@@ -43,11 +43,23 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <ImageView
+            android:background="@color/main_color"
             android:id="@+id/imgv_next"
             android:src="@drawable/icon_step_next"
             android:layout_gravity="center_vertical"
             android:layout_width="40dp"
             android:layout_height="40dp"/>
+        <TextView
+            android:id="@+id/tv_back"
+            android:text="취소"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
 
     </LinearLayout>
 
@@ -55,21 +67,5 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:id="@+id/btn_back"
-            android:text="취소"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:backgroundTint="@color/main_color"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
 
 </LinearLayout>

@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
+            android:id="@+id/imgv_profile"
             android:src="@drawable/profile1"
             android:layout_width="100dp"
             android:layout_height="100dp"/>
@@ -22,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tv_name"
                     android:text="홍길동"
                     android:textSize="20dp"
                     android:textColor="@color/main_color"
@@ -29,6 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/tv_rank"
                     android:text="교수"
                     android:textSize="20dp"
                     android:textColor="@color/black"
@@ -44,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/tv_introduction"
                 android:text="폐렴, 임파선염, 폐염결핵"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"

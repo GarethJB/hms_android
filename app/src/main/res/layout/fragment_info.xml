@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <LinearLayout
-                    android:id="@+id/ll_medical"
+                    android:id="@+id/ll_medical_record"
                     android:background="@drawable/info_back1"
                     android:padding="20dp"
                     android:layout_marginRight="5dp"
@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/ll_reservation"
+                    android:id="@+id/ll_reservation_record"
                     android:background="@drawable/info_back2"
                     android:padding="20dp"
                     android:layout_marginLeft="5dp"
@@ -133,7 +133,7 @@
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/ll_acceptance"
+                android:id="@+id/ll_acceptance_inquire"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -168,7 +168,7 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/ll_time"
+                    android:id="@+id/ll_timetable"
                     android:background="@drawable/info_back4"
                     android:padding="20dp"
                     android:layout_marginLeft="5dp"

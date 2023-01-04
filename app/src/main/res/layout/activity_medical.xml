@@ -14,7 +14,6 @@
         <TextView
             android:text="진료날짜"
             android:textSize="16dp"
-            text
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

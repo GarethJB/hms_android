@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/tv_name"
             android:hint="임주빈"
             android:textSize="20dp"
             android:textColor="@color/black"
@@ -30,18 +31,19 @@
         android:layout_marginVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-    <!-- 전화번호 -->
+    <!-- 성별 -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="전화번호"
+            android:text="성별"
             android:textSize="20dp"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
-            android:hint="+82 10-5755-3247"
+            android:id="@+id/tv_gender"
+            android:hint="남자"
             android:textSize="20dp"
             android:textColor="@color/black"
             android:layout_alignParentRight="true"
@@ -64,7 +66,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/tv_email"
             android:hint="wneod3247@naver.com"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <FrameLayout
+        android:background="#CFCFCF"
+        android:layout_marginVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <!-- 전화번호 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="전화번호"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/tv_phone"
+            android:hint="010-5755-3247"
             android:textSize="20dp"
             android:textColor="@color/black"
             android:layout_alignParentRight="true"
@@ -87,6 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_date"
             android:text="2022. 12. 08."
             android:textSize="20dp"
             android:textColor="@color/black"

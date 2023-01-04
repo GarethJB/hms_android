@@ -13,65 +13,84 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tv_dept1"
-            android:text="가정의학과"
+            android:id="@+id/tv_department_1"
+            android:text="심장내과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/tv_dept2"
-            android:text="산부인과"
+            android:id="@+id/tv_department_2"
+            android:text="소화기내과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/tv_dept3"
-            android:text="신경외과"
+            android:id="@+id/tv_department_3"
+            android:text="신장내과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/tv_dept4"
-            android:text="이비인후과"
+            android:id="@+id/tv_department_4"
+            android:text="소아청소년과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/tv_dept5"
-            android:text="내과"
+            android:id="@+id/tv_department_5"
+            android:text="외과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/tv_dept6"
-            android:text="심장진료학과"
+            android:id="@+id/tv_department_6"
+            android:text="흉부외과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/tv_dept7"
-            android:text="통증의학과"
+            android:id="@+id/tv_department_7"
+            android:text="정형외과"
             android:textSize="20dp"
             android:textColor="#3C3C3C"
             android:textStyle="bold"
+            android:layout_marginBottom="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_department_8"
+            android:text="신경과"
+            android:textSize="20dp"
+            android:textColor="#3C3C3C"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_department_9"
+            android:text="치과"
+            android:textSize="20dp"
+            android:textColor="#3C3C3C"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
