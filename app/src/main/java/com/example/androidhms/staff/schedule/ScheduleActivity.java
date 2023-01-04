@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.ActivityScheduleBinding;
 import com.example.androidhms.databinding.ActivityStaffScheduleBinding;
 import com.example.androidhms.databinding.DialogCalendarBinding;
 import com.example.androidhms.util.CalendarDialog;

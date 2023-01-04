@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.FragmentReceiptBinding;
 import com.example.androidhms.databinding.FragmentStaffReceiptBinding;
 import com.example.androidhms.staff.schedule.ScheduleActivity;
 import com.example.androidhms.util.CalendarDialog;

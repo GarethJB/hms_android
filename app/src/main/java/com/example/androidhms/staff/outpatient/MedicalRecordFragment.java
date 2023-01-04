@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.FragmentCustomerMedicalRecordBinding;
-import com.example.androidhms.databinding.FragmentMedicalRecordBinding;
 import com.example.androidhms.databinding.FragmentStaffMedicalRecordBinding;
 import com.example.androidhms.util.CalendarDialog;
 import com.example.androidhms.util.Util;

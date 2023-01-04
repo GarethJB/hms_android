@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.ActivityNurseWardBinding;
 import com.example.androidhms.databinding.ActivityStaffNurseWardBinding;
 import com.example.androidhms.util.CalendarDialog;
 import com.example.androidhms.util.Util;
