@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/back_color"
     tools:context=".staff.outpatient.OutpatientActivity">
 
     <include
@@ -15,7 +16,8 @@
         android:id="@+id/tl_outpatient"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:tabSelectedTextColor="@color/main_color"
+        app:tabBackground="@drawable/tab_background"
+        app:tabSelectedTextColor="@color/white"
         app:tabIndicatorColor="@color/main_color"
         app:tabTextAppearance="@style/tab_text">
 

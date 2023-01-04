@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
         <TextView
@@ -24,33 +23,41 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/et_name"
+        <LinearLayout
+            android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:paddingStart="5dp"
-            android:backgroundTint="@color/gray"
-            android:drawableEnd="@drawable/icon_search" />
+            android:background="@drawable/box_round_lightgray"
+            android:backgroundTint="@color/white"
+            android:paddingHorizontal="5dp"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="5dp"
+                android:backgroundTint="@color/gray"
+                android:drawableEnd="@drawable/icon_search" />
 
-        <Button
-            android:layout_marginStart="5dp"
-            android:id="@+id/btn_search"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/second_color"
-            android:text="검색"
-            android:textSize="16dp" />
-
+            <Button
+                android:layout_marginStart="5dp"
+                android:id="@+id/btn_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/second_color"
+                android:text="검색"
+                android:textSize="16dp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="15dp"
         android:orientation="horizontal">
 
@@ -67,7 +74,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
+            android:paddingHorizontal="5dp"
             android:orientation="horizontal"
+            android:background="@drawable/box_round_lightgray"
+            android:backgroundTint="@color/white"
             android:gravity="center">
 
             <EditText
@@ -108,53 +118,66 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:text="환자명"
-            android:textSize="16dp" />
-
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:text="진료날짜"
-            android:textSize="16dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="진단명"
-            android:textSize="16dp" />
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_medical_record"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="15dp"
-        android:layout_weight="0.8"
         android:background="@drawable/box_round_lightgray"
         android:backgroundTint="@color/white"
-        android:padding="10dp" />
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="환자명"
+                android:textColor="@color/main_color"
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="진료날짜"
+                android:textColor="@color/main_color"
+                android:textStyle="bold"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="진단명"
+                android:textColor="@color/main_color"
+                android:textStyle="bold"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_medical_record"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:padding="10dp" />
+    </LinearLayout>
+
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
         android:text="상세정보"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -213,7 +236,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="5dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -221,7 +244,7 @@
             android:text="메모"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:layout_centerVertical="true"/>
+            android:layout_alignParentBottom="true"/>
 
         <Button
             android:id="@+id/bt_save"
@@ -240,7 +263,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.6"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:padding="5dp"
         android:textSize="16dp"
         android:backgroundTint="@color/white"
