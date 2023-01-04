@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v= inflater.inflate(R.layout.fragment_search, container, false);
+        View v= inflater.inflate(R.layout.fragment_reception_search, container, false);
         ll_info = v.findViewById(R.id.ll_info);
         btn_search= v.findViewById(R.id.btn_search);
         btn_search.setOnClickListener(new View.OnClickListener() {

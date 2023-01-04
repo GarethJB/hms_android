@@ -11,16 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.FragmentHomeBinding;
+import com.example.androidhms.databinding.FragmentReceptionHomeBinding;
 
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
-    FragmentHomeBinding bind;
+
+public class ReceptionHomeFragment extends Fragment implements View.OnClickListener {
+    FragmentReceptionHomeBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bind = FragmentHomeBinding.inflate(inflater, container, false);
+        bind = FragmentReceptionHomeBinding.inflate(inflater, container, false);
 
         bind.tvNews.setOnClickListener(this);
         bind.tvVolunteer.setOnClickListener(this);

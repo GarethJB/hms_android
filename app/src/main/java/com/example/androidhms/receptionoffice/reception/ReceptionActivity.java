@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.androidhms.receptionoffice.appointment.AppointFragment;
-import com.example.androidhms.receptionoffice.home.HomeFragment;
+import com.example.androidhms.receptionoffice.home.ReceptionHomeFragment;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,7 +34,7 @@ public class ReceptionActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.btm_item1){
-                    changeFragment(new HomeFragment());
+                    changeFragment(new ReceptionHomeFragment());
                 }else if(item.getItemId() == R.id.btm_item2){
                     changeFragment(new SearchFragment());
                 }else if(item.getItemId() == R.id.btm_item3){

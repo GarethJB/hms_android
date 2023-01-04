@@ -37,7 +37,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".receptionoffice.home.HomeFragment"
+            android:name=".receptionoffice.home.ReceptionHomeFragment"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

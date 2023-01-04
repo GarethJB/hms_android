@@ -12,7 +12,7 @@ public class VolunteerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_volunteer);
+        setContentView(R.layout.activity_reception_volunteer);
 
         Intent intent = getIntent();
     }
