@@ -22,7 +22,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.item_introduce_staff, parent, false);
+        View v = inflater.inflate(R.layout.item_customer_introduce_staff, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }

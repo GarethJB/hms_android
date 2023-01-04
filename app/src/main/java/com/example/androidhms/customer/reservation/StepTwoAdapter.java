@@ -22,7 +22,7 @@ public class StepTwoAdapter extends RecyclerView.Adapter<StepTwoAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.item_step_tow, parent, false);
+        View v = inflater.inflate(R.layout.item_customer_step_tow, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
