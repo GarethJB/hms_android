@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityScheduleBinding;
+import com.example.androidhms.databinding.ActivityStaffScheduleBinding;
 import com.example.androidhms.databinding.DialogCalendarBinding;
 import com.example.androidhms.util.CalendarDialog;
 import com.example.androidhms.util.Util;
@@ -20,12 +21,12 @@ import java.util.Calendar;
 
 public class ScheduleActivity extends AppCompatActivity {
 
-    private ActivityScheduleBinding bind;
+    private ActivityStaffScheduleBinding bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityScheduleBinding.inflate(getLayoutInflater());
+        bind = ActivityStaffScheduleBinding.inflate(getLayoutInflater());
         bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
         Util.setEditTextDate(this, getLayoutInflater(), bind.etDate, new CalendarDialog.SetDateClickListener() {
             @Override

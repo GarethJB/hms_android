@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidhms.databinding.FragmentAppointBinding;
+import com.example.androidhms.databinding.FragmentReceptionAppointBinding;
 
 
 public class AppointFragment extends Fragment {
 
-    FragmentAppointBinding bind;
+    FragmentReceptionAppointBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bind = FragmentAppointBinding.inflate(inflater,container,false);
+        bind = FragmentReceptionAppointBinding.inflate(inflater,container,false);
 
         bind.recvAppointmentList.setAdapter(new AppointmentAdapter(inflater));
         bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));

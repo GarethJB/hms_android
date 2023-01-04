@@ -7,15 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.androidhms.databinding.FragmentStepFourBinding;
+import com.example.androidhms.databinding.FragmentCustomerStepFourBinding;
 
 public class StepFourFragment extends Fragment {
-    FragmentStepFourBinding bind;
+    FragmentCustomerStepFourBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bind = FragmentStepFourBinding.inflate(inflater, container, false);
+        bind = FragmentCustomerStepFourBinding.inflate(inflater, container, false);
 
 
         return bind.getRoot();

@@ -9,19 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.androidhms.R;
+import com.example.androidhms.databinding.FragmentCustomerMedicalRecordBinding;
 import com.example.androidhms.databinding.FragmentMedicalRecordBinding;
+import com.example.androidhms.databinding.FragmentStaffMedicalRecordBinding;
 import com.example.androidhms.util.CalendarDialog;
 import com.example.androidhms.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 public class MedicalRecordFragment extends Fragment {
 
-    private FragmentMedicalRecordBinding bind;
+    private FragmentStaffMedicalRecordBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bind = FragmentMedicalRecordBinding.inflate(inflater, container, false);
+        bind = FragmentStaffMedicalRecordBinding.inflate(inflater, container, false);
         Util.setEditTextDate(getContext(), inflater, bind.etFirstDate, new CalendarDialog.SetDateClickListener() {
             @Override
             public void setDateClick(CalendarDay date, CalendarDialog dialog) {

@@ -7,16 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.androidhms.databinding.FragmentStepOneBinding;
+import com.example.androidhms.databinding.FragmentCustomerStepOneBinding;
 
 
 public class StepOneFragment extends Fragment {
-    FragmentStepOneBinding bind;
+    FragmentCustomerStepOneBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bind = FragmentStepOneBinding.inflate(inflater, container, false);
+        bind = FragmentCustomerStepOneBinding.inflate(inflater, container, false);
 
 
         ReservationActivity reservationActivity = new ReservationActivity();

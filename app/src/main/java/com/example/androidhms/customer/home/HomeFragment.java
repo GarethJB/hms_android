@@ -10,17 +10,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.androidhms.customer.join.JoinActivity;
-import com.example.androidhms.databinding.FragmentHomeBinding;
+import com.example.androidhms.databinding.FragmentCustomerHomeBinding;
 
 
 public class HomeFragment extends Fragment {
-    FragmentHomeBinding bind;
+    FragmentCustomerHomeBinding bind;
 
     // 고객용 메인페이지, 의료진 소개, 회원가입 화면 연결
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bind = FragmentHomeBinding.inflate(inflater, container, false);
+        bind = FragmentCustomerHomeBinding.inflate(inflater, container, false);
 
         bind.btnJoin.setOnClickListener(v1 -> {
             Intent intent = new Intent(getActivity(), JoinActivity.class);

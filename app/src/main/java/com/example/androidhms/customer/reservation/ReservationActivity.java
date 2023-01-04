@@ -7,15 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.ActivityReservationBinding;
+import com.example.androidhms.databinding.ActivityCustomerReservationBinding;
 
 public class ReservationActivity extends AppCompatActivity {
-    ActivityReservationBinding bind;
+    ActivityCustomerReservationBinding bind;
     int idx = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityReservationBinding.inflate(getLayoutInflater());
+        bind = ActivityCustomerReservationBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
         bind.tvStep.setText("STEP 1");

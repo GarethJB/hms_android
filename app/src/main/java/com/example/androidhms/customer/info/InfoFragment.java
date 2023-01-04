@@ -17,16 +17,16 @@ import com.example.androidhms.customer.info.medical.MedicalRecordActivity;
 import com.example.androidhms.customer.info.myinfo.MyinfoActivity;
 import com.example.androidhms.customer.info.reservation.ReservationRecordActivity;
 import com.example.androidhms.customer.info.timetable.TimeTableActivity;
-import com.example.androidhms.databinding.FragmentInfoBinding;
+import com.example.androidhms.databinding.FragmentCustomerInfoBinding;
 
 
 public class InfoFragment extends Fragment {
-    FragmentInfoBinding bind;
+    FragmentCustomerInfoBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bind = FragmentInfoBinding.inflate(inflater, container, false);
+        bind = FragmentCustomerInfoBinding.inflate(inflater, container, false);
 
         ReservationAdapter reservationAdapter = new ReservationAdapter(inflater, getContext());
 

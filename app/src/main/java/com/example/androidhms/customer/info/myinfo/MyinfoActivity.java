@@ -7,15 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.ActivityMyinfoBinding;
+import com.example.androidhms.databinding.ActivityCustomerMyinfoBinding;
 
 public class MyinfoActivity extends AppCompatActivity {
-    ActivityMyinfoBinding bind;
+    ActivityCustomerMyinfoBinding bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityMyinfoBinding.inflate(getLayoutInflater());
+        bind = ActivityCustomerMyinfoBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
         bind.btnBack.setVisibility(View.GONE);

@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidhms.databinding.FragmentStepThreeBinding;
+import com.example.androidhms.databinding.FragmentCustomerStepThreeBinding;
 
 
 public class StepThreeFragment extends Fragment {
-    FragmentStepThreeBinding bind;
+    FragmentCustomerStepThreeBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        bind = FragmentStepThreeBinding.inflate(inflater, container, false);
+        bind = FragmentCustomerStepThreeBinding.inflate(inflater, container, false);
 
         StepThreeAdapter adapter = new StepThreeAdapter(inflater, getContext());
 

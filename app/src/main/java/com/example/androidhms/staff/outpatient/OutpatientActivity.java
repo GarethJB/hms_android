@@ -1,17 +1,17 @@
 package com.example.androidhms.staff.outpatient;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.ActivityOutpatientBinding;
+import com.example.androidhms.databinding.ActivityStaffOutpatientBinding;
 import com.example.androidhms.util.ActivityUtil;
 import com.google.android.material.tabs.TabLayout;
 
 public class OutpatientActivity extends AppCompatActivity {
 
-    private ActivityOutpatientBinding bind;
+    private ActivityStaffOutpatientBinding bind;
     private MedicalRecordFragment recordFragment;
     private ReceiptFragment receiptFragment;
     private ActivityUtil aUtil;
@@ -19,7 +19,7 @@ public class OutpatientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityOutpatientBinding.inflate(getLayoutInflater());
+        bind = ActivityStaffOutpatientBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         bind.toolbar.ivLeft.setOnClickListener(v -> finish());
 

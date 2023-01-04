@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.FragmentReceiptBinding;
+import com.example.androidhms.databinding.FragmentStaffReceiptBinding;
 import com.example.androidhms.staff.schedule.ScheduleActivity;
 import com.example.androidhms.util.CalendarDialog;
 import com.example.androidhms.util.Util;
@@ -17,12 +18,12 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 public class ReceiptFragment extends Fragment {
 
-    private FragmentReceiptBinding bind;
+    private FragmentStaffReceiptBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bind = FragmentReceiptBinding.inflate(inflater, container, false);
+        bind = FragmentStaffReceiptBinding.inflate(inflater, container, false);
         Util.setEditTextDate(getContext(), inflater, bind.etDate, new CalendarDialog.SetDateClickListener() {
             @Override
             public void setDateClick(CalendarDay date, CalendarDialog dialog) {
