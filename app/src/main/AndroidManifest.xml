@@ -30,21 +30,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".home.NewsActivity"
+            android:name=".receptionoffice.home.NewsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".home.HomeFragment"
+            android:name=".receptionoffice.home.HomeFragment"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".reception.ReceptionActivity"
+            android:name=".receptionoffice.reception.ReceptionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

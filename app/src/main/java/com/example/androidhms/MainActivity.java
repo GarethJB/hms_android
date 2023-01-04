@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.databinding.ActivityMainBinding;
-import com.example.androidhms.reception.ReceptionActivity;
+import com.example.androidhms.receptionoffice.reception.ReceptionActivity;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
 
