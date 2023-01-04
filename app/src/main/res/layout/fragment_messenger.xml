@@ -28,7 +28,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_messenger_staff"
-        android:background="@drawable/round_box_lightgray"
+        android:background="@drawable/box_round_lightgray"
         android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="15dp"
         android:paddingTop="5dp"

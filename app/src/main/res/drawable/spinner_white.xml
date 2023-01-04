@@ -8,10 +8,10 @@
                 </shape>
             </item>
             <item
-                android:drawable="@drawable/round_box_lightgray_white"
+                android:drawable="@drawable/box_round_lightgray_white"
                 android:gravity="center" />
             <item
-                android:drawable="@drawable/ic_baseline_arrow_drop_down_24"
+                android:drawable="@drawable/icon_spinner_down"
                 android:gravity="center|end"
                 android:width="25dp"
                 android:height="25dp" />

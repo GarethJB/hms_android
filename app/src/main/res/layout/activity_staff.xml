@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/card_account_details_outline"
+                android:src="@drawable/icon_card_account"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_mypage"
                 app:layout_constraintEnd_toStartOf="@+id/tv_mypage"
                 app:layout_constraintTop_toTopOf="@+id/tv_mypage" />
@@ -106,7 +106,7 @@
             <ImageView
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/ic_baseline_person_search_24"
+                android:src="@drawable/icon_person_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/second_color" />
@@ -144,7 +144,7 @@
                 android:layout_height="90dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginEnd="5dp"
-                android:src="@drawable/bed_outline"
+                android:src="@drawable/icon_bed"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/white" />
@@ -177,7 +177,7 @@
             <ImageView
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/clipboard_account_outline"
+                android:src="@drawable/icon_clipboard_account"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/main_color" />
@@ -212,7 +212,7 @@
                 android:layout_height="80dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/message_bulleted"
+                android:src="@drawable/icon_message"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/second_color" />
@@ -244,7 +244,7 @@
             <ImageView
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/calendar_multiselect_outline"
+                android:src="@drawable/icon_calendar_multiselect"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/main_color" />

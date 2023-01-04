@@ -64,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:drawableEnd="@drawable/calendar_multiselect_outline"
+            android:drawableEnd="@drawable/icon_calendar_multiselect"
             android:focusable="false"
             android:inputType="date"
             android:paddingStart="5dp"
@@ -129,7 +129,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:background="@drawable/round_box_lightgray"
+        android:background="@drawable/box_round_lightgray"
         android:padding="10dp" />
 
 

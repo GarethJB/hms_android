@@ -36,7 +36,7 @@
             android:inputType="text"
             android:paddingStart="5dp"
             android:backgroundTint="@color/gray"
-            android:drawableEnd="@drawable/ic_baseline_search_24" />
+            android:drawableEnd="@drawable/icon_search" />
 
         <Button
             android:id="@+id/btn_search"
@@ -87,7 +87,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_box_lightgray"
+                    android:background="@drawable/box_round_lightgray"
                     android:padding="10dp">
 
                     <TableRow>
@@ -127,7 +127,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.2"
                             android:scaleType="fitXY"
-                            android:src="@drawable/ic_baseline_call_24"
+                            android:src="@drawable/icon_tel"
                             app:tint="@color/second_color" />
 
                     </TableRow>
@@ -301,7 +301,7 @@
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/round_box_lightgray"
+                android:background="@drawable/box_round_lightgray"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
                 android:textSize="16dp" />
