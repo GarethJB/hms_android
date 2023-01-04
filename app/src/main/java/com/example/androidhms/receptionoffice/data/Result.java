@@ -1,4 +1,4 @@
-package com.example.androidhms.data;
+package com.example.androidhms.receptionoffice.data;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

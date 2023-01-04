@@ -1,4 +1,4 @@
-package com.example.androidhms.reception;
+package com.example.androidhms.receptionoffice.reception;
 //datepicker
 
 
@@ -10,8 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.androidhms.appointment.AppointFragment;
-import com.example.androidhms.home.HomeFragment;
+import com.example.androidhms.receptionoffice.appointment.AppointFragment;
+import com.example.androidhms.receptionoffice.home.HomeFragment;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

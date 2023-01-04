@@ -1,8 +1,6 @@
-package com.example.androidhms.appointment;
+package com.example.androidhms.receptionoffice.appointment;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.databinding.FragmentAppointBinding;
-
-import java.util.Calendar;
 
 
 public class AppointFragment extends Fragment {

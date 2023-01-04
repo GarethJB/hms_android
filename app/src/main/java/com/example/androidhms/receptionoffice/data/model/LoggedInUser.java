@@ -1,4 +1,4 @@
-package com.example.androidhms.data.model;
+package com.example.androidhms.receptionoffice.data.model;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

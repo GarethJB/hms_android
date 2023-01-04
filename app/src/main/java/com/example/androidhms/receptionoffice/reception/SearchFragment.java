@@ -1,4 +1,4 @@
-package com.example.androidhms.reception;
+package com.example.androidhms.receptionoffice.reception;
 
 import android.os.Bundle;
 

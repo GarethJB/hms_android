@@ -1,4 +1,4 @@
-package com.example.androidhms.home;
+package com.example.androidhms.receptionoffice.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 

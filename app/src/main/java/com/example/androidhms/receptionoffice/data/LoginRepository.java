@@ -1,6 +1,6 @@
-package com.example.androidhms.data;
+package com.example.androidhms.receptionoffice.data;
 
-import com.example.androidhms.data.model.LoggedInUser;
+import com.example.androidhms.receptionoffice.data.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and
