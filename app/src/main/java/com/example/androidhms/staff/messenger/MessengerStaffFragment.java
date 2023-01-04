@@ -75,6 +75,7 @@ public class MessengerStaffFragment extends Fragment {
     public View.OnClickListener onGetChatClick(int position) {
         return v -> {
             chatMemberList = new ArrayList<>();
+            staff.setLastChatCheckTime();
             chatMemberList.add(staff);
             chatMemberList.add(staffList.get(position));
             fb.getChatRoom(chatMemberList);

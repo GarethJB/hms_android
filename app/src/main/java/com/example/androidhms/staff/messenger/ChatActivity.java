@@ -49,7 +49,7 @@ public class ChatActivity extends AppCompatActivity {
         bind.etContent.setOnClickListener(v ->
                 new Handler().postDelayed(() ->
                         bind.rvChat.scrollToPosition(chatList.size() - 1), 200));
-        fb.getChat(key);
+        fb.getChat(staff, key);
         setContentView(bind.getRoot());
     }
 
@@ -60,7 +60,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (msg.what == HmsFirebase.GET_CHAT_SUCCESS) {
                     chatList = (ArrayList<ChatVO>) msg.obj;
                     Util.setRecyclerView(ChatActivity.this, bind.rvChat,
-                            new ChatRoomAdapter(ChatActivity.this, chatList, staff.getName()), true);
+                            new ChatRoomAdapter(ChatActivity.this, chatList, String.valueOf(staff.getStaff_id())), true);
                     bind.rvChat.scrollToPosition(chatList.size() - 1);
                 }
             }
@@ -71,10 +71,16 @@ public class ChatActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fb.sendChat(key, new ChatVO(staff.getName(), bind.etContent.getText().toString()));
+                staff.setLastChatCheckTime();
+                fb.sendChat(key, new ChatVO(String.valueOf(staff.getStaff_id()), staff.getName(), bind.etContent.getText().toString()));
                 bind.etContent.setText("");
             }
         };
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        fb.removeChat(key);
+    }
 }

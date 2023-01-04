@@ -1,5 +1,8 @@
 package com.example.androidhms.staff.messenger.adapter;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,12 +22,12 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
 
     private ChatActivity activity;
     private ArrayList<ChatVO> chatList;
-    private String myName;
+    private String myId;
 
-    public ChatRoomAdapter(ChatActivity activity, ArrayList<ChatVO> chatList, String myName) {
+    public ChatRoomAdapter(ChatActivity activity, ArrayList<ChatVO> chatList, String myId) {
         this.activity = activity;
         this.chatList = chatList;
-        this.myName = myName;
+        this.myId = myId;
         chatList.remove(0);
     }
 
@@ -39,7 +42,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
     public void onBindViewHolder(@NonNull ChatRoomViewHolder holder, int position) {
         ChatVO vo = chatList.get(position);
         String time = Util.getChatTime(vo.getTime());
-        if (vo.getName().equals(myName)) {
+        if (vo.getId().equals(myId)) {
             if (position != 0 && vo.getName().equals(chatList.get(position - 1).getName())) {
                 holder.myBind.tvName.setVisibility(View.GONE);
             } else holder.myBind.tvName.setText(vo.getName());
@@ -66,7 +69,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
 
     @Override
     public int getItemViewType(int position) {
-        if (chatList.get(position).getName().equals(myName)) return 1;
+        if (chatList.get(position).getId().equals(myId)) return 1;
         else return 0;
     }
 
