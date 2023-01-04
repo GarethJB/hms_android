@@ -11,6 +11,6 @@ public class ReservationRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation_record);
+        setContentView(R.layout.activity_customer_reservation_record);
     }
 }

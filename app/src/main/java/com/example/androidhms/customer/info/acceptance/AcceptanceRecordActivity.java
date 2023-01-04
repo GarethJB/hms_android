@@ -11,6 +11,6 @@ public class AcceptanceRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_acceptance_record);
+        setContentView(R.layout.activity_customer_acceptance_record);
     }
 }
