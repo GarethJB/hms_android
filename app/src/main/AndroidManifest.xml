@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".VolunteerActivity"
+            android:name=".receptionoffice.home.VolunteerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -30,7 +30,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".NoticeActivity"
+            android:name=".receptionoffice.home.NoticeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
