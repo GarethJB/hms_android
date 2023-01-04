@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".staff.messenger.MessengerFragment"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/second_color"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="간호사님"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_messenger_staff"
+        android:background="@drawable/round_box_lightgray"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="15dp"
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+
+</LinearLayout>
