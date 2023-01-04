@@ -23,11 +23,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         bind.toolbar.ivLeft.setOnClickListener(this);
         bind.toolbar.llLogo.setOnClickListener(this);
 
-        bind.btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,new SearchFragment()).commit();
-            }
+        bind.btnSearch.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
         });
     }
 

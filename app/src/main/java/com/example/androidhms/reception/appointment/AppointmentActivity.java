@@ -32,7 +32,6 @@ public class AppointmentActivity extends AppCompatActivity {
 
         Intent intent =getIntent();
 
-
         //datePicker 연결
         bind.imgvNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +61,13 @@ public class AppointmentActivity extends AppCompatActivity {
         //액티비티에서 리사이클러 뷰 붙이기 : context : 지금 액티비티
         bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
 
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
+        bind.toolbar.llLogo.setOnClickListener(v -> {
+            onBackPressed();
+        });
     }
+
 }

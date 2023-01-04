@@ -115,9 +115,7 @@
         <activity
             android:name=".reception.home.NewsActivity"
             android:exported="false" />
-        <activity
-            android:name=".reception.home.ReceptionHomeFragment"
-            android:exported="false" />
+
         <activity
             android:name=".reception.ReceptionLoginActivity"
             android:exported="false" />
