@@ -11,5 +11,7 @@
     <color name="main_color">#2F6299</color>
     <color name="second_color">#4FB5E6</color>
     <color name="text_color">#353535</color>
+    <!-- 23. 01. 04. Jubin 선택하지 않은 항목 컬러추가 -->
+    <color name="unselected_color">#A3A3A3</color>
 
 </resources>
