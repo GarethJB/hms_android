@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/back_color"
     tools:context=".staff.outpatient.MedicalRecordFragment">
 
     <LinearLayout
@@ -146,6 +147,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_weight="0.8"
         android:background="@drawable/box_round_lightgray"
+        android:backgroundTint="@color/white"
         android:padding="10dp" />
 
     <TextView
@@ -164,6 +166,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/box_round_lightgray"
+        android:backgroundTint="@color/white"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -171,6 +174,7 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:text="· 날짜 : "
             android:textSize="16dp"
             android:textStyle="bold" />
@@ -239,6 +243,7 @@
         android:layout_marginBottom="10dp"
         android:padding="5dp"
         android:textSize="16dp"
+        android:backgroundTint="@color/white"
         android:background="@drawable/box_round_lightgray"/>
 
 </LinearLayout>

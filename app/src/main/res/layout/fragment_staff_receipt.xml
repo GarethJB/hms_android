@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/back_color"
     tools:context=".staff.outpatient.ReceiptFragment"
     android:orientation="vertical">
 
@@ -130,6 +131,7 @@
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:background="@drawable/box_round_lightgray"
+        android:backgroundTint="@color/white"
         android:padding="10dp" />
 
 
