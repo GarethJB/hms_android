@@ -1,16 +1,16 @@
 package com.example.androidhms.staff;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffBinding;
-import com.example.androidhms.staff.outpatient.OutpatientActivity;
 import com.example.androidhms.staff.lookup.LookupActivity;
 import com.example.androidhms.staff.messenger.MessengerActivity;
+import com.example.androidhms.staff.outpatient.OutpatientActivity;
 import com.example.androidhms.staff.schedule.ScheduleActivity;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.staff.ward.DoctorWardActivity;
@@ -35,6 +35,12 @@ public class StaffActivity extends AppCompatActivity {
         bind.clWard.setOnClickListener(onMenuClick());
         bind.clSchedule.setOnClickListener(onMenuClick());
         bind.clMessanger.setOnClickListener(onMenuClick());
+
+        //임시
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
     }
 
     private View.OnClickListener onMenuClick() {

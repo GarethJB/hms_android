@@ -3,7 +3,6 @@ package com.example.androidhms.customer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +27,12 @@ public class CustomerActivity extends AppCompatActivity {
         bind = ActivityCustomerBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
-        TextView tv_login = bind.tvLogin;
-        tv_login.setOnClickListener(v -> {
+
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
+        bind.toolbar.tvLogin.setOnClickListener(v -> {
             Intent intent = new Intent(CustomerActivity.this, LoginActivity.class);
             startActivity(intent);
         });

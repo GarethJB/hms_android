@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.ActivityMainBinding;
+import com.example.androidhms.databinding.ActivityReceptionBinding;
 import com.example.androidhms.receptionoffice.appointment.AppointFragment;
 import com.example.androidhms.receptionoffice.home.ReceptionHomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,13 +21,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ReceptionActivity extends AppCompatActivity {
 
     BottomNavigationView btm_nav;
-    ActivityMainBinding bind;
+    ActivityReceptionBinding bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reception);
+        bind = ActivityReceptionBinding.inflate(getLayoutInflater());
+        setContentView(bind.getRoot());
+
         Intent intent =getIntent();
+
+        changeFragment(new ReceptionHomeFragment());
 
         btm_nav =findViewById(R.id.btm_nav);
         btm_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,6 +47,12 @@ public class ReceptionActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        //임시
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
     }
     public void changeFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();

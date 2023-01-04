@@ -18,6 +18,10 @@ public class MyinfoActivity extends AppCompatActivity {
         bind = ActivityCustomerMyinfoBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
         bind.btnBack.setVisibility(View.GONE);
         bind.btnOk.setVisibility(View.GONE);
 
