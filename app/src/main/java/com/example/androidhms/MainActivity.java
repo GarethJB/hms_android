@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.customer.CustomerActivity;
 import com.example.androidhms.databinding.ActivityMainBinding;
-import com.example.androidhms.receptionoffice.ReceptionActivity;
+import com.example.androidhms.reception.ReceptionLoginActivity;
 import com.example.androidhms.staff.StaffLoginActivity;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 원무과홈페이지로 이동
         bind.btnReceptionoffice.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ReceptionActivity.class);
+            Intent intent = new Intent(MainActivity.this, ReceptionLoginActivity.class);
             startActivity(intent);
         });
 
