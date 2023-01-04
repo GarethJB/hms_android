@@ -1,7 +1,10 @@
 package com.example.androidhms.util;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -15,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,9 +55,10 @@ public class HmsFirebase {
                         if (!snapshot.exists()) {
                             HashMap<String, Object> map = new HashMap<>();
                             ArrayList<ChatVO> chatList = new ArrayList<>();
-                            chatList.add(new ChatVO("0", "chatStart", "chatStart"));
+                            chatList.add(new ChatVO("0", "chatStart", "chatStart", "1999-01-01 00:00:00"));
                             map.put("member", staffList);
                             map.put("chat", chatList);
+                            map.put("chatRoomTitle", staffList.get(0).getName() + staffList.get(1).getName());
                             dbRef.child("chatRoom").child(key).setValue(map)
                                     .addOnSuccessListener(unused -> handler.sendMessage(handler.obtainMessage(GET_CHATROOM_SUCCESS, null)));
                         } else {
@@ -75,8 +81,13 @@ public class HmsFirebase {
         });
     }
 
+    public void getChatRoom(String key) {
+
+    }
+
     public void sendChat(String key, ChatVO vo) {
         dbRef.child("chatRoom").child(key).child("chat").push().setValue(vo);
+        dbRef.child("chatRoom").child(key).child("lastChat").setValue(vo);
     }
 
     public void getChat(StaffVO staff, String key) {
@@ -145,10 +156,30 @@ public class HmsFirebase {
                 for (DataSnapshot data : snapshot.getChildren()) {
                     for (DataSnapshot member : data.child("member").getChildren()) {
                         if (id == member.child("staff_id").getValue(Long.class)) {
-                            chatRoomList.add()
+                            Timestamp lastCheckTime;
+                            int count = 0;
+                            if (member.child("lastChatCheckTime").getValue(String.class) == null) {
+                                lastCheckTime = Timestamp.valueOf("2000-01-01 00:00:00");
+                            } else lastCheckTime = Timestamp.valueOf(member.child("lastChatCheckTime").getValue(String.class));
+                            for (DataSnapshot chat : data.child("chat").getChildren()) {
+                                if (lastCheckTime.compareTo(Timestamp.valueOf(chat.child("time").getValue(String.class))) < 0) {
+                                    count++;
+                                }
+                            }
+                            if (data.child("lastChat").child("content").getValue(String.class) != null) {
+                                chatRoomList.add(new ChatRoomVO(
+                                        data.getKey(),
+                                        data.child("chatRoomTitle").getValue(String.class),
+                                        data.child("lastChat").child("content").getValue(String.class),
+                                        data.child("lastChat").child("time").getValue(String.class),
+                                        String.valueOf(count)
+                                ));
+                            }
                         }
                     }
                 }
+                if (chatRoomList.size() == 0) handler.sendMessage(handler.obtainMessage(GET_CHATROOM_LIST_SUCCESS, null));
+                else handler.sendMessage(handler.obtainMessage(GET_CHATROOM_LIST_SUCCESS, chatRoomList));
             }
 
             @Override

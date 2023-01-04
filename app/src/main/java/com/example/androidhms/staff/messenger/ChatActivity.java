@@ -3,17 +3,15 @@ package com.example.androidhms.staff.messenger;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import com.example.androidhms.databinding.ActivityChatBinding;
-import com.example.androidhms.staff.messenger.adapter.ChatRoomAdapter;
+import com.example.androidhms.staff.messenger.adapter.ChatAdapter;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.HmsFirebase;
@@ -60,7 +58,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (msg.what == HmsFirebase.GET_CHAT_SUCCESS) {
                     chatList = (ArrayList<ChatVO>) msg.obj;
                     Util.setRecyclerView(ChatActivity.this, bind.rvChat,
-                            new ChatRoomAdapter(ChatActivity.this, chatList, String.valueOf(staff.getStaff_id())), true);
+                            new ChatAdapter(ChatActivity.this, chatList, String.valueOf(staff.getStaff_id())), true);
                     bind.rvChat.scrollToPosition(chatList.size() - 1);
                 }
             }

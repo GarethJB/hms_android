@@ -2,12 +2,18 @@ package com.example.androidhms.staff.vo;
 
 public class ChatRoomVO {
 
-    String roomTitle, lastChat, lastChatTime;
+    String key, roomTitle, lastChat, lastChatTime, count;
 
-    public ChatRoomVO(String roomTitle, String lastChat, String lastChatTime) {
+    public ChatRoomVO(String key, String roomTitle, String lastChat, String lastChatTime, String count) {
         this.roomTitle = roomTitle;
         this.lastChat = lastChat;
         this.lastChatTime = lastChatTime;
+        this.count = count;
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public String getRoomTitle() {
@@ -20,5 +26,9 @@ public class ChatRoomVO {
 
     public String getLastChatTime() {
         return lastChatTime;
+    }
+
+    public String getCount() {
+        return count;
     }
 }
