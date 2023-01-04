@@ -13,7 +13,7 @@ public class CardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityCustomerCardBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        
+
         bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
         });
