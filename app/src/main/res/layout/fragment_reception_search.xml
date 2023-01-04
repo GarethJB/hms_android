@@ -4,44 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".receptionoffice.SearchFragment"
+    tools:context=".reception.search.SearchFragment"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:background="@color/main_color"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal">
-        <TextView
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="환자검색"/>
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/main_color"
-            android:src="@drawable/icon_search"
-            app:tint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </LinearLayout>
-    <!--android:visibility="invisible"-->
     <LinearLayout
-        android:visibility="invisible"
         android:id="@+id/ll_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
