@@ -9,6 +9,10 @@
     tools:context=".reception.appointment.AppointmentActivity"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <LinearLayout
         android:gravity="center"
         android:layout_gravity="center"
@@ -25,11 +29,12 @@
             app:tint="@color/white"/>
 
         <TextView
+            android:gravity="center"
             android:id="@+id/tv_show_date"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:text="2023"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"/>
 
         <ImageView
@@ -107,6 +112,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:visibility="invisible"
         android:id="@+id/cardv_appointment_list"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

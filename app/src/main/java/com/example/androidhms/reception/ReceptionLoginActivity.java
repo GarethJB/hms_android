@@ -21,7 +21,6 @@ public class ReceptionLoginActivity extends AppCompatActivity {
         bind = ActivityReceptionLoginBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
-
         bind.toolbar.ivLeft.setOnClickListener(v -> {
            // onBackPressed();
 

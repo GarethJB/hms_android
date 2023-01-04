@@ -32,10 +32,6 @@ public class AppointmentActivity extends AppCompatActivity {
 
         Intent intent =getIntent();
 
-        //어댑터 연결
-        bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater()));
-        //액티비티에서 리사이클러 뷰 붙이기 : context : 지금 액티비티
-        bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
 
         //datePicker 연결
         bind.imgvNext.setOnClickListener(new View.OnClickListener() {
@@ -48,11 +44,11 @@ public class AppointmentActivity extends AppCompatActivity {
 
                 datePickerDialog = new DatePickerDialog(AppointmentActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month + 1;
                         String date = year +"년   " + month +"월   " + day + "일";
                         bind.tvShowDate.setText(date);
-                        //   Log.d("로그", "onDateSet: " + "달력");
+                          Log.d("로그", "onDateSet: " + "달력");
                         bind.cardvAppointmentList.setVisibility(View.VISIBLE);
 
                     }
@@ -60,6 +56,11 @@ public class AppointmentActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+        //어댑터 연결
+        bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater()));
+        //액티비티에서 리사이클러 뷰 붙이기 : context : 지금 액티비티
+        bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
 
 
     }

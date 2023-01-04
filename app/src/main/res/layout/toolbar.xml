@@ -21,6 +21,7 @@
             android:src="@drawable/icon_back2"/>
         <!-- 로고 -->
         <LinearLayout
+            android:id="@+id/ll_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
