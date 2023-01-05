@@ -1,6 +1,8 @@
 package com.example.androidhms.staff.vo;
 
-public class PatientVO {
+import java.io.Serializable;
+
+public class PatientVO implements Serializable {
 
     private int patient_id, height, weight, social_id;
     private String name, gender, phone_number, blood_type, allergy, underlying_disease, memo;

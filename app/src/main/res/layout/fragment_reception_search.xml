@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".reception.search.SearchFragment"
+    android:background="@color/back_color"
     android:orientation="vertical">
 
 
@@ -17,26 +18,26 @@
     <TextView
         android:textStyle="bold"
         android:padding="5dp"
-        android:background="#DADFF2"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:text="기본정보"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <LinearLayout
-        android:background="#DADFF2"
+        android:background="@drawable/box_round_lightgray"
+        android:backgroundTint="@color/white"
+        android:layout_marginHorizontal="10dp"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:orientation="vertical">
         <LinearLayout
-            android:background="#DADFF2"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:padding="10dp"
                 android:layout_weight="1"
@@ -184,19 +185,21 @@
 
         <TextView
             android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:background="#DADFF2"
             android:padding="5dp"
-            android:text="예약현황" />
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:text="예약현황"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
-            android:background="#DADFF2"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="vertical">
+            android:background="@drawable/box_round_lightgray"
+            android:backgroundTint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="vertical">
         <LinearLayout
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
@@ -333,15 +336,17 @@
 
     <TextView
         android:textStyle="bold"
-        android:background="#DADFF2"
         android:padding="5dp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:text="방문기록"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <LinearLayout
-        android:background="#DADFF2"
+        android:background="@drawable/box_round_lightgray"
+        android:backgroundTint="@color/white"
+        android:layout_marginHorizontal="10dp"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:orientation="vertical">

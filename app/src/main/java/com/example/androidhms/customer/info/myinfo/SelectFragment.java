@@ -7,17 +7,38 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.androidhms.R;
+import com.example.androidhms.customer.vo.AccountVO;
+import com.example.androidhms.databinding.FragmentCustomerMyinfoSelectBinding;
+import com.example.androidhms.staff.vo.PatientVO;
 
 public class SelectFragment extends Fragment {
+    private FragmentCustomerMyinfoSelectBinding bind;
+    private PatientVO patient;
+    private AccountVO account;
+
+    public SelectFragment(PatientVO patient, AccountVO account) {
+        this.patient = patient;
+        this.account = account;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_customer_myinfo_select, container, false);
+        bind = FragmentCustomerMyinfoSelectBinding.inflate(inflater, container, false);
+
+        bind.tvName.setText(patient.getName());
+        bind.tvGender.setText(patient.getGender());
+        bind.tvEmail.setText(account.getEmail());
+        bind.tvPhone.setText(patient.getPhone_number());
+        bind.tvDate.setText(account.getDate());
 
 
+        return bind.getRoot();
+    }
 
-        return v;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bind = null;
     }
 }
