@@ -9,14 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
+import com.example.androidhms.databinding.ItemCustomerStaffListBinding;
+import com.example.androidhms.staff.vo.StaffVO;
+
+import java.util.ArrayList;
 
 public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
+    ArrayList<StaffVO> staff;
 
-    public StaffListAdapter(LayoutInflater inflater, Context context) {
+    public StaffListAdapter(LayoutInflater inflater, Context context, ArrayList<StaffVO> staff) {
         this.inflater = inflater;
         this.context = context;
+        this.staff = staff;
     }
 
     @NonNull
@@ -28,7 +34,8 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder h, int i) {
+
 
     }
 
@@ -44,13 +51,16 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.View
 
     @Override
     public int getItemCount() {
-        return 3;
+        return staff.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ItemCustomerStaffListBinding bind;
+
+        public ViewHolder(@NonNull View v) {
+            super(v);
+            bind = ItemCustomerStaffListBinding.bind(v);
         }
     }
 
