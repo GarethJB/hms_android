@@ -27,15 +27,11 @@ public class ReceptionLoginActivity extends AppCompatActivity {
 
         bind.toolbar.ivLeft.setOnClickListener(v -> {
            // onBackPressed();
-
             Intent intent = new Intent(ReceptionLoginActivity.this,ReceptionActivity.class);
             startActivity(intent);
         });
-
     }
     public void changeFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
     }
-
-
 }
