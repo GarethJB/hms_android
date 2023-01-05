@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import com.example.androidhms.MainActivity;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityAppointmentBinding;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.google.android.material.datepicker.MaterialStyledDatePickerDialog;
 
 import java.util.Calendar;
@@ -29,7 +30,6 @@ public class AppointmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityAppointmentBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-
         Intent intent =getIntent();
 
         //datePicker 연결
@@ -49,7 +49,6 @@ public class AppointmentActivity extends AppCompatActivity {
                         bind.tvShowDate.setText(date);
                           Log.d("로그", "onDateSet: " + "달력");
                         bind.cardvAppointmentList.setVisibility(View.VISIBLE);
-
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -64,7 +63,6 @@ public class AppointmentActivity extends AppCompatActivity {
         bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
         });
-
         bind.toolbar.llLogo.setOnClickListener(v -> {
             onBackPressed();
         });
