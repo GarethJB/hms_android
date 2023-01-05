@@ -1,12 +1,12 @@
 package com.example.androidhms.staff;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.databinding.ActivityStaffLoginBinding;
 import com.example.androidhms.staff.vo.StaffVO;
@@ -27,7 +27,7 @@ public class StaffLoginActivity extends AppCompatActivity {
         setContentView(bind.getRoot());
         preferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
         editor = preferences.edit();
-        ApiClient.setBASEURL("http://192.168.0.36/hms/");
+        ApiClient.setBASEURL("http://192.168.0.116/hms/");
         //ApiClient.setBASEURL("http://192.168.0.25/hms/");
 
         bind.etId.setText(preferences.getString("id", ""));
@@ -35,6 +35,11 @@ public class StaffLoginActivity extends AppCompatActivity {
         if (preferences.getString("autoLogin", "N").equals("Y")) {
             bind.cbAutologin.setChecked(true);
         }
+
+        //임시
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
         bind.btLogin.setOnClickListener(new View.OnClickListener() {
             @Override

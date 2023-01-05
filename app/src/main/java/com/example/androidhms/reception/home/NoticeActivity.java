@@ -1,4 +1,4 @@
-package com.example.androidhms.receptionoffice.home;
+package com.example.androidhms.reception.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,13 +7,13 @@ import android.os.Bundle;
 
 import com.example.androidhms.R;
 
-public class VolunteerActivity extends AppCompatActivity {
+public class NoticeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reception_volunteer);
+        setContentView(R.layout.activity_reception_notice);
 
-        Intent intent = getIntent();
+        Intent intent =getIntent();
     }
 }

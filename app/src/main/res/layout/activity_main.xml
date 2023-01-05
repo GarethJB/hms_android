@@ -6,79 +6,35 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <!-- 상단메뉴바 -->
-    <RelativeLayout
-        android:padding="10dp"
+    <LinearLayout
+        android:padding="30dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/logo" />
-
-            <TextView
-                android:id="@+id/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="YH-hospital"
-                android:textColor="#2F6299"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <ImageView
-            android:layout_alignParentRight="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
-    </RelativeLayout>
-
-    <!-- 메인화면 -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="400dp">
-        <RelativeLayout
-            android:background="@drawable/main_back"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btn_customer"
+            android:text="고객 홈페이지"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/main_color"
             android:layout_width="match_parent"
-            android:layout_height="300dp"/>
-        <RelativeLayout
-            android:id="@+id/rl_main"
-            android:layout_gravity="center"
-            android:layout_width="300dp"
-            android:layout_height="300dp">
-            <LinearLayout
-                android:id="@+id/line_notice"
-                android:background="#2F6299"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:orientation="vertical"></LinearLayout>
-            <LinearLayout
-                android:background="#4FB5E6"
-                android:layout_toLeftOf="@id/line_notice"
-                android:layout_alignParentBottom="true"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:orientation="vertical"></LinearLayout>
-            <LinearLayout
-                android:background="#ffffff"
-                android:layout_above="@+id/line_notice"
-                android:layout_alignParentRight="true"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:orientation="vertical"></LinearLayout>
-        </RelativeLayout>
-    </FrameLayout>
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btn_staff"
+            android:text="직원 홈페이지"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/main_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btn_receptionoffice"
+            android:text="원무과 홈페이지"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/main_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.androidhms.receptionoffice.appointment;
+package com.example.androidhms.reception.appointment;
 
 import android.view.LayoutInflater;
 import android.view.View;

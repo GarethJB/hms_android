@@ -12,27 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
-
+        <!-- 뒤로가기 -->
         <ImageView
             android:id="@+id/iv_left"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_back2"
-            android:tint="@color/black"/>
-
+            android:src="@drawable/icon_back2"/>
+        <!-- 로고 -->
         <LinearLayout
+            android:id="@+id/ll_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="horizontal">
-
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/logo" />
-
             <TextView
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -41,15 +40,28 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/iv_right"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/icon_menu"
+        <!-- 로그인 -->
+        <TextView
+            android:id="@+id/tv_login"
+            android:text="로그인"
+            android:textSize="16dp"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <!-- 사용자 이름 -->
+        <TextView
+            android:id="@+id/tv_account"
+            android:visibility="gone"
+            android:text="이름"
+            android:textSize="16dp"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
-
 </androidx.appcompat.widget.Toolbar>

@@ -1,4 +1,4 @@
-//바인딩
+//fragment바인딩
 
 public class HomeFragment extends Fragment {
     FragmentHomeBinding bind;
