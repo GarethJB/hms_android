@@ -13,6 +13,7 @@ import com.example.androidhms.databinding.ActivityReceptionBinding;
 import com.example.androidhms.reception.appointment.AppointmentActivity;
 import com.example.androidhms.reception.home.NewsActivity;
 import com.example.androidhms.reception.search.SearchActivity;
+import com.example.conn.ApiClient;
 
 public class ReceptionActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,6 +23,9 @@ public class ReceptionActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         bind= ActivityReceptionBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+
+        ApiClient.setBASEURL("http://192.168.0.14/hms/"); //처음에 지정하기
+
 
         Intent intent =getIntent();
 
