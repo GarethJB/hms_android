@@ -27,7 +27,6 @@ public class CustomerLoginActivity extends AppCompatActivity {
         ApiClient.setBASEURL("http://192.168.0.116/hms/");
 
 
-        // 일반 로그인
         bind.btnLogin.setOnClickListener(v -> {
             new RetrofitMethod().setParams("email", bind.etEmail.getText().toString())
                     .setParams("pw", bind.etPw.getText().toString())
