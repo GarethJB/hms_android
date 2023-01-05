@@ -24,6 +24,7 @@ public class ReceptionLoginActivity extends AppCompatActivity {
 
         ApiClient.setBASEURL("http://192.168.0.14/hms"); //안드로이드 시작 점에 실시
 
+
         bind.toolbar.ivLeft.setOnClickListener(v -> {
            // onBackPressed();
 
