@@ -16,6 +16,7 @@ import com.example.androidhms.util.CalendarDialog;
 import com.example.androidhms.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 public class ScheduleActivity extends AppCompatActivity {
@@ -26,15 +27,16 @@ public class ScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityStaffScheduleBinding.inflate(getLayoutInflater());
+        setContentView(bind.getRoot());
         bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
         Util.setEditTextDate(this, getLayoutInflater(), bind.etDate, new CalendarDialog.SetDateClickListener() {
             @Override
             public void setDateClick(CalendarDay date, CalendarDialog dialog) {
-                String selectedDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
-                bind.etDate.setText(selectedDate);
+                Timestamp ts = Timestamp.valueOf(date.getYear() + "-" + date.getMonth() + "-" + date.getDay() + " 00:00:00");
+                bind.etDate.setText(Util.getDate(ts));
                 dialog.dismiss();
             }
         });
-        setContentView(bind.getRoot());
     }
+
 }

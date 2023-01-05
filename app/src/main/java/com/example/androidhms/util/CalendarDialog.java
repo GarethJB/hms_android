@@ -9,20 +9,16 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
-import android.widget.CalendarView;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import com.example.androidhms.databinding.DialogCalendarBinding;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import org.threeten.bp.LocalDate;
+
+import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.Calendar;
 
 public class CalendarDialog {
@@ -78,6 +74,67 @@ public class CalendarDialog {
             }
         });
 
+    }
+
+    public CalendarDialog setDate(String date) {
+        String[] dateArr = date.split("-");
+        int year = Integer.parseInt(dateArr[0]);
+        int month = Integer.parseInt(dateArr[1]);
+        int day = Integer.parseInt(dateArr[2]);
+        bind.calendar.setSelectedDate(CalendarDay.from(year, month, day));
+        bind.calendar.state().edit().commit();
+        return this;
+    }
+
+    public CalendarDialog setMaxDate(Timestamp time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        bind.calendar.state().edit().setMaximumDate(
+                CalendarDay.from(
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH) + 1,
+                        cal.get(Calendar.DAY_OF_MONTH))).commit();
+        bind.calendar.addDecorator(new DayViewDecorator() {
+            @Override
+            public boolean shouldDecorate(CalendarDay day) {
+                return Timestamp.valueOf(day.getYear() + "-" + day.getMonth() + "-" + day.getDay() + " 00:00:00")
+                        .compareTo(Timestamp.valueOf(cal.get(Calendar.YEAR)
+                                + "-" + (cal.get(Calendar.MONTH) + 1)
+                                + "-" + cal.get(Calendar.DAY_OF_MONTH)
+                                + " 00:00:00")) > 0;
+            }
+
+            @Override
+            public void decorate(DayViewFacade view) {
+                view.addSpan(new ForegroundColorSpan(Color.GRAY));
+            }
+        });
+        return this;
+    }
+
+    public CalendarDialog setMinDate(Timestamp time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        bind.calendar.state().edit().setMinimumDate(
+                CalendarDay.from(
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH) + 1,
+                        cal.get(Calendar.DAY_OF_MONTH))).commit();
+        bind.calendar.addDecorator(new DayViewDecorator() {
+            @Override
+            public boolean shouldDecorate(CalendarDay day) {
+                return Timestamp.valueOf(day.getYear() + "-" + day.getMonth() + "-" + day.getDay() + " 00:00:00")
+                        .compareTo(Timestamp.valueOf(cal.get(Calendar.YEAR)
+                                + "-" + (cal.get(Calendar.MONTH) + 1)
+                                + "-" + cal.get(Calendar.DAY_OF_MONTH)
+                                + " 00:00:00")) < 0;
+            }
+            @Override
+            public void decorate(DayViewFacade view) {
+                view.addSpan(new ForegroundColorSpan(Color.GRAY));
+            }
+        });
+        return this;
     }
 
     public void show() {

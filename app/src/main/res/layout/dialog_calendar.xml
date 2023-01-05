@@ -9,6 +9,8 @@
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:mcv_selectionColor="@color/second_color"
+        app:mcv_showOtherDates="out_of_range"
         app:mcv_dateTextAppearance="@style/calendar_datetext"
         app:mcv_headerTextAppearance="@style/calendar_headerext"
         app:mcv_weekDayTextAppearance="@style/calendar_weekdaytext"/>

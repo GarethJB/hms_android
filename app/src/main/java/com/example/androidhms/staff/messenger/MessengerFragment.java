@@ -16,24 +16,27 @@ import android.view.ViewGroup;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.FragmentMessengerBinding;
 import com.example.androidhms.databinding.FragmentMessengerStaffBinding;
+import com.example.androidhms.staff.messenger.adapter.ChatRoomAdapter;
+import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.HmsFirebase;
+import com.example.androidhms.util.Util;
+
+import java.util.ArrayList;
 
 public class MessengerFragment extends Fragment {
 
     private FragmentMessengerBinding bind;
     private HmsFirebase fb;
-    private Bundle bundle;
-    private StaffVO staff;
+    private StaffVO staff = Util.staff;
+    private ArrayList<ChatRoomVO> chatRoomList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         bind = FragmentMessengerBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
-        bundle = getArguments();
-        staff = (StaffVO) bundle.getSerializable("staff");
-
+        fb.getChatRoom(staff.getStaff_id());
         bind.tvName.setText(staff.getName());
 
         return bind.getRoot();
@@ -42,6 +45,7 @@ public class MessengerFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        fb.removeGetChatRoom();
         bind = null;
     }
 
@@ -49,8 +53,21 @@ public class MessengerFragment extends Fragment {
         return new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
-
+                if (msg.what == HmsFirebase.GET_CHATROOM_LIST_SUCCESS) {
+                    if (msg.obj != null) {
+                        chatRoomList = (ArrayList<ChatRoomVO>) msg.obj;
+                        Util.setRecyclerView(getContext(), bind.rvChatroom,
+                                new ChatRoomAdapter(MessengerFragment.this, chatRoomList, staff.getName()), true);
+                    }
+                }
             }
         };
+    }
+
+    public void getChatRoomClick(String key, String title) {
+        Intent intent = new Intent(getActivity(), ChatActivity.class);
+        intent.putExtra("name", title);
+        intent.putExtra("key", key);
+        startActivity(intent);
     }
 }
