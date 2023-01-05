@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityReceptionLoginBinding;
+import com.example.conn.ApiClient;
 
 public class ReceptionLoginActivity extends AppCompatActivity {
 
@@ -20,6 +21,8 @@ public class ReceptionLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityReceptionLoginBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+
+        ApiClient.setBASEURL("http://192.168.0.14/hms"); //안드로이드 시작 점에 실시
 
         bind.toolbar.ivLeft.setOnClickListener(v -> {
            // onBackPressed();
