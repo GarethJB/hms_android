@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffOutpatientBinding;
+import com.example.androidhms.staff.StaffActivity;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.ActivityUtil;
+import com.example.androidhms.util.Util;
 import com.google.android.material.tabs.TabLayout;
 
 public class OutpatientActivity extends AppCompatActivity {
@@ -15,6 +18,7 @@ public class OutpatientActivity extends AppCompatActivity {
     private MedicalRecordFragment recordFragment;
     private ReceiptFragment receiptFragment;
     private ActivityUtil aUtil;
+    private StaffVO staff = Util.staff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +29,11 @@ public class OutpatientActivity extends AppCompatActivity {
 
         recordFragment = new MedicalRecordFragment();
         receiptFragment = new ReceiptFragment();
-
         aUtil = new ActivityUtil(this);
-        aUtil.addFragment(R.id.fl_container, receiptFragment);
         aUtil.addFragment(R.id.fl_container, recordFragment);
+        aUtil.addFragment(R.id.fl_container, receiptFragment);
         aUtil.hideFragment(recordFragment);
         aUtil.showFragment(receiptFragment);
-
         bind.tlOutpatient.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -46,16 +48,17 @@ public class OutpatientActivity extends AppCompatActivity {
                         break;
                 }
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
-
 
 
     }

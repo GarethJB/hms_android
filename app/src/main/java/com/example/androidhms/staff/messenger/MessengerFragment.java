@@ -28,8 +28,7 @@ public class MessengerFragment extends Fragment {
 
     private FragmentMessengerBinding bind;
     private HmsFirebase fb;
-    private Bundle bundle;
-    private StaffVO staff;
+    private StaffVO staff = Util.staff;
     private ArrayList<ChatRoomVO> chatRoomList;
 
     @Override
@@ -37,8 +36,6 @@ public class MessengerFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentMessengerBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
-        bundle = getArguments();
-        staff = (StaffVO) bundle.getSerializable("staff");
         fb.getChatRoom(staff.getStaff_id());
         bind.tvName.setText(staff.getName());
 
@@ -71,7 +68,6 @@ public class MessengerFragment extends Fragment {
         Intent intent = new Intent(getActivity(), ChatActivity.class);
         intent.putExtra("name", title);
         intent.putExtra("key", key);
-        intent.putExtra("staff", staff);
         startActivity(intent);
     }
 }

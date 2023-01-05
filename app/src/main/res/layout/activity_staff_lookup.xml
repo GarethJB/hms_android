@@ -2,60 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_staff_lookup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/back_color"
+    android:orientation="vertical"
     tools:context=".staff.lookup.LookupActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="환자조회"
+            android:textColor="@color/text_color"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginHorizontal="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="환자조회"
-                android:textSize="20dp"
-                android:textColor="@color/text_color"
-                android:textStyle="bold" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="20dp"
-                android:paddingHorizontal="5dp"
-                android:background="@drawable/box_round_lightgray"
-                android:backgroundTint="@color/white"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/et_name"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_weight="2"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:paddingStart="5dp"
-                    android:backgroundTint="@color/gray"
-                    android:drawableEnd="@drawable/icon_search" />
-                <Button
-                    android:id="@+id/btn_search"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/second_color"
-                    android:text="검색"
-                    android:textSize="16dp" />
-            </LinearLayout>
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/box_round_lightgray"
+            android:backgroundTint="@color/white"
+            android:orientation="horizontal"
+            android:paddingHorizontal="5dp">
 
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="2"
+                android:backgroundTint="@color/gray"
+                android:drawableEnd="@drawable/icon_search"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="5dp" />
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/second_color"
+                android:text="검색"
+                android:textSize="16dp" />
         </LinearLayout>
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fl_container"
@@ -72,18 +77,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
                 android:text="인적사항"
-                android:textSize="20dp"
                 android:textColor="@color/text_color"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
             <ScrollView
+                android:id="@+id/sv_info"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginBottom="10dp"
-                android:layout_weight="1"
+                android:layout_weight="0.7"
                 android:elevation="5dp"
                 android:fillViewport="true">
 
@@ -97,34 +102,34 @@
                     <TableRow>
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.4"
                             android:text="성명 : "
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_name"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.7"
                             android:textSize="16dp" />
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.4"
                             android:text="연락처 : "
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_phone"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="0.8"
                             android:textColor="@color/second_color"
                             android:textSize="16dp"
@@ -143,34 +148,34 @@
                     <TableRow>
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.4"
                             android:text="생일 : "
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_birthday"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.7"
                             android:textSize="16dp" />
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.4"
                             android:text="나이 : "
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_age"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:textSize="16dp" />
 
@@ -179,34 +184,34 @@
                     <TableRow>
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.4"
                             android:text="신장 : "
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_height"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.7"
                             android:textSize="16dp" />
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.4"
                             android:text="체중 : "
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_weight"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:textSize="16dp" />
 
@@ -215,34 +220,34 @@
                     <TableRow>
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.4"
                             android:text="혈액형 : "
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_bloodtype"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.7"
                             android:textSize="16dp" />
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.4"
                             android:text="성별 : "
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_gender"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:textSize="16dp" />
 
@@ -251,18 +256,18 @@
                     <TableRow>
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="0.7"
                             android:text="알레르기 :"
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_allergy"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="2.3"
                             android:textSize="16dp" />
 
@@ -271,18 +276,18 @@
                     <TableRow>
 
                         <TextView
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="0.7"
                             android:text="기저질환 : "
                             android:textSize="16dp" />
 
                         <TextView
                             android:id="@+id/tv_underlying"
-                            android:layout_marginBottom="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="2.3"
                             android:textSize="16dp" />
 
@@ -302,25 +307,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
                     android:text="메모"
-                    android:textSize="20dp"
                     android:textColor="@color/text_color"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/bt_memosave"
+                    android:id="@+id/btn_memosave"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/main_color"
                     android:text="저장"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp" />
 
             </RelativeLayout>
 
             <EditText
-                android:id="@+id/tv_memo"
+                android:id="@+id/et_memo"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"
@@ -328,14 +334,15 @@
                 android:layout_weight="1"
                 android:background="@drawable/box_round_lightgray"
                 android:backgroundTint="@color/white"
+                android:gravity="top"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
                 android:textSize="16dp" />
 
 
-
         </LinearLayout>
 
     </FrameLayout>
+
 
 </LinearLayout>

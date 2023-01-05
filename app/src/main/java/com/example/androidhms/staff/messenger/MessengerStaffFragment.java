@@ -30,16 +30,13 @@ public class MessengerStaffFragment extends Fragment {
     private ArrayList<StaffVO> staffList;
     private ArrayList<StaffVO> chatMemberList;
     private HmsFirebase fb;
-    private Bundle bundle;
-    private StaffVO staff;
+    private StaffVO staff = Util.staff;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         bind = FragmentMessengerStaffBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
-        bundle = getArguments();
-        staff = (StaffVO) bundle.getSerializable("staff");
 
         bind.tvName.setText(staff.getName());
         new RetrofitMethod().sendPost("getstaff.ap", new RetrofitMethod.CallBackResult() {
@@ -91,7 +88,6 @@ public class MessengerStaffFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), ChatActivity.class);
                         intent.putExtra("name", chatMemberList.get(1).getName());
                         intent.putExtra("key", msg.obj.toString());
-                        intent.putExtra("staff", staff);
                         startActivity(intent);
                     } else fb.getChatRoom(chatMemberList);
                 }

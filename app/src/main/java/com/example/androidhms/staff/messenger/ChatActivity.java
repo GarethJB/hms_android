@@ -24,7 +24,7 @@ public class ChatActivity extends AppCompatActivity {
     private ActivityChatBinding bind;
     private HmsFirebase fb;
     private String key;
-    private StaffVO staff;
+    private StaffVO staff = Util.staff;
     private ArrayList<ChatVO> chatList;
 
     @Override
@@ -36,7 +36,6 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         key = intent.getStringExtra("key");
-        staff = (StaffVO) intent.getSerializableExtra("staff");
 
         bind.tvChatroom.setText(name);
         bind.btSend.setOnClickListener(onSendClick());

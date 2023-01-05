@@ -2,10 +2,10 @@ package com.example.androidhms.staff.vo;
 
 public class PatientVO {
 
-    private int patient_id, height, weight, social_id;
-    private String name, gender, phone_number, blood_type, allergy, underlying_disease, memo;
+    private int patient_id, height, weight;
+    private String name, gender, phone_number, blood_type, allergy, underlying_disease, memo, social_id;
 
-    public PatientVO(int patient_id, int height, int weight, int social_id, String name, String gender, String phone_number, String blood_type, String allergy, String underlying_disease, String memo) {
+    public PatientVO(int patient_id, int height, int weight, String social_id, String name, String gender, String phone_number, String blood_type, String allergy, String underlying_disease, String memo) {
         this.patient_id = patient_id;
         this.height = height;
         this.weight = weight;
@@ -18,6 +18,8 @@ public class PatientVO {
         this.underlying_disease = underlying_disease;
         this.memo = memo;
     }
+
+    public PatientVO() {}
 
     public int getPatient_id() {
         return patient_id;
@@ -43,11 +45,11 @@ public class PatientVO {
         this.weight = weight;
     }
 
-    public int getSocial_id() {
+    public String getSocial_id() {
         return social_id;
     }
 
-    public void setSocial_id(int social_id) {
+    public void setSocial_id(String social_id) {
         this.social_id = social_id;
     }
 

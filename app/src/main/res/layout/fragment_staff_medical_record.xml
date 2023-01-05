@@ -118,7 +118,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginHorizontal="15dp"
         android:background="@drawable/box_round_lightgray"
         android:backgroundTint="@color/white"
@@ -165,8 +166,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_medical_record"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.8"
+            android:layout_height="match_parent"
             android:padding="10dp" />
     </LinearLayout>
 
@@ -266,6 +266,7 @@
         android:layout_marginBottom="15dp"
         android:padding="5dp"
         android:textSize="16dp"
+        android:gravity="top"
         android:backgroundTint="@color/white"
         android:background="@drawable/box_round_lightgray"/>
 

@@ -11,6 +11,7 @@ import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMessengerBinding;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.ActivityUtil;
+import com.example.androidhms.util.Util;
 
 public class MessengerActivity extends AppCompatActivity {
 
@@ -18,8 +19,7 @@ public class MessengerActivity extends AppCompatActivity {
     private MessengerFragment messengerFragment;
     private MessengerStaffFragment messengerStaffFragment;
     private ActivityUtil util;
-    private StaffVO staff;
-    private Bundle bundle;
+    private StaffVO staff = Util.staff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +27,9 @@ public class MessengerActivity extends AppCompatActivity {
         bind = ActivityMessengerBinding.inflate(getLayoutInflater());
         bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
         setContentView(bind.getRoot());
-        Intent intent = getIntent();
-        staff = (StaffVO) intent.getSerializableExtra("staff");
 
-        bundle = new Bundle();
-        bundle.putSerializable("staff", staff);
         util = new ActivityUtil(this);
         messengerStaffFragment = new MessengerStaffFragment();
-        messengerStaffFragment.setArguments(bundle);
 
         util.addFragment(bind.flContainer.getId(), messengerStaffFragment);
         util.showFragment(messengerStaffFragment);
@@ -57,7 +52,6 @@ public class MessengerActivity extends AppCompatActivity {
                 } else if (v.getId() == R.id.iv_messenger) {
                     if (messengerFragment == null) {
                         messengerFragment = new MessengerFragment();
-                        messengerFragment.setArguments(bundle);
                         util.addFragment(bind.flContainer.getId(), messengerFragment);
                     }
                     util.hideFragment(messengerStaffFragment);

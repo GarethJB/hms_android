@@ -15,19 +15,18 @@ import com.example.androidhms.staff.schedule.ScheduleActivity;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.staff.ward.DoctorWardActivity;
 import com.example.androidhms.staff.ward.NurseWardActivity;
+import com.example.androidhms.util.Util;
 
 public class StaffActivity extends AppCompatActivity {
 
     private ActivityStaffBinding bind;
-    private StaffVO staff;
+    private final StaffVO staff = Util.staff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityStaffBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        Intent intent = getIntent();
-        staff = (StaffVO) intent.getSerializableExtra("staff");
 
         bind.tvName.setText(staff.getName());
         bind.clLookup.setOnClickListener(onMenuClick());
@@ -62,7 +61,6 @@ public class StaffActivity extends AppCompatActivity {
             } else if (v.getId() == R.id.cl_schedule) {
                 intent = new Intent(StaffActivity.this, ScheduleActivity.class);
             }
-            intent.putExtra("staff", staff);
             startActivity(intent);
         };
     }
