@@ -2,11 +2,14 @@ package com.example.androidhms.staff.outpatient.adapter;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
@@ -42,9 +45,17 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
         holder.bind.tvStaffName.setText(vo.getStaff_name());
         holder.bind.tvTreatmentName.setText(vo.getTreatment_name());
         if (position == selectedPosition) {
-
+            holder.bind.view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.second_color)));
+            holder.bind.tvPatientName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
+            holder.bind.tvStaffName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
+            holder.bind.tvTreatmentName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
+            holder.bind.tvDate.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
         } else {
-
+            holder.bind.view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.white)));
+            holder.bind.tvPatientName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
+            holder.bind.tvStaffName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
+            holder.bind.tvTreatmentName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
+            holder.bind.tvDate.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
         }
     }
 
