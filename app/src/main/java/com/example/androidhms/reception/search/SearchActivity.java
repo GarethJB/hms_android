@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivitySearchBinding;
 import com.example.conn.ApiClient;
+import com.example.conn.RetrofitMethod;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,16 +24,18 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
          setContentView(bind.getRoot());
         Intent intent = getIntent();
         bind.btnSearch.setOnClickListener(this);
-        bind.toolbar.ivLeft.setOnClickListener(this);
-        bind.toolbar.llLogo.setOnClickListener(this);
+        /*bind.toolbar.ivLeft.setOnClickListener(this);
+        bind.toolbar.llLogo.setOnClickListener(this);*/
 
-        bind.btnSearch.setOnClickListener(v -> {
-            if(bind.editPatient.getText().toString().isEmpty()){
-                Toast.makeText(this, "환자명을 입력하세요", Toast.LENGTH_SHORT).show();
-            }else{
+      /*  bind.btnSearch.setOnClickListener(v -> {
+                new RetrofitMethod().setParams("name").sendPost("patient.re", new RetrofitMethod.CallBackResult() {
+                    @Override
+                    public void result(boolean isResult, String data) {
+                       // Log.d("로그", "result: " + "환자");
+                    }
+                });
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
-            }
-        });
+        });*/
     }
     @Override
     public void onClick(View v) {

@@ -22,6 +22,7 @@ import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
 import com.google.android.material.datepicker.MaterialStyledDatePickerDialog;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.text.SimpleDateFormat;
@@ -57,9 +58,11 @@ public class AppointmentActivity extends AppCompatActivity {
                     bind.tvToday.setText(date);
                     // bind.cardvAppointmentList.setVisibility(View.VISIBLE);
                     //java 숫자 왼쪽에 0으로 채우기
+                    //스프링에서 데이터를 보내기
                     new RetrofitMethod().setParams("time", year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day)).sendPost("appointment.re", (isResult, data) -> {
                         Log.d("로그", "onDateSet: " + data);
-                        ArrayList<MedicalReceiptVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+                        ArrayList<MedicalReceiptVO> list = gson.fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
                         }.getType());
                         if(list == null || list.size() == 0 ){
                             bind.cardvAppointmentList.setVisibility(View.INVISIBLE);
@@ -73,11 +76,11 @@ public class AppointmentActivity extends AppCompatActivity {
             }, year, month, day);
             datePickerDialog.show();
         });
-        bind.toolbar.ivLeft.setOnClickListener(v -> {
+  /*      bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
         });
         bind.toolbar.llLogo.setOnClickListener(v -> {
             onBackPressed();
-        });
+        });*/
     }
 }
