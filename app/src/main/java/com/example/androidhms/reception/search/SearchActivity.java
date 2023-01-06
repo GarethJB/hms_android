@@ -15,7 +15,6 @@ import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
-
     ActivitySearchBinding bind;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         bind.toolbar.llLogo.setOnClickListener(this);*/
 
       /*  bind.btnSearch.setOnClickListener(v -> {
-                new RetrofitMethod().setParams("name").sendPost("patient.re", new RetrofitMethod.CallBackResult() {
+                new RetrofitMethod().setParams("name",).sendPost("patient.re", new RetrofitMethod.CallBackResult() {
                     @Override
                     public void result(boolean isResult, String data) {
                        // Log.d("로그", "result: " + "환자");
@@ -46,6 +45,5 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }else if(v.getId() == R.id.ll_logo){
             onBackPressed();
         }
-
     }
 }
