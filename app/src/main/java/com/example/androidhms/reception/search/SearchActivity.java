@@ -21,22 +21,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         bind = ActivitySearchBinding.inflate(getLayoutInflater());
          setContentView(bind.getRoot());
-        ApiClient.setBASEURL("http://192.168.0.14/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
         Intent intent = getIntent();
         bind.btnSearch.setOnClickListener(this);
         bind.toolbar.ivLeft.setOnClickListener(this);
         bind.toolbar.llLogo.setOnClickListener(this);
 
         bind.btnSearch.setOnClickListener(v -> {
-            /*if(bind.editPatient.getText().toString().isEmpty()){
+            if(bind.editPatient.getText().toString().isEmpty()){
                 Toast.makeText(this, "환자명을 입력하세요", Toast.LENGTH_SHORT).show();
             }else{
-
-            }*/
-           getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+            }
         });
     }
-
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_search){

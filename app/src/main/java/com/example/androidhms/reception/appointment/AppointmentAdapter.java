@@ -1,5 +1,6 @@
 package com.example.androidhms.reception.appointment;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
+import com.example.androidhms.databinding.ItemReceptionAppointmentListBinding;
 import com.example.androidhms.reception.vo.MedicalReceiptVO;
 
 import java.util.ArrayList;
@@ -42,7 +44,10 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AViewHolder h, int i) {
+        h.bind.tvNo.setText("a" + ":" + list.get(i).getTime());
+        h.bind.tvReserveName.setText("a"+list.get(i).getPatient_id());
+        h.bind.tvDoctorName.setText("a"+list.get(i).getStaff_id());
 
     }
 
@@ -51,9 +56,12 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         return list.size();
     }
     public class AViewHolder extends RecyclerView.ViewHolder {
+        //어댑터에서 바인딩하는 방법
+        public ItemReceptionAppointmentListBinding bind;
 
         public AViewHolder(@NonNull View v) {
             super(v);
+            bind = ItemReceptionAppointmentListBinding.bind(v);
         }
     }
 }

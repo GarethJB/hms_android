@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.example.androidhms.MainActivity;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityAppointmentBinding;
-import com.example.androidhms.staff.vo.MedicalReceiptVO;
+import com.example.androidhms.reception.vo.MedicalReceiptVO;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
@@ -59,16 +59,21 @@ public class AppointmentActivity extends AppCompatActivity {
                     //java 숫자 왼쪽에 0으로 채우기
                     new RetrofitMethod().setParams("time", year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day)).sendPost("appointment.re", (isResult, data) -> {
                         Log.d("로그", "onDateSet: " + data);
-                        ArrayList<com.example.androidhms.reception.vo.MedicalReceiptVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
+                        ArrayList<MedicalReceiptVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
                         }.getType());
+                        if(list == null || list.size() == 0 ){
+                            bind.cardvAppointmentList.setVisibility(View.INVISIBLE);
+                        }else{
+
+                        bind.cardvAppointmentList.setVisibility(View.VISIBLE);
                         bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(), list, AppointmentActivity.this));
                         bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
+                        }
                     });
                 }
             }, year, month, day);
             datePickerDialog.show();
         });
-
         bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
         });

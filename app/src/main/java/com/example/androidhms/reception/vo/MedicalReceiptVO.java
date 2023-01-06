@@ -6,10 +6,9 @@ import java.sql.Date;
 
 public class MedicalReceiptVO {
 	private int patient_id, staff_id;
-	private Date time;
-	private String memo;
+	private String memo, time;
 
-	public MedicalReceiptVO(int patient_id, int staff_id, Date time, String memo) {
+	public MedicalReceiptVO(int patient_id, int staff_id, String time, String memo) {
 		this.patient_id = patient_id;
 		this.staff_id = staff_id;
 		this.time = time;
@@ -32,11 +31,11 @@ public class MedicalReceiptVO {
 		this.staff_id = staff_id;
 	}
 
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 
