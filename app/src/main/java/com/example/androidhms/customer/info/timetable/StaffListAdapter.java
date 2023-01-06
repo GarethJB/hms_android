@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
-    ArrayList<StaffVO> staff;
+    ArrayList<StaffVO> staff = new ArrayList<>();
 
     public StaffListAdapter(LayoutInflater inflater, Context context, ArrayList<StaffVO> staff) {
         this.inflater = inflater;
@@ -35,6 +35,8 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
+        //h.bind.tvName.setText(staff.get(i).getName());
+        //h.bind.tvIntroduction.setText(staff.get(i).getIntroduction());
 
 
     }

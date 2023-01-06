@@ -9,14 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
+import com.example.androidhms.customer.vo.MedicalReceiptVO;
+import com.example.androidhms.databinding.ItemCustomerReservationMedicalBinding;
+
+import java.util.ArrayList;
 
 public class MedicalReservationAdapter extends RecyclerView.Adapter<MedicalReservationAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
+    private ArrayList<MedicalReceiptVO> receipt = new ArrayList<>();
 
-    public MedicalReservationAdapter(LayoutInflater inflater, Context context) {
+    public MedicalReservationAdapter(LayoutInflater inflater, Context context, ArrayList<MedicalReceiptVO> receipt) {
         this.inflater = inflater;
         this.context = context;
+        this.receipt = receipt;
     }
 
     @NonNull
@@ -28,8 +34,11 @@ public class MedicalReservationAdapter extends RecyclerView.Adapter<MedicalReser
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ViewHolder h, int i) {
+        h.bind.tvDepartment.setText(receipt.get(i).getDepartment_name());
+        h.bind.tvName.setText(receipt.get(i).getName());
+        h.bind.tvDate.setText(receipt.get(i).getTime());
+        h.bind.tvLocation.setText(receipt.get(i).getLocation());
     }
 
     @Override
@@ -44,13 +53,15 @@ public class MedicalReservationAdapter extends RecyclerView.Adapter<MedicalReser
 
     @Override
     public int getItemCount() {
-        return 2;
+        return receipt.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        ItemCustomerReservationMedicalBinding bind;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(@NonNull View v) {
+            super(v);
+            bind = ItemCustomerReservationMedicalBinding.bind(v);
         }
     }
 }

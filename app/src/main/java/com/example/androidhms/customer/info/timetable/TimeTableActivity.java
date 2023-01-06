@@ -11,12 +11,13 @@ import com.example.androidhms.databinding.ActivityCustomerTimeTableBinding;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
 public class TimeTableActivity extends AppCompatActivity {
     private ActivityCustomerTimeTableBinding bind;
-    private ArrayList<StaffVO> staff;
+    private ArrayList<StaffVO> staff = new ArrayList<>();
     private final String TAG = "로그";
 
     @Override
@@ -24,6 +25,7 @@ public class TimeTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityCustomerTimeTableBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
+
 
         bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
@@ -34,11 +36,7 @@ public class TimeTableActivity extends AppCompatActivity {
         new RetrofitMethod().setParams("department_id", department_id)
                 .sendPost("stafflist.ap", (isResult, data) -> {
                     Log.d(TAG, "의료진 : " + data);
-                    for (int i = 0; i <= staff.size(); i++) {
-                        staff.add(new Gson().fromJson(data, StaffVO.class));
-                    }
-                    //staff = (ArrayList<StaffVO>) new Gson().fromJson(data, StaffVO.class);
-
+                    staff = new Gson().fromJson(data, new TypeToken<ArrayList<StaffVO>>(){}.getType());
                 });
 
 

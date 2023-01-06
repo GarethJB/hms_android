@@ -56,7 +56,7 @@
             android:name=".customer.info.acceptance.AcceptanceRecordActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.info.reservation.ReservationRecordActivity"
+            android:name=".customer.info.reservation.ScheduleActivity"
             android:exported="false" />
         <activity
             android:name=".customer.info.medical.MedicalRecordActivity"

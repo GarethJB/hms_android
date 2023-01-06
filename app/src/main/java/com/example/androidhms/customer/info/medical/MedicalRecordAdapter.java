@@ -9,14 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
+import com.example.androidhms.customer.vo.MedicalRecordVO;
+import com.example.androidhms.databinding.ItemCustomerMedicalRecordBinding;
+
+import java.util.ArrayList;
 
 public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
+    private ArrayList<MedicalRecordVO> medical_record = new ArrayList<>();
 
-    public MedicalRecordAdapter(LayoutInflater inflater, Context context) {
+    public MedicalRecordAdapter(LayoutInflater inflater, Context context, ArrayList<MedicalRecordVO> medical_record) {
         this.inflater = inflater;
         this.context = context;
+        this.medical_record = medical_record;
     }
 
     @NonNull
@@ -28,8 +34,11 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ViewHolder h, int i) {
+        h.bind.tvTreatmentDate.setText(medical_record.get(i).getTreatment_date());
+        h.bind.tvDepartment.setText(medical_record.get(i).getDepartment_name());
+        h.bind.tvName.setText(medical_record.get(i).getName());
+        h.bind.tvTreatmentName.setText(medical_record.get(i).getTreatment_name());
     }
 
     @Override
@@ -44,13 +53,16 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
 
     @Override
     public int getItemCount() {
-        return 20;
+        return medical_record.size();
     }
 
     public  class ViewHolder extends RecyclerView.ViewHolder {
 
+        public ItemCustomerMedicalRecordBinding bind;
+
         public ViewHolder(@NonNull View v) {
             super(v);
+            bind = ItemCustomerMedicalRecordBinding.bind(v);
         }
     }
 }
