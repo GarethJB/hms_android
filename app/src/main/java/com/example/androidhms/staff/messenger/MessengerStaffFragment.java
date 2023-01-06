@@ -54,7 +54,7 @@ public class MessengerStaffFragment extends Fragment {
                     Util.setRecyclerView(getContext(), bind.rvMessengerStaff,
                             new MessengerStaffAdapter(MessengerStaffFragment.this, staffList), true);
                     bind.rvMessengerStaff.post(() -> {
-                        bind.rlProgress.setVisibility(View.GONE);
+                        bind.rlProgress.view.setVisibility(View.GONE);
                     });
                 }
             }

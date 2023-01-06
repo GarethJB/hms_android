@@ -16,6 +16,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".staff.outpatient.PrescriptionActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".customer.CustomerLoginActivity"
             android:exported="false">
             <meta-data
@@ -113,7 +120,7 @@
         <activity
             android:name=".staff.lookup.LookupActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"/> <!-- 원무과 페이지 -->
+            android:windowSoftInputMode="adjustResize" /> <!-- 원무과 페이지 -->
         <activity
             android:name=".reception.home.VolunteerActivity"
             android:exported="false" />

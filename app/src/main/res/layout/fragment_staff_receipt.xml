@@ -138,33 +138,31 @@
 
         <!--    </LinearLayout>-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_medical_record"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginBottom="15dp"
             android:layout_weight="1"
-            android:background="@drawable/box_round_lightgray"
-            android:backgroundTint="@color/white"
-            android:padding="10dp" />
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="15dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_medical_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/box_round_lightgray"
+                android:backgroundTint="@color/white"
+                android:padding="10dp" />
+
+            <include android:id="@+id/rl_progress"
+                android:visibility="gone"
+                layout="@layout/view_progress_circle"/>
+
+            <include android:id="@+id/cl_notfound"
+                android:visibility="gone"
+                layout="@layout/view_notfound"/>
+
+        </FrameLayout>
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_progress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="#80000000">
-
-        <ProgressBar
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            android:indeterminateOnly="true"
-            android:indeterminateTint="@color/second_color" />
-
-    </RelativeLayout>
 
 </FrameLayout>

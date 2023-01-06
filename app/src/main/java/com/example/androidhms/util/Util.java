@@ -1,7 +1,11 @@
 package com.example.androidhms.util;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -143,9 +147,17 @@ public class Util {
         return age;
     }
 
+    /**
+     * 올라와있는 안드로이드 키보드를 내림
+     */
     public static void keyboardDown(Activity activity) {
-        InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        try {
+            InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        } catch (NullPointerException e) {
+
+        }
     }
+
 
 }
