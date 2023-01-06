@@ -64,7 +64,6 @@ public class AppointmentActivity extends AppCompatActivity {
                         if(list == null || list.size() == 0 ){
                             bind.cardvAppointmentList.setVisibility(View.INVISIBLE);
                         }else{
-
                         bind.cardvAppointmentList.setVisibility(View.VISIBLE);
                         bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(), list, AppointmentActivity.this));
                         bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
