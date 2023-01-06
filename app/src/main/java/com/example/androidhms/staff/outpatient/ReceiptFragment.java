@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.androidhms.databinding.FragmentStaffReceiptBinding;
 import com.example.androidhms.staff.outpatient.adapter.ReceiptAdapter;
@@ -71,8 +72,8 @@ public class ReceiptFragment extends Fragment {
     }
 
     private void getReceipt() {
-        ProgressTimer timer = new ProgressTimer(bind.rlProgress, 10000, 1000);
-        timer.start();
+        bind.rlProgress.view.setVisibility(View.VISIBLE);
+        bind.clNotfound.view.setVisibility(View.GONE);
         new RetrofitMethod().setParams("id", staff.getStaff_id())
                 .setParams("time", Util.getDate(tsDate))
                 .sendPost("getmedicalreceipt.ap", new RetrofitMethod.CallBackResult() {
@@ -81,8 +82,13 @@ public class ReceiptFragment extends Fragment {
                         if (isResult && !data.equals("null")) {
                             mrList = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>(){}.getType());
                             Util.setRecyclerView(getContext(), bind.rvMedicalRecord, new ReceiptAdapter(ReceiptFragment.this, mrList), true);
-                            timer.viewFinish();
+                            if (mrList.isEmpty()) bind.clNotfound.view.setVisibility(View.VISIBLE);
+                            else bind.rvMedicalRecord.post(() ->  bind.rlProgress.view.setVisibility(View.GONE));
+                        } else if (!isResult) {
+                            Toast.makeText(requireActivity(), "검색결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                            bind.clNotfound.view.setVisibility(View.VISIBLE);
                         }
+                        bind.rlProgress.view.setVisibility(View.GONE);
                     }
                 });
     }

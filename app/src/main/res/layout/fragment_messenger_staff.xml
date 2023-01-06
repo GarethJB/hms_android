@@ -51,19 +51,7 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_progress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000">
-
-        <ProgressBar
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            android:indeterminateOnly="true"
-            android:indeterminateTint="@color/second_color" />
-
-    </RelativeLayout>
+    <include android:id="@+id/rl_progress"
+        layout="@layout/view_progress_circle"/>
 
 </FrameLayout>
