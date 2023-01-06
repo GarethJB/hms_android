@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
         bind = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
-        ApiClient.setBASEURL("http://192.168.0.116/middle/");
+//        ApiClient.setBASEURL("http://192.168.0.116/middle/");
+ //       ApiClient.setBASEURL("http://192.168.0.14/hms/");
+
 
         // 고객홈페이지로 이동
         bind.btnCustomer.setOnClickListener(v -> {
@@ -46,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        new RetrofitMethod().setParams("a", "1").setParams("b", "2").sendPost("hmstest", new RetrofitMethod.CallBackResult() {
-            @Override
-            public void result(boolean isResult, String data) {
-                Log.d(TAG, "result: " + isResult);
-                Log.d(TAG, "result: " + data);
-            }
-        });
+//        new RetrofitMethod().setParams("a", "1").setParams("b", "2").sendPost("hmstest", new RetrofitMethod.CallBackResult() {
+//            @Override
+//            public void result(boolean isResult, String data) {
+//                Log.d(TAG, "result: " + isResult);
+//                Log.d(TAG, "result: " + data);
+//            }
+//        });
 
     }
 

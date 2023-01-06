@@ -43,7 +43,7 @@
         <!-- 로그인 -->
         <TextView
             android:visibility="invisible"
-           android:textColor="#565759"
+           android:textColor="#909091"
             android:id="@+id/tv_login"
             android:text="로그아웃"
             android:textSize="16dp"

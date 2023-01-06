@@ -28,7 +28,7 @@ public class ReceptionActivity extends AppCompatActivity implements View.OnClick
         setContentView(bind.getRoot());
         //받아온 사원이름 받아오기
         Intent intent =getIntent();
-        staff_name =(StaffVO)intent.getSerializableExtra("staff_name");
+       staff_name =(StaffVO)intent.getSerializableExtra("staff_name");
         Log.d("로그", "onCreate: " + staff_name.getName());
         bind.tvName.setText(staff_name.getName());
         //로그인하면 상단바에 로그아웃뜨기
