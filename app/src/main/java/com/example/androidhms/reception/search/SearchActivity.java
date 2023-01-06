@@ -26,15 +26,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         /*bind.toolbar.ivLeft.setOnClickListener(this);
         bind.toolbar.llLogo.setOnClickListener(this);*/
 
-      /*  bind.btnSearch.setOnClickListener(v -> {
-                new RetrofitMethod().setParams("name",).sendPost("patient.re", new RetrofitMethod.CallBackResult() {
+        bind.btnSearch.setOnClickListener(v -> {
+                new RetrofitMethod().setParams("name",bind.editPatient.getText().toString()).sendPost("patient.re", new RetrofitMethod.CallBackResult() {
                     @Override
                     public void result(boolean isResult, String data) {
-                       // Log.d("로그", "result: " + "환자");
+                        Log.d("로그", "result: " + "data");
                     }
                 });
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
-        });*/
+        });
     }
     @Override
     public void onClick(View v) {
