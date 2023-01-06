@@ -26,17 +26,19 @@ public class ReceptionActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         bind= ActivityReceptionBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        //받아온 사원이름 받아오기
+        //사원이름 받아오기
         Intent intent =getIntent();
-       staff_name =(StaffVO)intent.getSerializableExtra("staff_name");
+         staff_name =(StaffVO)intent.getSerializableExtra("staff_name");
         Log.d("로그", "onCreate: " + staff_name.getName());
         bind.tvName.setText(staff_name.getName());
         //로그인하면 상단바에 로그아웃뜨기
         bind.toolbar.tvLogin.setVisibility(View.VISIBLE);
-        
+
         bind.clAppointmentSearch.setOnClickListener(this);
         bind.clPatientSearch.setOnClickListener(this);
         bind.clNews.setOnClickListener(this);
+        bind.toolbar.llLogo.setOnClickListener(this);
+        bind.toolbar.ivLeft.setOnClickListener(this);
     }
 
     @Override
@@ -47,6 +49,10 @@ public class ReceptionActivity extends AppCompatActivity implements View.OnClick
             changeActivity(new SearchActivity());
         }else if(v.getId() == R.id.cl_news){
             changeActivity(new NewsActivity());
+        }else if(v.getId() == R.id.ll_logo){
+            onBackPressed();
+        }else if(v.getId() == R.id.iv_left){
+            onBackPressed();
         }
     }
 

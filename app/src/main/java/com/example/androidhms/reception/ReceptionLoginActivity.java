@@ -41,39 +41,10 @@ public class ReceptionLoginActivity extends AppCompatActivity {
                                 intent.putExtra("staff_name",  new Gson().fromJson(data, StaffVO.class));
                                 startActivity(intent);
                             }
-                            
                         }
                     });
-
         });
-
-        //로그인처리
-     /*   bind.btnLogin1.setOnClickListener(v -> {
-            new RetrofitMethod().setParams("id",bind.editId.getText().toString()).setParams("pw",bind.editPw.getText().toString())
-                    .sendPost("login.re", new RetrofitMethod.CallBackResult() {
-                                @Override
-                                public void result(boolean isResult, String data) {
-                                    if(data.equals("null")){
-                                        Log.d("로그", "result: " + data);
-                                        Toast.makeText(ReceptionLoginActivity.this, "사번과 비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
-                                    }else {
-                                        Intent intent = new Intent(ReceptionLoginActivity.this, ReceptionActivity.class);
-                                        intent.putExtra("staff_name", new Gson().fromJson(data, StaffVO.class));
-                                        startActivity(intent);
-                                    }
-                                }
-                            }
-                    );
-        });*/
         
-
-        bind.toolbar.ivLeft.setOnClickListener(v -> {
-           onBackPressed();
-        });
-
-        bind.toolbar.llLogo.setOnClickListener(v -> {
-            onBackPressed();
-        });
     }
     public void changeFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();

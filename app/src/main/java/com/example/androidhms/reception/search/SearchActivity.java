@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivitySearchBinding;
+import com.example.conn.ApiClient;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -16,15 +20,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivitySearchBinding.inflate(getLayoutInflater());
-    setContentView(bind.getRoot());
-
+         setContentView(bind.getRoot());
+        ApiClient.setBASEURL("http://192.168.0.14/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
         Intent intent = getIntent();
         bind.btnSearch.setOnClickListener(this);
         bind.toolbar.ivLeft.setOnClickListener(this);
         bind.toolbar.llLogo.setOnClickListener(this);
 
         bind.btnSearch.setOnClickListener(v -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+            /*if(bind.editPatient.getText().toString().isEmpty()){
+                Toast.makeText(this, "환자명을 입력하세요", Toast.LENGTH_SHORT).show();
+            }else{
+
+            }*/
+           getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
         });
     }
 

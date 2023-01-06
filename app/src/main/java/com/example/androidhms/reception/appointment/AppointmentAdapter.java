@@ -8,12 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
+import com.example.androidhms.reception.vo.MedicalReceiptVO;
+
+import java.util.ArrayList;
+
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.AViewHolder> {
     LayoutInflater inflater;
+    ArrayList<MedicalReceiptVO> list;
+    AppointmentActivity activity;
 
-    public AppointmentAdapter(LayoutInflater inflater) {
+    public AppointmentAdapter(LayoutInflater inflater, ArrayList<MedicalReceiptVO> list, AppointmentActivity activity) {
         this.inflater = inflater;
+        this.list = list;
+        this.activity = activity;
     }
 
     @NonNull
@@ -23,7 +31,6 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         AViewHolder viewHolder = new AViewHolder(v);
         return viewHolder;
     }
-
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
@@ -41,13 +48,12 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
-
     public class AViewHolder extends RecyclerView.ViewHolder {
 
-        public AViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public AViewHolder(@NonNull View v) {
+            super(v);
         }
     }
 }

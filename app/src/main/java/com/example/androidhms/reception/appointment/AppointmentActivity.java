@@ -11,14 +11,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.example.androidhms.MainActivity;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityAppointmentBinding;
+import com.example.androidhms.staff.vo.MedicalReceiptVO;
 import com.example.androidhms.staff.vo.StaffVO;
+import com.example.conn.ApiClient;
+import com.example.conn.RetrofitMethod;
 import com.google.android.material.datepicker.MaterialStyledDatePickerDialog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class AppointmentActivity extends AppCompatActivity {
 
@@ -30,35 +40,34 @@ public class AppointmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityAppointmentBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        Intent intent =getIntent();
+        ApiClient.setBASEURL("http://192.168.0.14/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
+        Intent intent = getIntent();
 
         //datePicker 연결
-        bind.imgvNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int year= calendar.get(Calendar.YEAR);
-                int month= calendar.get(Calendar.MONTH);
-                int day= calendar.get(Calendar.DAY_OF_MONTH);
-
-                datePickerDialog = new DatePickerDialog(AppointmentActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month + 1;
-                        String date = year +"년   " + month +"월   " + day + "일";
-                        bind.tvShowDate.setText(date);
-                          Log.d("로그", "onDateSet: " + "달력");
-                        bind.cardvAppointmentList.setVisibility(View.VISIBLE);
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
-            }
+        bind.imgvCalendar.setOnClickListener(v -> {
+            Calendar c = Calendar.getInstance();
+            int year = c.get(c.YEAR);
+            int month = c.get(c.MONTH);
+            int day = c.get(c.DAY_OF_MONTH);
+            datePickerDialog = new DatePickerDialog(AppointmentActivity.this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int day) {
+                    month = month + 1;
+                    String date = year + "  년  " + month + " 월  " + day + "일";
+                    bind.tvToday.setText(date);
+                    // bind.cardvAppointmentList.setVisibility(View.VISIBLE);
+                    //java 숫자 왼쪽에 0으로 채우기
+                    new RetrofitMethod().setParams("time", year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day)).sendPost("appointment.re", (isResult, data) -> {
+                        Log.d("로그", "onDateSet: " + data);
+                        ArrayList<com.example.androidhms.reception.vo.MedicalReceiptVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
+                        }.getType());
+                        bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(), list, AppointmentActivity.this));
+                        bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
+                    });
+                }
+            }, year, month, day);
+            datePickerDialog.show();
         });
-
-        //어댑터 연결
-        bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater()));
-        //액티비티에서 리사이클러 뷰 붙이기 : context : 지금 액티비티
-        bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
 
         bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
@@ -67,5 +76,4 @@ public class AppointmentActivity extends AppCompatActivity {
             onBackPressed();
         });
     }
-
 }
