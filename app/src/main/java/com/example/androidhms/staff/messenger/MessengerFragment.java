@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.androidhms.databinding.FragmentMessengerBinding;
 import com.example.androidhms.staff.messenger.adapter.ChatRoomAdapter;
 import com.example.androidhms.staff.vo.ChatRoomVO;
+import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
@@ -26,7 +27,7 @@ public class MessengerFragment extends Fragment {
 
     private FragmentMessengerBinding bind;
     private HmsFirebase fb;
-    private StaffDTO staff = Util.staff;
+    private StaffChatDTO staff = Util.getStaffChatDTO();
     private ArrayList<ChatRoomVO> chatRoomList;
 
     @Override

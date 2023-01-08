@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.androidhms.databinding.FragmentMessengerStaffBinding;
 import com.example.androidhms.staff.messenger.adapter.MessengerStaffAdapter;
+import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
@@ -27,10 +28,10 @@ import java.util.ArrayList;
 public class MessengerStaffFragment extends Fragment {
 
     private FragmentMessengerStaffBinding bind;
-    private ArrayList<StaffDTO> staffList;
-    private ArrayList<StaffDTO> chatMemberList;
+    private ArrayList<StaffChatDTO> staffList;
+    private ArrayList<StaffChatDTO> chatMemberList;
     private HmsFirebase fb;
-    private StaffDTO staff = Util.staff;
+    private StaffChatDTO staff = Util.getStaffChatDTO();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +44,7 @@ public class MessengerStaffFragment extends Fragment {
             @Override
             public void result(boolean isResult, String data) {
                 if (isResult) {
-                    staffList = new Gson().fromJson(data, new TypeToken<ArrayList<StaffDTO>>(){}.getType());
+                    staffList = new Gson().fromJson(data, new TypeToken<ArrayList<StaffChatDTO>>(){}.getType());
                     // 자기 자신은 채팅 상대방에서 제외
                     for (int i = 0; i < staffList.size(); i++) {
                         if (staffList.get(i).getStaff_id() == staff.getStaff_id()) {

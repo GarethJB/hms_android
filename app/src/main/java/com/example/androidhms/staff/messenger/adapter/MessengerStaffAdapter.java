@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.RvMessengerStaffBinding;
 import com.example.androidhms.staff.messenger.MessengerStaffFragment;
+import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.staff.vo.StaffDTO;
 
 import java.util.ArrayList;
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAdapter.MessengerStaffViewHolder> {
 
     private final MessengerStaffFragment fragment;
-    private final ArrayList<StaffDTO> staffList;
+    private final ArrayList<StaffChatDTO> staffList;
 
-    public MessengerStaffAdapter(MessengerStaffFragment fragment, ArrayList<StaffDTO> staffList) {
+    public MessengerStaffAdapter(MessengerStaffFragment fragment, ArrayList<StaffChatDTO> staffList) {
         this.fragment = fragment;
         this.staffList = staffList;
     }
@@ -32,7 +33,7 @@ public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAd
 
     @Override
     public void onBindViewHolder(@NonNull MessengerStaffViewHolder holder, int position) {
-        StaffDTO vo = staffList.get(position);
+        StaffChatDTO vo = staffList.get(position);
         holder.bind.tvStaffname.setText(vo.getName());
         String department = vo.getDepartment_name();
         if (vo.getStaff_level() == 1) department += " 의사";

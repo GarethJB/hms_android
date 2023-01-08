@@ -10,6 +10,7 @@ import android.widget.EditText;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.staff.vo.StaffDTO;
 
 import java.sql.Timestamp;
@@ -20,6 +21,12 @@ import java.util.Locale;
 public class Util {
 
     public static StaffDTO staff = null;
+
+    public static StaffChatDTO getStaffChatDTO() {
+        return new StaffChatDTO(Util.staff.getStaff_id(),
+                Util.staff.getStaff_level(), Util.staff.getDepartment_id(), Util.staff.getName(),
+                Util.staff.getDepartment_name());
+    }
 
     public static void setRecyclerView(Context context, RecyclerView rv, RecyclerView.Adapter<?> adapter, boolean vertical) {
         RecyclerView.LayoutManager lm;

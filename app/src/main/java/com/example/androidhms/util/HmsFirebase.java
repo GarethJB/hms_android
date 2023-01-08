@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.staff.vo.ChatVO;
-import com.example.androidhms.staff.vo.StaffDTO;
+import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +36,7 @@ public class HmsFirebase {
         this.handler = handler;
     }
 
-    public void getChatRoom(ArrayList<StaffDTO> staffList) {
+    public void getChatRoom(ArrayList<StaffChatDTO> staffList) {
         dbRef.child("chatRoom").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,16 +76,12 @@ public class HmsFirebase {
         });
     }
 
-    public void getChatRoom(String key) {
-
-    }
-
     public void sendChat(String key, ChatVO vo) {
         dbRef.child("chatRoom").child(key).child("chat").push().setValue(vo);
         dbRef.child("chatRoom").child(key).child("lastChat").setValue(vo);
     }
 
-    public void getChat(StaffDTO staff, String key) {
+    public void getChat(StaffChatDTO staff, String key) {
         getChatListener = GetChatListener(staff, key);
         dbRef.child("chatRoom").child(key).child("chat").addValueEventListener(getChatListener);
     }
@@ -103,7 +99,7 @@ public class HmsFirebase {
         dbRef.child("chatRoom").removeEventListener(getChatRoomListener);
     }
 
-    private ValueEventListener GetChatListener(StaffDTO staff, String key) {
+    private ValueEventListener GetChatListener(StaffChatDTO staff, String key) {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

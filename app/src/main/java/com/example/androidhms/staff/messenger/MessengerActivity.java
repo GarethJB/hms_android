@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMessengerBinding;
+import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.ActivityUtil;
 import com.example.androidhms.util.Util;
@@ -18,7 +19,7 @@ public class MessengerActivity extends AppCompatActivity {
     private MessengerFragment messengerFragment;
     private MessengerStaffFragment messengerStaffFragment;
     private ActivityUtil util;
-    private StaffDTO staff = Util.staff;
+    private StaffChatDTO staff = Util.getStaffChatDTO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
