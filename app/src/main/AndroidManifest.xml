@@ -16,6 +16,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".reception.home.QRActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".staff.outpatient.PrescriptionActivity"
             android:exported="false">
             <meta-data
@@ -130,7 +137,6 @@
         <activity
             android:name=".reception.home.NewsActivity"
             android:exported="false" />
-
         <activity
             android:name=".reception.ReceptionLoginActivity"
             android:exported="false" />
