@@ -38,16 +38,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void result(boolean isResult, String data) {
                    ArrayList<PatientVO> plist=  new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>(){}.getType());
-
-                 Log.d("로그", "result: " + "patient" +data);
                    if(plist ==null || plist.size()==0){
-                       Toast.makeText(SearchActivity.this, "환자를 검색하세요", Toast.LENGTH_SHORT).show();
-                   }else {
-                    plist
-
-
+                       Toast.makeText(SearchActivity.this, "환자 정보가 없습니다", Toast.LENGTH_SHORT).show();
+                   }else{
+                       Log.d("로그", "result: " + plist.get(0).getName());
+                       bind.patientId.setText(plist.get(0).getPatient_id());
+                       bind.name.setText(plist.get(0).getName());
+                       bind.patientSocialId.setText(plist.get(0).getSocial_id());
+                       bind.patientPhone.setText(plist.get(0).getPhone_number());
+                       bind.doctorName.setText(plist.get(0).getName());
                    }
-
                 }
             });
         });
