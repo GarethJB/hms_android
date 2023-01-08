@@ -36,6 +36,21 @@ public class LookupActivity extends AppCompatActivity {
         bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
         setContentView(bind.getRoot());
 
+        if (getIntent().getIntExtra("patient_id", 0) != 0) {
+            new RetrofitMethod().setParams("id", getIntent().getIntExtra("patient_id", 0))
+                    .sendGet("getPatientFromId.ap", (isResult, data) -> {
+                        if (isResult) {
+                            vo = new Gson().fromJson(data, PatientVO.class);
+                            if (vo == null) {
+                                Toast.makeText(LookupActivity.this, "검색 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                bindPatientInfo(vo);
+                                bind.etName.setText(vo.getName());
+                            }
+                        } else Toast.makeText(LookupActivity.this, "검색 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    });
+        }
+
         // 환자 검색
         bind.btnSearch.setOnClickListener(onSearchClick());
         // 키보드의 검색 버튼 눌렀을때 앱의 검색 버튼 클릭
@@ -43,8 +58,10 @@ public class LookupActivity extends AppCompatActivity {
             bind.btnSearch.performClick();
             return false;
         });
-        // 전화걸기 (다이얼까지만)
+
+        // 전화걸기
         bind.tvPhone.setOnClickListener(onPhoneClick());
+
         // 메모저장
         bind.btnMemosave.setOnClickListener(onMemoSaveClick());
     }
@@ -63,7 +80,7 @@ public class LookupActivity extends AppCompatActivity {
         return v -> {
             Util.keyboardDown(LookupActivity.this);
             new RetrofitMethod().setParams("name", bind.etName.getText().toString())
-                    .sendPost("searchpatient.ap", (isResult, data) -> {
+                    .sendGet("getPatient.ap", (isResult, data) -> {
                         if (isResult) {
                             ArrayList<PatientVO> patientList =
                                     new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>(){}.getType());
@@ -85,7 +102,7 @@ public class LookupActivity extends AppCompatActivity {
             Util.keyboardDown(LookupActivity.this);
             new RetrofitMethod().setParams("id", vo.getPatient_id())
                     .setParams("memo", bind.etMemo.getText().toString())
-                    .sendPost("updatepatientmemo.ap", (isResult, data) -> {
+                    .sendPost("updatePatientMemo.ap", (isResult, data) -> {
                         if (isResult && data.equals("1")) {
                             Toast.makeText(LookupActivity.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                         } else Toast.makeText(LookupActivity.this, "메모저장을 실패했습니다.", Toast.LENGTH_SHORT).show();

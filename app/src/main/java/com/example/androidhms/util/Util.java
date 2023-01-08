@@ -1,11 +1,7 @@
 package com.example.androidhms.util;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,7 +10,7 @@ import android.widget.EditText;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.staff.vo.StaffDTO;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -23,7 +19,7 @@ import java.util.Locale;
 
 public class Util {
 
-    public static StaffVO staff = null;
+    public static StaffDTO staff = null;
 
     public static void setRecyclerView(Context context, RecyclerView rv, RecyclerView.Adapter<?> adapter, boolean vertical) {
         RecyclerView.LayoutManager lm;
@@ -36,14 +32,11 @@ public class Util {
     }
 
     public static void setEditTextDate(Context context, LayoutInflater inflater, EditText edit, CalendarDialog.SetDateClickListener listener) {
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edit.getText().toString().equals(""))
-                    new CalendarDialog(context, inflater, listener).show();
-                else
-                    new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString()).show();
-            }
+        edit.setOnClickListener(v -> {
+            if (edit.getText().toString().equals(""))
+                new CalendarDialog(context, inflater, listener).show();
+            else
+                new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString()).show();
         });
     }
 
@@ -52,10 +45,13 @@ public class Util {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (maxtime != null && mintime != null)
+                if (maxtime == null && mintime != null) {
+                    new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
+                            .setMinDate(mintime).show();
+                } else if (maxtime != null && mintime != null)
                     new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
                             .setMaxDate(maxtime).setMinDate(mintime).show();
-                else if (mintime == null) {
+                else if (maxtime != null) {
                     new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
                             .setMaxDate(maxtime).show();
                 }
@@ -64,8 +60,16 @@ public class Util {
     }
 
     /**
+     * String date를 Timestamp 타입으로 변환<br>
+     * ex) Util.getTimestamp("2022-01-01");
+     */
+    public static Timestamp getTimestamp(String date) {
+        return Timestamp.valueOf(date + " 00:00:00");
+    }
+
+    /**
      * Timestamp 시간 연산<br>
-     * ex) timestampOperator(time, Calendar.YEAR, 1);
+     * ex) Util.timestampOperator(time, Calendar.YEAR, 1);
      */
     public static Timestamp timestampOperator(Timestamp time, int pattern, int number) {
         Calendar cal = Calendar.getInstance();
@@ -76,7 +80,7 @@ public class Util {
 
     /**
      * Timestamp 포맷<br>
-     * ex) timestampOperator(time, "yyyy-MM-dd HH:mm:ss"); -> 2022-01-01 00:00:00
+     * ex) Util.timestampOperator(time, "yyyy-MM-dd HH:mm:ss"); -> 2022-01-01 00:00:00
      */
     public static String dateFormat(Timestamp time, String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.KOREA);

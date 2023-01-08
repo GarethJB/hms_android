@@ -1,16 +1,13 @@
 package com.example.androidhms.util;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.staff.vo.ChatVO;
-import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.staff.vo.StaffDTO;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,11 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class HmsFirebase {
 
@@ -41,7 +36,7 @@ public class HmsFirebase {
         this.handler = handler;
     }
 
-    public void getChatRoom(ArrayList<StaffVO> staffList) {
+    public void getChatRoom(ArrayList<StaffDTO> staffList) {
         dbRef.child("chatRoom").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -90,7 +85,7 @@ public class HmsFirebase {
         dbRef.child("chatRoom").child(key).child("lastChat").setValue(vo);
     }
 
-    public void getChat(StaffVO staff, String key) {
+    public void getChat(StaffDTO staff, String key) {
         getChatListener = GetChatListener(staff, key);
         dbRef.child("chatRoom").child(key).child("chat").addValueEventListener(getChatListener);
     }
@@ -108,7 +103,7 @@ public class HmsFirebase {
         dbRef.child("chatRoom").removeEventListener(getChatRoomListener);
     }
 
-    private ValueEventListener GetChatListener(StaffVO staff, String key) {
+    private ValueEventListener GetChatListener(StaffDTO staff, String key) {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

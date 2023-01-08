@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ward">
+        <item>501호</item><item>502호</item><item>503호</item><item>504호</item>
+        <item>601호</item><item>602호</item><item>603호</item><item>604호</item>
+        <item>701호</item><item>702호</item><item>703호</item><item>704호</item>
+    </string-array>
+</resources>

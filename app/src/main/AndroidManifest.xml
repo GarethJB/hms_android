@@ -16,6 +16,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".staff.StaffMyPageActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".staff.outpatient.PrescriptionActivity"
             android:exported="false">
             <meta-data
@@ -96,14 +103,11 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".staff.ward.DoctorWardActivity"
-            android:exported="false" />
-        <activity
             android:name=".staff.outpatient.OutpatientActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".staff.ward.NurseWardActivity"
+            android:name=".staff.ward.WardActivity"
             android:exported="false" />
         <activity
             android:name=".staff.messenger.ChatActivity"

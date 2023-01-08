@@ -13,7 +13,7 @@ import android.view.View;
 import com.example.androidhms.databinding.ActivityChatBinding;
 import com.example.androidhms.staff.messenger.adapter.ChatAdapter;
 import com.example.androidhms.staff.vo.ChatVO;
-import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 
@@ -24,7 +24,7 @@ public class ChatActivity extends AppCompatActivity {
     private ActivityChatBinding bind;
     private HmsFirebase fb;
     private String key;
-    private StaffVO staff = Util.staff;
+    private StaffDTO staff = Util.staff;
     private ArrayList<ChatVO> chatList;
 
     @Override

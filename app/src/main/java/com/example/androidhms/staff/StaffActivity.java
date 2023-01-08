@@ -12,15 +12,14 @@ import com.example.androidhms.staff.lookup.LookupActivity;
 import com.example.androidhms.staff.messenger.MessengerActivity;
 import com.example.androidhms.staff.outpatient.OutpatientActivity;
 import com.example.androidhms.staff.schedule.ScheduleActivity;
-import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.staff.ward.DoctorWardActivity;
-import com.example.androidhms.staff.ward.NurseWardActivity;
+import com.example.androidhms.staff.vo.StaffDTO;
+import com.example.androidhms.staff.ward.WardActivity;
 import com.example.androidhms.util.Util;
 
 public class StaffActivity extends AppCompatActivity {
 
     private ActivityStaffBinding bind;
-    private final StaffVO staff = Util.staff;
+    private final StaffDTO staff = Util.staff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +34,23 @@ public class StaffActivity extends AppCompatActivity {
         bind.clSchedule.setOnClickListener(onMenuClick());
         bind.clMessanger.setOnClickListener(onMenuClick());
 
-        //임시
         bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
         });
 
+        // 마이페이지
+        bind.rlMypage.setOnClickListener(v ->
+                startActivity(new Intent(this, StaffMyPageActivity.class)));
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Util.staff == null) {
+            startActivity(new Intent(this, StaffLoginActivity.class));
+            finish();
+        }
     }
 
     private View.OnClickListener onMenuClick() {
@@ -50,12 +61,7 @@ public class StaffActivity extends AppCompatActivity {
             } else if (v.getId() == R.id.cl_outpatient) {
                 intent = new Intent(StaffActivity.this, OutpatientActivity.class);
             } else if (v.getId() == R.id.cl_ward) {
-                // 진료과 간호사, 병동 간호사 구분
-                if (staff.getDepartment_id() < 150) {
-                    intent = new Intent(StaffActivity.this, DoctorWardActivity.class);
-                } else {
-                    intent = new Intent(StaffActivity.this, NurseWardActivity.class);
-                }
+                intent = new Intent(StaffActivity.this, WardActivity.class);
             } else if (v.getId() == R.id.cl_messanger) {
                 intent = new Intent(StaffActivity.this, MessengerActivity.class);
             } else if (v.getId() == R.id.cl_schedule) {

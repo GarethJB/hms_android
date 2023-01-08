@@ -44,19 +44,35 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
         holder.bind.tvPatientName.setText(vo.getPatient_name());
         holder.bind.tvStaffName.setText(vo.getStaff_name());
         holder.bind.tvTreatmentName.setText(vo.getTreatment_name());
+        if (vo.getPrescription_record_id() != 0)
+            holder.bind.ivPrescription.setImageResource(R.drawable.icon_search);
+        else if (vo.getAdmission().equals("Y"))
+            holder.bind.ivPrescription.setImageResource(R.drawable.icon_bed);
         if (position == selectedPosition) {
             holder.bind.view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.second_color)));
             holder.bind.tvPatientName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
             holder.bind.tvStaffName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
             holder.bind.tvTreatmentName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
             holder.bind.tvDate.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
+            holder.bind.ivPrescription.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.white)));
         } else {
             holder.bind.view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.white)));
             holder.bind.tvPatientName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
             holder.bind.tvStaffName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
             holder.bind.tvTreatmentName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
             holder.bind.tvDate.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
+            holder.bind.ivPrescription.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.text_color)));
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -72,13 +88,17 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
             super(itemView);
             bind = ItemStaffMedicalRecordBinding.bind(itemView);
             itemView.setOnClickListener(v -> {
-                if (getAdapterPosition() != RecyclerView.NO_POSITION
-                        && mrList.get(getAdapterPosition()).getAdmission().equals("N"))
-                    fragment.onMedicalRecordClick(getAdapterPosition());
-                    selectedPosition = getAdapterPosition();
+                if (getAdapterPosition() != RecyclerView.NO_POSITION) {
+                    if (selectedPosition == getAdapterPosition()) {
+                        fragment.onMedicalRecordClick(getAdapterPosition(), true);
+                        selectedPosition = -1;
+                    } else {
+                        selectedPosition = getAdapterPosition();
+                        fragment.onMedicalRecordClick(getAdapterPosition(), false);
+                    }
                     notifyDataSetChanged();
+                }
             });
-
         }
     }
 

@@ -28,7 +28,7 @@ public class PrescriptionActivity extends AppCompatActivity {
         int mrId = getIntent().getIntExtra("medical_record_id", 0);
         if (mrId != 0) {
             new RetrofitMethod().setParams("id", mrId)
-                    .sendPost("getprescription.ap", new RetrofitMethod.CallBackResult() {
+                    .sendGet("getPrescription.ap", new RetrofitMethod.CallBackResult() {
                         @Override
                         public void result(boolean isResult, String data) {
                             if (isResult && !data.equals("null")) {

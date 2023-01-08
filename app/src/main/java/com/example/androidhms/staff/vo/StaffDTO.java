@@ -5,15 +5,15 @@ import com.example.androidhms.util.Util;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class StaffVO implements Serializable {
+public class StaffDTO implements Serializable {
 
     private int staff_id, staff_level, department_id;
     private String name, department_name, lastChatCheckTime, social_id, email, phone_number, gender, introduction;
     private Date hire_date;
 
-    public StaffVO(int staff_id, int staff_level, int department_id, String name, String department_name,
-                   String lastChatCheckTime, String social_id, String email, String phone_number,
-                   String gender, String introduction, Date hire_date) {
+    public StaffDTO(int staff_id, int staff_level, int department_id, String name, String department_name,
+                    String lastChatCheckTime, String social_id, String email, String phone_number,
+                    String gender, String introduction, Date hire_date) {
         this.staff_id = staff_id;
         this.staff_level = staff_level;
         this.department_id = department_id;
@@ -75,6 +75,10 @@ public class StaffVO implements Serializable {
 
     public String getLastChatCheckTime() {
         return lastChatCheckTime;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
     public void setLastChatCheckTime() {

@@ -3,13 +3,12 @@ package com.example.androidhms.staff.messenger;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMessengerBinding;
-import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.ActivityUtil;
 import com.example.androidhms.util.Util;
 
@@ -19,7 +18,7 @@ public class MessengerActivity extends AppCompatActivity {
     private MessengerFragment messengerFragment;
     private MessengerStaffFragment messengerStaffFragment;
     private ActivityUtil util;
-    private StaffVO staff = Util.staff;
+    private StaffDTO staff = Util.staff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

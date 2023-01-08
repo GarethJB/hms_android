@@ -77,12 +77,14 @@ public class CalendarDialog {
     }
 
     public CalendarDialog setDate(String date) {
-        String[] dateArr = date.split("-");
-        int year = Integer.parseInt(dateArr[0]);
-        int month = Integer.parseInt(dateArr[1]);
-        int day = Integer.parseInt(dateArr[2]);
-        bind.calendar.setSelectedDate(CalendarDay.from(year, month, day));
-        bind.calendar.state().edit().commit();
+        if (!date.equals("")) {
+            String[] dateArr = date.split("-");
+            int year = Integer.parseInt(dateArr[0]);
+            int month = Integer.parseInt(dateArr[1]);
+            int day = Integer.parseInt(dateArr[2]);
+            bind.calendar.setSelectedDate(CalendarDay.from(year, month, day));
+            bind.calendar.state().edit().commit();
+        }
         return this;
     }
 

@@ -12,10 +12,9 @@ import android.widget.Toast;
 import com.example.androidhms.databinding.FragmentStaffReceiptBinding;
 import com.example.androidhms.staff.outpatient.adapter.ReceiptAdapter;
 import com.example.androidhms.staff.vo.MedicalReceiptVO;
-import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.CalendarDialog;
 import com.example.androidhms.util.Util;
-import com.example.androidhms.util.ProgressTimer;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,7 +27,7 @@ import java.util.Calendar;
 public class ReceiptFragment extends Fragment {
 
     private FragmentStaffReceiptBinding bind;
-    private StaffVO staff = Util.staff;
+    private StaffDTO staff = Util.staff;
     private Timestamp tsDate = new Timestamp(System.currentTimeMillis());
     private ArrayList<MedicalReceiptVO> mrList;
 
@@ -76,7 +75,7 @@ public class ReceiptFragment extends Fragment {
         bind.clNotfound.view.setVisibility(View.GONE);
         new RetrofitMethod().setParams("id", staff.getStaff_id())
                 .setParams("time", Util.getDate(tsDate))
-                .sendPost("getmedicalreceipt.ap", new RetrofitMethod.CallBackResult() {
+                .sendGet("getMedicalReceipt.ap", new RetrofitMethod.CallBackResult() {
                     @Override
                     public void result(boolean isResult, String data) {
                         if (isResult && !data.equals("null")) {
