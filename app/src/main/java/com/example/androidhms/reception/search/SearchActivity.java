@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
     ActivitySearchBinding bind;
+    PatientVO vo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,15 +38,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void result(boolean isResult, String data) {
                    ArrayList<PatientVO> plist=  new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>(){}.getType());
-                   
+
+                 Log.d("로그", "result: " + "patient" +data);
                    if(plist ==null || plist.size()==0){
                        Toast.makeText(SearchActivity.this, "환자를 검색하세요", Toast.LENGTH_SHORT).show();
                    }else {
-                       Log.d("로그", "result: " + "patient" +data);
-                       getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+                    plist
+
 
                    }
-
 
                 }
             });

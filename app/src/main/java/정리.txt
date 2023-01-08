@@ -30,3 +30,25 @@ main_color
 second_color
 white
 text_color
+
+//프래그먼트에서  binding 사용
+public class SearchFragment extends Fragment {
+
+    FragmentReceptionSearchBinding bind;
+    ArrayList<PatientVO> plist;
+
+     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+         bind = FragmentReceptionSearchBinding.inflate(inflater,container,false);
+
+
+        return bind.getRoot() ;
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bind = null;
+    }
+
+}
