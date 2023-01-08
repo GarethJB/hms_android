@@ -145,9 +145,21 @@ public class MedicalRecordFragment extends Fragment {
     }
 
     public void onMedicalRecordClick(int position) {
-        Intent intent = new Intent(getActivity(), PrescriptionActivity.class);
-        intent.putExtra("medical_record_id", mrList.get(position).getMedical_record_id());
-        startActivity(intent);
+        bind.rlBottom.setVisibility(View.VISIBLE);
+        bind.btnMemo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+        bind.btnRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PrescriptionActivity.class);
+                intent.putExtra("medical_record_id", mrList.get(position).getMedical_record_id());
+                startActivity(intent);
+            }
+        });
     }
 
 }
