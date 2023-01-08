@@ -76,6 +76,7 @@
     </LinearLayout>
 
     <EditText
+        android:inputType="number"
         android:id="@+id/edit_id"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
@@ -83,12 +84,20 @@
         android:layout_width="330dp"
         android:layout_height="50dp"/>
     <EditText
+        android:inputType="textPassword"
         android:id="@+id/edit_pw"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:hint="  비밀번호"
         android:layout_width="330dp"
         android:layout_height="50dp"/>
+    <ImageView
+        android:id="@+id/refresh"
+        android:layout_marginLeft="40dp"
+        android:src="@drawable/icon_refresh"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:tint="#94979A" />
     <Button
         android:id="@+id/btn_login"
         android:gravity="center"

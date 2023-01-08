@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.customer.CustomerActivity;
 import com.example.androidhms.databinding.ActivityMainBinding;
+import com.example.androidhms.reception.ReceptionActivity;
 import com.example.androidhms.reception.ReceptionLoginActivity;
 import com.example.androidhms.staff.StaffLoginActivity;
 import com.example.conn.ApiClient;

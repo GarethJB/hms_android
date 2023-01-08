@@ -28,12 +28,12 @@ public class ReceptionLoginActivity extends AppCompatActivity {
         ApiClient.setBASEURL("http://192.168.0.14/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
 
         bind.btnLogin.setOnClickListener(v -> {
-            Log.d("로그", "onCreate: " + "클릭");
+           // Log.d("로그", "onCreate: " + "클릭");
             new RetrofitMethod().setParams("id",bind.editId.getText().toString()).setParams("pw",bind.editPw.getText().toString())
                     .sendPost("login.re", new RetrofitMethod.CallBackResult() {
                         @Override
                         public void result(boolean isResult, String data) {
-                            Log.d("로그", "result: " +data);
+                          //  Log.d("로그", "result: " +data);
                             if(data.equals("null")){
                                 Toast.makeText(ReceptionLoginActivity.this, "사번과 비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
                             }else {
@@ -44,7 +44,15 @@ public class ReceptionLoginActivity extends AppCompatActivity {
                         }
                     });
         });
-        
+
+        bind.refresh.setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(0,0);
+            Intent intent= getIntent();
+            startActivity(intent);
+            overridePendingTransition(0,0);
+
+        });
     }
     public void changeFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();

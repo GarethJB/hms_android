@@ -33,7 +33,7 @@ public class LookupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityStaffLookupBinding.inflate(getLayoutInflater());
-        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
+      /*  bind.toolbar.ivLeft.setOnClickListener((v) -> finish());*/
         setContentView(bind.getRoot());
 
         // 환자 검색
