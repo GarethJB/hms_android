@@ -9,8 +9,8 @@ import android.view.View;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMessengerBinding;
 import com.example.androidhms.staff.vo.StaffChatDTO;
-import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.ActivityUtil;
+import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 
 public class MessengerActivity extends AppCompatActivity {
@@ -19,13 +19,13 @@ public class MessengerActivity extends AppCompatActivity {
     private MessengerFragment messengerFragment;
     private MessengerStaffFragment messengerStaffFragment;
     private ActivityUtil util;
+    private HmsFirebase fb;
     private StaffChatDTO staff = Util.getStaffChatDTO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityMessengerBinding.inflate(getLayoutInflater());
-        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
         setContentView(bind.getRoot());
 
         util = new ActivityUtil(this);
@@ -37,6 +37,20 @@ public class MessengerActivity extends AppCompatActivity {
         bind.ivMessenger.setOnClickListener(onBnvClick());
         bind.ivMessengerStaff.setOnClickListener(onBnvClick());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fb = Util.setToolbar(this, bind.toolbar.toolbar);
+        fb.makeChatRoom(staff.getStaff_id());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        fb.removeGetChatRoom();
+    }
+
 
     private View.OnClickListener onBnvClick() {
         return new View.OnClickListener() {

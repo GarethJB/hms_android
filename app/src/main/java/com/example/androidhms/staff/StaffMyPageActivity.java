@@ -6,22 +6,23 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.androidhms.databinding.ActivityStaffMyPageBinding;
-import com.example.androidhms.staff.vo.StaffDTO;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.EditDialog;
+import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
 
 public class StaffMyPageActivity extends AppCompatActivity {
 
     private ActivityStaffMyPageBinding bind;
-    private StaffDTO staff = Util.staff;
+    private StaffVO staff = Util.staff;
+    private HmsFirebase fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityStaffMyPageBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
 
         bind.tvName.setText(staff.getName());
         bind.tvStaffId.setText(String.valueOf(staff.getStaff_id()));
@@ -63,4 +64,18 @@ public class StaffMyPageActivity extends AppCompatActivity {
             finish();
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fb = Util.setToolbar(this, bind.toolbar.toolbar);
+        fb.makeChatRoom(staff.getStaff_id());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        fb.removeGetChatRoom();
+    }
+
 }

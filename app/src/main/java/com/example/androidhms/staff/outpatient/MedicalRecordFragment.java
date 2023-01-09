@@ -15,7 +15,7 @@ import com.example.androidhms.R;
 import com.example.androidhms.databinding.FragmentStaffMedicalRecordBinding;
 import com.example.androidhms.staff.outpatient.adapter.MedicalRecordAdapter;
 import com.example.androidhms.staff.vo.MedicalRecordVO;
-import com.example.androidhms.staff.vo.StaffDTO;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.EditDialog;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
@@ -31,7 +31,7 @@ public class MedicalRecordFragment extends Fragment {
     private FragmentStaffMedicalRecordBinding bind;
     private Timestamp nowDate = new Timestamp(System.currentTimeMillis());
     private Timestamp firstDate = Util.timestampOperator(nowDate, Calendar.MONTH, -1);
-    private StaffDTO staff = Util.staff;
+    private StaffVO staff = Util.staff;
     private ArrayList<MedicalRecordVO> mrList;
 
     @Override
@@ -46,9 +46,15 @@ public class MedicalRecordFragment extends Fragment {
         setDateRange(bind.etSecondDate, new Timestamp(System.currentTimeMillis()), firstDate);
 
         // 상세옵션
-        if (staff.getStaff_level() == 2) bind.rbMyPatient.setChecked(true);
-        else if (staff.getDepartment_id() > 100) bind.rbMyDepartment.setChecked(true);
-        else bind.rbAllPatient.setChecked(true);
+        if (staff.getStaff_level() == 1) bind.rbMyPatient.setChecked(true);
+        else if (staff.getDepartment_id() < 100) {
+            bind.rbMyPatient.setEnabled(false);
+            bind.rbMyDepartment.setChecked(true);
+        } else {
+            bind.rbMyPatient.setEnabled(false);
+            bind.rbMyDepartment.setEnabled(false);
+            bind.rbAllPatient.setChecked(true);
+        }
         bind.rbAllPatient.setChecked(true);
         bind.imgvOption.setOnClickListener(onOptionClick());
         bind.tvOption.setOnClickListener(onOptionClick());
@@ -73,8 +79,7 @@ public class MedicalRecordFragment extends Fragment {
     private void setDateRange(EditText edt, Timestamp maxDate, Timestamp minDate) {
         Util.setEditTextDate(getContext(), getLayoutInflater(), edt, (date, dialog) -> {
             Timestamp ts = Timestamp.valueOf(date.getYear() + "-" + date.getMonth() + "-" + date.getDay() + " 00:00:00");
-            String selectedDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
-            edt.setText(selectedDate);
+            edt.setText(Util.getDate(ts));
             if (edt.getId() == R.id.et_first_date) setDateRange(bind.etSecondDate, nowDate, ts);
             else setDateRange(bind.etFirstDate, ts, null);
             dialog.dismiss();

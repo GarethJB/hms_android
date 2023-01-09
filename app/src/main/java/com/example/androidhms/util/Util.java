@@ -1,26 +1,111 @@
 package com.example.androidhms.util;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidhms.R;
+import com.example.androidhms.databinding.ToastChatBinding;
+import com.example.androidhms.databinding.ToolbarStaffBinding;
+import com.example.androidhms.staff.messenger.ChatActivity;
+import com.example.androidhms.staff.messenger.MessengerActivity;
+import com.example.androidhms.staff.messenger.MessengerFragment;
+import com.example.androidhms.staff.messenger.adapter.ChatRoomAdapter;
+import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
-import com.example.androidhms.staff.vo.StaffDTO;
+import com.example.androidhms.staff.vo.StaffVO;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class Util {
 
-    public static StaffDTO staff = null;
+    public static StaffVO staff = null;
+    public static int chatCount = 0;
+
+    public static HmsFirebase setToolbar(Activity activity, View view) {
+        ToolbarStaffBinding bind = ToolbarStaffBinding.bind(view);
+        bind.ivLeft.setOnClickListener(v -> activity.finish());
+        if (!(activity instanceof ChatActivity) && !(activity instanceof MessengerActivity)) {
+            bind.imgvMessenger.setOnClickListener(v ->
+                    activity.startActivity(new Intent(activity, MessengerActivity.class)));
+        }
+        return new HmsFirebase(activity, new Handler(Looper.getMainLooper()) {
+                @Override
+                public void handleMessage(@NonNull Message msg) {
+                    ArrayList<ChatRoomVO> chatRoomList = new ArrayList<>();
+                    if (msg.what == HmsFirebase.GET_CHATROOM_LIST_SUCCESS) {
+                        Log.d(TAG, "handleMessage:" + activity.getClass());
+                        int count = 0;
+                        if (msg.obj != null) {
+                            chatRoomList = (ArrayList<ChatRoomVO>) msg.obj;
+                            for (ChatRoomVO vo : chatRoomList) {
+                                count += Integer.parseInt(vo.getCount());
+                            }
+                        }
+                        if (msg.obj == null || count == 0) {
+                            bind.tvNotCheckedChat.setVisibility(View.INVISIBLE);
+                        } else {
+                            bind.tvNotCheckedChat.setVisibility(View.VISIBLE);
+                            bind.tvNotCheckedChat.setText(String.valueOf(count));
+                            if (count != chatCount) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    chatRoomList = (ArrayList<ChatRoomVO>)
+                                            chatRoomList.stream()
+                                                    .sorted(Comparator.comparing(ChatRoomVO::getLastChatTime).reversed())
+                                                    .collect(Collectors.toList());
+                                }
+                                ChatRoomVO vo = chatRoomList.get(0);
+                                chatToast(activity, vo.getRoomTitle(), vo.getLastChat());
+                            }
+                        }
+                        chatCount = count;
+                    }
+                }
+            });
+    }
+
+    private static void chatToast(Activity activity, String name, String chat) {
+        if (!(activity instanceof ChatActivity)) {
+            ToastChatBinding bind = ToastChatBinding.inflate(activity.getLayoutInflater());
+            bind.tvName.setText(name.replaceAll(staff.getName(), ""));
+            bind.tvChat.setText(chat);
+            Toast toast = new Toast(activity);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.setGravity(Gravity.TOP, 0, 200);
+            toast.setDuration(Toast.LENGTH_SHORT); //메시지 표시 시간
+            toast.setView(bind.getRoot());
+            toast.show();
+        }
+    }
 
     public static StaffChatDTO getStaffChatDTO() {
         return new StaffChatDTO(Util.staff.getStaff_id(),
@@ -117,7 +202,7 @@ public class Util {
      * 채팅시간에서 시,분만 추출<br>
      * 2022-01-01 08:05:00.111 -> 08:05
      */
-    public static String getChatTime(String time) {
+    public static String getTime(String time) {
         return new StringBuilder(time).substring(11, 16);
     }
 

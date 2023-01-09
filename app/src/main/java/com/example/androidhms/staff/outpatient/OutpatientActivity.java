@@ -6,8 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffOutpatientBinding;
-import com.example.androidhms.staff.vo.StaffDTO;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.ActivityUtil;
+import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 import com.google.android.material.tabs.TabLayout;
 
@@ -17,14 +18,14 @@ public class OutpatientActivity extends AppCompatActivity {
     private MedicalRecordFragment recordFragment;
     private ReceiptFragment receiptFragment;
     private ActivityUtil aUtil;
-    private StaffDTO staff = Util.staff;
+    private StaffVO staff = Util.staff;
+    private HmsFirebase fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityStaffOutpatientBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        bind.toolbar.ivLeft.setOnClickListener(v -> finish());
 
         recordFragment = new MedicalRecordFragment();
         receiptFragment = new ReceiptFragment();
@@ -58,6 +59,19 @@ public class OutpatientActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fb = Util.setToolbar(this, bind.toolbar.toolbar);
+        fb.makeChatRoom(staff.getStaff_id());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        fb.removeGetChatRoom();
+    }
+
 }

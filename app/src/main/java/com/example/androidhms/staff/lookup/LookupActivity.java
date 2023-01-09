@@ -1,22 +1,20 @@
 package com.example.androidhms.staff.lookup;
 
-import android.content.Context;
+import static com.example.androidhms.util.Util.staff;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.databinding.ActivityStaffLookupBinding;
 import com.example.androidhms.staff.vo.PatientVO;
+import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
@@ -28,12 +26,12 @@ public class LookupActivity extends AppCompatActivity {
 
     private ActivityStaffLookupBinding bind;
     private PatientVO vo;
+    private HmsFirebase fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityStaffLookupBinding.inflate(getLayoutInflater());
-        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
         setContentView(bind.getRoot());
 
         if (getIntent().getIntExtra("patient_id", 0) != 0) {
@@ -47,7 +45,8 @@ public class LookupActivity extends AppCompatActivity {
                                 bindPatientInfo(vo);
                                 bind.etName.setText(vo.getName());
                             }
-                        } else Toast.makeText(LookupActivity.this, "검색 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(LookupActivity.this, "검색 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                     });
         }
 
@@ -64,6 +63,19 @@ public class LookupActivity extends AppCompatActivity {
 
         // 메모저장
         bind.btnMemosave.setOnClickListener(onMemoSaveClick());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fb = Util.setToolbar(this, bind.toolbar.toolbar);
+        fb.makeChatRoom(staff.getStaff_id());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        fb.removeGetChatRoom();
     }
 
     private View.OnClickListener onPhoneClick() {
@@ -83,7 +95,8 @@ public class LookupActivity extends AppCompatActivity {
                     .sendGet("getPatient.ap", (isResult, data) -> {
                         if (isResult) {
                             ArrayList<PatientVO> patientList =
-                                    new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>(){}.getType());
+                                    new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>() {
+                                    }.getType());
                             if (patientList.isEmpty()) {
                                 Toast.makeText(LookupActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
                             } else {
@@ -105,7 +118,8 @@ public class LookupActivity extends AppCompatActivity {
                     .sendPost("updatePatientMemo.ap", (isResult, data) -> {
                         if (isResult && data.equals("1")) {
                             Toast.makeText(LookupActivity.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                        } else Toast.makeText(LookupActivity.this, "메모저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(LookupActivity.this, "메모저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
                     });
         };
     }

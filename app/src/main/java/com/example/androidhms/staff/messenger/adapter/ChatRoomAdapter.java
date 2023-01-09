@@ -41,7 +41,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
             holder.bind.tvTitle.setText(title);
         }
         holder.bind.tvLastchat.setText(vo.getLastChat());
-        holder.bind.tvTime.setText(Util.getChatTime(vo.getLastChatTime()));
+        holder.bind.tvTime.setText(Util.getTime(vo.getLastChatTime()));
         if (vo.getCount().equals("0")) holder.bind.tvCount.setVisibility(View.GONE);
         else holder.bind.tvCount.setText(vo.getCount());
         String finalTitle = title;

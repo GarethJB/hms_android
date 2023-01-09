@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import com.example.androidhms.databinding.FragmentMessengerStaffBinding;
 import com.example.androidhms.staff.messenger.adapter.MessengerStaffAdapter;
 import com.example.androidhms.staff.vo.StaffChatDTO;
-import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
@@ -76,7 +75,7 @@ public class MessengerStaffFragment extends Fragment {
             staff.setLastChatCheckTime();
             chatMemberList.add(staff);
             chatMemberList.add(staffList.get(position));
-            fb.getChatRoom(chatMemberList);
+            fb.makeChatRoom(chatMemberList);
         };
     }
 
@@ -90,7 +89,7 @@ public class MessengerStaffFragment extends Fragment {
                         intent.putExtra("name", chatMemberList.get(1).getName());
                         intent.putExtra("key", msg.obj.toString());
                         startActivity(intent);
-                    } else fb.getChatRoom(chatMemberList);
+                    } else fb.makeChatRoom(chatMemberList);
                 }
             }
         };

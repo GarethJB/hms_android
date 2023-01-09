@@ -25,18 +25,17 @@ public class HmsFirebase {
     public static final int GET_CHAT_SUCCESS = 2;
     public static final int GET_CHATROOM_LIST_SUCCESS = 3;
     private static final String RB_URL = "https://hmsmessenger-3a156-default-rtdb.asia-southeast1.firebasedatabase.app/";
-    private final DatabaseReference dbRef;
+    private static final FirebaseDatabase fbDb = FirebaseDatabase.getInstance(RB_URL);
+    private static final DatabaseReference dbRef = fbDb.getReference();
     private final Handler handler;
     private ValueEventListener getChatListener, getChatRoomListener;
 
     public HmsFirebase(Context context, Handler handler) {
         FirebaseApp.initializeApp(context);
-        FirebaseDatabase fbDb = FirebaseDatabase.getInstance(RB_URL);
-        dbRef = fbDb.getReference();
         this.handler = handler;
     }
 
-    public void getChatRoom(ArrayList<StaffChatDTO> staffList) {
+    public void makeChatRoom(ArrayList<StaffChatDTO> staffList) {
         dbRef.child("chatRoom").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -86,7 +85,7 @@ public class HmsFirebase {
         dbRef.child("chatRoom").child(key).child("chat").addValueEventListener(getChatListener);
     }
 
-    public void getChatRoom(int id) {
+    public void makeChatRoom(int id) {
         getChatRoomListener = GetChatRoomListener(id);
         dbRef.child("chatRoom").addValueEventListener(getChatRoomListener);
     }
@@ -149,6 +148,7 @@ public class HmsFirebase {
                         if (id == member.child("staff_id").getValue(Long.class)) {
                             Timestamp lastCheckTime;
                             int count = 0;
+                            // 한번도 채팅방에 접속하지 않았을경우
                             if (member.child("lastChatCheckTime").getValue(String.class) == null) {
                                 lastCheckTime = Timestamp.valueOf("2000-01-01 00:00:00");
                             } else lastCheckTime = Timestamp.valueOf(member.child("lastChatCheckTime").getValue(String.class));

@@ -1,6 +1,7 @@
 package com.example.androidhms.staff.messenger;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,11 +18,12 @@ import com.example.androidhms.databinding.FragmentMessengerBinding;
 import com.example.androidhms.staff.messenger.adapter.ChatRoomAdapter;
 import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
-import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class MessengerFragment extends Fragment {
 
@@ -35,7 +37,7 @@ public class MessengerFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentMessengerBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
-        fb.getChatRoom(staff.getStaff_id());
+        fb.makeChatRoom(staff.getStaff_id());
         bind.tvName.setText(staff.getName());
 
         return bind.getRoot();
@@ -55,6 +57,12 @@ public class MessengerFragment extends Fragment {
                 if (msg.what == HmsFirebase.GET_CHATROOM_LIST_SUCCESS) {
                     if (msg.obj != null) {
                         chatRoomList = (ArrayList<ChatRoomVO>) msg.obj;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            chatRoomList = (ArrayList<ChatRoomVO>)
+                                    chatRoomList.stream()
+                                            .sorted(Comparator.comparing(ChatRoomVO::getLastChatTime).reversed())
+                                            .collect(Collectors.toList());
+                        }
                         Util.setRecyclerView(getContext(), bind.rvChatroom,
                                 new ChatRoomAdapter(MessengerFragment.this, chatRoomList, staff.getName()), true);
                     }

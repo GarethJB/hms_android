@@ -32,11 +32,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="담당 환자 검색"
+                    android:text="담당환자 검색"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/sw_department"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -63,42 +64,42 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.8"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="이름"
-                        android:textSize="16dp" />
+                        android:textColor="@color/main_color"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.8"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="병동"
-                        android:textSize="16dp" />
+                        android:textColor="@color/main_color"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="1.5"
                         android:gravity="center"
                         android:text="병명"
-                        android:textSize="16dp" />
+                        android:textColor="@color/main_color"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="입원일자"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="퇴원일자"
-                        android:textSize="16dp" />
+                        android:text="담당의"
+                        android:textColor="@color/main_color"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -149,7 +150,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_medical_record"
+                android:id="@+id/rv_admission_memo"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"
@@ -170,18 +171,20 @@
                 android:paddingHorizontal="5dp">
 
                 <EditText
-                    android:id="@+id/et_content"
+                    android:id="@+id/et_memo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="4"
                     android:backgroundTint="@color/gray"
                     android:hint="내용"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
                     android:paddingStart="5dp"
                     android:textSize="16dp" />
 
                 <Button
-                    android:id="@+id/bt_send"
+                    android:id="@+id/btn_send"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

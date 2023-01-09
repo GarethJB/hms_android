@@ -1,14 +1,17 @@
 package com.example.androidhms.staff;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.databinding.ActivityStaffLoginBinding;
-import com.example.androidhms.staff.vo.StaffDTO;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.Util;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
@@ -27,8 +30,8 @@ public class StaffLoginActivity extends AppCompatActivity {
         setContentView(bind.getRoot());
         preferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
         editor = preferences.edit();
-        //ApiClient.setBASEURL("http://192.168.0.36/hms/");
-        ApiClient.setBASEURL("http://192.168.0.25/hms/");
+        ApiClient.setBASEURL("http://192.168.0.36/hms/");
+        //ApiClient.setBASEURL("http://192.168.0.25/hms/");
 
         bind.etId.setText(preferences.getString("id", ""));
         bind.etPw.setText(preferences.getString("pw", ""));
@@ -59,7 +62,7 @@ public class StaffLoginActivity extends AppCompatActivity {
                         }
                         editor.commit();
                         Intent intent = new Intent(StaffLoginActivity.this, StaffActivity.class);
-                        Util.staff = new Gson().fromJson(data, StaffDTO.class);
+                        Util.staff = new Gson().fromJson(data, StaffVO.class);
                         startActivity(intent);
                         finish();
                     }

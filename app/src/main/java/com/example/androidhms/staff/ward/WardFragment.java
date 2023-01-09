@@ -24,7 +24,10 @@ import android.widget.Toast;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.FragmentStaffWardBinding;
 import com.example.androidhms.staff.lookup.LookupActivity;
+import com.example.androidhms.staff.vo.AdmissionMemoVO;
 import com.example.androidhms.staff.vo.AdmissionRecordVO;
+import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.staff.ward.adapter.AdmissionMemoAdapter;
 import com.example.androidhms.util.CalendarDialog;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
@@ -43,7 +46,9 @@ public class WardFragment extends Fragment {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private ArrayList<AdmissionRecordVO> arList;
+    private ArrayList<AdmissionMemoVO> amList;
     private TextView[] tvArr;
+    private StaffVO staff = Util.staff;
     private int selectedPosition = -1;
 
     @Override
@@ -53,6 +58,7 @@ public class WardFragment extends Fragment {
         context = getContext();
         preferences = requireActivity().getSharedPreferences("wardInfo", MODE_PRIVATE);
         editor = preferences.edit();
+
         tvArr = new TextView[]{bind.tvBed1, bind.tvBed2, bind.tvBed3, bind.tvBed4};
 
         // Spinner 설정
@@ -102,6 +108,13 @@ public class WardFragment extends Fragment {
             }
         });
 
+        // 메모 입력
+        bind.etMemo.setOnEditorActionListener((v, actionId, event) -> {
+            bind.btnSend.performClick();
+            return false;
+        });
+        bind.btnSend.setOnClickListener(onSendClick());
+
         return bind.getRoot();
     }
 
@@ -109,11 +122,6 @@ public class WardFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         bind = null;
-    }
-
-    // 501 -> index 0
-    private int getWardIndex(int ward) {
-        return (ward / 100) - 5 + ward % 100 - 1;
     }
 
     // index 0 -> 501
@@ -125,6 +133,7 @@ public class WardFragment extends Fragment {
         new RetrofitMethod().setParams("ward_id", getWard(position))
                 .sendGet("getAdmissionRecordWard.ap", (isResult, data) -> {
                     if (isResult) {
+                        Util.setRecyclerView(context, bind.rvAdmissionMemo, new AdmissionMemoAdapter(WardFragment.this, new ArrayList<>()), true);
                         arList = new Gson().fromJson(data, new TypeToken<ArrayList<AdmissionRecordVO>>() {
                         }.getType());
                         ArrayList<Integer> indexList = new ArrayList<>();
@@ -138,9 +147,25 @@ public class WardFragment extends Fragment {
                             if (!indexList.contains(i)) arList.add(i, null);
                         }
                         bind.rlProgress.view.setVisibility(View.GONE);
-                        if (selectedPosition != -1) tvArr[selectedPosition].setTextColor(ContextCompat.getColor(context, R.color.white));
+                        if (selectedPosition != -1)
+                            tvArr[selectedPosition].setTextColor(ContextCompat.getColor(context, R.color.white));
                     } else
                         Toast.makeText(context, "환자 목록을 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void getAdmissionMemo(int id) {
+        bind.rlProgress.view.setVisibility(View.VISIBLE);
+        new RetrofitMethod().setParams("id", id)
+                .sendGet("getAdmissionMemo.ap", (isResult, data) -> {
+                    if (isResult) {
+                        amList = new Gson().fromJson(data, new TypeToken<ArrayList<AdmissionMemoVO>>() {
+                        }.getType());
+                        Util.setRecyclerView(context, bind.rvAdmissionMemo, new AdmissionMemoAdapter(WardFragment.this, amList), true);
+                        bind.rvAdmissionMemo.scrollToPosition(amList.size() - 1);
+                    } else
+                        Toast.makeText(context, "환자상태기록을 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    bind.rlProgress.view.setVisibility(View.GONE);
                 });
     }
 
@@ -161,6 +186,7 @@ public class WardFragment extends Fragment {
                 if (vo.getDischarge_date() != null)
                     bind.etDischargeDate.setText(vo.getDischarge_date());
                 selectedPosition = index;
+                getAdmissionMemo(arList.get(selectedPosition).getAdmission_record_id());
                 setDischargeDateClickListener();
             }
         };
@@ -174,17 +200,14 @@ public class WardFragment extends Fragment {
                 bind.etDischargeDate.setText(Util.getDate(tsDate));
                 new RetrofitMethod().setParams("id", arList.get(selectedPosition).getAdmission_record_id())
                         .setParams("date", Util.getDate(tsDate))
-                        .sendPost("updateDischargeDate.ap", new RetrofitMethod.CallBackResult() {
-                            @Override
-                            public void result(boolean isResult, String data) {
-                                if (isResult && data.equals("1")) {
-                                    Toast.makeText(context,
-                                            arList.get(selectedPosition).getPatient_name() + " 환자의 퇴원(예정)일을 수정했습니다.", Toast.LENGTH_SHORT).show();
-                                    getArList(bind.spWard.getSelectedItemPosition());
-                                } else {
-                                    Toast.makeText(context,
-                                            arList.get(selectedPosition).getPatient_name() + " 환자의 퇴원(예정)일을 수정하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
-                                }
+                        .sendPost("updateDischargeDate.ap", (isResult, data) -> {
+                            if (isResult && data.equals("1")) {
+                                Toast.makeText(context,
+                                        arList.get(selectedPosition).getPatient_name() + " 환자의 퇴원(예정)일을 수정했습니다.", Toast.LENGTH_SHORT).show();
+                                getArList(bind.spWard.getSelectedItemPosition());
+                            } else {
+                                Toast.makeText(context,
+                                        arList.get(selectedPosition).getPatient_name() + " 환자의 퇴원(예정)일을 수정하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                             }
                         });
                 dialog.dismiss();
@@ -194,6 +217,37 @@ public class WardFragment extends Fragment {
                 Toast.makeText(context, "환자의 담당의만 퇴원(예정)일을 수정할 수 있습니다.", Toast.LENGTH_SHORT).show();
             });
         } else bind.etDischargeDate.setOnClickListener(null);
+    }
+
+    public View.OnClickListener onSendClick() {
+        return v -> {
+            if (selectedPosition != -1) {
+                Util.keyboardDown(requireActivity());
+                new RetrofitMethod().setParams("admission_record_id", arList.get(selectedPosition).getAdmission_record_id())
+                        .setParams("staff_id", staff.getStaff_id())
+                        .setParams("memo", bind.etMemo.getText().toString())
+                        .sendPost("insertAdmissionMemo.ap", (isResult, data) -> {
+                            if (isResult && data.equals("1")) {
+                                getAdmissionMemo(arList.get(selectedPosition).getAdmission_record_id());
+                                bind.etMemo.setText("");
+                            } else
+                                Toast.makeText(context, "메모를 저장하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        });
+            }
+        };
+    }
+
+    public void deleteAdmissionMemo(int id) {
+        bind.rlProgress.view.setVisibility(View.VISIBLE);
+        new RetrofitMethod().setParams("admission_record_id", id)
+                .sendPost("deleteAdmissionMemo.ap", (isResult, data) -> {
+                    if (isResult && data.equals("1")) {
+                        getAdmissionMemo(arList.get(selectedPosition).getAdmission_record_id());
+                        Toast.makeText(context, "메모를 삭제했습니다.", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(context, "메모를 삭제하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    bind.rlProgress.view.setVisibility(View.GONE);
+                });
     }
 
 }

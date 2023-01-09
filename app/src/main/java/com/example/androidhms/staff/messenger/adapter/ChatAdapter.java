@@ -38,7 +38,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         ChatVO vo = chatList.get(position);
-        String time = Util.getChatTime(vo.getTime());
+        String time = Util.getTime(vo.getTime());
         if (vo.getId().equals(myId)) {
             if (position != 0 && vo.getName().equals(chatList.get(position - 1).getName())) {
                 holder.myBind.tvName.setVisibility(View.GONE);

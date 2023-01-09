@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.androidhms.databinding.FragmentStaffReceiptBinding;
 import com.example.androidhms.staff.outpatient.adapter.ReceiptAdapter;
 import com.example.androidhms.staff.vo.MedicalReceiptVO;
-import com.example.androidhms.staff.vo.StaffDTO;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.CalendarDialog;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
@@ -27,7 +27,7 @@ import java.util.Calendar;
 public class ReceiptFragment extends Fragment {
 
     private FragmentStaffReceiptBinding bind;
-    private StaffDTO staff = Util.staff;
+    private StaffVO staff = Util.staff;
     private Timestamp tsDate = new Timestamp(System.currentTimeMillis());
     private ArrayList<MedicalReceiptVO> mrList;
 

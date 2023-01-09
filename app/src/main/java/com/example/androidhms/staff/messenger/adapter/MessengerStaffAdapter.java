@@ -10,7 +10,6 @@ import com.example.androidhms.R;
 import com.example.androidhms.databinding.RvMessengerStaffBinding;
 import com.example.androidhms.staff.messenger.MessengerStaffFragment;
 import com.example.androidhms.staff.vo.StaffChatDTO;
-import com.example.androidhms.staff.vo.StaffDTO;
 
 import java.util.ArrayList;
 

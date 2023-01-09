@@ -20,24 +20,37 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_date"
-                android:text="22-12-12 16 : 45"
-                android:textSize="14dp"
-                android:textColor="@color/text_color"
-                android:textStyle="bold"
-                android:layout_weight="0.6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tv_patient_name"
+                android:id="@+id/tv_name"
                 android:text="환자명"
                 android:textSize="14dp"
                 android:textColor="@color/text_color"
                 android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:textAlignment="center"
-                android:layout_weight="0.5"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_ward"
+                android:text="병동"
+                android:textSize="14dp"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_treatment_name"
+                android:text="병명"
+                android:textSize="14dp"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_weight="1.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
             <TextView
                 android:id="@+id/tv_staff_name"
                 android:text="담당의"
@@ -45,7 +58,7 @@
                 android:textColor="@color/text_color"
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
 
@@ -58,36 +71,29 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_admission_date"
+                android:text="진료"
+                android:textSize="14dp"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_weight="1.1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.1">
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:id="@+id/tv_treatment_name"
-                    android:text="진료"
-                    android:textSize="14dp"
-                    android:textColor="@color/text_color"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:id="@+id/imgv_memo"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/icon_memo"
-                    android:layout_marginStart="5dp"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_prescription"
+            <TextView
+                android:id="@+id/tv_discharge_date"
+                android:text="진료"
+                android:textSize="14dp"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_weight="1.1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                app:tint="@color/text_color"/>
+                android:layout_height="wrap_content"/>
+
+
 
         </LinearLayout>
 

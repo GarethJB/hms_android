@@ -188,7 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="환자 입원정보"
+                android:text="환자입원정보"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -340,7 +340,7 @@
             android:visibility="visible">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_medical_record"
+                android:id="@+id/rv_admission_memo"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"
@@ -361,18 +361,20 @@
                 android:paddingHorizontal="5dp">
 
                 <EditText
-                    android:id="@+id/et_content"
+                    android:id="@+id/et_memo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="4"
                     android:backgroundTint="@color/gray"
-                    android:hint="내용"
+                    android:hint="기록"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
                     android:paddingStart="5dp"
                     android:textSize="16dp" />
 
                 <Button
-                    android:id="@+id/bt_send"
+                    android:id="@+id/btn_send"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

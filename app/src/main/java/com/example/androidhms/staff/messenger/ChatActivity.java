@@ -14,7 +14,6 @@ import com.example.androidhms.databinding.ActivityChatBinding;
 import com.example.androidhms.staff.messenger.adapter.ChatAdapter;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
-import com.example.androidhms.staff.vo.StaffDTO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 
@@ -34,7 +33,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityChatBinding.inflate(getLayoutInflater());
-        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
+        //Util.setToolbar(this, bind.toolbar.toolbar);
         fb = new HmsFirebase(this, firebaseHandler());
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");

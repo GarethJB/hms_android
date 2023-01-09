@@ -12,14 +12,16 @@ import com.example.androidhms.staff.lookup.LookupActivity;
 import com.example.androidhms.staff.messenger.MessengerActivity;
 import com.example.androidhms.staff.outpatient.OutpatientActivity;
 import com.example.androidhms.staff.schedule.ScheduleActivity;
-import com.example.androidhms.staff.vo.StaffDTO;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.staff.ward.WardActivity;
+import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 
 public class StaffActivity extends AppCompatActivity {
 
     private ActivityStaffBinding bind;
-    private final StaffDTO staff = Util.staff;
+    private final StaffVO staff = Util.staff;
+    private HmsFirebase fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,6 @@ public class StaffActivity extends AppCompatActivity {
         bind.clSchedule.setOnClickListener(onMenuClick());
         bind.clMessanger.setOnClickListener(onMenuClick());
 
-        bind.toolbar.ivLeft.setOnClickListener(v -> {
-            onBackPressed();
-        });
-
         // 마이페이지
         bind.rlMypage.setOnClickListener(v ->
                 startActivity(new Intent(this, StaffMyPageActivity.class)));
@@ -50,7 +48,16 @@ public class StaffActivity extends AppCompatActivity {
         if (Util.staff == null) {
             startActivity(new Intent(this, StaffLoginActivity.class));
             finish();
+        } else {
+            fb = Util.setToolbar(this, bind.toolbar.toolbar);
+            fb.makeChatRoom(staff.getStaff_id());
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        fb.removeGetChatRoom();
     }
 
     private View.OnClickListener onMenuClick() {

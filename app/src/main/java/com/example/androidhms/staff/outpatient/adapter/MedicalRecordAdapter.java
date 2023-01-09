@@ -2,11 +2,13 @@ package com.example.androidhms.staff.outpatient.adapter;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ItemStaffMedicalRecordBinding;
+import com.example.androidhms.databinding.ItemStaffMypatientBinding;
 import com.example.androidhms.staff.outpatient.MedicalRecordFragment;
 import com.example.androidhms.staff.vo.MedicalRecordVO;
 
@@ -23,11 +26,13 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
 
     private MedicalRecordFragment fragment;
     private ArrayList<MedicalRecordVO> mrList;
+    private Context context;
     private int selectedPosition = -1;
 
     public MedicalRecordAdapter(MedicalRecordFragment fragment, ArrayList<MedicalRecordVO> mrList) {
         this.fragment = fragment;
         this.mrList = mrList;
+        context = fragment.getContext();
     }
 
     @NonNull
@@ -48,20 +53,19 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
             holder.bind.ivPrescription.setImageResource(R.drawable.icon_search);
         else if (vo.getAdmission().equals("Y"))
             holder.bind.ivPrescription.setImageResource(R.drawable.icon_bed);
+        if (vo.getMemo() != null && !vo.getMemo().equals("")) {
+            holder.bind.imgvMemo.setVisibility(View.VISIBLE);
+        }
         if (position == selectedPosition) {
-            holder.bind.view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.second_color)));
-            holder.bind.tvPatientName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
-            holder.bind.tvStaffName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
-            holder.bind.tvTreatmentName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
-            holder.bind.tvDate.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.white));
-            holder.bind.ivPrescription.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.white)));
+            holder.bind.view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.second_color)));
+            setColor(holder.bind, ContextCompat.getColor(context, R.color.white));
+            holder.bind.ivPrescription.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)));
+            holder.bind.imgvMemo.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)));
         } else {
-            holder.bind.view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.white)));
-            holder.bind.tvPatientName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
-            holder.bind.tvStaffName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
-            holder.bind.tvTreatmentName.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
-            holder.bind.tvDate.setTextColor(ContextCompat.getColor(fragment.getContext(), R.color.text_color));
-            holder.bind.ivPrescription.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getContext(), R.color.text_color)));
+            holder.bind.view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)));
+            setColor(holder.bind, ContextCompat.getColor(context, R.color.text_color));
+            holder.bind.ivPrescription.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_color)));
+            holder.bind.imgvMemo.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_color)));
         }
     }
 
@@ -78,6 +82,13 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
     @Override
     public int getItemCount() {
         return mrList.size();
+    }
+
+    private void setColor(ItemStaffMedicalRecordBinding bind, int color) {
+        TextView[] tvArr = {bind.tvPatientName, bind.tvStaffName, bind.tvTreatmentName, bind.tvDate};
+        for (TextView tv : tvArr) {
+            tv.setTextColor(color);
+        }
     }
 
     public class MedicalRecordViewHolder extends RecyclerView.ViewHolder {
