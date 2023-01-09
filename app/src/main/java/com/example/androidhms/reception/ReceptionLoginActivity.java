@@ -4,6 +4,9 @@ package com.example.androidhms.reception;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +47,7 @@ public class ReceptionLoginActivity extends AppCompatActivity {
                         }
                     });
         });
-
+        //새로고침 버튼 (입력한 정보가 사라지게 )
         bind.refresh.setOnClickListener(v -> {
             finish();
             overridePendingTransition(0,0);
@@ -52,6 +55,33 @@ public class ReceptionLoginActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(0,0);
 
+        });
+
+        //엔터키 이벤트 : 로그인버튼에 입력하고 엔터키 
+   /*     bind.editPw.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)){
+                    //키패트 내리기
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(binding.editPass.getWindowToken(), 0);
+                    Log.d("로그", "onKey: " + "action_down");
+
+                    precss();
+                    return true;
+                }
+                //true일 경우 리턴값이 없어진다
+                return false;
+            }
+        });*/
+
+
+        //뒤로가기 버튼
+        bind.toolbar.llLogo.setOnClickListener(v -> {
+            onBackPressed();
+        });
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
         });
     }
     public void changeFragment(Fragment fragment){

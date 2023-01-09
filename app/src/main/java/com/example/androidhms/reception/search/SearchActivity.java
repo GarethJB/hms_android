@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivitySearchBinding;
+import com.example.androidhms.reception.vo.MedicalReceiptVO;
+import com.example.androidhms.reception.vo.MedicalRecordVO;
 import com.example.androidhms.staff.vo.PatientVO;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
@@ -21,7 +23,6 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
     ActivitySearchBinding bind;
-    PatientVO vo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,26 +34,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         bind.toolbar.llLogo.setOnClickListener(this);*/
 
         bind.btnSearch.setOnClickListener(v -> {
-            new RetrofitMethod().setParams("name", bind.editPatient.getText().toString()).sendPost("patient.re", new RetrofitMethod.CallBackResult() {
-
-                @Override
-                public void result(boolean isResult, String data) {
-                   ArrayList<PatientVO> plist=  new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>(){}.getType());
-                   if(plist ==null || plist.size()==0){
-                       Toast.makeText(SearchActivity.this, "환자 정보가 없습니다", Toast.LENGTH_SHORT).show();
-                   }else{
-                       Log.d("로그", "result: " + plist.get(0).getName());
-                       bind.patientId.setText(plist.get(0).getPatient_id());
-                       bind.name.setText(plist.get(0).getName());
-                       bind.patientSocialId.setText(plist.get(0).getSocial_id());
-                       bind.patientPhone.setText(plist.get(0).getPhone_number());
-                       bind.doctorName.setText(plist.get(0).getName());
-                   }
-                }
-            });
+            searchPatientInfo();
+            searchAppointment();
+            searchMedicalRecord();
         });
-
-
     }
     @Override
     public void onClick(View v) {
@@ -63,5 +48,57 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }else if(v.getId() == R.id.ll_logo){
             onBackPressed();
         }
+    }
+    //환자 인적사항 조회
+    public void searchPatientInfo(){
+            new RetrofitMethod().setParams("name", bind.editPatient.getText().toString()).sendPost("patient.re", new RetrofitMethod.CallBackResult() {
+                @Override
+                public void result(boolean isResult, String data) {
+                    ArrayList<PatientVO> patientList=  new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>(){}.getType());
+                    if(patientList ==null || patientList.size()==0){
+                        Toast.makeText(SearchActivity.this, "환자 정보가 없습니다", Toast.LENGTH_SHORT).show();
+                    }else{
+                        /*patient_id는 string 값으로 바꿔줘야 한다*/
+                        bind.patientId.setText(patientList.get(0).getPatient_id()+"");
+                        bind.name.setText(patientList.get(0).getName());
+                        bind.patientSocialId.setText(patientList.get(0).getSocial_id());
+                        bind.patientPhone.setText(patientList.get(0).getPhone_number());
+                        bind.patientGender.setText(patientList.get(0).getGender());
+                    }
+                }
+            });
+    }
+    //예약내역 조회
+    public void searchAppointment(){
+        new RetrofitMethod().setParams("name",bind.editPatient.getText().toString()).sendPost("appointment.re", new RetrofitMethod.CallBackResult() {
+            @Override
+            public void result(boolean isResult, String data) {
+                ArrayList<MedicalReceiptVO> appointlist=  new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>(){}.getType());
+                Log.d("로그", "result: " + data);
+              if(appointlist == null || appointlist.size()== 0){
+                    searchAppointment();
+              }else{
+                  bind.tvReserveDate.setText(appointlist.get(0).getReserve_date());
+                  bind.tvReserveTime.setText(appointlist.get(0).getReserve_time());
+                  bind.tvReserveDepartment.setText(appointlist.get(0).getDepartment_name());
+                  bind.tvReserveDoctor.setText(appointlist.get(0).getDoctor_name());
+                  bind.tvReserveSymptom.setText(appointlist.get(0).getMemo());
+              }
+            }
+        });
+    }
+    //진료기록 조회
+    public void searchMedicalRecord(){
+        new RetrofitMethod().setParams("name", bind.editPatient.getText().toString()).sendPost("medical_record.re", new RetrofitMethod.CallBackResult() {
+            @Override
+            public void result(boolean isResult, String data) {
+                Log.d("로그", "result: " + data);
+                ArrayList<MedicalRecordVO> recordList=  new Gson().fromJson(data, new TypeToken<ArrayList<MedicalRecordVO>>(){}.getType());
+                bind.tvRecordDate.setText(recordList.get(0).getRecord_date());
+                bind.tvDoctorName.setText(recordList.get(0).getDoctor_name());
+                bind.tvTreatmentName.setText(recordList.get(0).getTreatment_name());
+
+            }
+        });
     }
 }

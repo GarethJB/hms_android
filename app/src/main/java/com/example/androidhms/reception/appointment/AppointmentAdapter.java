@@ -1,6 +1,5 @@
 package com.example.androidhms.reception.appointment;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,6 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AViewHolder h, int i) {
-        h.bind.tvNo.setText(list.get(i).getTime());
         h.bind.tvReserveName.setText(list.get(i).getPatient_id());
         h.bind.tvDoctorName.setText(list.get(i).getStaff_id());
 

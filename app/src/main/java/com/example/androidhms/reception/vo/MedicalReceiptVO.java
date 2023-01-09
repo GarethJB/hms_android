@@ -3,17 +3,9 @@ package com.example.androidhms.reception.vo;
 import java.sql.Date;
 
 
-
 public class MedicalReceiptVO {
 	private int patient_id, staff_id;
-	private String memo, time;
-
-	public MedicalReceiptVO(int patient_id, int staff_id, String time, String memo) {
-		this.patient_id = patient_id;
-		this.staff_id = staff_id;
-		this.time = time;
-		this.memo = memo;
-	}
+	private String reserve_date, reserve_time, memo, doctor_name, patient_name, department_name ;
 
 	public int getPatient_id() {
 		return patient_id;
@@ -31,12 +23,20 @@ public class MedicalReceiptVO {
 		this.staff_id = staff_id;
 	}
 
-	public String getTime() {
-		return time;
+	public String getReserve_date() {
+		return reserve_date;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setReserve_date(String reserve_date) {
+		this.reserve_date = reserve_date;
+	}
+
+	public String getReserve_time() {
+		return reserve_time;
+	}
+
+	public void setReserve_time(String reserve_time) {
+		this.reserve_time = reserve_time;
 	}
 
 	public String getMemo() {
@@ -45,5 +45,29 @@ public class MedicalReceiptVO {
 
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+
+	public String getDoctor_name() {
+		return doctor_name;
+	}
+
+	public void setDoctor_name(String doctor_name) {
+		this.doctor_name = doctor_name;
+	}
+
+	public String getPatient_name() {
+		return patient_name;
+	}
+
+	public void setPatient_name(String patient_name) {
+		this.patient_name = patient_name;
+	}
+
+	public String getDepartment_name() {
+		return department_name;
+	}
+
+	public void setDepartment_name(String department_name) {
+		this.department_name = department_name;
 	}
 }

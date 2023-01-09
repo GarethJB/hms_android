@@ -4,32 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
-import com.example.androidhms.MainActivity;
-import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityAppointmentBinding;
 import com.example.androidhms.reception.vo.MedicalReceiptVO;
-import com.example.androidhms.staff.vo.StaffVO;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
-import com.google.android.material.datepicker.MaterialStyledDatePickerDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class AppointmentActivity extends AppCompatActivity {
 
