@@ -32,7 +32,6 @@ public class AppointmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityAppointmentBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        ApiClient.setBASEURL("http://192.168.0.14/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
         Intent intent = getIntent();
 
         //datePicker 연결
@@ -44,10 +43,10 @@ public class AppointmentActivity extends AppCompatActivity {
             datePickerDialog = new DatePickerDialog(AppointmentActivity.this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
+                    Log.d("로그", "onDateSet: " + "달력");
                     month = month + 1;
                     String date = year + "  년  " + month + " 월  " + day + "일";
                     bind.tvToday.setText(date);
-                    // bind.cardvAppointmentList.setVisibility(View.VISIBLE);
                     //java 숫자 왼쪽에 0으로 채우기
                     //스프링에서 데이터를 보내기
                     new RetrofitMethod().setParams("time", year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day)).sendPost("appointment.re", (isResult, data) -> {
@@ -59,7 +58,7 @@ public class AppointmentActivity extends AppCompatActivity {
                             bind.cardvAppointmentList.setVisibility(View.INVISIBLE);
                         }else{
                         bind.cardvAppointmentList.setVisibility(View.VISIBLE);
-                        bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(), list, AppointmentActivity.this));
+                        bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(),list, AppointmentActivity.this));
                         bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
                         }
                     });
@@ -67,11 +66,11 @@ public class AppointmentActivity extends AppCompatActivity {
             }, year, month, day);
             datePickerDialog.show();
         });
-  /*      bind.toolbar.ivLeft.setOnClickListener(v -> {
+       bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
         });
         bind.toolbar.llLogo.setOnClickListener(v -> {
             onBackPressed();
-        });*/
+        });
     }
 }

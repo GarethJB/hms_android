@@ -39,7 +39,6 @@ public class CustomerActivity extends AppCompatActivity {
 
         ApiClient.setBASEURL("http://192.168.0.116/hms/");
 
-
         //뒤로가기
         bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();

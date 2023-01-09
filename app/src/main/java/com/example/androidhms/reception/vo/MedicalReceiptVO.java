@@ -4,8 +4,16 @@ import java.sql.Date;
 
 
 public class MedicalReceiptVO {
-	private int patient_id, staff_id;
+	private int patient_id, staff_id, order;
 	private String reserve_date, reserve_time, memo, doctor_name, patient_name, department_name ;
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
+	}
 
 	public int getPatient_id() {
 		return patient_id;

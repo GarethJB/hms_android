@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.AViewHolder> {
     LayoutInflater inflater;
     ArrayList<MedicalReceiptVO> list;
+    MedicalReceiptVO vo;
     AppointmentActivity activity;
 
     public AppointmentAdapter(LayoutInflater inflater, ArrayList<MedicalReceiptVO> list, AppointmentActivity activity) {
@@ -44,8 +45,12 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AViewHolder h, int i) {
-        h.bind.tvReserveName.setText(list.get(i).getPatient_id());
-        h.bind.tvDoctorName.setText(list.get(i).getStaff_id());
+        for(int no= 1; no<list.size(); i ++){
+            h.bind.tvNo.setText(no);
+        }
+        h.bind.tvReserveTime.setText(list.get(i).getReserve_time());
+        h.bind.tvReserveName.setText(list.get(i).getPatient_name());
+        h.bind.tvDoctorName.setText(list.get(i).getDoctor_name());
 
     }
 

@@ -1,10 +1,9 @@
 package com.example.androidhms.reception.vo;
 
 
-
 public class MedicalRecordVO {
 	private int medical_record_id, staff_id, patient_id;
-	private String record_date, treatment_name, admission, meno, patient_name, doctor_name ;
+	private String record_date, treatment_name, admission, meno, patient_name, doctor_name, department_name ;
 
 	public int getMedical_record_id() {
 		return medical_record_id;
@@ -76,5 +75,13 @@ public class MedicalRecordVO {
 
 	public void setDoctor_name(String doctor_name) {
 		this.doctor_name = doctor_name;
+	}
+
+	public String getDepartment_name() {
+		return department_name;
+	}
+
+	public void setDepartment_name(String department_name) {
+		this.department_name = department_name;
 	}
 }
