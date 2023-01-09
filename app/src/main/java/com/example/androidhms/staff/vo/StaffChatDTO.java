@@ -6,6 +6,11 @@ public class StaffChatDTO {
 
     private int staff_id, staff_level, department_id;
     private String name, department_name, lastChatCheckTime;
+    private boolean onChat;
+
+    public StaffChatDTO() {
+
+    }
 
     public StaffChatDTO(int staff_id, int staff_level, int department_id, String name, String department_name) {
         this.staff_id = staff_id;
@@ -13,6 +18,7 @@ public class StaffChatDTO {
         this.department_id = department_id;
         this.name = name;
         this.department_name = department_name;
+        onChat = false;
         lastChatCheckTime = null;
     }
 
@@ -42,5 +48,9 @@ public class StaffChatDTO {
 
     public void setLastChatCheckTime() {
         lastChatCheckTime = Util.getChatTimeStamp();
+    }
+
+    public boolean isOnChat() {
+        return onChat;
     }
 }

@@ -37,7 +37,7 @@ public class MessengerFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentMessengerBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
-        fb.makeChatRoom(staff.getStaff_id());
+        fb.getChatRoom(staff.getStaff_id());
         bind.tvName.setText(staff.getName());
 
         return bind.getRoot();
@@ -46,7 +46,7 @@ public class MessengerFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fb.removeGetChatRoom();
+        fb.removeGetChatRoomListener();
         bind = null;
     }
 
@@ -71,10 +71,11 @@ public class MessengerFragment extends Fragment {
         };
     }
 
-    public void getChatRoomClick(String key, String title) {
+    public void getChatRoomClick(String key, String title, String count) {
         Intent intent = new Intent(getActivity(), ChatActivity.class);
         intent.putExtra("name", title);
         intent.putExtra("key", key);
+        fb.updateNotCheckedChatCount(staff.getStaff_id(), Integer.parseInt(count));
         startActivity(intent);
     }
 }

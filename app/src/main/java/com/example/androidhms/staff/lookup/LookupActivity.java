@@ -2,6 +2,7 @@ package com.example.androidhms.staff.lookup;
 
 import static com.example.androidhms.util.Util.staff;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.databinding.ActivityStaffLookupBinding;
+import com.example.androidhms.staff.StaffBaseActivity;
 import com.example.androidhms.staff.vo.PatientVO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
@@ -22,17 +24,14 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
-public class LookupActivity extends AppCompatActivity {
+public class LookupActivity extends StaffBaseActivity {
 
     private ActivityStaffLookupBinding bind;
     private PatientVO vo;
-    private HmsFirebase fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityStaffLookupBinding.inflate(getLayoutInflater());
-        setContentView(bind.getRoot());
 
         if (getIntent().getIntExtra("patient_id", 0) != 0) {
             new RetrofitMethod().setParams("id", getIntent().getIntExtra("patient_id", 0))
@@ -66,16 +65,14 @@ public class LookupActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        fb = Util.setToolbar(this, bind.toolbar.toolbar);
-        fb.makeChatRoom(staff.getStaff_id());
+    protected View getLayoutResource() {
+        bind = ActivityStaffLookupBinding.inflate(getLayoutInflater());
+        return bind.getRoot();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        fb.removeGetChatRoom();
+    protected Activity getActivity() {
+        return this;
     }
 
     private View.OnClickListener onPhoneClick() {

@@ -49,11 +49,10 @@ import java.util.stream.Collectors;
 public class Util {
 
     public static StaffVO staff = null;
-    public static int chatCount = 0;
 
     public static HmsFirebase setToolbar(Activity activity, View view) {
         ToolbarStaffBinding bind = ToolbarStaffBinding.bind(view);
-        bind.ivLeft.setOnClickListener(v -> activity.finish());
+        bind.imgvBefore.setOnClickListener(v -> activity.finish());
         if (!(activity instanceof ChatActivity) && !(activity instanceof MessengerActivity)) {
             bind.imgvMessenger.setOnClickListener(v ->
                     activity.startActivity(new Intent(activity, MessengerActivity.class)));
@@ -61,33 +60,13 @@ public class Util {
         return new HmsFirebase(activity, new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(@NonNull Message msg) {
-                    ArrayList<ChatRoomVO> chatRoomList = new ArrayList<>();
-                    if (msg.what == HmsFirebase.GET_CHATROOM_LIST_SUCCESS) {
-                        Log.d(TAG, "handleMessage:" + activity.getClass());
-                        int count = 0;
-                        if (msg.obj != null) {
-                            chatRoomList = (ArrayList<ChatRoomVO>) msg.obj;
-                            for (ChatRoomVO vo : chatRoomList) {
-                                count += Integer.parseInt(vo.getCount());
-                            }
-                        }
-                        if (msg.obj == null || count == 0) {
-                            bind.tvNotCheckedChat.setVisibility(View.INVISIBLE);
-                        } else {
+                    if (msg.what == HmsFirebase.GET_NOT_CHECKED_CHAT_COUNT_SUCCESS) {
+                        int count = (int) msg.obj;
+                        if (count == 0) bind.tvNotCheckedChat.setVisibility(View.INVISIBLE);
+                        else {
                             bind.tvNotCheckedChat.setVisibility(View.VISIBLE);
                             bind.tvNotCheckedChat.setText(String.valueOf(count));
-                            if (count != chatCount) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    chatRoomList = (ArrayList<ChatRoomVO>)
-                                            chatRoomList.stream()
-                                                    .sorted(Comparator.comparing(ChatRoomVO::getLastChatTime).reversed())
-                                                    .collect(Collectors.toList());
-                                }
-                                ChatRoomVO vo = chatRoomList.get(0);
-                                chatToast(activity, vo.getRoomTitle(), vo.getLastChat());
-                            }
                         }
-                        chatCount = count;
                     }
                 }
             });
@@ -107,12 +86,18 @@ public class Util {
         }
     }
 
+    /**
+     * 메신저 Activity에서 쓰이는 StaffChatDTO로 변환
+     */
     public static StaffChatDTO getStaffChatDTO() {
         return new StaffChatDTO(Util.staff.getStaff_id(),
                 Util.staff.getStaff_level(), Util.staff.getDepartment_id(), Util.staff.getName(),
                 Util.staff.getDepartment_name());
     }
 
+    /**
+     * RecyclerView 설정
+     */
     public static void setRecyclerView(Context context, RecyclerView rv, RecyclerView.Adapter<?> adapter, boolean vertical) {
         RecyclerView.LayoutManager lm;
         if (vertical) lm = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -123,6 +108,9 @@ public class Util {
         rv.setItemAnimator(null);
     }
 
+    /**
+     * MaterialCalendar Dialog 설정
+     */
     public static void setEditTextDate(Context context, LayoutInflater inflater, EditText edit, CalendarDialog.SetDateClickListener listener) {
         edit.setOnClickListener(v -> {
             if (edit.getText().toString().equals(""))

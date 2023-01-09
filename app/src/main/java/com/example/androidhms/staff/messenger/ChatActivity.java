@@ -1,16 +1,21 @@
 package com.example.androidhms.staff.messenger;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
 import com.example.androidhms.databinding.ActivityChatBinding;
+import com.example.androidhms.staff.StaffBaseActivity;
 import com.example.androidhms.staff.messenger.adapter.ChatAdapter;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
@@ -19,21 +24,18 @@ import com.example.androidhms.util.Util;
 
 import java.util.ArrayList;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends StaffBaseActivity {
 
     private ActivityChatBinding bind;
     private HmsFirebase fb;
     private String key;
-    private StaffChatDTO staff = new StaffChatDTO(Util.staff.getStaff_id(),
-            Util.staff.getStaff_level(), Util.staff.getDepartment_id(), Util.staff.getName(),
-            Util.staff.getDepartment_name());
+    private final StaffChatDTO staff = Util.getStaffChatDTO();
     private ArrayList<ChatVO> chatList;
+    private ArrayList<StaffChatDTO> staffList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityChatBinding.inflate(getLayoutInflater());
-        //Util.setToolbar(this, bind.toolbar.toolbar);
         fb = new HmsFirebase(this, firebaseHandler());
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
@@ -48,8 +50,32 @@ public class ChatActivity extends AppCompatActivity {
         bind.etContent.setOnClickListener(v ->
                 new Handler().postDelayed(() ->
                         bind.rvChat.scrollToPosition(chatList.size() - 1), 200));
-        fb.getChat(staff, key);
+        fb.getChat(key);
+        fb.getChatMember(key);
         setContentView(bind.getRoot());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fb.setOnChat(key, true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        fb.setOnChat(key, false);
+    }
+
+    @Override
+    protected View getLayoutResource() {
+        bind = ActivityChatBinding.inflate(getLayoutInflater());
+        return bind.getRoot();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 
     private Handler firebaseHandler() {
@@ -61,6 +87,8 @@ public class ChatActivity extends AppCompatActivity {
                     Util.setRecyclerView(ChatActivity.this, bind.rvChat,
                             new ChatAdapter(ChatActivity.this, chatList, String.valueOf(staff.getStaff_id())), true);
                     bind.rvChat.scrollToPosition(chatList.size() - 1);
+                } else if (msg.what == HmsFirebase.GET_CHAT_MEMBER_SUCCESS) {
+                    staffList = (ArrayList<StaffChatDTO>) msg.obj;
                 }
             }
         };
@@ -71,7 +99,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 staff.setLastChatCheckTime();
-                fb.sendChat(key, new ChatVO(String.valueOf(staff.getStaff_id()), staff.getName(), bind.etContent.getText().toString()));
+                fb.sendChat(key, new ChatVO(String.valueOf(staff.getStaff_id()), staff.getName(), bind.etContent.getText().toString()), staffList);
                 bind.etContent.setText("");
             }
         };
@@ -80,6 +108,6 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        fb.removeChat(key);
+        fb.removeChatListener(key);
     }
 }

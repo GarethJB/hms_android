@@ -45,7 +45,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
         if (vo.getCount().equals("0")) holder.bind.tvCount.setVisibility(View.GONE);
         else holder.bind.tvCount.setText(vo.getCount());
         String finalTitle = title;
-        holder.itemView.setOnClickListener(v -> fragment.getChatRoomClick(vo.getKey(), finalTitle));
+        holder.itemView.setOnClickListener(v -> fragment.getChatRoomClick(vo.getKey(), finalTitle, vo.getCount()));
     }
 
     @Override

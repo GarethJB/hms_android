@@ -1,15 +1,15 @@
 package com.example.androidhms.staff.ward;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffWardBinding;
-import com.example.androidhms.util.ActivityUtil;
+import com.example.androidhms.staff.StaffBaseActivity;
 import com.google.android.material.tabs.TabLayout;
 
-public class WardActivity extends AppCompatActivity {
+public class WardActivity extends StaffBaseActivity {
 
     private ActivityStaffWardBinding bind;
     private MyPatientFragment myPatientFragment;
@@ -18,27 +18,24 @@ public class WardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityStaffWardBinding.inflate(getLayoutInflater());
-        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
-        setContentView(bind.getRoot());
 
+        // 탭
         myPatientFragment = new MyPatientFragment();
         wardFragment = new WardFragment();
-        ActivityUtil aUtil = new ActivityUtil(this);
-        aUtil.addFragment(R.id.fl_container, myPatientFragment);
-        aUtil.addFragment(R.id.fl_container, wardFragment);
-        aUtil.hideFragment(wardFragment);
+        addFragment(R.id.fl_container, myPatientFragment);
+        addFragment(R.id.fl_container, wardFragment);
+        hideFragment(wardFragment);
         bind.tlWard.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        aUtil.showFragment(myPatientFragment);
-                        aUtil.hideFragment(wardFragment);
+                        showFragment(myPatientFragment);
+                        hideFragment(wardFragment);
                         break;
                     case 1:
-                        aUtil.showFragment(wardFragment);
-                        aUtil.hideFragment(myPatientFragment);
+                        showFragment(wardFragment);
+                        hideFragment(myPatientFragment);
                         break;
                 }
             }
@@ -53,6 +50,17 @@ public class WardActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected View getLayoutResource() {
+        bind = ActivityStaffWardBinding.inflate(getLayoutInflater());
+        return bind.getRoot();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 
 }

@@ -75,7 +75,7 @@ public class MessengerStaffFragment extends Fragment {
             staff.setLastChatCheckTime();
             chatMemberList.add(staff);
             chatMemberList.add(staffList.get(position));
-            fb.makeChatRoom(chatMemberList);
+            fb.getChatRoom(chatMemberList);
         };
     }
 
@@ -89,7 +89,7 @@ public class MessengerStaffFragment extends Fragment {
                         intent.putExtra("name", chatMemberList.get(1).getName());
                         intent.putExtra("key", msg.obj.toString());
                         startActivity(intent);
-                    } else fb.makeChatRoom(chatMemberList);
+                    } else fb.getChatRoom(chatMemberList);
                 }
             }
         };

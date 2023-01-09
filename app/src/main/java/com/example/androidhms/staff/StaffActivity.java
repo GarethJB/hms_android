@@ -1,5 +1,6 @@
 package com.example.androidhms.staff;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,47 +18,49 @@ import com.example.androidhms.staff.ward.WardActivity;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 
-public class StaffActivity extends AppCompatActivity {
+public class StaffActivity extends StaffBaseActivity {
 
     private ActivityStaffBinding bind;
-    private final StaffVO staff = Util.staff;
-    private HmsFirebase fb;
+    private StaffVO staff = Util.staff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityStaffBinding.inflate(getLayoutInflater());
-        setContentView(bind.getRoot());
 
+        // 상단 페이지
         bind.tvName.setText(staff.getName());
+
+        // 항목 클릭
         bind.clLookup.setOnClickListener(onMenuClick());
         bind.clOutpatient.setOnClickListener(onMenuClick());
         bind.clWard.setOnClickListener(onMenuClick());
         bind.clSchedule.setOnClickListener(onMenuClick());
         bind.clMessanger.setOnClickListener(onMenuClick());
 
-        // 마이페이지
+        // 마이 페이지
         bind.rlMypage.setOnClickListener(v ->
                 startActivity(new Intent(this, StaffMyPageActivity.class)));
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        // 로그아웃시 finish
         if (Util.staff == null) {
             startActivity(new Intent(this, StaffLoginActivity.class));
             finish();
-        } else {
-            fb = Util.setToolbar(this, bind.toolbar.toolbar);
-            fb.makeChatRoom(staff.getStaff_id());
         }
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        fb.removeGetChatRoom();
+    protected View getLayoutResource() {
+        bind = ActivityStaffBinding.inflate(getLayoutInflater());
+        return bind.getRoot();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 
     private View.OnClickListener onMenuClick() {

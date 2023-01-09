@@ -14,7 +14,7 @@
         android:padding="10dp">
         <!-- 뒤로가기 -->
         <ImageView
-            android:id="@+id/iv_left"
+            android:id="@+id/imgv_before"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
