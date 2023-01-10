@@ -1,57 +1,32 @@
 package com.example.androidhms.util;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidhms.R;
-import com.example.androidhms.databinding.ToastChatBinding;
-import com.example.androidhms.databinding.ToolbarStaffBinding;
-import com.example.androidhms.staff.messenger.ChatActivity;
-import com.example.androidhms.staff.messenger.MessengerActivity;
-import com.example.androidhms.staff.messenger.MessengerFragment;
-import com.example.androidhms.staff.messenger.adapter.ChatRoomAdapter;
-import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.staff.vo.StaffVO;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 public class Util {
 
     public static StaffVO staff = null;
 
+    private Util() {}
+
     /**
-     * 메신저 Activity에서 쓰이는 StaffChatDTO로 변환
+     * 메신저 Activity에서 사용되는 StaffChatDTO로 변환
      */
     public static StaffChatDTO getStaffChatDTO() {
         return new StaffChatDTO(Util.staff.getStaff_id(),
@@ -72,6 +47,9 @@ public class Util {
         rv.setItemAnimator(null);
     }
 
+    /**
+     * dp -> px 변환
+     */
     public static int getPxFromDp(Activity activity, int dp) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -93,19 +71,16 @@ public class Util {
 
     public static void setEditTextDate(Context context, LayoutInflater inflater, EditText edit,
                                        CalendarDialog.SetDateClickListener listener, Timestamp maxtime, Timestamp mintime) {
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (maxtime == null && mintime != null) {
-                    new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
-                            .setMinDate(mintime).show();
-                } else if (maxtime != null && mintime != null)
-                    new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
-                            .setMaxDate(maxtime).setMinDate(mintime).show();
-                else if (maxtime != null) {
-                    new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
-                            .setMaxDate(maxtime).show();
-                }
+        edit.setOnClickListener(v -> {
+            if (maxtime == null && mintime != null) {
+                new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
+                        .setMinDate(mintime).show();
+            } else if (maxtime != null && mintime != null)
+                new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
+                        .setMaxDate(maxtime).setMinDate(mintime).show();
+            else if (maxtime != null) {
+                new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
+                        .setMaxDate(maxtime).show();
             }
         });
     }

@@ -1,9 +1,5 @@
 package com.example.androidhms.staff.schedule;
 
-import static com.example.androidhms.util.Util.staff;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +7,6 @@ import android.view.View;
 import com.example.androidhms.databinding.ActivityStaffScheduleBinding;
 import com.example.androidhms.staff.StaffBaseActivity;
 import com.example.androidhms.util.CalendarDialog;
-import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 

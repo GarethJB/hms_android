@@ -1,7 +1,5 @@
 package com.example.androidhms.staff;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +8,6 @@ import android.widget.Toast;
 import com.example.androidhms.databinding.ActivityStaffMyPageBinding;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.EditDialog;
-import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
 

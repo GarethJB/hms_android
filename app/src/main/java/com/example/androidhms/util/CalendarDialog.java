@@ -1,12 +1,9 @@
 package com.example.androidhms.util;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
 
@@ -15,9 +12,6 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
-import org.threeten.bp.LocalDate;
-
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 

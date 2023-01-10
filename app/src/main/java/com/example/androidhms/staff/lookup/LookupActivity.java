@@ -1,7 +1,5 @@
 package com.example.androidhms.staff.lookup;
 
-import static com.example.androidhms.util.Util.staff;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,12 +9,9 @@ import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.androidhms.databinding.ActivityStaffLookupBinding;
 import com.example.androidhms.staff.StaffBaseActivity;
 import com.example.androidhms.staff.vo.PatientVO;
-import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;

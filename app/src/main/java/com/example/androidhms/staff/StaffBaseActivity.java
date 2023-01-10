@@ -54,9 +54,7 @@ public abstract class StaffBaseActivity extends AppCompatActivity {
             });
         }
         fb = new HmsFirebase(this, getChatNotificationHandler());
-        if (getNotificationTime == null) {
-            getNotificationTime = new Timestamp(System.currentTimeMillis());
-        }
+        if (getNotificationTime == null) setGetNotificationTime();
     }
 
     private Handler getChatNotificationHandler() {
@@ -109,8 +107,6 @@ public abstract class StaffBaseActivity extends AppCompatActivity {
     protected void chatSnackbar(String keyAndTitle, ChatVO vo) {
         if (!(getActivity() instanceof ChatActivity)
                 && Timestamp.valueOf(vo.getTime()).compareTo(getNotificationTime) > 0) {
-            Log.d(TAG, "chatSnackbar: vo" + vo.getTime());
-            Log.d(TAG, "chatSnackbar: login" + getNotificationTime);
             // 스낵바 커스텀 설정
             SnackbarChatBinding sbBind = SnackbarChatBinding.inflate(getActivity().getLayoutInflater());
             Snackbar snackbar = Snackbar.make(bind.toolbar, "", BaseTransientBottomBar.LENGTH_SHORT);
@@ -137,8 +133,12 @@ public abstract class StaffBaseActivity extends AppCompatActivity {
                 startActivity(intent);
             });
             snackbar.show();
-            getNotificationTime = new Timestamp(System.currentTimeMillis());
+            setGetNotificationTime();
         }
+    }
+
+    private static void setGetNotificationTime() {
+        getNotificationTime = new Timestamp(System.currentTimeMillis());
     }
 
     protected abstract View getLayoutResource();
