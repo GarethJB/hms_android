@@ -40,6 +40,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             searchPatientInfo();
             searchAppointment();
             searchMedicalRecord();
+            searchPrescription();
         });
        /* //새로고침
         bind.refresh.setOnClickListener(v -> {
@@ -118,7 +119,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
-
         //진료기록 조회
     public void searchMedicalRecord(){
         new RetrofitMethod().setParams("name", bind.editPatient.getText().toString()).sendPost("medical_record.re", new RetrofitMethod.CallBackResult() {
@@ -134,6 +134,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         });
+    }
+
+    //처방기록 조회
+    public void searchPrescription(){
+
     }
 
 }

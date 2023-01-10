@@ -20,13 +20,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AppointmentActivity extends AppCompatActivity {
 
     ActivityAppointmentBinding bind;
     DatePickerDialog datePickerDialog;
+    MedicalReceiptVO vo;
+    ArrayList<MedicalReceiptVO> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +39,12 @@ public class AppointmentActivity extends AppCompatActivity {
         bind = ActivityAppointmentBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         Intent intent = getIntent();
-        
-        //탭변경
-        bind.tabLayout.addTab(new TabLayout.Tab().setText("예약"));
-        bind.tabLayout.addTab(new TabLayout.Tab().setText("대기"));
 
         //datePicker 연결
+        //오늘 예약이 끝난 경우에는 색상 연하게
         bind.llConfirmDate.setOnClickListener(v -> {
+          //  changeColor();
+
             Calendar c = Calendar.getInstance();
             int year = c.get(c.YEAR);
             int month = c.get(c.MONTH);
@@ -73,10 +77,32 @@ public class AppointmentActivity extends AppCompatActivity {
             datePickerDialog.show();
         });
        bind.toolbar.ivLeft.setOnClickListener(v -> {
-           onBackPressed();
+           long now = System.currentTimeMillis();
+           Date date = new Date(now);
+           SimpleDateFormat dateFormat= new SimpleDateFormat("HH:mm");
+           String getTime = dateFormat.format(date);
+           Log.d("로그", "onCreate: " + getTime);
+           int index= getTime.indexOf(":");
+           Log.d("로그", "onCreate: " + index);
+           //index값은 2
+           String hTime = getTime.substring(0,2);
+           Log.d("로그", "onCreate: " +hTime );
+           String mTime = getTime.substring(index+1);
+           Log.d("로그", "onCreate: " +mTime );
+           Log.d("로그", "onCreate: " + hTime+mTime );
+           String alltime = hTime+mTime;
+           Log.d("로그", "onCreate: " +alltime );
+
+           String votime = list.get(0).getReserve_time();
+           Log.d("로그", "0110: " +list.get(0).getReserve_time() );
+
         });
         bind.toolbar.llLogo.setOnClickListener(v -> {
             onBackPressed();
         });
+    }
+    public void changeColor(){
+
+
     }
 }

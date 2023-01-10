@@ -12,7 +12,6 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-
     <LinearLayout
         android:id="@+id/ll_confirm_date"
         android:gravity="center"
@@ -39,21 +38,19 @@
             app:tint="@color/white" />
     </LinearLayout>
     <com.google.android.material.tabs.TabLayout
+        android:background="#123"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         app:tabTextColor="@color/main_color"
         app:tabSelectedTextColor="@color/second_color"
         app:tabIndicatorColor="@color/main_color"
-        app:tabIndicatorHeight="1dp"
-        >
+        app:tabIndicatorHeight="1dp">
     </com.google.android.material.tabs.TabLayout>
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
-
     <TextView
         android:id="@+id/tv_today"
         android:textColor="@color/main_color"
