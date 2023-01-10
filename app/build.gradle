@@ -67,7 +67,6 @@ dependencies {
     // Jubin
     // SnapTabLayout
 
-
     // Jungwon
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
@@ -79,5 +78,9 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
     // Zoom
     implementation 'com.otaliastudios:zoomlayout:1.9.0'
+
+    //23.01.10. hyewoon qr생성 및 스캐너
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'com.google.zxing:core:3.4.1'
 
 }

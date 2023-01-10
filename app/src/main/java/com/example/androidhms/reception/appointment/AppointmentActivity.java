@@ -15,6 +15,7 @@ import com.example.androidhms.databinding.ActivityAppointmentBinding;
 import com.example.androidhms.reception.vo.MedicalReceiptVO;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -33,9 +34,13 @@ public class AppointmentActivity extends AppCompatActivity {
         bind = ActivityAppointmentBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         Intent intent = getIntent();
+        
+        //탭변경
+        bind.tabLayout.addTab(new TabLayout.Tab().setText("예약"));
+        bind.tabLayout.addTab(new TabLayout.Tab().setText("대기"));
 
         //datePicker 연결
-        bind.imgvCalendar.setOnClickListener(v -> {
+        bind.llConfirmDate.setOnClickListener(v -> {
             Calendar c = Calendar.getInstance();
             int year = c.get(c.YEAR);
             int month = c.get(c.MONTH);
@@ -49,7 +54,8 @@ public class AppointmentActivity extends AppCompatActivity {
                     bind.tvToday.setText(date);
                     //java 숫자 왼쪽에 0으로 채우기
                     //스프링에서 데이터를 보내기
-                    new RetrofitMethod().setParams("time", year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day)).sendPost("appointment.re", (isResult, data) -> {
+                    new RetrofitMethod().setParams("time", year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day)).sendPost("appointmentlist.re", (isResult, data) -> {
+                        Log.d("로그", "onDateSet: " + "로그");
                         Log.d("로그", "onDateSet: " + data);
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
                         ArrayList<MedicalReceiptVO> list = gson.fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
@@ -67,7 +73,7 @@ public class AppointmentActivity extends AppCompatActivity {
             datePickerDialog.show();
         });
        bind.toolbar.ivLeft.setOnClickListener(v -> {
-            onBackPressed();
+           onBackPressed();
         });
         bind.toolbar.llLogo.setOnClickListener(v -> {
             onBackPressed();

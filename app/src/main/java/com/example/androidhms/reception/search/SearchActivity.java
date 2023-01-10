@@ -4,21 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivitySearchBinding;
+import com.example.androidhms.reception.search.appointment.SearchAppointmentAdapter;
+import com.example.androidhms.reception.search.record.SearchMedicalRecordAdapter;
 import com.example.androidhms.reception.vo.MedicalReceiptVO;
 import com.example.androidhms.reception.vo.MedicalRecordVO;
 import com.example.androidhms.staff.vo.PatientVO;
-import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,19 +35,24 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         bind = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         Intent intent = getIntent();
-        //환자검색
+        //환자정보검색
         bind.btnSearch.setOnClickListener(v -> {
             searchPatientInfo();
             searchAppointment();
             searchMedicalRecord();
         });
-        //새로고침
+       /* //새로고침
         bind.refresh.setOnClickListener(v -> {
             finish();
             overridePendingTransition(0,0);
             Intent refresh_intent= getIntent();
             startActivity(refresh_intent);
             overridePendingTransition(0,0);
+        });*/
+        //qr스캐너
+        bind.qrScanner.setOnClickListener(v -> {
+            Intent scan_intent = new Intent(SearchActivity.this, QrSacnnerActivity.class);
+            startActivity(scan_intent);
         });
         //예약상세 보기
         bind.btnDetailAppointment.setOnClickListener(v -> {
@@ -61,6 +64,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             Intent record_intent =getIntent();
             startActivity(record_intent);
         });
+
+        bind.toolbar.ivLeft.setOnClickListener(this);
+        bind.toolbar.llLogo.setOnClickListener(this);
     }
 
     @Override
@@ -72,18 +78,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             onBackPressed();
         }
     }
-
     //환자 인적사항 조회
     public void searchPatientInfo() {
         new RetrofitMethod().setParams("name", bind.editPatient.getText().toString()).sendPost("patient.re", new RetrofitMethod.CallBackResult() {
             @Override
             public void result(boolean isResult, String data) {
+                Log.d("로그", "result: " + data);
                 ArrayList<PatientVO> patientList = new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>() {
                 }.getType());
                 if (patientList == null || patientList.size() == 0) {
                     Toast.makeText(SearchActivity.this, "환자 정보가 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    //*  patient_id는 string 값으로 바꿔줘야 한다*//*
                     bind.tvName.setText(patientList.get(0).getName());
                     bind.tvGender.setText(patientList.get(0).getGender());
                     bind.tvPatentId.setText(patientList.get(0).getPatient_id() + "");
@@ -109,7 +114,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     bind.recvAppointment.setAdapter(new SearchAppointmentAdapter(getLayoutInflater(),vo1,appointList));
                     bind.recvAppointment.setLayoutManager(new LinearLayoutManager(SearchActivity.this, RecyclerView.VERTICAL,false));
                     bind.btnDetailAppointment.setVisibility(View.VISIBLE);
-
                 }
             }
         });
@@ -120,7 +124,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         new RetrofitMethod().setParams("name", bind.editPatient.getText().toString()).sendPost("medical_record.re", new RetrofitMethod.CallBackResult() {
             @Override
             public void result(boolean isResult, String data) {
-                Log.d("로그", "result: " + data);
                 ArrayList<MedicalRecordVO> recordList=  new Gson().fromJson(data, new TypeToken<ArrayList<MedicalRecordVO>>(){}.getType());
                 if(recordList == null || recordList.size()== 0){
                     bind.recvMedicalRecord.setVisibility(View.INVISIBLE);

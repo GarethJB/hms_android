@@ -1,4 +1,4 @@
-package com.example.androidhms.reception.search;
+package com.example.androidhms.reception.search.appointment;
 
 import android.view.LayoutInflater;
 import android.view.View;

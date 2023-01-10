@@ -1,19 +1,10 @@
 package com.example.androidhms.reception.vo;
 
-import java.sql.Date;
-
 
 public class MedicalReceiptVO {
-	private int patient_id, staff_id, order;
-	private String reserve_date, reserve_time, memo, doctor_name, patient_name, department_name ;
-
-	public int getOrder() {
-		return order;
-	}
-
-	public void setOrder(int order) {
-		this.order = order;
-	}
+	private int patient_id, staff_id;
+	private String time, reserve_date, reserve_date_short, reserve_time,today, 
+				memo, doctor_name, patient_name, department_name, location;
 
 	public int getPatient_id() {
 		return patient_id;
@@ -31,6 +22,14 @@ public class MedicalReceiptVO {
 		this.staff_id = staff_id;
 	}
 
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
 	public String getReserve_date() {
 		return reserve_date;
 	}
@@ -39,12 +38,28 @@ public class MedicalReceiptVO {
 		this.reserve_date = reserve_date;
 	}
 
+	public String getReserve_date_short() {
+		return reserve_date_short;
+	}
+
+	public void setReserve_date_short(String reserve_date_short) {
+		this.reserve_date_short = reserve_date_short;
+	}
+
 	public String getReserve_time() {
 		return reserve_time;
 	}
 
 	public void setReserve_time(String reserve_time) {
 		this.reserve_time = reserve_time;
+	}
+
+	public String getToday() {
+		return today;
+	}
+
+	public void setToday(String today) {
+		this.today = today;
 	}
 
 	public String getMemo() {
@@ -77,5 +92,13 @@ public class MedicalReceiptVO {
 
 	public void setDepartment_name(String department_name) {
 		this.department_name = department_name;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 }

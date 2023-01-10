@@ -45,15 +45,14 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AViewHolder h, int i) {
-        for(int no= 1; no<list.size(); i ++){
+       /* for(int no= 1; no <list.size();no++ ){
             h.bind.tvNo.setText(no);
-        }
+        }*/
         h.bind.tvReserveTime.setText(list.get(i).getReserve_time());
         h.bind.tvReserveName.setText(list.get(i).getPatient_name());
-        h.bind.tvDoctorName.setText(list.get(i).getDoctor_name());
-
+        h.bind.tvDepartment.setText(list.get(i).getDepartment_name());
+        h.bind.tvDoctorName.setText(list.get(i).getDepartment_name());
     }
-
     @Override
     public int getItemCount() {
         return list.size();

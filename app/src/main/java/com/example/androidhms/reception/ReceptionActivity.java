@@ -27,7 +27,6 @@ public class ReceptionActivity extends AppCompatActivity implements View.OnClick
         bind= ActivityReceptionBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
-        ApiClient.setBASEURL("http://192.168.0.14/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
         //사원이름 받아오기
         Intent intent =getIntent();
          staff_name =(StaffVO)intent.getSerializableExtra("staff_name");
