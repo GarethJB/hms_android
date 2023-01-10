@@ -25,7 +25,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         this.activity = activity;
         this.chatList = chatList;
         this.myId = myId;
-        chatList.remove(0);
     }
 
     @NonNull

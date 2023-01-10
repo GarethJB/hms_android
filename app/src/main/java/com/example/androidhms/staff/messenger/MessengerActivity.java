@@ -30,6 +30,10 @@ public class MessengerActivity extends StaffBaseActivity {
 
         bind.ivMessenger.setOnClickListener(onBnvClick());
         bind.ivMessengerStaff.setOnClickListener(onBnvClick());
+
+        if (getIntent().getBooleanExtra("toolbar", false)) {
+            bind.ivMessenger.performClick();
+        }
     }
 
     @Override
@@ -44,28 +48,25 @@ public class MessengerActivity extends StaffBaseActivity {
     }
 
     private View.OnClickListener onBnvClick() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getId() == R.id.iv_messenger_staff) {
-                    if (messengerFragment != null) hideFragment(messengerFragment);
-                    showFragment(messengerStaffFragment);
-                    bind.ivMessengerStaff.setColorFilter(
-                            ContextCompat.getColor(MessengerActivity.this, R.color.text_color));
-                    bind.ivMessenger.setColorFilter(
-                            ContextCompat.getColor(MessengerActivity.this, R.color.gray));
-                } else if (v.getId() == R.id.iv_messenger) {
-                    if (messengerFragment == null) {
-                        messengerFragment = new MessengerFragment();
-                        addFragment(bind.flContainer.getId(), messengerFragment);
-                    }
-                    hideFragment(messengerStaffFragment);
-                    showFragment(messengerFragment);
-                    bind.ivMessenger.setColorFilter(
-                            ContextCompat.getColor(MessengerActivity.this, R.color.text_color));
-                    bind.ivMessengerStaff.setColorFilter(
-                            ContextCompat.getColor(MessengerActivity.this, R.color.gray));
+        return v -> {
+            if (v.getId() == R.id.iv_messenger_staff) {
+                if (messengerFragment != null) hideFragment(messengerFragment);
+                showFragment(messengerStaffFragment);
+                bind.ivMessengerStaff.setColorFilter(
+                        ContextCompat.getColor(MessengerActivity.this, R.color.text_color));
+                bind.ivMessenger.setColorFilter(
+                        ContextCompat.getColor(MessengerActivity.this, R.color.gray));
+            } else if (v.getId() == R.id.iv_messenger) {
+                if (messengerFragment == null) {
+                    messengerFragment = new MessengerFragment();
+                    addFragment(bind.flContainer.getId(), messengerFragment);
                 }
+                hideFragment(messengerStaffFragment);
+                showFragment(messengerFragment);
+                bind.ivMessenger.setColorFilter(
+                        ContextCompat.getColor(MessengerActivity.this, R.color.text_color));
+                bind.ivMessengerStaff.setColorFilter(
+                        ContextCompat.getColor(MessengerActivity.this, R.color.gray));
             }
         };
     }

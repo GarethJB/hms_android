@@ -75,7 +75,7 @@ public class MessengerStaffFragment extends Fragment {
             staff.setLastChatCheckTime();
             chatMemberList.add(staff);
             chatMemberList.add(staffList.get(position));
-            fb.getChatRoom(chatMemberList);
+            fb.makeChatRoom(chatMemberList);
         };
     }
 
@@ -86,10 +86,10 @@ public class MessengerStaffFragment extends Fragment {
                 if (msg.what == HmsFirebase.GET_CHATROOM_SUCCESS) {
                     if (msg.obj != null) {
                         Intent intent = new Intent(getActivity(), ChatActivity.class);
-                        intent.putExtra("name", chatMemberList.get(1).getName());
+                        intent.putExtra("title", chatMemberList.get(1).getName());
                         intent.putExtra("key", msg.obj.toString());
                         startActivity(intent);
-                    } else fb.getChatRoom(chatMemberList);
+                    } else fb.makeChatRoom(chatMemberList);
                 }
             }
         };

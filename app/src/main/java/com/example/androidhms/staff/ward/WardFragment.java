@@ -126,7 +126,7 @@ public class WardFragment extends Fragment {
 
     // index 0 -> 501
     private int getWard(int index) {
-        return 500 + (index / 4) * 100 + index % 4 + 1;
+        return 500 + (index / 5) * 100 + index % 5 + 1;
     }
 
     private void getArList(int position) {

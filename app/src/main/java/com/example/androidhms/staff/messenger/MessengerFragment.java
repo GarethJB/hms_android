@@ -1,5 +1,7 @@
 package com.example.androidhms.staff.messenger;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +40,15 @@ public class MessengerFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentMessengerBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
-        fb.getChatRoom(staff.getStaff_id());
         bind.tvName.setText(staff.getName());
-
+        bind.clNotfound.tvNotfound.setText("채팅방이 없습니다.");
         return bind.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fb.getChatRoom();
     }
 
     @Override
@@ -55,6 +63,8 @@ public class MessengerFragment extends Fragment {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 if (msg.what == HmsFirebase.GET_CHATROOM_LIST_SUCCESS) {
+                    bind.rlProgress.view.setVisibility(View.VISIBLE);
+                    bind.clNotfound.view.setVisibility(View.GONE);
                     if (msg.obj != null) {
                         chatRoomList = (ArrayList<ChatRoomVO>) msg.obj;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -65,17 +75,18 @@ public class MessengerFragment extends Fragment {
                         }
                         Util.setRecyclerView(getContext(), bind.rvChatroom,
                                 new ChatRoomAdapter(MessengerFragment.this, chatRoomList, staff.getName()), true);
-                    }
+                        if (chatRoomList.isEmpty()) bind.clNotfound.view.setVisibility(View.VISIBLE);
+                    } else bind.clNotfound.view.setVisibility(View.VISIBLE);
+                    bind.rlProgress.view.setVisibility(View.GONE);
                 }
             }
         };
     }
 
-    public void getChatRoomClick(String key, String title, String count) {
+    public void getChatRoomClick(String key, String title) {
         Intent intent = new Intent(getActivity(), ChatActivity.class);
-        intent.putExtra("name", title);
+        intent.putExtra("title", title);
         intent.putExtra("key", key);
-        fb.updateNotCheckedChatCount(staff.getStaff_id(), Integer.parseInt(count));
         startActivity(intent);
     }
 }

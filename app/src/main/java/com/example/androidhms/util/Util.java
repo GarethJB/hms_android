@@ -50,42 +50,6 @@ public class Util {
 
     public static StaffVO staff = null;
 
-    public static HmsFirebase setToolbar(Activity activity, View view) {
-        ToolbarStaffBinding bind = ToolbarStaffBinding.bind(view);
-        bind.imgvBefore.setOnClickListener(v -> activity.finish());
-        if (!(activity instanceof ChatActivity) && !(activity instanceof MessengerActivity)) {
-            bind.imgvMessenger.setOnClickListener(v ->
-                    activity.startActivity(new Intent(activity, MessengerActivity.class)));
-        }
-        return new HmsFirebase(activity, new Handler(Looper.getMainLooper()) {
-                @Override
-                public void handleMessage(@NonNull Message msg) {
-                    if (msg.what == HmsFirebase.GET_NOT_CHECKED_CHAT_COUNT_SUCCESS) {
-                        int count = (int) msg.obj;
-                        if (count == 0) bind.tvNotCheckedChat.setVisibility(View.INVISIBLE);
-                        else {
-                            bind.tvNotCheckedChat.setVisibility(View.VISIBLE);
-                            bind.tvNotCheckedChat.setText(String.valueOf(count));
-                        }
-                    }
-                }
-            });
-    }
-
-    private static void chatToast(Activity activity, String name, String chat) {
-        if (!(activity instanceof ChatActivity)) {
-            ToastChatBinding bind = ToastChatBinding.inflate(activity.getLayoutInflater());
-            bind.tvName.setText(name.replaceAll(staff.getName(), ""));
-            bind.tvChat.setText(chat);
-            Toast toast = new Toast(activity);
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            toast.setGravity(Gravity.TOP, 0, 200);
-            toast.setDuration(Toast.LENGTH_SHORT); //메시지 표시 시간
-            toast.setView(bind.getRoot());
-            toast.show();
-        }
-    }
-
     /**
      * 메신저 Activity에서 쓰이는 StaffChatDTO로 변환
      */
@@ -106,6 +70,13 @@ public class Util {
         rv.setLayoutManager(lm);
         rv.setHasFixedSize(true);
         rv.setItemAnimator(null);
+    }
+
+    public static int getPxFromDp(Activity activity, int dp) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        float density = displayMetrics.density;
+        return (int) (dp * density);
     }
 
     /**

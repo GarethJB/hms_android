@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffBinding;
 import com.example.androidhms.staff.lookup.LookupActivity;
@@ -15,7 +13,6 @@ import com.example.androidhms.staff.outpatient.OutpatientActivity;
 import com.example.androidhms.staff.schedule.ScheduleActivity;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.staff.ward.WardActivity;
-import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 
 public class StaffActivity extends StaffBaseActivity {
@@ -50,6 +47,12 @@ public class StaffActivity extends StaffBaseActivity {
             startActivity(new Intent(this, StaffLoginActivity.class));
             finish();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getNotificationTime = null;
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.example.androidhms.staff.messenger;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 
 import com.example.androidhms.databinding.ActivityChatBinding;
@@ -29,6 +25,7 @@ public class ChatActivity extends StaffBaseActivity {
     private ActivityChatBinding bind;
     private HmsFirebase fb;
     private String key;
+    private String title;
     private final StaffChatDTO staff = Util.getStaffChatDTO();
     private ArrayList<ChatVO> chatList;
     private ArrayList<StaffChatDTO> staffList;
@@ -38,10 +35,15 @@ public class ChatActivity extends StaffBaseActivity {
         super.onCreate(savedInstanceState);
         fb = new HmsFirebase(this, firebaseHandler());
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
+        title = intent.getStringExtra("title");
         key = intent.getStringExtra("key");
 
-        bind.tvChatroom.setText(name);
+        if (title.contains("#")) {
+            String titleView = title.replace("#", "");
+            titleView = titleView.replaceAll(staff.getName(), "");
+            bind.tvChatroom.setText(titleView);
+        } else bind.tvChatroom.setText(title);
+
         bind.btSend.setOnClickListener(onSendClick());
         bind.etContent.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) new Handler().postDelayed(
@@ -95,13 +97,9 @@ public class ChatActivity extends StaffBaseActivity {
     }
 
     private View.OnClickListener onSendClick() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                staff.setLastChatCheckTime();
-                fb.sendChat(key, new ChatVO(String.valueOf(staff.getStaff_id()), staff.getName(), bind.etContent.getText().toString()), staffList);
-                bind.etContent.setText("");
-            }
+        return v -> {
+            fb.sendChat(key, title, new ChatVO(String.valueOf(staff.getStaff_id()), staff.getName(), bind.etContent.getText().toString()));
+            bind.etContent.setText("");
         };
     }
 

@@ -30,8 +30,8 @@ public class StaffLoginActivity extends AppCompatActivity {
         setContentView(bind.getRoot());
         preferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
         editor = preferences.edit();
-        //ApiClient.setBASEURL("http://192.168.0.36/hms/");
-        ApiClient.setBASEURL("http://192.168.0.25/hms/");
+        ApiClient.setBASEURL("http://192.168.0.36/hms/");
+        //ApiClient.setBASEURL("http://192.168.0.25/hms/");
 
         bind.etId.setText(preferences.getString("id", ""));
         bind.etPw.setText(preferences.getString("pw", ""));

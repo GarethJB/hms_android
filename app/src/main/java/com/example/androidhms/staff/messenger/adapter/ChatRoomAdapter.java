@@ -36,16 +36,16 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
     public void onBindViewHolder(@NonNull ChatRoomViewHolder holder, int position) {
         ChatRoomVO vo = chatRoomList.get(position);
         String title = vo.getRoomTitle();
-        if (title.contains(name)) {
-            title = title.replaceAll(name, "");
-            holder.bind.tvTitle.setText(title);
+        if (title.contains("#")) {
+            String titleRv = title.replace("#", "");
+            titleRv = titleRv.replaceAll(name, "");
+            holder.bind.tvTitle.setText(titleRv);
         }
         holder.bind.tvLastchat.setText(vo.getLastChat());
         holder.bind.tvTime.setText(Util.getTime(vo.getLastChatTime()));
         if (vo.getCount().equals("0")) holder.bind.tvCount.setVisibility(View.GONE);
         else holder.bind.tvCount.setText(vo.getCount());
-        String finalTitle = title;
-        holder.itemView.setOnClickListener(v -> fragment.getChatRoomClick(vo.getKey(), finalTitle, vo.getCount()));
+        holder.itemView.setOnClickListener(v -> fragment.getChatRoomClick(vo.getKey(), title));
     }
 
     @Override
