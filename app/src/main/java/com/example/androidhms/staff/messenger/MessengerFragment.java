@@ -28,7 +28,7 @@ public class MessengerFragment extends Fragment {
 
     private FragmentMessengerBinding bind;
     private HmsFirebase fb;
-    private final StaffChatDTO staff = Util.getStaffChatDTO();
+    private StaffChatDTO staff;
     private ArrayList<ChatRoomVO> chatRoomList;
 
     @Override
@@ -36,6 +36,7 @@ public class MessengerFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentMessengerBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
+        staff = Util.getStaffChatDTO(getContext());
         bind.tvName.setText(staff.getName());
         bind.clNotfound.tvNotfound.setText("채팅방이 없습니다.");
         return bind.getRoot();
@@ -58,8 +59,7 @@ public class MessengerFragment extends Fragment {
         return new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
-                if (msg.what == HmsFirebase.GET_CHATROOM_LIST_SUCCESS) {
-                    bind.rlProgress.view.setVisibility(View.VISIBLE);
+                if (msg.what == HmsFirebase.GET_CHATROOM_LIST_SUCCESS && bind != null) {
                     bind.clNotfound.view.setVisibility(View.GONE);
                     if (msg.obj != null) {
                         chatRoomList = (ArrayList<ChatRoomVO>) msg.obj;

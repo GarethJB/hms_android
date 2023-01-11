@@ -1,18 +1,24 @@
 package com.example.androidhms.util;
 
+import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.staff.vo.StaffVO;
+import com.google.gson.Gson;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -21,17 +27,31 @@ import java.util.Locale;
 
 public class Util {
 
-    public static StaffVO staff = null;
+    public static StaffVO staff;
 
-    private Util() {}
+    private Util() {
+
+    }
 
     /**
-     * 메신저 Activity에서 사용되는 StaffChatDTO로 변환
+     * 자동로그인시 SharedPreferences 에 저장된 staff 데이터를 불러옴
      */
-    public static StaffChatDTO getStaffChatDTO() {
-        return new StaffChatDTO(Util.staff.getStaff_id(),
-                Util.staff.getStaff_level(), Util.staff.getDepartment_id(), Util.staff.getName(),
-                Util.staff.getDepartment_name());
+    public static void getStaff(Context context) {
+        if (staff == null) {
+            SharedPreferences preferences = context.getSharedPreferences("staffLoginInfo", MODE_PRIVATE);
+            String staffJson = preferences.getString("staffData", null);
+            staff = new Gson().fromJson(staffJson, StaffVO.class);
+        }
+    }
+
+    /**
+     * 메신저 Activity 에서 사용되는 StaffChatDTO 로 변환
+     */
+    public static StaffChatDTO getStaffChatDTO(Context context) {
+        if (staff == null) getStaff(context);
+        return new StaffChatDTO(staff.getStaff_id(),
+                staff.getStaff_level(), staff.getDepartment_id(), staff.getName(),
+                staff.getDepartment_name());
     }
 
     /**
@@ -70,17 +90,17 @@ public class Util {
     }
 
     public static void setEditTextDate(Context context, LayoutInflater inflater, EditText edit,
-                                       CalendarDialog.SetDateClickListener listener, Timestamp maxtime, Timestamp mintime) {
+                                       CalendarDialog.SetDateClickListener listener, Timestamp maxTime, Timestamp minTime) {
         edit.setOnClickListener(v -> {
-            if (maxtime == null && mintime != null) {
+            if (maxTime == null && minTime != null) {
                 new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
-                        .setMinDate(mintime).show();
-            } else if (maxtime != null && mintime != null)
+                        .setMinDate(minTime).show();
+            } else if (maxTime != null && minTime != null)
                 new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
-                        .setMaxDate(maxtime).setMinDate(mintime).show();
-            else if (maxtime != null) {
+                        .setMaxDate(maxTime).setMinDate(minTime).show();
+            else if (maxTime != null) {
                 new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
-                        .setMaxDate(maxtime).show();
+                        .setMaxDate(maxTime).show();
             }
         });
     }

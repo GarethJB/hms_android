@@ -34,13 +34,14 @@ public class MessengerStaffFragment extends Fragment {
     private ArrayList<StaffChatDTO> staffList;
     private ArrayList<StaffChatDTO> chatMemberList;
     private HmsFirebase fb;
-    private final StaffChatDTO staff = Util.getStaffChatDTO();
+    private StaffChatDTO staff;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         bind = FragmentMessengerStaffBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
+        staff = Util.getStaffChatDTO(getContext());
 
         bind.tvName.setText(staff.getName());
         new RetrofitMethod().sendGet("getStaff.ap", (isResult, data) -> {
@@ -56,6 +57,15 @@ public class MessengerStaffFragment extends Fragment {
                 }
                 setSpinner();
             }
+        });
+
+        bind.llCreateGroup.setOnClickListener(v -> {
+            new CreateGroupDialog(getContext(), staffList, inflater, new CreateGroupDialog.OnDialogBtnClickListener() {
+                @Override
+                public void onCreateClick(CreateGroupDialog dialog, ArrayList<StaffChatDTO> memberStaffList) {
+
+                }
+            }).show();
         });
 
         return bind.getRoot();

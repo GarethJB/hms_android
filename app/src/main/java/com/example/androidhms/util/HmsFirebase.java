@@ -1,22 +1,33 @@
 package com.example.androidhms.util;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.androidhms.MainActivity;
+import com.example.androidhms.R;
 import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Executor;
 
 public class HmsFirebase {
 
@@ -32,8 +43,8 @@ public class HmsFirebase {
     private static final DatabaseReference dbRef = fbDb.getReference();
     private final DatabaseReference chatRoom;
     private final DatabaseReference member;
-    private final String myId = String.valueOf(Util.staff.getStaff_id());
     private final Handler handler;
+    private String myId;
     private ValueEventListener notCheckedChatCountListener, getChatListener, getChatRoomListener, getNotificationListener;
 
     public HmsFirebase(Context context, Handler handler) {
@@ -41,6 +52,29 @@ public class HmsFirebase {
         this.handler = handler;
         chatRoom = dbRef.child("chatRoom");
         member = dbRef.child("member");
+        Util.getStaff(context);
+        myId = String.valueOf(Util.staff.getStaff_id());
+    }
+
+    public HmsFirebase(Context context) {
+        FirebaseApp.initializeApp(context);
+        handler = null;
+        chatRoom = dbRef.child("chatRoom");
+        member = dbRef.child("member");
+        myId = String.valueOf(Util.staff.getStaff_id());
+    }
+
+    /**
+     * 자신의 토큰값 저장
+     */
+    public void sendToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            member.child(myId).child("token").setValue(task.getResult());
+        });
+    }
+
+    public void deleteToken() {
+        member.child(myId).child("token").setValue("null");
     }
 
     /**
@@ -175,12 +209,14 @@ public class HmsFirebase {
                             }
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -270,16 +306,19 @@ public class HmsFirebase {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot child : snapshot.getChildren()) {
                     if (!child.getKey().equals(myId) && !child.child("onChat").getValue(Boolean.class)) {
-                        member.child(child.getKey()).child("count")
-                                .child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                        member.child(String.valueOf(child.getKey())).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (snapshot.exists()) {
+                                        if (snapshot.child("count").child(key).exists()) {
                                             member.child(String.valueOf(child.getKey()))
-                                                    .child("count").child(key).setValue(snapshot.getValue(Integer.class) + 1);
+                                                    .child("count").child(key)
+                                                    .setValue(snapshot.child("count").child(key).getValue(Integer.class) + 1);
                                         } else
                                             member.child(String.valueOf(child.getKey()))
                                                     .child("count").child(key).setValue(1);
+                                        if (snapshot.child("token").exists() && !snapshot.child("token").getValue(String.class).equals("null")) {
+                                            SendPush.sendPushNotification(snapshot.child("token").getValue(String.class), vo, key, title);
+                                        }
                                     }
 
                                     @Override

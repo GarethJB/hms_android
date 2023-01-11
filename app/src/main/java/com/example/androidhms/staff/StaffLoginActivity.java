@@ -1,5 +1,6 @@
 package com.example.androidhms.staff;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,8 +8,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androidhms.MainActivity;
 import com.example.androidhms.databinding.ActivityStaffLoginBinding;
 import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.util.HmsFirebase;
+import com.example.androidhms.util.HmsFirebaseMessaging;
 import com.example.androidhms.util.Util;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
@@ -25,10 +29,8 @@ public class StaffLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityStaffLoginBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        preferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
+        preferences = getSharedPreferences("staffLoginInfo", MODE_PRIVATE);
         editor = preferences.edit();
-        ApiClient.setBASEURL("http://192.168.0.36/hms/");
-        //ApiClient.setBASEURL("http://192.168.0.25/hms/");
 
         bind.etId.setText(preferences.getString("id", ""));
         bind.etPw.setText(preferences.getString("pw", ""));
@@ -52,15 +54,19 @@ public class StaffLoginActivity extends AppCompatActivity {
                             editor.putString("id", bind.etId.getText().toString());
                             editor.putString("pw", bind.etPw.getText().toString());
                             editor.putString("autoLogin", "Y");
+                            editor.putString("staffData", data);
                         } else {
                             editor.putString("id", "");
                             editor.putString("pw", "");
                             editor.putString("autoLogin", "N");
+                            editor.putString("staffData", "");
                         }
                         editor.commit();
-                        Intent intent = new Intent(StaffLoginActivity.this, StaffActivity.class);
                         Util.staff = new Gson().fromJson(data, StaffVO.class);
+                        new HmsFirebase(StaffLoginActivity.this).sendToken();
+                        Intent intent = new Intent(StaffLoginActivity.this, StaffActivity.class);
                         startActivity(intent);
+
                         finish();
                     }
                 }));

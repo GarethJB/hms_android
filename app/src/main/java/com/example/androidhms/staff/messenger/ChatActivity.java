@@ -26,7 +26,7 @@ public class ChatActivity extends StaffBaseActivity {
     private HmsFirebase fb;
     private String key;
     private String title;
-    private final StaffChatDTO staff = Util.getStaffChatDTO();
+    private StaffChatDTO staff;
     private ArrayList<ChatVO> chatList;
     private ArrayList<StaffChatDTO> staffList;
 
@@ -34,6 +34,7 @@ public class ChatActivity extends StaffBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fb = new HmsFirebase(this, firebaseHandler());
+        staff = Util.getStaffChatDTO(this);
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
         key = intent.getStringExtra("key");

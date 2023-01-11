@@ -53,6 +53,16 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
         return chatRoomList.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     public class ChatRoomViewHolder extends RecyclerView.ViewHolder {
 
         public RvChatroomBinding bind;
