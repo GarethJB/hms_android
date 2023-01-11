@@ -428,6 +428,7 @@
                 android:padding="5dp"
                 android:text="" />
             <Button
+                android:visibility="invisible"
                 android:id="@+id/btn_detail_hospitalization"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"
@@ -513,6 +514,7 @@
                 android:padding="5dp"
                 android:text="" />
             <Button
+                android:visibility="invisible"
                 android:id="@+id/btn_detail_prescription"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="15dp"

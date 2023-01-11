@@ -1,5 +1,6 @@
 package com.example.androidhms.reception.search;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +43,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             searchMedicalRecord();
             searchPrescription();
         });
+
        /* //새로고침
         bind.refresh.setOnClickListener(v -> {
             finish();
@@ -79,6 +81,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             onBackPressed();
         }
     }
+
+
     //환자 인적사항 조회
     public void searchPatientInfo() {
         new RetrofitMethod().setParams("name", bind.editPatient.getText().toString()).sendPost("patient.re", new RetrofitMethod.CallBackResult() {

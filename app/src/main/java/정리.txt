@@ -52,3 +52,38 @@ public class SearchFragment extends Fragment {
     }
 
 }
+
+
+======어댑터 연결
+   if(list == null || list.size() == 0 ){
+                            bind.cardvAppointmentList.setVisibility(View.INVISIBLE);
+                        }else{
+
+                        bind.cardvAppointmentList.setVisibility(View.VISIBLE);
+                        bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(),list, AppointmentActivity.this));
+                        bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
+                        }
+   프래그먼트에서 연결                      \
+     bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+  액티비티에서 연결
+      bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));*/
+
+===액티비티와 프레그먼트 연결
+
+액티비티끼리는 intent
+액티비티 프레그먼트는 값이 list, dto형태 bundle에 담아서 연결
+ Bundle bundle = new Bundle();
+                            //bundle.putInt("int", 0);
+                            bundle.putSerializable("list", list);
+                            AppointListFragment fragment = new AppointListFragment();
+                            fragment.setArguments(bundle);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fl_appoint, fragment).commit();
+
+프래그먼트에서 받는처리
+  Bundle bundle = getArguments();
+        list = (ArrayList<MedicalReceiptVO>) bundle.getSerializable("list");
+
+=====
+어댑터에서 색상 받아오는 방법
+   h.bind.tvDepartment.setTextColor(ContextCompat.getColor(activity.getContext(), R.color.gray));
+            h.bind.tvDoctorName.setTextColor(ContextCompat.getColor(activity.getContext(), R.color.gray));

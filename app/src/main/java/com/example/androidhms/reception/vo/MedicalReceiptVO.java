@@ -3,7 +3,8 @@ package com.example.androidhms.reception.vo;
 
 public class MedicalReceiptVO {
 	private int patient_id, staff_id;
-	private String time, reserve_date, reserve_date_short, reserve_time,today, 
+	private String time, reserve_date, reserve_date_short, reserve_time,reserve_today, 
+				reserve_time_count, current_time,
 				memo, doctor_name, patient_name, department_name, location;
 
 	public int getPatient_id() {
@@ -54,12 +55,28 @@ public class MedicalReceiptVO {
 		this.reserve_time = reserve_time;
 	}
 
-	public String getToday() {
-		return today;
+	public String getReserve_today() {
+		return reserve_today;
 	}
 
-	public void setToday(String today) {
-		this.today = today;
+	public void setReserve_today(String reserve_today) {
+		this.reserve_today = reserve_today;
+	}
+
+	public String getReserve_time_count() {
+		return reserve_time_count;
+	}
+
+	public void setReserve_time_count(String reserve_time_count) {
+		this.reserve_time_count = reserve_time_count;
+	}
+
+	public String getCurrent_time() {
+		return current_time;
+	}
+
+	public void setCurrent_time(String current_time) {
+		this.current_time = current_time;
 	}
 
 	public String getMemo() {

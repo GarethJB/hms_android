@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
+import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityAppointmentBinding;
 import com.example.androidhms.reception.vo.MedicalReceiptVO;
 import com.example.conn.ApiClient;
@@ -30,7 +32,6 @@ public class AppointmentActivity extends AppCompatActivity {
 
     ActivityAppointmentBinding bind;
     DatePickerDialog datePickerDialog;
-    MedicalReceiptVO vo;
     ArrayList<MedicalReceiptVO> list;
 
     @Override
@@ -41,10 +42,7 @@ public class AppointmentActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         //datePicker 연결
-        //오늘 예약이 끝난 경우에는 색상 연하게
         bind.llConfirmDate.setOnClickListener(v -> {
-          //  changeColor();
-
             Calendar c = Calendar.getInstance();
             int year = c.get(c.YEAR);
             int month = c.get(c.MONTH);
@@ -52,57 +50,47 @@ public class AppointmentActivity extends AppCompatActivity {
             datePickerDialog = new DatePickerDialog(AppointmentActivity.this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
-                    Log.d("로그", "onDateSet: " + "달력");
                     month = month + 1;
                     String date = year + "  년  " + month + " 월  " + day + "일";
                     bind.tvToday.setText(date);
                     //java 숫자 왼쪽에 0으로 채우기
                     //스프링에서 데이터를 보내기
                     new RetrofitMethod().setParams("time", year + "-" + String.format("%02d", month) + "-" + String.format("%02d", day)).sendPost("appointmentlist.re", (isResult, data) -> {
-                        Log.d("로그", "onDateSet: " + "로그");
-                        Log.d("로그", "onDateSet: " + data);
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
-                        ArrayList<MedicalReceiptVO> list = gson.fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
+                        list = gson.fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
                         }.getType());
                         if(list == null || list.size() == 0 ){
                             bind.cardvAppointmentList.setVisibility(View.INVISIBLE);
+                            Toast.makeText(AppointmentActivity.this, "오늘 예약이 없습니다", Toast.LENGTH_SHORT).show();
                         }else{
-                        bind.cardvAppointmentList.setVisibility(View.VISIBLE);
-                        bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(),list, AppointmentActivity.this));
-                        bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
+                            bind.cardvAppointmentList.setVisibility(View.VISIBLE);
+                            bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(),list, AppointmentActivity.this));
+                            bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
+                            //int all= list.size();
+                            //Log.d("로그", "onDateSet: " +list.size() );
+                            bind.tvCountAll.setText(list.size() + "");
+                            int count = 0 ;
+                            for(int i = 0  ; i <list.size() ; i ++){
+                                if(list.get(i).getReserve_time_count().compareTo(list.get(i).getCurrent_time()) > 0) {
+                                    count ++ ;
+                                }
+                            }
+                            bind.tvCountWaiting.setText(count+"");
+
                         }
                     });
                 }
             }, year, month, day);
             datePickerDialog.show();
         });
-       bind.toolbar.ivLeft.setOnClickListener(v -> {
-           long now = System.currentTimeMillis();
-           Date date = new Date(now);
-           SimpleDateFormat dateFormat= new SimpleDateFormat("HH:mm");
-           String getTime = dateFormat.format(date);
-           Log.d("로그", "onCreate: " + getTime);
-           int index= getTime.indexOf(":");
-           Log.d("로그", "onCreate: " + index);
-           //index값은 2
-           String hTime = getTime.substring(0,2);
-           Log.d("로그", "onCreate: " +hTime );
-           String mTime = getTime.substring(index+1);
-           Log.d("로그", "onCreate: " +mTime );
-           Log.d("로그", "onCreate: " + hTime+mTime );
-           String alltime = hTime+mTime;
-           Log.d("로그", "onCreate: " +alltime );
 
-           String votime = list.get(0).getReserve_time();
-           Log.d("로그", "0110: " +list.get(0).getReserve_time() );
-
-        });
         bind.toolbar.llLogo.setOnClickListener(v -> {
             onBackPressed();
         });
-    }
-    public void changeColor(){
 
-
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+        });
     }
+
 }
