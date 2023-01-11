@@ -42,6 +42,7 @@ public class StaffActivity extends StaffBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Util.isStaffActivityForeground = true;
         // 로그아웃시 finish
         if (Util.staff == null) {
             startActivity(new Intent(this, StaffLoginActivity.class));
@@ -53,6 +54,7 @@ public class StaffActivity extends StaffBaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         getNotificationTime = null;
+        Util.isStaffActivityForeground = false;
     }
 
     @Override

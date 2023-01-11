@@ -59,6 +59,10 @@ public class HmsFirebase {
         FirebaseApp.initializeApp(context);
         chatRoom = dbRef.child("chatRoom");
         member = dbRef.child("member");
+        // 채팅 알림을 통해 액티비티에 진입할 경우
+        if (Util.staff == null) {
+            Util.getStaff(context);
+        }
         myId = String.valueOf(Util.staff.getStaff_id());
     }
 

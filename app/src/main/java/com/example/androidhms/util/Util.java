@@ -28,6 +28,7 @@ import java.util.Locale;
 public class Util {
 
     public static StaffVO staff;
+    public static boolean isStaffActivityForeground = false;
 
     private Util() {
 

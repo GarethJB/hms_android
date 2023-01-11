@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -50,7 +51,11 @@ public class HmsFirebaseMessaging extends FirebaseMessagingService {
         pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_MUTABLE);
 
-        String channelId = "fcm_default_channel";
+        String channelId;
+        if (!Util.isStaffActivityForeground) {
+            channelId = "fcm_high_channel";
+        } else channelId = "fcm_default_channel";
+
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
@@ -65,9 +70,21 @@ public class HmsFirebaseMessaging extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("fcm_default_channel",
-                    "fcm_default_channel",
-                    NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel;
+            // 앱이 백그라운드일땐 상단 알림
+            if (!Util.isStaffActivityForeground) {
+                channel = new NotificationChannel("fcm_high_channel",
+                        "fcm_high_channel",
+                        NotificationManager.IMPORTANCE_HIGH);
+                // 진동설정 (작동 안되는 코드)
+                channel.setVibrationPattern(new long[]{200, 300});
+                channel.enableVibration(true);
+            } else {
+                channel = new NotificationChannel("fcm_default_channel",
+                        "fcm_default_channel",
+                        NotificationManager.IMPORTANCE_DEFAULT);
+            }
+
             notificationManager.createNotificationChannel(channel);
         } else {
 
