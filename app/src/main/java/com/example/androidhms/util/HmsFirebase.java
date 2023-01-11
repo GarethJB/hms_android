@@ -16,6 +16,7 @@ import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +28,10 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.concurrent.Executor;
+
+import okhttp3.MediaType;
 
 public class HmsFirebase {
 
@@ -38,30 +42,29 @@ public class HmsFirebase {
     public static final int GET_NOT_CHECKED_CHAT_COUNT_SUCCESS = 5;
     public static final int GET_NOTIFICATION_SUCCESS = 6;
     public static final int GET_NOTIFICATION_CHATROOM_SUCCESS = 7;
+    public static final int CREATE_GROUP_CHATROOM_SUCCESS = 8;
+
     private static final String RB_URL = "https://hmsmessenger-3a156-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private static final FirebaseDatabase fbDb = FirebaseDatabase.getInstance(RB_URL);
     private static final DatabaseReference dbRef = fbDb.getReference();
+
     private final DatabaseReference chatRoom;
     private final DatabaseReference member;
-    private final Handler handler;
-    private String myId;
-    private ValueEventListener notCheckedChatCountListener, getChatListener, getChatRoomListener, getNotificationListener;
+    private final String myId;
 
-    public HmsFirebase(Context context, Handler handler) {
-        FirebaseApp.initializeApp(context);
-        this.handler = handler;
-        chatRoom = dbRef.child("chatRoom");
-        member = dbRef.child("member");
-        Util.getStaff(context);
-        myId = String.valueOf(Util.staff.getStaff_id());
-    }
+    private Handler handler;
+    private ValueEventListener notCheckedChatCountListener, getChatListener, getChatRoomListener, getNotificationListener;
 
     public HmsFirebase(Context context) {
         FirebaseApp.initializeApp(context);
-        handler = null;
         chatRoom = dbRef.child("chatRoom");
         member = dbRef.child("member");
         myId = String.valueOf(Util.staff.getStaff_id());
+    }
+
+    public HmsFirebase(Context context, Handler handler) {
+        this(context);
+        this.handler = handler;
     }
 
     /**
@@ -110,49 +113,62 @@ public class HmsFirebase {
     }
 
     /**
-     * MessengerStaffFragment 채팅방 입장
+     * MessengerStaffFragment 에서 1:1 채팅방 개설 (이미 존재할 경우 입장)
      */
     public void makeChatRoom(ArrayList<StaffChatDTO> staffList) {
-        chatRoom.addListenerForSingleValueEvent(new ValueEventListener() {
+        // 1:1 채팅방의 키값 (staff_id)--(staff_id)
+        String key;
+        if (staffList.get(0).getStaff_id() < staffList.get(1).getStaff_id()) {
+            key = staffList.get(0).getStaff_id() + "--" + staffList.get(1).getStaff_id();
+        } else key = staffList.get(1).getStaff_id() + "--" + staffList.get(0).getStaff_id();
+        chatRoom.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // 1:1 채팅방의 키값 (staff_id) -- (staff_id)
-                String key;
-                if (staffList.get(0).getStaff_id() < staffList.get(1).getStaff_id()) {
-                    key = staffList.get(0).getStaff_id() + "--" + staffList.get(1).getStaff_id();
-                } else key = staffList.get(1).getStaff_id() + "--" + staffList.get(0).getStaff_id();
-                chatRoom.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        // 채팅방이 존재하지 않을경우 채팅방을 만들고 함수 재호출
-                        if (!snapshot.exists()) {
-                            HashMap<String, Object> map = new HashMap<>();
-                            HashMap<String, StaffChatDTO> memberMap = new HashMap<>();
-                            for (StaffChatDTO dto : staffList) {
-                                memberMap.put(String.valueOf(dto.getStaff_id()), dto);
-                            }
-                            ArrayList<ChatVO> chatList = new ArrayList<>();
-                            map.put("member", memberMap);
-                            map.put("chat", chatList);
-                            map.put("chatRoomTitle", "#" + staffList.get(0).getName() + staffList.get(1).getName());
-                            chatRoom.child(key).setValue(map)
-                                    .addOnSuccessListener(unused -> handler.sendMessage(handler.obtainMessage(GET_CHATROOM_SUCCESS, null)));
-                        } else {
-                            handler.sendMessage(handler.obtainMessage(GET_CHATROOM_SUCCESS, key));
-                        }
+                // 채팅방이 존재하지 않을경우 채팅방을 만들고 함수 재호출
+                if (!snapshot.exists()) {
+                    HashMap<String, Object> map = new HashMap<>();
+                    HashMap<String, StaffChatDTO> memberMap = new HashMap<>();
+                    for (StaffChatDTO dto : staffList) {
+                        memberMap.put(String.valueOf(dto.getStaff_id()), dto);
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                    map.put("member", memberMap);
+                    // 1:1 채팅방의 제목 #(staff_name0)(staff_name1)
+                    map.put("chatRoomTitle", "#" + staffList.get(0).getName() + staffList.get(1).getName());
+                    chatRoom.child(key).setValue(map)
+                            .addOnSuccessListener(unused -> handler.sendMessage(handler.obtainMessage(GET_CHATROOM_SUCCESS, null)));
+                } else {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("key", key);
+                    map.put("title", snapshot.child("chatRoomTitle").getValue(String.class));
+                    handler.sendMessage(handler.obtainMessage(GET_CHATROOM_SUCCESS, map));
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });
+    }
+
+
+    /**
+     * MessengerStaffFragment 에서 그룹 채팅방 개설
+     */
+    public void makeGroupChatRoom(String title, ArrayList<StaffChatDTO> staffList) {
+        String key = UUID.randomUUID().toString();
+        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, StaffChatDTO> memberMap = new HashMap<>();
+        for (StaffChatDTO dto : staffList) {
+            memberMap.put(String.valueOf(dto.getStaff_id()), dto);
+        }
+        map.put("chatRoomTitle", title);
+        map.put("member", memberMap);
+        chatRoom.child(key).setValue(map).addOnSuccessListener(unused -> {
+            HashMap<String, String> map1 = new HashMap<>();
+            map1.put("key", key);
+            map1.put("title", title);
+            handler.sendMessage(handler.obtainMessage(CREATE_GROUP_CHATROOM_SUCCESS, map1));
         });
     }
 
@@ -180,6 +196,7 @@ public class HmsFirebase {
                                 chatRoom.child(count.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot chatRoom) {
+                                        // 채팅방이 개설만 되고 채팅이 하나도 없을 경우
                                         if (!chatRoom.child("lastChat").exists()) {
                                             chatRoomList.add(new ChatRoomVO(
                                                     chatRoom.getKey(),
@@ -307,25 +324,25 @@ public class HmsFirebase {
                 for (DataSnapshot child : snapshot.getChildren()) {
                     if (!child.getKey().equals(myId) && !child.child("onChat").getValue(Boolean.class)) {
                         member.child(String.valueOf(child.getKey())).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (snapshot.child("count").child(key).exists()) {
-                                            member.child(String.valueOf(child.getKey()))
-                                                    .child("count").child(key)
-                                                    .setValue(snapshot.child("count").child(key).getValue(Integer.class) + 1);
-                                        } else
-                                            member.child(String.valueOf(child.getKey()))
-                                                    .child("count").child(key).setValue(1);
-                                        if (snapshot.child("token").exists() && !snapshot.child("token").getValue(String.class).equals("null")) {
-                                            SendPush.sendPushNotification(snapshot.child("token").getValue(String.class), vo, key, title);
-                                        }
-                                    }
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.child("count").child(key).exists()) {
+                                    member.child(String.valueOf(child.getKey()))
+                                            .child("count").child(key)
+                                            .setValue(snapshot.child("count").child(key).getValue(Integer.class) + 1);
+                                } else
+                                    member.child(String.valueOf(child.getKey()))
+                                            .child("count").child(key).setValue(1);
+                                if (snapshot.child("token").exists() && !snapshot.child("token").getValue(String.class).equals("null")) {
+                                    SendPush.sendPushNotification(snapshot.child("token").getValue(String.class), vo, key, title);
+                                }
+                            }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                                    }
-                                });
+                            }
+                        });
                         member.child(String.valueOf(child.getKey())).child("lastChatRoom")
                                 .setValue(key + "##" + title).addOnSuccessListener(unused -> {
                                     member.child(String.valueOf(child.getKey())).child("lastChat").setValue(vo);

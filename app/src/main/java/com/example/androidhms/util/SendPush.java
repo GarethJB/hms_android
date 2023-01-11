@@ -24,10 +24,10 @@ public class SendPush {
                     OkHttpClient client = new OkHttpClient();
                     JSONObject json = new JSONObject();
                     JSONObject dataJson = new JSONObject();
-                    dataJson.put("body", vo.getContent());
-                    dataJson.put("title", vo.getName());
+                    dataJson.put("content", vo.getContent());
+                    dataJson.put("name", vo.getName());
                     dataJson.put("key", key);
-                    dataJson.put("chatRoomTitle", title);
+                    dataJson.put("title", title);
                     json.put("data", dataJson);
                     json.put("to", token);
                     RequestBody body = RequestBody.create(JSON, json.toString());

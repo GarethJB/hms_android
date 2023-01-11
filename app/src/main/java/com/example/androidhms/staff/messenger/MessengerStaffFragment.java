@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MessengerStaffFragment extends Fragment {
@@ -59,14 +62,8 @@ public class MessengerStaffFragment extends Fragment {
             }
         });
 
-        bind.llCreateGroup.setOnClickListener(v -> {
-            new CreateGroupDialog(getContext(), staffList, inflater, new CreateGroupDialog.OnDialogBtnClickListener() {
-                @Override
-                public void onCreateClick(CreateGroupDialog dialog, ArrayList<StaffChatDTO> memberStaffList) {
-
-                }
-            }).show();
-        });
+        // 그룹 채팅방 버튼 클릭
+        bind.llCreateGroup.setOnClickListener(onCreateGroupChatroomClick(inflater));
 
         return bind.getRoot();
     }
@@ -122,17 +119,42 @@ public class MessengerStaffFragment extends Fragment {
         });
     }
 
+    private View.OnClickListener onCreateGroupChatroomClick(LayoutInflater inflater) {
+        return v -> {
+            new CreateGroupDialog(getContext(), staffList, inflater, (dialog, title, memberStaffList) -> {
+                if (title.contains("#")) {
+                    Toast.makeText(getContext(), "제목에 '#'은 들어갈 수 없습니다.", Toast.LENGTH_SHORT).show();
+                } else if (title.equals("")) {
+                    Toast.makeText(getContext(), "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else if (memberStaffList.size() == 1) {
+                    Toast.makeText(getContext(), "자신을 제외한 채팅방 참여자를 추가해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    dialog.showProgress();
+                    fb.makeGroupChatRoom(title, memberStaffList);
+                    dialog.dismiss();
+                }
+            }).show();
+        };
+    }
+
     private Handler firebaseHandler() {
         return new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 if (msg.what == HmsFirebase.GET_CHATROOM_SUCCESS) {
                     if (msg.obj != null) {
+                        HashMap<String, String> map = (HashMap<String, String>) msg.obj;
                         Intent intent = new Intent(getActivity(), ChatActivity.class);
-                        intent.putExtra("title", chatMemberList.get(1).getName());
-                        intent.putExtra("key", msg.obj.toString());
+                        intent.putExtra("title", map.get("title"));
+                        intent.putExtra("key", map.get("key"));
                         startActivity(intent);
                     } else fb.makeChatRoom(chatMemberList);
+                } else if (msg.what == HmsFirebase.CREATE_GROUP_CHATROOM_SUCCESS) {
+                    HashMap<String, String> map = (HashMap<String, String>) msg.obj;
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    intent.putExtra("title", map.get("title"));
+                    intent.putExtra("key", map.get("key"));
+                    startActivity(intent);
                 }
             }
         };

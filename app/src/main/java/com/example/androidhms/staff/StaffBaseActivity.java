@@ -127,11 +127,14 @@ public abstract class StaffBaseActivity extends AppCompatActivity {
             params.rightMargin = Util.getPxFromDp(getActivity(), 20);
             view.setLayoutParams(params);
             // 스낵바 바인딩
-            sbBind.tvName.setText(vo.getName());
+            String[] strArr = keyAndTitle.split("##");
+            String titleView;
+            if (strArr[1].contains("#")) titleView = vo.getName();
+            else titleView = strArr[1] + " / " + vo.getName();
+            sbBind.tvName.setText(titleView);
             sbBind.tvContent.setText(vo.getContent());
             sbBind.imgvExit.setOnClickListener(v -> snackbar.dismiss());
             sbBind.view.setOnClickListener(v -> {
-                String[] strArr = keyAndTitle.split("##");
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("title", strArr[1]);
                 intent.putExtra("key", strArr[0]);

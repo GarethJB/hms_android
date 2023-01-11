@@ -1,5 +1,8 @@
 package com.example.androidhms.staff.messenger.adapter;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,7 +43,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
             String titleRv = title.replace("#", "");
             titleRv = titleRv.replaceAll(name, "");
             holder.bind.tvTitle.setText(titleRv);
-        }
+        } else holder.bind.tvTitle.setText(title);
         holder.bind.tvLastchat.setText(vo.getLastChat());
         holder.bind.tvTime.setText(Util.getTime(vo.getLastChatTime()));
         if (vo.getCount().equals("0")) holder.bind.tvCount.setVisibility(View.GONE);

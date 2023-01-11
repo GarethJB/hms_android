@@ -18,8 +18,8 @@ public class CreateGroupDialog {
 
     private final DialogCreateGroupBinding b;
     private final Dialog dialog;
-    private ArrayList<StaffChatDTO> allStaffList;
-    private ArrayList<StaffChatDTO> memberStaffList;
+    private final ArrayList<StaffChatDTO> allStaffList;
+    private final ArrayList<StaffChatDTO> memberStaffList;
 
     public CreateGroupDialog(Context context, ArrayList<StaffChatDTO> allStaffList, LayoutInflater inflater, OnDialogBtnClickListener listener) {
         dialog = new Dialog(context);
@@ -37,7 +37,7 @@ public class CreateGroupDialog {
         dialog.getWindow().setDimAmount(0.3f);
 
         b.imgvExit.setOnClickListener(v -> dialog.dismiss());
-        b.btnCreate.setOnClickListener(v -> listener.onCreateClick(this, memberStaffList));
+        b.btnCreate.setOnClickListener(v -> listener.onCreateClick(this, b.etTitle.getText().toString(), memberStaffList));
 
         Util.setRecyclerView(context, b.rvStaffList, new DialogStaffAdapter(allStaffList, this, inflater), true);
 
@@ -71,6 +71,6 @@ public class CreateGroupDialog {
     }
 
     public interface OnDialogBtnClickListener {
-        void onCreateClick(CreateGroupDialog dialog, ArrayList<StaffChatDTO> memberStaffList);
+        void onCreateClick(CreateGroupDialog dialog, String title, ArrayList<StaffChatDTO> memberStaffList);
     }
 }
