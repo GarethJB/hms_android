@@ -15,8 +15,7 @@ import com.example.androidhms.customer.info.acceptance.AcceptanceRecordActivity;
 import com.example.androidhms.customer.info.card.CardActivity;
 import com.example.androidhms.customer.info.medical.MedicalRecordActivity;
 import com.example.androidhms.customer.info.myinfo.MyinfoActivity;
-import com.example.androidhms.customer.info.reservation.ScheduleActivity;
-import com.example.androidhms.customer.info.timetable.TimeTableActivity;
+import com.example.androidhms.customer.info.reservation.ReservationScheduleActivity;
 import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.databinding.FragmentCustomerInfoBinding;
 
@@ -55,6 +54,7 @@ public class InfoFragment extends Fragment {
         //클릭시 카드전환
         bind.btnCard.setOnClickListener(v1 -> {
             Intent intent = new Intent(getActivity(), CardActivity.class);
+            intent.putExtra("customer", customer);
             startActivity(intent);
         });
 
@@ -75,7 +75,7 @@ public class InfoFragment extends Fragment {
 
         //일정 조회
         bind.llReservationRecord.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), ScheduleActivity.class);
+            Intent intent = new Intent(getActivity(), ReservationScheduleActivity.class);
             intent.putExtra("patient_id", customer.getPatient_id());
             startActivity(intent);
         });
@@ -88,7 +88,8 @@ public class InfoFragment extends Fragment {
 
         //클릭시 의료진 소개
         bind.llTimetable.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), TimeTableActivity.class);
+            Intent intent = new Intent(getActivity(), MyinfoActivity.class);
+            intent.putExtra("customer", customer);
             startActivity(intent);
         });
 

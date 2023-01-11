@@ -35,15 +35,15 @@ public class CustomerLoginActivity extends AppCompatActivity {
             new RetrofitMethod().setParams("email", bind.etEmail.getText().toString())
                     .setParams("pw", bind.etPw.getText().toString())
                     .sendPost("customer_login.cu", (isResult, data) -> {
-
-                        Log.d("로그인", "결과 : " + isResult);
-                        Log.d("로그인", "정보 : " + data);
+                        
 
                         if (data.equals("null")) {
                             Toast.makeText(CustomerLoginActivity.this,
                                     "사번 또는 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                         } else {
                             // CustomerVO에 DB에서 불러온 정보 주입
+                            Log.d("로그", "로그인 결과 : " + isResult);
+                            Log.d("로그", "로그인 정보 : " + data);
                             customer = new Gson().fromJson(data, CustomerVO.class);
                             LoginInfo.check_id = customer.getPatient_id();
                             Intent intent = new Intent();

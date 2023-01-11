@@ -18,18 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:text="이름"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tv_name"
-                android:text="임주빈"
-                android:textSize="20dp"
+                android:text="고객 정보"
+                android:textSize="24dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
@@ -39,6 +32,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <!-- 성별 -->
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="이름"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:text="이름"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+            <View
+                android:background="#CFCFCF"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <!-- 성별 -->
             <RelativeLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -49,9 +69,9 @@
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <EditText
+                <TextView
                     android:id="@+id/tv_gender"
-                    android:hint="남자"
+                    android:text="남자"
                     android:textSize="20dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -74,9 +94,9 @@
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <EditText
+                <TextView
                     android:id="@+id/tv_email"
-                    android:hint="wneod3247@naver.com"
+                    android:text="wneod3247@naver.com"
                     android:textSize="20dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -97,11 +117,12 @@
                     android:text="전화번호"
                     android:textSize="20dp"
                     android:textColor="@color/black"
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <EditText
-                    android:id="@+id/tv_phone"
-                    android:hint="010-5755-3247"
+                    android:id="@+id/et_phone"
+                    android:text="010-5755-3247"
                     android:textSize="20dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -116,7 +137,6 @@
                 android:layout_height="1dp"/>
             <!-- 가입일 -->
             <RelativeLayout
-                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
@@ -128,6 +148,135 @@
                 <TextView
                     android:id="@+id/tv_date"
                     android:text="2022. 12. 08."
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+            <View
+                android:background="#CFCFCF"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <!-- 혈액형 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="혈액형"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_bloodtype"
+                    android:text="형"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+            <View
+                android:background="#CFCFCF"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <!-- 신장 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="신장"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_height"
+                    android:text="186"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+            <View
+                android:background="#CFCFCF"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <!-- 체중 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="체중"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/et_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="체중"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <View
+                android:background="#CFCFCF"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <!-- 알러지 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="알레르기"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/et_allergy"
+                    android:text="없음"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+            <View
+                android:background="#CFCFCF"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <!-- 기저질환 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="기저질환"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/et_underlying"
+                    android:text="없음"
                     android:textSize="20dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"

@@ -6,23 +6,22 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".customer.reservation.ReservationActivity">
-    <LinearLayout
+
+    <RelativeLayout
         android:paddingVertical="10dp"
         android:background="@color/main_color"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/imgv_before"
             android:src="@drawable/icon_step_before"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:layout_width="40dp"
             android:layout_height="40dp"/>
         <LinearLayout
             android:gravity="center"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
@@ -42,26 +41,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-        <ImageView
-            android:background="@color/main_color"
-            android:id="@+id/imgv_next"
-            android:src="@drawable/icon_step_next"
-            android:layout_gravity="center_vertical"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
         <TextView
-            android:id="@+id/tv_back"
+            android:id="@+id/tv_cancel"
             android:text="취소"
             android:textSize="18dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginRight="10dp"
-            android:layout_gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/container"

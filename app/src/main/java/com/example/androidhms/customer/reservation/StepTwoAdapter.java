@@ -9,14 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
+import com.example.androidhms.customer.vo.RecieptVO;
+import com.example.androidhms.databinding.ItemCustomerStepTowBinding;
+
+import java.util.ArrayList;
 
 public class StepTwoAdapter extends RecyclerView.Adapter<StepTwoAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
+    ArrayList<RecieptVO> reciept = new ArrayList<>();
 
-    public StepTwoAdapter(LayoutInflater inflater, Context context) {
+    public StepTwoAdapter(LayoutInflater inflater, Context context, ArrayList<RecieptVO> reciept) {
         this.inflater = inflater;
         this.context = context;
+        this.reciept = reciept;
     }
 
     @NonNull
@@ -28,7 +34,19 @@ public class StepTwoAdapter extends RecyclerView.Adapter<StepTwoAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder h, int i) {
+        h.bind.tvName.setText(reciept.get(i).getName());
+        h.bind.tvIntroduction.setText(reciept.get(i).getIntroduction());
+
+
+
+        h.bind.llSelect.setOnClickListener(v -> {
+            ReservationSelect.selectedStaff_id = reciept.get(i).getStaff_id();
+            ReservationSelect.selectedStaff_name = reciept.get(i).getName();
+            ReservationSelect.selectedDepartment_name = reciept.get(i).getDepartment_name();
+            StepCnt.cnt = 3;
+            ((ReservationActivity) context).changeStep();
+        });
 
     }
 
@@ -44,13 +62,14 @@ public class StepTwoAdapter extends RecyclerView.Adapter<StepTwoAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return 7;
+        return reciept.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
+        ItemCustomerStepTowBinding bind;
         public ViewHolder(@NonNull View v) {
             super(v);
+            bind = ItemCustomerStepTowBinding.bind(v);
         }
     }
 }

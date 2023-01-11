@@ -51,12 +51,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 고객 페이지 -->
+
+        </activity>
+
+        <!-- 고객 페이지 -->
         <activity
             android:name=".customer.info.acceptance.AcceptanceRecordActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.info.reservation.ScheduleActivity"
+            android:name=".customer.info.reservation.ReservationScheduleActivity"
             android:exported="false" />
         <activity
             android:name=".customer.info.medical.MedicalRecordActivity"
@@ -77,12 +80,9 @@
         <activity
             android:name=".customer.join.JoinActivity"
             android:exported="false" />
+
         <activity
-            android:name=".customer.ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".customer.info.timetable.TimeTableActivity"
+            android:name=".customer.location.timetable.TimeTableActivity"
             android:exported="false" /> <!-- 직원 페이지 -->
         <activity
             android:name=".staff.schedule.ScheduleActivity"
@@ -122,9 +122,9 @@
         <activity
             android:name=".reception.home.NewsActivity"
             android:exported="false" />
-        <activity
+    <!--    <activity // 임주빈 2023 - 01 -10 프래그먼트라서 주석함.
             android:name=".reception.home.ReceptionHomeFragment"
-            android:exported="false" />
+            android:exported="false" />-->
         <activity
             android:name=".reception.ReceptionLoginActivity"
             android:exported="false" />

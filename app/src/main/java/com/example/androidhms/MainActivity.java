@@ -2,7 +2,6 @@ package com.example.androidhms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
         new RetrofitMethod().setParams("a", "1").setParams("b", "2").sendPost("hmstest", new RetrofitMethod.CallBackResult() {
             @Override
             public void result(boolean isResult, String data) {
-                Log.d(TAG, "result: " + isResult);
-                Log.d(TAG, "result: " + data);
+
             }
         });
 

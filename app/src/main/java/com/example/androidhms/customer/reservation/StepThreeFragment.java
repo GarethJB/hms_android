@@ -6,14 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.databinding.FragmentCustomerStepThreeBinding;
 
 
 public class StepThreeFragment extends Fragment {
-    FragmentCustomerStepThreeBinding bind;
+    private FragmentCustomerStepThreeBinding bind;
+    private String setYear;
+    private String setMonth;
+    private String setDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -21,10 +22,30 @@ public class StepThreeFragment extends Fragment {
 
         bind = FragmentCustomerStepThreeBinding.inflate(inflater, container, false);
 
-        StepThreeAdapter adapter = new StepThreeAdapter(inflater, getContext());
+        bind.calvDate.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            setYear = Integer.toString(year);
+            if (month < 10) {
+                setMonth = "0" + Integer.toString(month + 1);
+            }else {
+                setMonth = Integer.toString(month + 1);
+            }
+            if (dayOfMonth < 10) {
+                setDate = "0" + Integer.toString(dayOfMonth);
+            }else {
+                setDate = Integer.toString(dayOfMonth);
+            }
 
-        bind.rcvDate.setAdapter(adapter);
-        bind.rcvDate.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+            ReservationSelect.selectedDate = setYear + setMonth + setDate;
+
+        });
+
+        bind.btnSelect.setOnClickListener(v -> {
+
+            StepCnt.cnt = 4;
+            ((ReservationActivity)getActivity()).changeStep();
+
+
+        });
 
         return bind.getRoot();
     }

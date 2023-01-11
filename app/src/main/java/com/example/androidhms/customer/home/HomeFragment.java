@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.androidhms.customer.LoginInfo;
 import com.example.androidhms.customer.join.JoinActivity;
 import com.example.androidhms.databinding.FragmentCustomerHomeBinding;
 
@@ -22,15 +22,16 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentCustomerHomeBinding.inflate(inflater, container, false);
 
+        if (LoginInfo.check_id > 0) {
+            bind.btnJoin.setText("WELCOME");
+            bind.btnJoin.setEnabled(false);
+        }
+
         bind.btnJoin.setOnClickListener(v1 -> {
             Intent intent = new Intent(getActivity(), JoinActivity.class);
             startActivity(intent);
         });
 
-        HomeAdapter adapter = new HomeAdapter(inflater, getContext());
-
-        bind.rcvIntroduceStaff.setAdapter(adapter);
-        bind.rcvIntroduceStaff.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         return bind.getRoot();
     }

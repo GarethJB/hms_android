@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class AdmissionRecordVO implements Serializable {
     private int admission_record_id, ward_id, medical_record_id, bed;
-    private String admission_date, discharge_date, treatment_name, name, ward_number;
+    private String admission_date, discharge_date, treatment_name, name, department_name, ward_number;
 
-    public AdmissionRecordVO(int admission_record_id, int ward_id, int medical_record_id, int bed, String admission_date, String discharge_date, String treatment_name, String name, String ward_number) {
+    public AdmissionRecordVO(int admission_record_id, int ward_id, int medical_record_id, int bed, String admission_date, String discharge_date, String treatment_name, String name, String department_name, String ward_number) {
         this.admission_record_id = admission_record_id;
         this.ward_id = ward_id;
         this.medical_record_id = medical_record_id;
@@ -15,6 +15,7 @@ public class AdmissionRecordVO implements Serializable {
         this.discharge_date = discharge_date;
         this.treatment_name = treatment_name;
         this.name = name;
+        this.department_name = department_name;
         this.ward_number = ward_number;
     }
 
@@ -80,6 +81,14 @@ public class AdmissionRecordVO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDepartment_name() {
+        return department_name;
+    }
+
+    public void setDepartment_name(String department_name) {
+        this.department_name = department_name;
     }
 
     public String getWard_number() {

@@ -24,9 +24,15 @@ public class UpdateFragment extends Fragment {
         bind = FragmentCustomerMyinfoUpdateBinding.inflate(inflater, container, false);
 
         bind.tvName.setText(customer.getName());
-        bind.tvGender.setHint(customer.getGender());
-        bind.tvEmail.setHint(customer.getEmail());
-        bind.tvPhone.setHint(customer.getPhone_number());
+        bind.tvGender.setText(customer.getGender());
+        bind.tvEmail.setText(customer.getEmail());
+        bind.etPhone.setHint(customer.getPhone_number());
+        bind.tvDate.setText(customer.getJoin_date());
+        bind.tvBloodtype.setText(customer.getBlood_type());
+        bind.tvHeight.setText(customer.getHeight() + "cm");
+        bind.etWeight.setHint(customer.getWeight() + "");
+        try {bind.etAllergy.setHint(customer.getAllergy());}catch (Exception e){}
+        try {bind.etUnderlying.setHint(customer.getUnderlying_disease());}catch (Exception e){}
 
 
         return bind.getRoot();

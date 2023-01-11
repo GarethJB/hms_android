@@ -1,4 +1,4 @@
-package com.example.androidhms.customer.reservation;
+package com.example.androidhms.customer.location.timetable;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
 
-public class StepThreeAdapter extends RecyclerView.Adapter<StepThreeAdapter.ViewHolder> {
+public class SelectDepartmentAdapter extends RecyclerView.Adapter<SelectDepartmentAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
 
-    public StepThreeAdapter(LayoutInflater inflater, Context context) {
+    public SelectDepartmentAdapter(LayoutInflater inflater, Context context) {
         this.inflater = inflater;
         this.context = context;
     }
@@ -22,7 +22,7 @@ public class StepThreeAdapter extends RecyclerView.Adapter<StepThreeAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.item_customer_step_tow, parent, false);
+        View v = inflater.inflate(R.layout.item_customer_select_department, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -33,18 +33,18 @@ public class StepThreeAdapter extends RecyclerView.Adapter<StepThreeAdapter.View
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
     public int getItemViewType(int position) {
         return position;
     }
 
     @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     public int getItemCount() {
-        return 30;
+        return 7;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

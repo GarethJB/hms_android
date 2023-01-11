@@ -8,14 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
-import com.example.androidhms.customer.vo.AccountVO;
 import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.databinding.ActivityCustomerMyinfoBinding;
 
 public class MyinfoActivity extends AppCompatActivity {
     private ActivityCustomerMyinfoBinding bind;
     private CustomerVO customer;
-    private AccountVO account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +21,7 @@ public class MyinfoActivity extends AppCompatActivity {
         bind = ActivityCustomerMyinfoBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
-        //뒤로가기
-        bind.toolbar.ivLeft.setOnClickListener(v -> {
-            onBackPressed();
-        });
+
 
         //고객정보 받아오기
         Intent intent = getIntent();

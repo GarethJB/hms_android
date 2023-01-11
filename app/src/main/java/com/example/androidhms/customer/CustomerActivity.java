@@ -44,6 +44,12 @@ public class CustomerActivity extends AppCompatActivity {
             onBackPressed();
         });
 
+        //로그아웃
+        bind.toolbar.ivLogout.setOnClickListener(v -> {
+            LoginInfo.check_id = 0;
+            onBackPressed();
+        });
+
         //로그인 액티비티 띄우기
         bind.toolbar.tvLogin.setOnClickListener(v -> {
             Intent intent = new Intent(CustomerActivity.this, CustomerLoginActivity.class);
@@ -69,6 +75,7 @@ public class CustomerActivity extends AppCompatActivity {
                         //예약 프래그먼트 전환
                         Intent intent = new Intent(CustomerActivity.this, ReservationActivity.class);
                         startActivity(intent);
+                        Log.d("로그", "예약 프래그먼트 전환");
                     } else {
                         Toast.makeText(CustomerActivity.this,
                                 "로그인시 이용 가능합니다.", Toast.LENGTH_SHORT).show();
@@ -108,6 +115,7 @@ public class CustomerActivity extends AppCompatActivity {
                 customer = (CustomerVO) intent.getSerializableExtra("customer");
                 LoginInfo.check_id = customer.getPatient_id();
                 checkLogin();
+                changeFragment(new HomeFragment());
             }
         }
     });
@@ -116,8 +124,10 @@ public class CustomerActivity extends AppCompatActivity {
     public void checkLogin(){
         if (LoginInfo.check_id > 0) {
             bind.toolbar.tvLogin.setVisibility(View.GONE);
+            bind.toolbar.ivLeft.setVisibility(View.GONE);
+            bind.toolbar.ivLogout.setVisibility(View.VISIBLE);
             bind.toolbar.tvAccount.setVisibility(View.VISIBLE);
-            bind.toolbar.tvAccount.setText(customer.getName());
+            bind.toolbar.tvAccount.setText(customer.getName() + "님");
         }
     }
 }

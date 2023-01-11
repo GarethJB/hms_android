@@ -14,6 +14,14 @@
         android:padding="10dp">
         <!-- 뒤로가기 -->
         <ImageView
+            android:id="@+id/iv_logout"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_logout"/>
+        <!-- 뒤로가기 -->
+        <ImageView
             android:id="@+id/iv_left"
             android:layout_width="25dp"
             android:layout_height="25dp"

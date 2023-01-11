@@ -1,4 +1,4 @@
-package com.example.androidhms.customer.info.timetable;
+package com.example.androidhms.customer.location.timetable;
 
 import android.content.Context;
 import android.view.LayoutInflater;
