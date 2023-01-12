@@ -58,7 +58,7 @@ public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAd
 
     public static class MessengerStaffViewHolder extends RecyclerView.ViewHolder {
 
-        public RvMessengerStaffBinding bind;
+        private final RvMessengerStaffBinding bind;
 
         public MessengerStaffViewHolder(@NonNull View itemView) {
             super(itemView);

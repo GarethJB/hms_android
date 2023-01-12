@@ -1,7 +1,5 @@
 package com.example.androidhms.staff;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +9,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -28,7 +25,6 @@ import com.example.androidhms.staff.messenger.ChatActivity;
 import com.example.androidhms.staff.messenger.MessengerActivity;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.util.HmsFirebase;
-import com.example.androidhms.util.HmsFirebaseMessaging;
 import com.example.androidhms.util.Util;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,7 +34,6 @@ import java.sql.Timestamp;
 public abstract class StaffBaseActivity extends AppCompatActivity {
 
     private HmsFirebase fb;
-    private HmsFirebaseMessaging fbm;
     private ToolbarStaffBinding bind;
     private ChatVO chatVO;
     // 채팅 알림 중복 방지

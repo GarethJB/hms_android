@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -314,6 +315,15 @@ public class HmsFirebase {
         chatRoom.child(key).child("member")
                 .child(myId)
                 .child("lastChatCheckTime").setValue(Util.getChatTimeStamp());
+    }
+
+    /**
+     * 하루가 지나갈 경우 시스템 메시지에 날짜 출력
+     */
+    public void sendDateBeforeSendChat(String key, String title, ChatVO vo, Timestamp timestamp) {
+        chatRoom.child(key).child("chat").push().setValue(
+                new ChatVO("0", "SYSTEM", Util.dateFormat(timestamp, "yyyy년 M월 d일")))
+                .addOnSuccessListener(unused -> sendChat(key, title, vo));
     }
 
     /**

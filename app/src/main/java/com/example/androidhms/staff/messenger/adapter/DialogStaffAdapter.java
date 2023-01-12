@@ -18,9 +18,9 @@ import java.util.ArrayList;
 
 public class DialogStaffAdapter extends RecyclerView.Adapter<DialogStaffAdapter.DialogStaffViewHolder> {
 
-    private ArrayList<StaffChatDTO> staffList;
-    private CreateGroupDialog dialog;
-    private LayoutInflater inflater;
+    private final ArrayList<StaffChatDTO> staffList;
+    private final CreateGroupDialog dialog;
+    private final LayoutInflater inflater;
 
     public DialogStaffAdapter(ArrayList<StaffChatDTO> staffList, CreateGroupDialog dialog, LayoutInflater inflater) {
         this.staffList = staffList;
@@ -62,9 +62,9 @@ public class DialogStaffAdapter extends RecyclerView.Adapter<DialogStaffAdapter.
         return position;
     }
 
-    public class DialogStaffViewHolder extends RecyclerView.ViewHolder {
+    public static class DialogStaffViewHolder extends RecyclerView.ViewHolder {
 
-        public ItemMessengerCreateGroupBinding bind;
+        private final ItemMessengerCreateGroupBinding bind;
 
         public DialogStaffViewHolder(@NonNull View itemView) {
             super(itemView);

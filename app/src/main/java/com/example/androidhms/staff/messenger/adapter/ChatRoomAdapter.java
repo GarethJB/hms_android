@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRoomViewHolder> {
 
-    private ArrayList<ChatRoomVO> chatRoomList;
-    private MessengerFragment fragment;
-    private String name;
+    private final ArrayList<ChatRoomVO> chatRoomList;
+    private final MessengerFragment fragment;
+    private final String name;
 
     public ChatRoomAdapter(MessengerFragment fragment, ArrayList<ChatRoomVO> chatRoomList, String name) {
         this.chatRoomList = chatRoomList;
@@ -39,11 +39,15 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
     public void onBindViewHolder(@NonNull ChatRoomViewHolder holder, int position) {
         ChatRoomVO vo = chatRoomList.get(position);
         String title = vo.getRoomTitle();
+        // 1:1 채팅방일 경우, 단톡방일경우
         if (title.contains("#")) {
             String titleRv = title.replace("#", "");
             titleRv = titleRv.replaceAll(name, "");
             holder.bind.tvTitle.setText(titleRv);
-        } else holder.bind.tvTitle.setText(title);
+        } else {
+            holder.bind.tvTitle.setText(title);
+            holder.bind.imgvGroup.setImageResource(R.drawable.icon_group);
+        }
         holder.bind.tvLastchat.setText(vo.getLastChat());
         holder.bind.tvTime.setText(Util.getTime(vo.getLastChatTime()));
         if (vo.getCount().equals("0")) holder.bind.tvCount.setVisibility(View.GONE);
@@ -66,9 +70,9 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
         return position;
     }
 
-    public class ChatRoomViewHolder extends RecyclerView.ViewHolder {
+    public static class ChatRoomViewHolder extends RecyclerView.ViewHolder {
 
-        public RvChatroomBinding bind;
+        private final RvChatroomBinding bind;
 
         public ChatRoomViewHolder(@NonNull View itemView) {
             super(itemView);
