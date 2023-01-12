@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.example.androidhms.databinding.ActivityStaffScheduleBinding;
 import com.example.androidhms.staff.StaffBaseActivity;
-import com.example.androidhms.util.CalendarDialog;
+import com.example.androidhms.util.dialog.CalendarDialog;
 import com.example.androidhms.util.Util;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 

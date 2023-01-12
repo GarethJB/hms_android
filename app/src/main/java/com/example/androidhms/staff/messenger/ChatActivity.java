@@ -1,17 +1,15 @@
 package com.example.androidhms.staff.messenger;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -21,14 +19,19 @@ import com.example.androidhms.databinding.ActivityChatBinding;
 import com.example.androidhms.databinding.NavChatHeaderBinding;
 import com.example.androidhms.staff.StaffBaseActivity;
 import com.example.androidhms.staff.messenger.adapter.ChatAdapter;
+import com.example.androidhms.staff.messenger.dialog.AddMemberDialog;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
-import com.google.android.material.navigation.NavigationView;
+import com.example.androidhms.util.dialog.AlertDialog;
+import com.example.conn.RetrofitMethod;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ChatActivity extends StaffBaseActivity {
 
@@ -40,6 +43,9 @@ public class ChatActivity extends StaffBaseActivity {
     private StaffChatDTO staff;
     private ArrayList<ChatVO> chatList;
     private ArrayList<StaffChatDTO> staffList;
+    private ArrayList<StaffChatDTO> allStaffList;
+    private boolean isGroup;
+    private boolean isOutChatRoom = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +55,12 @@ public class ChatActivity extends StaffBaseActivity {
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
         key = intent.getStringExtra("key");
+        isGroup = !title.contains("#");
 
         bind.toolbar.imgvMessenger.setImageResource(R.drawable.icon_menu);
         bind.toolbar.imgvMessenger.setOnClickListener(v -> bind.view.openDrawer(GravityCompat.END));
 
-        if (title.contains("#")) {
+        if (!isGroup) {
             String titleView = title.replace("#", "");
             titleView = titleView.replaceAll(staff.getName(), "");
             bind.tvChatroom.setText(titleView);
@@ -69,7 +76,7 @@ public class ChatActivity extends StaffBaseActivity {
                         bind.rvChat.scrollToPosition(chatList.size() - 1), 200));
         fb.getChat(key);
         fb.getChatMember(key);
-        setContentView(bind.getRoot());
+        fb.getNoticeChat(key);
     }
 
     @Override
@@ -81,7 +88,16 @@ public class ChatActivity extends StaffBaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        fb.setOnChat(key, false);
+        if (!isOutChatRoom) fb.setOnChat(key, false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!isOutChatRoom) {
+            fb.removeChatListener(key);
+            fb.setOnChat(key, false);
+        }
     }
 
     @Override
@@ -101,9 +117,27 @@ public class ChatActivity extends StaffBaseActivity {
         nBind.tvDepartment.setText(getDepartment(staff));
 
         Menu menu = bind.navMember.getMenu();
+        menu.clear();
         Menu subMenu = menu.addSubMenu("참여자 (" + staffList.size() + ")");
         for (StaffChatDTO dto : staffList) {
             subMenu.add(dto.getName() + " / " + getDepartment(dto));
+        }
+        if (!isGroup) {
+            nBind.imgvAdd.setVisibility(View.GONE);
+            nBind.imgvOut.setVisibility(View.GONE);
+        } else {
+            nBind.imgvAdd.setOnClickListener(v -> {
+                if (allStaffList == null) {
+                    new RetrofitMethod().sendGet("getStaff.ap", (isResult, data) -> {
+                        if (isResult) {
+                            allStaffList = new Gson().fromJson(data, new TypeToken<ArrayList<StaffChatDTO>>() {
+                            }.getType());
+                            onShowAddMemberDialog();
+                        }
+                    });
+                } else onShowAddMemberDialog();
+            });
+            nBind.imgvOut.setOnClickListener(v -> onShowOutDialog());
         }
     }
 
@@ -123,9 +157,27 @@ public class ChatActivity extends StaffBaseActivity {
                     Util.setRecyclerView(ChatActivity.this, bind.rvChat,
                             new ChatAdapter(ChatActivity.this, chatList, String.valueOf(staff.getStaff_id())), true);
                     bind.rvChat.scrollToPosition(chatList.size() - 1);
+                    // 멤버 변동시 추가 / 삭제
+                    if (!chatList.isEmpty() && (chatList.get(chatList.size() - 1).getName().equals("SYSTEM_ADD") ||
+                            chatList.get(chatList.size() - 1).getName().equals("SYSTEM_OUT"))) {
+                        fb.getChatMember(key);
+                    }
+                    // 공지사항 변경시 새 공지사항을 불러옴
+                    if (!chatList.isEmpty() && (chatList.get(chatList.size() - 1).getName().equals("SYSTEM_NOTICE"))) {
+                        fb.getNoticeChat(key);
+                    }
                 } else if (msg.what == HmsFirebase.GET_CHAT_MEMBER_SUCCESS) {
                     staffList = (ArrayList<StaffChatDTO>) msg.obj;
                     setNavigationView();
+                } else if (msg.what == HmsFirebase.OUT_GROUP_CHATROOM_SUCCESS) {
+                    Toast.makeText(ChatActivity.this, "채팅방에서 나갔습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else if (msg.what == HmsFirebase.GET_CHATROOM_NOTICE_SUCCESS) {
+                    if (msg.obj != null) {
+                        ChatVO vo = (ChatVO) msg.obj;
+                        bind.tvNotice.setText(vo.getContent());
+                        bind.llNotice.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         };
@@ -148,9 +200,56 @@ public class ChatActivity extends StaffBaseActivity {
         };
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        fb.removeChatListener(key);
+    private void onShowAddMemberDialog() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            allStaffList = (ArrayList<StaffChatDTO>) allStaffList.stream().filter(d -> {
+                for (StaffChatDTO dto : staffList) if (dto.equals(d)) return false;
+                return true;
+            }).collect(Collectors.toList());
+        }
+        new AddMemberDialog(ChatActivity.this, allStaffList, getLayoutInflater(), new AddMemberDialog.OnDialogBtnClickListener() {
+            @Override
+            public void onCreateClick(AddMemberDialog dialog, ArrayList<StaffChatDTO> memberStaffList) {
+                fb.addMemberGroupChat(key, memberStaffList);
+                dialog.dismiss();
+                bind.view.closeDrawer(GravityCompat.END);
+            }
+        }).show();
     }
+
+    private void onShowOutDialog() {
+        nBind.imgvOut.setOnClickListener(v -> {
+            new AlertDialog(ChatActivity.this, getLayoutInflater(), "채팅방 나가기", "정말 채팅방을 나가시겠습니까?",
+                    new AlertDialog.OnAlertDialogClickListener() {
+                        @Override
+                        public void setOnClickYes(AlertDialog dialog) {
+                            isOutChatRoom = true;
+                            fb.outGroupChatRoom(key, staff.getName());
+                            dialog.dismiss();
+                        }
+                        @Override
+                        public void setOnClickNo(AlertDialog dialog) {
+                            dialog.dismiss();
+                        }
+                    }).setYesText("나가기").show();
+        });
+    }
+
+    public void setNoticeChat(int position) {
+        new AlertDialog(ChatActivity.this, getLayoutInflater(),
+                "공지사항 등록",
+                "'" + chatList.get(position).getContent() + "'\n를 채팅방의 공지사항으로 등록하시겠습니까?",
+                new AlertDialog.OnAlertDialogClickListener() {
+                    @Override
+                    public void setOnClickYes(AlertDialog dialog) {
+                        fb.setNoticeChat(key, chatList.get(position));
+                        dialog.dismiss();
+                    }
+                    @Override
+                    public void setOnClickNo(AlertDialog dialog) {
+                        dialog.dismiss();
+                    }
+                }).setYesText("등록").show();
+    }
+
 }

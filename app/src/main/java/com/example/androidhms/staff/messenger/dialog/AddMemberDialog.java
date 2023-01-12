@@ -1,4 +1,4 @@
-package com.example.androidhms.staff.messenger;
+package com.example.androidhms.staff.messenger.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,28 +6,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.example.androidhms.databinding.DialogCreateGroupBinding;
+import com.example.androidhms.databinding.DialogChatAddMemberBinding;
 import com.example.androidhms.staff.messenger.adapter.DialogStaffAdapter;
 import com.example.androidhms.staff.vo.StaffChatDTO;
-import com.example.androidhms.util.EditDialog;
 import com.example.androidhms.util.Util;
 
 import java.util.ArrayList;
 
-public class CreateGroupDialog {
+public class AddMemberDialog {
 
-    private final DialogCreateGroupBinding b;
+    private final DialogChatAddMemberBinding b;
     private final Dialog dialog;
     private final ArrayList<StaffChatDTO> allStaffList;
     private final ArrayList<StaffChatDTO> memberStaffList;
 
-    public CreateGroupDialog(Context context, ArrayList<StaffChatDTO> allStaffList, LayoutInflater inflater, OnDialogBtnClickListener listener) {
+    public AddMemberDialog(Context context, ArrayList<StaffChatDTO> allStaffList, LayoutInflater inflater, OnDialogBtnClickListener listener) {
         dialog = new Dialog(context);
-        b = DialogCreateGroupBinding.inflate(inflater);
+        b = DialogChatAddMemberBinding.inflate(inflater);
         dialog.setContentView(b.getRoot());
         this.allStaffList = allStaffList;
         memberStaffList = new ArrayList<>();
-        memberStaffList.add(Util.getStaffChatDTO(context));
         setTextMemberList();
 
         WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
@@ -37,10 +35,9 @@ public class CreateGroupDialog {
         dialog.getWindow().setDimAmount(0.3f);
 
         b.imgvExit.setOnClickListener(v -> dialog.dismiss());
-        b.btnCreate.setOnClickListener(v -> listener.onCreateClick(this, b.etTitle.getText().toString(), memberStaffList));
+        b.btnCreate.setOnClickListener(v -> listener.onCreateClick(this, memberStaffList));
 
         Util.setRecyclerView(context, b.rvStaffList, new DialogStaffAdapter(allStaffList, this, inflater), true);
-
     }
 
     public void onSelectStaff(int position, boolean checked) {
@@ -71,6 +68,6 @@ public class CreateGroupDialog {
     }
 
     public interface OnDialogBtnClickListener {
-        void onCreateClick(CreateGroupDialog dialog, String title, ArrayList<StaffChatDTO> memberStaffList);
+        void onCreateClick(AddMemberDialog dialog, ArrayList<StaffChatDTO> memberStaffList);
     }
 }

@@ -2,6 +2,8 @@ package com.example.androidhms.staff.vo;
 
 import com.example.androidhms.util.Util;
 
+import java.util.Objects;
+
 public class StaffChatDTO {
 
     private int staff_id, staff_level, department_id;
@@ -52,5 +54,18 @@ public class StaffChatDTO {
 
     public boolean isOnChat() {
         return onChat;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StaffChatDTO that = (StaffChatDTO) o;
+        return staff_id == that.staff_id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(staff_id);
     }
 }

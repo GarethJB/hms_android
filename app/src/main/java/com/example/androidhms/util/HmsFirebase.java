@@ -44,6 +44,8 @@ public class HmsFirebase {
     public static final int GET_NOTIFICATION_SUCCESS = 6;
     public static final int GET_NOTIFICATION_CHATROOM_SUCCESS = 7;
     public static final int CREATE_GROUP_CHATROOM_SUCCESS = 8;
+    public static final int OUT_GROUP_CHATROOM_SUCCESS = 9;
+    public static final int GET_CHATROOM_NOTICE_SUCCESS = 10;
 
     private static final String RB_URL = "https://hmsmessenger-3a156-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private static final FirebaseDatabase fbDb = FirebaseDatabase.getInstance(RB_URL);
@@ -416,5 +418,84 @@ public class HmsFirebase {
         member.child(myId).child("lastChat").removeEventListener(getNotificationListener);
     }
 
+
+    /**
+     * 그룹 채팅 멤버 추가
+     */
+    public void addMemberGroupChat(String key, ArrayList<StaffChatDTO> addStaffList) {
+        chatRoom.child(key).child("member").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                HashMap<String, StaffChatDTO> staffMap = new HashMap<>();
+                ArrayList<StaffChatDTO> staffList = new ArrayList<>();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    StaffChatDTO dto = data.getValue(StaffChatDTO.class);
+                    staffMap.put(String.valueOf(dto.getStaff_id()), dto);
+                    staffList.add(dto);
+                }
+                for (StaffChatDTO dto : addStaffList) {
+                    staffMap.put(String.valueOf(dto.getStaff_id()), dto);
+                    staffList.add(dto);
+                }
+                chatRoom.child(key).child("member").setValue(staffMap)
+                        .addOnSuccessListener(unused -> {
+                            StringBuilder addMember = new StringBuilder();
+                            for (int i = 0; i < addStaffList.size(); i++) {
+                                addMember.append(addStaffList.get(i).getName()).append("님");
+                                if (i != addStaffList.size() - 1) {
+                                    addMember.append(", ");
+                                }
+                            }
+                            addMember.append("이 입장하셨습니다.");
+                            chatRoom.child(key).child("chat").push().setValue(
+                                            new ChatVO("0", "SYSTEM_ADD", addMember.toString()));
+                        });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    /**
+     * 그룹 채팅방 나가기
+     */
+    public void outGroupChatRoom(String key, String myName) {
+        chatRoom.child(key).child("chat").removeEventListener(getChatListener);
+        member.child(myId).child("count").child(key).removeValue().addOnSuccessListener(unused -> {
+            handler.sendMessage(handler.obtainMessage(OUT_GROUP_CHATROOM_SUCCESS, 0));
+            chatRoom.child(key).child("member").child(myId).removeValue();
+            chatRoom.child(key).child("chat").push().setValue(
+                    new ChatVO("0", "SYSTEM_OUT", myName + "님이 나갔습니다."));
+        });
+    }
+
+    /**
+     * 채팅방 공지사항 불러오기
+     */
+    public void getNoticeChat(String key) {
+        chatRoom.child(key).child("noticeChat").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                handler.sendMessage(handler.obtainMessage(GET_CHATROOM_NOTICE_SUCCESS, snapshot.getValue(ChatVO.class)));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    /**
+     * 채팅방 공지사항 지정
+     */
+    public void setNoticeChat(String key, ChatVO vo) {
+        chatRoom.child(key).child("noticeChat").setValue(vo)
+                .addOnSuccessListener(unused -> chatRoom.child(key).child("chat").push().setValue(
+                new ChatVO("0", "SYSTEM_NOTICE", "채팅방의 공지사항이 설정되었습니다.")));
+    }
 
 }

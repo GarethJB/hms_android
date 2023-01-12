@@ -1,4 +1,4 @@
-package com.example.androidhms.util;
+package com.example.androidhms.util.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

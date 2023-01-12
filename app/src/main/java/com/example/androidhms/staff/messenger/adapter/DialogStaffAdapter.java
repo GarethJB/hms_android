@@ -1,17 +1,16 @@
 package com.example.androidhms.staff.messenger.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ItemMessengerCreateGroupBinding;
-import com.example.androidhms.staff.messenger.CreateGroupDialog;
+import com.example.androidhms.staff.messenger.dialog.AddMemberDialog;
+import com.example.androidhms.staff.messenger.dialog.GroupDialog;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 
 import java.util.ArrayList;
@@ -19,12 +18,19 @@ import java.util.ArrayList;
 public class DialogStaffAdapter extends RecyclerView.Adapter<DialogStaffAdapter.DialogStaffViewHolder> {
 
     private final ArrayList<StaffChatDTO> staffList;
-    private final CreateGroupDialog dialog;
+    private GroupDialog gDialog;
+    private AddMemberDialog aDialog;
     private final LayoutInflater inflater;
 
-    public DialogStaffAdapter(ArrayList<StaffChatDTO> staffList, CreateGroupDialog dialog, LayoutInflater inflater) {
+    public DialogStaffAdapter(ArrayList<StaffChatDTO> staffList, GroupDialog gDialog, LayoutInflater inflater) {
         this.staffList = staffList;
-        this.dialog = dialog;
+        this.gDialog = gDialog;
+        this.inflater = inflater;
+    }
+
+    public DialogStaffAdapter(ArrayList<StaffChatDTO> staffList, AddMemberDialog aDialog, LayoutInflater inflater) {
+        this.staffList = staffList;
+        this.aDialog = aDialog;
         this.inflater = inflater;
     }
 
@@ -43,7 +49,8 @@ public class DialogStaffAdapter extends RecyclerView.Adapter<DialogStaffAdapter.
         else department += " 간호사";
         holder.bind.tvStaffdepart.setText(department);
         holder.bind.cbAdd.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            dialog.onSelectStaff(position, isChecked);
+            if (gDialog == null) aDialog.onSelectStaff(position, isChecked);
+            else gDialog.onSelectStaff(position, isChecked);
         });
     }
 

@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.example.androidhms.databinding.ActivityStaffMyPageBinding;
 import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.util.EditDialog;
+import com.example.androidhms.util.dialog.EditDialog;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;

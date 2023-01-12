@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:openDrawer="end"
-    tools:context=".staff.messenger.ChatActivity">
+    tools:context=".staff.messenger.ChatActivity"
+    tools:openDrawer="end">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,8 +43,39 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:animateLayoutChanges="true"
             android:background="@color/lightmain_color"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_notice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/box_round_main"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="top"
+                    android:src="@drawable/icon_error"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_notice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:text="notice"
+                    android:textColor="@color/white"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_chat"
@@ -52,6 +83,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1" />
+
 
         </LinearLayout>
 
@@ -92,8 +124,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:fitsSystemWindows="true"
-        app:subheaderTextAppearance="@style/nav_submenutext"
+        app:headerLayout="@layout/nav_chat_header"
         app:itemTextAppearance="@style/nav_itemtext"
-        app:headerLayout="@layout/nav_chat_header"/>
+        app:subheaderTextAppearance="@style/nav_submenutext" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.FragmentMessengerStaffBinding;
 import com.example.androidhms.staff.messenger.adapter.MessengerStaffAdapter;
+import com.example.androidhms.staff.messenger.dialog.GroupDialog;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
@@ -28,7 +29,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MessengerStaffFragment extends Fragment {
@@ -40,8 +40,7 @@ public class MessengerStaffFragment extends Fragment {
     private StaffChatDTO staff;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         bind = FragmentMessengerStaffBinding.inflate(inflater, container, false);
         fb = new HmsFirebase(this.getContext(), firebaseHandler());
         staff = Util.getStaffChatDTO(getContext());
@@ -95,19 +94,15 @@ public class MessengerStaffFragment extends Fragment {
                 if (position != 0) {
                     ArrayList<StaffChatDTO> tempList = null;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        tempList = (ArrayList<StaffChatDTO>) staffList.stream()
-                                .filter(d -> {
-                                    if (selected.equals("의사")) return d.getStaff_level() == 1;
-                                    else if (selected.equals("간호사")) return d.getStaff_level() == 2;
-                                    else return d.getDepartment_name().equals(selected);
-                                })
-                                .collect(Collectors.toList());
+                        tempList = (ArrayList<StaffChatDTO>) staffList.stream().filter(d -> {
+                            if (selected.equals("의사")) return d.getStaff_level() == 1;
+                            else if (selected.equals("간호사")) return d.getStaff_level() == 2;
+                            else return d.getDepartment_name().equals(selected);
+                        }).collect(Collectors.toList());
                     }
-                    Util.setRecyclerView(getContext(), bind.rvMessengerStaff,
-                            new MessengerStaffAdapter(MessengerStaffFragment.this, tempList), true);
+                    Util.setRecyclerView(getContext(), bind.rvMessengerStaff, new MessengerStaffAdapter(MessengerStaffFragment.this, tempList), true);
                 } else {
-                    Util.setRecyclerView(getContext(), bind.rvMessengerStaff,
-                            new MessengerStaffAdapter(MessengerStaffFragment.this, staffList), true);
+                    Util.setRecyclerView(getContext(), bind.rvMessengerStaff, new MessengerStaffAdapter(MessengerStaffFragment.this, staffList), true);
                 }
                 bind.rlProgress.view.setVisibility(View.GONE);
             }
@@ -120,21 +115,19 @@ public class MessengerStaffFragment extends Fragment {
     }
 
     private View.OnClickListener onCreateGroupChatroomClick(LayoutInflater inflater) {
-        return v -> {
-            new CreateGroupDialog(getContext(), staffList, inflater, (dialog, title, memberStaffList) -> {
-                if (title.contains("#")) {
-                    Toast.makeText(getContext(), "제목에 '#'은 들어갈 수 없습니다.", Toast.LENGTH_SHORT).show();
-                } else if (title.equals("")) {
-                    Toast.makeText(getContext(), "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                } else if (memberStaffList.size() == 1) {
-                    Toast.makeText(getContext(), "자신을 제외한 채팅방 참여자를 추가해주세요.", Toast.LENGTH_SHORT).show();
-                } else {
-                    dialog.showProgress();
-                    fb.makeGroupChatRoom(title, memberStaffList);
-                    dialog.dismiss();
-                }
-            }).show();
-        };
+        return v -> new GroupDialog(getContext(), staffList, inflater, (dialog, title, memberStaffList) -> {
+            if (title.contains("#")) {
+                Toast.makeText(getContext(), "제목에 '#'은 들어갈 수 없습니다.", Toast.LENGTH_SHORT).show();
+            } else if (title.trim().equals("")) {
+                Toast.makeText(getContext(), "제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            } else if (memberStaffList.size() == 1) {
+                Toast.makeText(getContext(), "자신을 제외한 채팅방 참여자를 추가해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+                dialog.showProgress();
+                fb.makeGroupChatRoom(title, memberStaffList);
+                dialog.dismiss();
+            }
+        }).show();
     }
 
     private Handler firebaseHandler() {

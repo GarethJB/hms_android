@@ -13,7 +13,7 @@ import com.example.androidhms.databinding.FragmentStaffReceiptBinding;
 import com.example.androidhms.staff.outpatient.adapter.ReceiptAdapter;
 import com.example.androidhms.staff.vo.MedicalReceiptVO;
 import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.util.CalendarDialog;
+import com.example.androidhms.util.dialog.CalendarDialog;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;

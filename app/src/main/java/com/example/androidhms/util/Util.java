@@ -1,13 +1,11 @@
 package com.example.androidhms.util;
 
-import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -15,9 +13,9 @@ import android.widget.EditText;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.util.dialog.CalendarDialog;
 import com.google.gson.Gson;
 
 import java.sql.Timestamp;

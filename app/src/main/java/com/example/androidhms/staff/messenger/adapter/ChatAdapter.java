@@ -8,9 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.ItemMessengerSystemBinding;
-import com.example.androidhms.databinding.RvChatBinding;
-import com.example.androidhms.databinding.RvMychatBinding;
 import com.example.androidhms.staff.messenger.ChatActivity;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.util.Util;
@@ -45,7 +42,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         ChatVO vo = chatList.get(position);
         String time = Util.getTime(vo.getTime());
-        // 다른사람의 채팅
         if (holder.getItemViewType() == 0 || holder.getItemViewType() == 1) {
             if (position != 0 && vo.getName().equals(chatList.get(position - 1).getName())) {
                 holder.tvName.setVisibility(View.GONE);
@@ -55,18 +51,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             }
             holder.tvContent.setText(vo.getContent());
             holder.tvTime.setText(time);
-
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    activity.setNoticeChat(position);
+                    return false;
+                }
+            });
         }
-//        // 나의 채팅
-//        else if (holder.getItemViewType() == 1) {
-//            if (position != 0 && vo.getName().equals(chatList.get(position - 1).getName())) {
-//                holder.tvName.setVisibility(View.GONE);
-//            } else {
-//                holder.myBind.tvName.setVisibility(View.VISIBLE);
-//                holder.myBind.tvName.setText(vo.getName());
-//            }
-//            holder.myBind.tvContent.setText(vo.getContent());
-//            holder.myBind.tvTime.setText(time);
+        // 시스템 메시지
         else if (holder.getItemViewType() == 2) {
             holder.tvContent.setText(vo.getContent());
         }
@@ -89,18 +82,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         else return 0;
     }
 
-    public static class ChatViewHolder extends RecyclerView.ViewHolder {
+    public class ChatViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvName, tvTime, tvContent;
+        private final TextView tvName;
+        private final TextView tvTime;
+        private final TextView tvContent;
 
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
             tvTime = itemView.findViewById(R.id.tv_time);
             tvContent = itemView.findViewById(R.id.tv_content);
-
-
         }
+
     }
 
 }

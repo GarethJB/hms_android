@@ -16,7 +16,7 @@ import com.example.androidhms.databinding.FragmentStaffMedicalRecordBinding;
 import com.example.androidhms.staff.outpatient.adapter.MedicalRecordAdapter;
 import com.example.androidhms.staff.vo.MedicalRecordVO;
 import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.util.EditDialog;
+import com.example.androidhms.util.dialog.EditDialog;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
