@@ -62,6 +62,8 @@ public class AppointmentActivity extends AppCompatActivity {
                         if(list == null || list.size() == 0 ){
                             bind.cardvAppointmentList.setVisibility(View.INVISIBLE);
                             Toast.makeText(AppointmentActivity.this, "오늘 예약이 없습니다", Toast.LENGTH_SHORT).show();
+                            bind.tvCountAll.setVisibility(View.INVISIBLE);
+                            bind.tvCountWaiting.setVisibility(View.INVISIBLE);
                         }else{
                             bind.cardvAppointmentList.setVisibility(View.VISIBLE);
                             bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(),list, AppointmentActivity.this));
@@ -71,8 +73,8 @@ public class AppointmentActivity extends AppCompatActivity {
                             bind.tvCountAll.setText(list.size() + "");
                             int count = 0 ;
                             for(int i = 0  ; i <list.size() ; i ++){
-                                if(list.get(i).getReserve_time_count().compareTo(list.get(i).getCurrent_time()) > 0) {
-                                    count ++ ;
+                                    if(list.get(i).getReserve_time_count().compareTo(list.get(i).getCurrent_time()) > 0) {
+                                        count ++ ;
                                 }
                             }
                             bind.tvCountWaiting.setText(count+"");

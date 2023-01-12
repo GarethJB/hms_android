@@ -1,5 +1,7 @@
 //fragment바인딩
 
+Hanul3QWER!@#$
+
 public class HomeFragment extends Fragment {
     FragmentHomeBinding bind;
     //내가 선언한 이름으로
