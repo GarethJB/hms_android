@@ -178,6 +178,8 @@ public class ChatActivity extends StaffBaseActivity {
                         bind.tvNotice.setText(vo.getContent());
                         bind.llNotice.setVisibility(View.VISIBLE);
                     }
+                    bind.rvChat.scrollToPosition(chatList.size() - 1);
+                    bind.rvChat.setVisibility(View.VISIBLE);
                 }
             }
         };
