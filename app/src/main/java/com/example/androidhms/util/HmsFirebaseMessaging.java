@@ -13,7 +13,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.example.androidhms.MainActivity;
 import com.example.androidhms.R;
+import com.example.androidhms.staff.StaffActivity;
 import com.example.androidhms.staff.messenger.ChatActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -35,13 +37,14 @@ public class HmsFirebaseMessaging extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
+        new HmsFirebase(this).sendToken(token);
     }
 
     private void getNotification(String key, String title, String content, String name) {
         String titleView = "";
         if (title.contains("#")) titleView = name;
         else titleView = title + " / " + name;
-        Intent intent = new Intent(this, ChatActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("key", key);
         // PendingIntent 가 알림에 따라 update 되지 않는 오류때문에 cancel 후 한번 더 선언 (임시방편)
@@ -77,8 +80,8 @@ public class HmsFirebaseMessaging extends FirebaseMessagingService {
                         "fcm_high_channel",
                         NotificationManager.IMPORTANCE_HIGH);
                 // 진동설정 (작동 안되는 코드)
-                channel.setVibrationPattern(new long[]{200, 300});
-                channel.enableVibration(true);
+                // channel.setVibrationPattern(new long[]{200, 300});
+                // channel.enableVibration(true);
             } else {
                 channel = new NotificationChannel("fcm_default_channel",
                         "fcm_default_channel",

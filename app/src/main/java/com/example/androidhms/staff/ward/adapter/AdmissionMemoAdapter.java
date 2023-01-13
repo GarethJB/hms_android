@@ -17,13 +17,14 @@ import com.example.androidhms.util.Util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdmissionMemoAdapter extends RecyclerView.Adapter<AdmissionMemoAdapter.AdmissionMemoAdapterViewHolder> {
 
-    private Fragment fragment;
-    private ArrayList<AdmissionMemoVO> amList;
+    private final Fragment fragment;
+    private final List<AdmissionMemoVO> amList;
 
-    public AdmissionMemoAdapter(Fragment fragment, ArrayList<AdmissionMemoVO> amList) {
+    public AdmissionMemoAdapter(Fragment fragment, List<AdmissionMemoVO> amList) {
         this.fragment = fragment;
         this.amList = amList;
     }
@@ -69,7 +70,7 @@ public class AdmissionMemoAdapter extends RecyclerView.Adapter<AdmissionMemoAdap
 
     public class AdmissionMemoAdapterViewHolder extends RecyclerView.ViewHolder {
 
-        public ItemStaffAdmissionMemoBinding bind;
+        private final ItemStaffAdmissionMemoBinding bind;
 
         public AdmissionMemoAdapterViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -8,6 +8,7 @@ import android.view.View;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffBinding;
 import com.example.androidhms.staff.lookup.LookupActivity;
+import com.example.androidhms.staff.messenger.ChatActivity;
 import com.example.androidhms.staff.messenger.MessengerActivity;
 import com.example.androidhms.staff.outpatient.OutpatientActivity;
 import com.example.androidhms.staff.schedule.ScheduleActivity;
@@ -23,6 +24,8 @@ public class StaffActivity extends StaffBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (staff == null) staff = Util.getStaff(this);
 
         // 상단 페이지
         bind.tvName.setText(staff.getName());

@@ -35,12 +35,13 @@ public class Util {
     /**
      * 자동로그인시 SharedPreferences 에 저장된 staff 데이터를 불러옴
      */
-    public static void getStaff(Context context) {
+    public static StaffVO getStaff(Context context) {
         if (staff == null) {
             SharedPreferences preferences = context.getSharedPreferences("staffLoginInfo", MODE_PRIVATE);
             String staffJson = preferences.getString("staffData", null);
             staff = new Gson().fromJson(staffJson, StaffVO.class);
         }
+        return staff;
     }
 
     /**

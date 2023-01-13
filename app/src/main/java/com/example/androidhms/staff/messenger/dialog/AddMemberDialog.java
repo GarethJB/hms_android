@@ -12,15 +12,16 @@ import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.util.Util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddMemberDialog {
 
     private final DialogChatAddMemberBinding b;
     private final Dialog dialog;
-    private final ArrayList<StaffChatDTO> allStaffList;
-    private final ArrayList<StaffChatDTO> memberStaffList;
+    private final List<StaffChatDTO> allStaffList;
+    private final List<StaffChatDTO> memberStaffList;
 
-    public AddMemberDialog(Context context, ArrayList<StaffChatDTO> allStaffList, LayoutInflater inflater, OnDialogBtnClickListener listener) {
+    public AddMemberDialog(Context context, List<StaffChatDTO> allStaffList, LayoutInflater inflater, OnDialogBtnClickListener listener) {
         dialog = new Dialog(context);
         b = DialogChatAddMemberBinding.inflate(inflater);
         dialog.setContentView(b.getRoot());
@@ -68,6 +69,6 @@ public class AddMemberDialog {
     }
 
     public interface OnDialogBtnClickListener {
-        void onCreateClick(AddMemberDialog dialog, ArrayList<StaffChatDTO> memberStaffList);
+        void onCreateClick(AddMemberDialog dialog, List<StaffChatDTO> memberStaffList);
     }
 }

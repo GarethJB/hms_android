@@ -114,7 +114,7 @@ public class MedicalRecordFragment extends Fragment {
                     .setParams("second_date", bind.etSecondDate.getText().toString())
                     .setParams("option", option)
                     .sendGet("getMedicalRecord.ap", (isResult, data) -> {
-                        if (isResult && !data.equals("null")) {
+                        if (isResult && data != null) {
                             mrList = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalRecordVO>>() {
                             }.getType());
                             Util.setRecyclerView(getContext(), bind.rvMedicalRecord,
@@ -123,7 +123,7 @@ public class MedicalRecordFragment extends Fragment {
                                 bind.clNotfound.view.setVisibility(View.VISIBLE);
                             else
                                 bind.rvMedicalRecord.post(() -> bind.rlProgress.view.setVisibility(View.GONE));
-                        } else if (!isResult) {
+                        } else  {
                             Toast.makeText(requireActivity(), "검색결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                             bind.clNotfound.view.setVisibility(View.VISIBLE);
                         }
@@ -141,8 +141,7 @@ public class MedicalRecordFragment extends Fragment {
             bind.btnRecord.setVisibility(View.VISIBLE);
             bind.btnRecord.setText("처방전");
         } else if (vo.getAdmission().equals("Y")) {
-            bind.btnRecord.setVisibility(View.VISIBLE);
-            bind.btnRecord.setText("입원기록");
+            bind.btnRecord.setVisibility(View.GONE);
         } else bind.btnRecord.setVisibility(View.INVISIBLE);
         bind.btnMemo.setOnClickListener(v -> new EditDialog(getContext(), getLayoutInflater(), "메모", vo.getMemo(), (dialog, memo) -> {
             dialog.showProgress();

@@ -31,6 +31,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ChatActivity extends StaffBaseActivity {
@@ -178,7 +179,9 @@ public class ChatActivity extends StaffBaseActivity {
                         bind.tvNotice.setText(vo.getContent());
                         bind.llNotice.setVisibility(View.VISIBLE);
                     }
-                    bind.rvChat.scrollToPosition(chatList.size() - 1);
+                    if (chatList != null) {
+                        bind.rvChat.scrollToPosition(chatList.size() - 1);
+                    }
                     bind.rvChat.setVisibility(View.VISIBLE);
                 }
             }
@@ -211,7 +214,7 @@ public class ChatActivity extends StaffBaseActivity {
         }
         new AddMemberDialog(ChatActivity.this, allStaffList, getLayoutInflater(), new AddMemberDialog.OnDialogBtnClickListener() {
             @Override
-            public void onCreateClick(AddMemberDialog dialog, ArrayList<StaffChatDTO> memberStaffList) {
+            public void onCreateClick(AddMemberDialog dialog, List<StaffChatDTO> memberStaffList) {
                 fb.addMemberGroupChat(key, memberStaffList);
                 dialog.dismiss();
                 bind.view.closeDrawer(GravityCompat.END);

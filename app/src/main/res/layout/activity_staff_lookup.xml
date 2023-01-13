@@ -5,7 +5,7 @@
     android:id="@+id/ll_staff_lookup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/back_color"
+    android:background="@color/lightgray"
     android:orientation="vertical"
     tools:context=".staff.lookup.LookupActivity">
 
@@ -70,7 +70,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="15dp"
+                android:background="@drawable/box_round_lightgray"
+                android:backgroundTint="@color/white"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -141,7 +153,8 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.2"
-                            android:scaleType="fitXY"
+                            android:layout_marginBottom="5dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/icon_tel"
                             app:tint="@color/second_color" />
 
@@ -320,7 +333,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:backgroundTint="@color/main_color"
+                    android:backgroundTint="@color/second_color"
                     android:text="저장"
                     android:textSize="16dp" />
 

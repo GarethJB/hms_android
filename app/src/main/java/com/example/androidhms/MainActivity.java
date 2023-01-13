@@ -13,6 +13,7 @@ import com.example.androidhms.databinding.ActivityMainBinding;
 import com.example.androidhms.reception.ReceptionLoginActivity;
 import com.example.androidhms.staff.StaffActivity;
 import com.example.androidhms.staff.StaffLoginActivity;
+import com.example.androidhms.staff.messenger.ChatActivity;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
@@ -38,11 +39,19 @@ public class MainActivity extends AppCompatActivity {
         //ApiClient.setBASEURL("http://192.168.0.25/hms/");
         //ApiClient.setBASEURL("http://192.168.0.116/middle/");
 
+        // 의료진 자동 로그인 정보가 있을경우 바로 StaffActivity 로 이동
         if (!preferences.getString("staffData", "").equals("")) {
             Util.getStaff(this);
             startActivity(new Intent(this, StaffActivity.class));
+            if (getIntent().getStringExtra("title") != null) {
+                Intent intent = new Intent(this, ChatActivity.class);
+                intent.putExtra("title", getIntent().getStringExtra("title"));
+                intent.putExtra("key", getIntent().getStringExtra("key"));
+                startActivity(intent);
+            }
             finish();
         }
+
 
         // 고객홈페이지로 이동
         bind.btnCustomer.setOnClickListener(v -> {
@@ -62,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ReceptionLoginActivity.class);
             startActivity(intent);
         });
-
 
 
         new RetrofitMethod().setParams("a", "1").setParams("b", "2").sendPost("hmstest", new RetrofitMethod.CallBackResult() {

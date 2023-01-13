@@ -19,6 +19,7 @@ import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.staff.ward.adapter.AdmissionMemoAdapter;
 import com.example.androidhms.staff.ward.adapter.AdmissionRecordAdapter;
 import com.example.androidhms.util.Util;
+import com.example.androidhms.util.dialog.AlertDialog;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -81,7 +82,7 @@ public class MyPatientFragment extends Fragment {
         new RetrofitMethod().setParams("id", staff.getStaff_id())
                 .setParams("option", option)
                 .sendPost("getAdmissionRecordMypatient.ap", (isResult, data) -> {
-                    if (isResult) {
+                    if (isResult && data != null) {
                         arList = new Gson().fromJson(data, new TypeToken<ArrayList<AdmissionRecordVO>>() {
                         }.getType());
                         if (arList.isEmpty()) bind.clNotfound.view.setVisibility(View.VISIBLE);
@@ -95,11 +96,11 @@ public class MyPatientFragment extends Fragment {
                 });
     }
 
-    public void onAdmissionRecordClick(int positon) {
+    public void onAdmissionRecordClick(int position) {
         bind.rlProgress.view.setVisibility(View.VISIBLE);
-        bind.rvMypatient.scrollToPosition(positon);
-        selectedPosition = positon;
-        getAdmissionMemo(arList.get(positon).getAdmission_record_id());
+        bind.rvMypatient.scrollToPosition(position);
+        selectedPosition = position;
+        getAdmissionMemo(arList.get(position).getAdmission_record_id());
     }
 
     private void getAdmissionMemo(int id) {
@@ -135,16 +136,26 @@ public class MyPatientFragment extends Fragment {
     }
 
     public void deleteAdmissionMemo(int id) {
-        bind.rlProgress.view.setVisibility(View.VISIBLE);
-        new RetrofitMethod().setParams("admission_record_id", id)
-                .sendPost("deleteAdmissionMemo.ap", (isResult, data) -> {
-                    if (isResult && data.equals("1")) {
-                        getAdmissionMemo(arList.get(selectedPosition).getAdmission_record_id());
-                        Toast.makeText(context, "메모를 삭제했습니다.", Toast.LENGTH_SHORT).show();
-                    } else
-                        Toast.makeText(context, "메모를 삭제하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    bind.rlProgress.view.setVisibility(View.GONE);
-                });
+        new AlertDialog(getContext(), getLayoutInflater(), "환자상태기록 삭제", "정말 삭제하시겠습니까?", new AlertDialog.OnAlertDialogClickListener() {
+            @Override
+            public void setOnClickYes(AlertDialog dialog) {
+                bind.rlProgress.view.setVisibility(View.VISIBLE);
+                new RetrofitMethod().setParams("admission_record_id", id)
+                        .sendPost("deleteAdmissionMemo.ap", (isResult, data) -> {
+                            if (isResult && data.equals("1")) {
+                                getAdmissionMemo(arList.get(selectedPosition).getAdmission_record_id());
+                                Toast.makeText(context, "메모를 삭제했습니다.", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(context, "메모를 삭제하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                            bind.rlProgress.view.setVisibility(View.GONE);
+                        });
+                dialog.dismiss();
+            }
+            @Override
+            public void setOnClickNo(AlertDialog dialog) {
+                dialog.dismiss();
+            }
+        }).setYesText("삭제").show();
     }
 
 }

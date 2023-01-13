@@ -13,22 +13,22 @@ import com.example.androidhms.staff.messenger.dialog.AddMemberDialog;
 import com.example.androidhms.staff.messenger.dialog.GroupDialog;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DialogStaffAdapter extends RecyclerView.Adapter<DialogStaffAdapter.DialogStaffViewHolder> {
 
-    private final ArrayList<StaffChatDTO> staffList;
+    private final List<StaffChatDTO> staffList;
     private GroupDialog gDialog;
     private AddMemberDialog aDialog;
     private final LayoutInflater inflater;
 
-    public DialogStaffAdapter(ArrayList<StaffChatDTO> staffList, GroupDialog gDialog, LayoutInflater inflater) {
+    public DialogStaffAdapter(List<StaffChatDTO> staffList, GroupDialog gDialog, LayoutInflater inflater) {
         this.staffList = staffList;
         this.gDialog = gDialog;
         this.inflater = inflater;
     }
 
-    public DialogStaffAdapter(ArrayList<StaffChatDTO> staffList, AddMemberDialog aDialog, LayoutInflater inflater) {
+    public DialogStaffAdapter(List<StaffChatDTO> staffList, AddMemberDialog aDialog, LayoutInflater inflater) {
         this.staffList = staffList;
         this.aDialog = aDialog;
         this.inflater = inflater;

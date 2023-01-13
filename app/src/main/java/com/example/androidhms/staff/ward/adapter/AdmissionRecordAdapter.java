@@ -17,14 +17,15 @@ import com.example.androidhms.util.Util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdmissionRecordAdapter extends RecyclerView.Adapter<AdmissionRecordAdapter.AdmissionRecordViewHolder> {
 
-    private MyPatientFragment fragment;
-    private ArrayList<AdmissionRecordVO> arList;
+    private final MyPatientFragment fragment;
+    private final List<AdmissionRecordVO> arList;
     private int selectedPosition = -1;
 
-    public AdmissionRecordAdapter(MyPatientFragment fragment, ArrayList<AdmissionRecordVO> arList) {
+    public AdmissionRecordAdapter(MyPatientFragment fragment, List<AdmissionRecordVO> arList) {
         this.fragment = fragment;
         this.arList = arList;
     }
@@ -85,7 +86,7 @@ public class AdmissionRecordAdapter extends RecyclerView.Adapter<AdmissionRecord
 
     public class AdmissionRecordViewHolder extends RecyclerView.ViewHolder {
 
-        public ItemStaffMypatientBinding bind;
+        private final ItemStaffMypatientBinding bind;
 
         public AdmissionRecordViewHolder(@NonNull View itemView) {
             super(itemView);

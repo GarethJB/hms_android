@@ -66,7 +66,6 @@ public class StaffLoginActivity extends AppCompatActivity {
                         new HmsFirebase(StaffLoginActivity.this).sendToken();
                         Intent intent = new Intent(StaffLoginActivity.this, StaffActivity.class);
                         startActivity(intent);
-
                         finish();
                     }
                 }));

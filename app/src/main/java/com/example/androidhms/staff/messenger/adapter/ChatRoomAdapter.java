@@ -1,8 +1,5 @@
 package com.example.androidhms.staff.messenger.adapter;
 
-import static android.content.ContentValues.TAG;
-
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,20 +7,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.RvChatroomBinding;
+import com.example.androidhms.databinding.ItemMessengerChatroomBinding;
 import com.example.androidhms.staff.messenger.MessengerFragment;
 import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.util.Util;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRoomViewHolder> {
 
-    private final ArrayList<ChatRoomVO> chatRoomList;
+    private final List<ChatRoomVO> chatRoomList;
     private final MessengerFragment fragment;
     private final String name;
 
-    public ChatRoomAdapter(MessengerFragment fragment, ArrayList<ChatRoomVO> chatRoomList, String name) {
+    public ChatRoomAdapter(MessengerFragment fragment, List<ChatRoomVO> chatRoomList, String name) {
         this.chatRoomList = chatRoomList;
         this.fragment = fragment;
         this.name = name;
@@ -32,7 +29,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
     @NonNull
     @Override
     public ChatRoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ChatRoomViewHolder(fragment.getLayoutInflater().inflate(R.layout.rv_chatroom, parent, false));
+        return new ChatRoomViewHolder(fragment.getLayoutInflater().inflate(R.layout.item_messenger_chatroom, parent, false));
     }
 
     @Override
@@ -72,11 +69,11 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
 
     public static class ChatRoomViewHolder extends RecyclerView.ViewHolder {
 
-        private final RvChatroomBinding bind;
+        private final ItemMessengerChatroomBinding bind;
 
         public ChatRoomViewHolder(@NonNull View itemView) {
             super(itemView);
-            bind = RvChatroomBinding.bind(itemView);
+            bind = ItemMessengerChatroomBinding.bind(itemView);
         }
     }
 }

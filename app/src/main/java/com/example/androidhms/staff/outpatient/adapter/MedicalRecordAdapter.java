@@ -21,15 +21,16 @@ import com.example.androidhms.staff.outpatient.MedicalRecordFragment;
 import com.example.androidhms.staff.vo.MedicalRecordVO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdapter.MedicalRecordViewHolder> {
 
-    private MedicalRecordFragment fragment;
-    private ArrayList<MedicalRecordVO> mrList;
-    private Context context;
+    private final MedicalRecordFragment fragment;
+    private final List<MedicalRecordVO> mrList;
+    private final Context context;
     private int selectedPosition = -1;
 
-    public MedicalRecordAdapter(MedicalRecordFragment fragment, ArrayList<MedicalRecordVO> mrList) {
+    public MedicalRecordAdapter(MedicalRecordFragment fragment, List<MedicalRecordVO> mrList) {
         this.fragment = fragment;
         this.mrList = mrList;
         context = fragment.getContext();
@@ -93,7 +94,7 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
 
     public class MedicalRecordViewHolder extends RecyclerView.ViewHolder {
 
-        public ItemStaffMedicalRecordBinding bind;
+        private final ItemStaffMedicalRecordBinding bind;
 
         public MedicalRecordViewHolder(@NonNull View itemView) {
             super(itemView);

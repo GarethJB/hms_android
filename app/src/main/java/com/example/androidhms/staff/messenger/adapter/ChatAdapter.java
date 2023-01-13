@@ -12,15 +12,15 @@ import com.example.androidhms.staff.messenger.ChatActivity;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.util.Util;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
     private final ChatActivity activity;
-    private final ArrayList<ChatVO> chatList;
+    private final List<ChatVO> chatList;
     private final String myId;
 
-    public ChatAdapter(ChatActivity activity, ArrayList<ChatVO> chatList, String myId) {
+    public ChatAdapter(ChatActivity activity, List<ChatVO> chatList, String myId) {
         this.activity = activity;
         this.chatList = chatList;
         this.myId = myId;
@@ -31,9 +31,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 0)
-            return new ChatViewHolder(activity.getLayoutInflater().inflate(R.layout.rv_chat, parent, false));
+            return new ChatViewHolder(activity.getLayoutInflater().inflate(R.layout.item_messenger_chat, parent, false));
         else if (viewType == 1)
-            return new ChatViewHolder(activity.getLayoutInflater().inflate(R.layout.rv_mychat, parent, false));
+            return new ChatViewHolder(activity.getLayoutInflater().inflate(R.layout.item_messenger_mychat, parent, false));
         else
             return new ChatViewHolder(activity.getLayoutInflater().inflate(R.layout.item_messenger_system, parent, false));
     }
@@ -51,12 +51,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             }
             holder.tvContent.setText(vo.getContent());
             holder.tvTime.setText(time);
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    activity.setNoticeChat(position);
-                    return false;
-                }
+            holder.itemView.setOnLongClickListener(v -> {
+                activity.setNoticeChat(holder.getAdapterPosition());
+                return false;
             });
         }
         // 시스템 메시지
@@ -82,7 +79,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         else return 0;
     }
 
-    public class ChatViewHolder extends RecyclerView.ViewHolder {
+    public static class ChatViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView tvName;
         private final TextView tvTime;

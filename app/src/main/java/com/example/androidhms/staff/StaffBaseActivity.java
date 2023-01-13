@@ -106,6 +106,7 @@ public abstract class StaffBaseActivity extends AppCompatActivity {
 
     protected void chatSnackbar(String keyAndTitle, ChatVO vo) {
         if (!(getActivity() instanceof ChatActivity)
+                && getNotificationTime != null
                 && Timestamp.valueOf(vo.getTime()).compareTo(getNotificationTime) > 0) {
             // 스낵바 커스텀 설정
             SnackbarChatBinding sbBind = SnackbarChatBinding.inflate(getActivity().getLayoutInflater());

@@ -1,23 +1,13 @@
 package com.example.androidhms.util;
 
-import static android.content.ContentValues.TAG;
-
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.androidhms.MainActivity;
-import com.example.androidhms.R;
 import com.example.androidhms.staff.vo.ChatRoomVO;
 import com.example.androidhms.staff.vo.ChatVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,10 +19,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.Executor;
-
-import okhttp3.MediaType;
 
 public class HmsFirebase {
 
@@ -62,7 +50,6 @@ public class HmsFirebase {
         FirebaseApp.initializeApp(context);
         chatRoom = dbRef.child("chatRoom");
         member = dbRef.child("member");
-        // 채팅 알림을 통해 액티비티에 진입할 경우
         if (Util.staff == null) {
             Util.getStaff(context);
         }
@@ -81,6 +68,10 @@ public class HmsFirebase {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             member.child(myId).child("token").setValue(task.getResult());
         });
+    }
+
+    public void sendToken(String token) {
+        member.child(myId).child("token").setValue(token);
     }
 
     public void deleteToken() {
@@ -122,7 +113,7 @@ public class HmsFirebase {
     /**
      * MessengerStaffFragment 에서 1:1 채팅방 개설 (이미 존재할 경우 입장)
      */
-    public void makeChatRoom(ArrayList<StaffChatDTO> staffList) {
+    public void makeChatRoom(List<StaffChatDTO> staffList) {
         // 1:1 채팅방의 키값 (staff_id)--(staff_id)
         String key;
         if (staffList.get(0).getStaff_id() < staffList.get(1).getStaff_id()) {
@@ -162,7 +153,7 @@ public class HmsFirebase {
     /**
      * MessengerStaffFragment 에서 그룹 채팅방 개설
      */
-    public void makeGroupChatRoom(String title, ArrayList<StaffChatDTO> staffList) {
+    public void makeGroupChatRoom(String title, List<StaffChatDTO> staffList) {
         String key = UUID.randomUUID().toString();
         HashMap<String, Object> map = new HashMap<>();
         HashMap<String, StaffChatDTO> memberMap = new HashMap<>();
@@ -422,7 +413,7 @@ public class HmsFirebase {
     /**
      * 그룹 채팅 멤버 추가
      */
-    public void addMemberGroupChat(String key, ArrayList<StaffChatDTO> addStaffList) {
+    public void addMemberGroupChat(String key, List<StaffChatDTO> addStaffList) {
         chatRoom.child(key).child("member").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

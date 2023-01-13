@@ -7,18 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.RvMessengerStaffBinding;
+import com.example.androidhms.databinding.ItemMessengerStaffBinding;
 import com.example.androidhms.staff.messenger.MessengerStaffFragment;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAdapter.MessengerStaffViewHolder> {
 
     private final MessengerStaffFragment fragment;
-    private final ArrayList<StaffChatDTO> staffList;
+    private final List<StaffChatDTO> staffList;
 
-    public MessengerStaffAdapter(MessengerStaffFragment fragment, ArrayList<StaffChatDTO> staffList) {
+    public MessengerStaffAdapter(MessengerStaffFragment fragment, List<StaffChatDTO> staffList) {
         this.fragment = fragment;
         this.staffList = staffList;
     }
@@ -27,7 +27,7 @@ public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAd
     @Override
     public MessengerStaffViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MessengerStaffViewHolder(
-                fragment.getLayoutInflater().inflate(R.layout.rv_messenger_staff, parent, false));
+                fragment.getLayoutInflater().inflate(R.layout.item_messenger_staff, parent, false));
     }
 
     @Override
@@ -58,11 +58,11 @@ public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAd
 
     public static class MessengerStaffViewHolder extends RecyclerView.ViewHolder {
 
-        private final RvMessengerStaffBinding bind;
+        private final ItemMessengerStaffBinding bind;
 
         public MessengerStaffViewHolder(@NonNull View itemView) {
             super(itemView);
-            bind = RvMessengerStaffBinding.bind(itemView);
+            bind = ItemMessengerStaffBinding.bind(itemView);
 
         }
     }

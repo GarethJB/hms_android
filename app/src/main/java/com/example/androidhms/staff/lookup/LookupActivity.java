@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.androidhms.databinding.ActivityStaffLookupBinding;
 import com.example.androidhms.staff.StaffBaseActivity;
+import com.example.androidhms.staff.lookup.adapter.LookupAdapter;
 import com.example.androidhms.staff.vo.PatientVO;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
@@ -82,23 +83,27 @@ public class LookupActivity extends StaffBaseActivity {
 
     private View.OnClickListener onSearchClick() {
         return v -> {
-            Util.keyboardDown(LookupActivity.this);
-            new RetrofitMethod().setParams("name", bind.etName.getText().toString())
-                    .sendGet("getPatient.ap", (isResult, data) -> {
-                        if (isResult) {
-                            ArrayList<PatientVO> patientList =
-                                    new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>() {
-                                    }.getType());
-                            if (patientList.isEmpty()) {
-                                Toast.makeText(LookupActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                if (patientList.size() == 1) {
-                                    vo = patientList.get(0);
-                                    bindPatientInfo(vo);
+            if (bind.etName.getText().toString().trim().equals("")) {
+                Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+                Util.keyboardDown(LookupActivity.this);
+                new RetrofitMethod().setParams("name", bind.etName.getText().toString())
+                        .sendGet("getPatient.ap", (isResult, data) -> {
+                            if (isResult) {
+                                ArrayList<PatientVO> patientList =
+                                        new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>() {
+                                        }.getType());
+                                if (patientList.isEmpty()) {
+                                    Toast.makeText(LookupActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                                    bind.rvSearchResult.setVisibility(View.GONE);
+                                } else {
+                                    Util.setRecyclerView(LookupActivity.this, bind.rvSearchResult,
+                                            new LookupAdapter(patientList, LookupActivity.this), true);
+                                    bind.rvSearchResult.post(() -> bind.rvSearchResult.setVisibility(View.VISIBLE));
                                 }
                             }
-                        }
-                    });
+                        });
+            }
         };
     }
 
@@ -114,6 +119,11 @@ public class LookupActivity extends StaffBaseActivity {
                             Toast.makeText(LookupActivity.this, "메모저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
                     });
         };
+    }
+
+    public void selectPatient(PatientVO vo) {
+        bindPatientInfo(vo);
+        bind.rvSearchResult.setVisibility(View.GONE);
     }
 
     private void bindPatientInfo(PatientVO vo) {

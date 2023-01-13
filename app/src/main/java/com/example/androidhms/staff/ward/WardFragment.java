@@ -26,6 +26,7 @@ import com.example.androidhms.staff.vo.AdmissionRecordVO;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.staff.ward.adapter.AdmissionMemoAdapter;
 import com.example.androidhms.util.Util;
+import com.example.androidhms.util.dialog.AlertDialog;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -136,13 +137,13 @@ public class WardFragment extends Fragment {
                             tvArr[(vo.getWard_id() + 3) % 4].setText(vo.getPatient_name());
                             tvArr[(vo.getWard_id() + 3) % 4].setTextColor(ContextCompat.getColor(context, R.color.text_color));
                         }
-                        // arList와 tvArr의 인덱스번호를 맞춤
+                        // arList 와 tvArr 의 인덱스번호를 맞춤
                         for (int i = 0; i < 4; i++) {
                             if (!indexList.contains(i)) arList.add(i, null);
                         }
                         bind.rlProgress.view.setVisibility(View.GONE);
-                        if (selectedPosition != -1)
-                            tvArr[selectedPosition].setTextColor(ContextCompat.getColor(context, R.color.white));
+                        // 선택 상태에서 환자입원정보를 다시 불러올 경우
+                        if (selectedPosition != -1) tvArr[selectedPosition].performClick();
                     } else
                         Toast.makeText(context, "환자 목록을 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                 });
@@ -216,7 +217,6 @@ public class WardFragment extends Fragment {
     public View.OnClickListener onSendClick() {
         return v -> {
             if (selectedPosition != -1) {
-                Util.keyboardDown(requireActivity());
                 new RetrofitMethod().setParams("admission_record_id", arList.get(selectedPosition).getAdmission_record_id())
                         .setParams("staff_id", staff.getStaff_id())
                         .setParams("memo", bind.etMemo.getText().toString())
@@ -232,16 +232,26 @@ public class WardFragment extends Fragment {
     }
 
     public void deleteAdmissionMemo(int id) {
-        bind.rlProgress.view.setVisibility(View.VISIBLE);
-        new RetrofitMethod().setParams("admission_record_id", id)
-                .sendPost("deleteAdmissionMemo.ap", (isResult, data) -> {
-                    if (isResult && data.equals("1")) {
-                        getAdmissionMemo(arList.get(selectedPosition).getAdmission_record_id());
-                        Toast.makeText(context, "메모를 삭제했습니다.", Toast.LENGTH_SHORT).show();
-                    } else
-                        Toast.makeText(context, "메모를 삭제하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    bind.rlProgress.view.setVisibility(View.GONE);
-                });
+        new AlertDialog(getContext(), getLayoutInflater(), "환자상태기록 삭제", "정말 삭제하시겠습니까?", new AlertDialog.OnAlertDialogClickListener() {
+            @Override
+            public void setOnClickYes(AlertDialog dialog) {
+                bind.rlProgress.view.setVisibility(View.VISIBLE);
+                new RetrofitMethod().setParams("admission_record_id", id)
+                        .sendPost("deleteAdmissionMemo.ap", (isResult, data) -> {
+                            if (isResult && data.equals("1")) {
+                                getAdmissionMemo(arList.get(selectedPosition).getAdmission_record_id());
+                                Toast.makeText(context, "메모를 삭제했습니다.", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(context, "메모를 삭제하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                            bind.rlProgress.view.setVisibility(View.GONE);
+                        });
+                dialog.dismiss();
+            }
+            @Override
+            public void setOnClickNo(AlertDialog dialog) {
+                dialog.dismiss();
+            }
+        }).setYesText("삭제").show();
     }
 
 }
