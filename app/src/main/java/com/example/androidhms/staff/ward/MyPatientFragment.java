@@ -2,16 +2,13 @@ package com.example.androidhms.staff.ward;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import com.example.androidhms.R;
+import androidx.fragment.app.Fragment;
+
 import com.example.androidhms.databinding.FragmentStaffMyPatientBinding;
 import com.example.androidhms.staff.vo.AdmissionMemoVO;
 import com.example.androidhms.staff.vo.AdmissionRecordVO;

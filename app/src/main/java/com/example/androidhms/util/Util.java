@@ -106,14 +106,6 @@ public class Util {
     }
 
     /**
-     * String date를 Timestamp 타입으로 변환<br>
-     * ex) Util.getTimestamp("2022-01-01");
-     */
-    public static Timestamp getTimestamp(String date) {
-        return Timestamp.valueOf(date + " 00:00:00");
-    }
-
-    /**
      * Timestamp 시간 연산<br>
      * ex) Util.timestampOperator(time, Calendar.YEAR, 1);
      */

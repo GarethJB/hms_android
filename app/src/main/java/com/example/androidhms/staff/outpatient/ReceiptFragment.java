@@ -38,14 +38,11 @@ public class ReceiptFragment extends Fragment {
         bind.etDate.setText(Util.getDate(tsDate));
         bind.btnNextday.setOnClickListener(onDayClick(true));
         bind.btnPreday.setOnClickListener(onDayClick(false));
-        Util.setEditTextDate(getContext(), inflater, bind.etDate, new CalendarDialog.SetDateClickListener() {
-            @Override
-            public void setDateClick(CalendarDay date, CalendarDialog dialog) {
-                tsDate = Timestamp.valueOf(date.getYear() + "-" + date.getMonth() + "-" + date.getDay() + " 00:00:00");
-                setEtdateText();
-                dialog.dismiss();
-                getReceipt();
-            }
+        Util.setEditTextDate(getContext(), inflater, bind.etDate, (date, dialog) -> {
+            tsDate = Timestamp.valueOf(date.getYear() + "-" + date.getMonth() + "-" + date.getDay() + " 00:00:00");
+            setEtdateText();
+            dialog.dismiss();
+            getReceipt();
         });
         getReceipt();
         return bind.getRoot();
@@ -75,20 +72,17 @@ public class ReceiptFragment extends Fragment {
         bind.clNotfound.view.setVisibility(View.GONE);
         new RetrofitMethod().setParams("id", staff.getStaff_id())
                 .setParams("time", Util.getDate(tsDate))
-                .sendGet("getMedicalReceipt.ap", new RetrofitMethod.CallBackResult() {
-                    @Override
-                    public void result(boolean isResult, String data) {
-                        if (isResult && !data.equals("null")) {
-                            mrList = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>(){}.getType());
-                            Util.setRecyclerView(getContext(), bind.rvMedicalRecord, new ReceiptAdapter(ReceiptFragment.this, mrList), true);
-                            if (mrList.isEmpty()) bind.clNotfound.view.setVisibility(View.VISIBLE);
-                            else bind.rvMedicalRecord.post(() ->  bind.rlProgress.view.setVisibility(View.GONE));
-                        } else if (!isResult) {
-                            Toast.makeText(requireActivity(), "검색결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
-                            bind.clNotfound.view.setVisibility(View.VISIBLE);
-                        }
-                        bind.rlProgress.view.setVisibility(View.GONE);
+                .sendGet("getMedicalReceipt.ap", (isResult, data) -> {
+                    if (isResult && data != null) {
+                        mrList = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>(){}.getType());
+                        Util.setRecyclerView(getContext(), bind.rvMedicalRecord, new ReceiptAdapter(ReceiptFragment.this, mrList), true);
+                        if (mrList.isEmpty()) bind.clNotfound.view.setVisibility(View.VISIBLE);
+                        else bind.rvMedicalRecord.post(() ->  bind.rlProgress.view.setVisibility(View.GONE));
+                    } else if (!isResult) {
+                        Toast.makeText(requireActivity(), "검색결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        bind.clNotfound.view.setVisibility(View.VISIBLE);
                     }
+                    bind.rlProgress.view.setVisibility(View.GONE);
                 });
     }
 }

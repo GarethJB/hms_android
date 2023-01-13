@@ -1,8 +1,5 @@
 package com.example.androidhms.staff.messenger;
 
-import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
@@ -13,6 +10,9 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityChatBinding;

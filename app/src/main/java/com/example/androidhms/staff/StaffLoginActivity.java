@@ -1,6 +1,5 @@
 package com.example.androidhms.staff;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,13 +7,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.androidhms.MainActivity;
 import com.example.androidhms.databinding.ActivityStaffLoginBinding;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.HmsFirebase;
-import com.example.androidhms.util.HmsFirebaseMessaging;
 import com.example.androidhms.util.Util;
-import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 

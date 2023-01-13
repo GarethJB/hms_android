@@ -7,8 +7,6 @@ import android.view.View;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffOutpatientBinding;
 import com.example.androidhms.staff.StaffBaseActivity;
-import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.util.Util;
 import com.google.android.material.tabs.TabLayout;
 
 public class OutpatientActivity extends StaffBaseActivity {

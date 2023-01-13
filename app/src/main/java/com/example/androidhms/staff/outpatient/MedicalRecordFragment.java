@@ -2,22 +2,21 @@ package com.example.androidhms.staff.outpatient;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.FragmentStaffMedicalRecordBinding;
 import com.example.androidhms.staff.outpatient.adapter.MedicalRecordAdapter;
 import com.example.androidhms.staff.vo.MedicalRecordVO;
 import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.util.dialog.EditDialog;
 import com.example.androidhms.util.Util;
+import com.example.androidhms.util.dialog.EditDialog;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

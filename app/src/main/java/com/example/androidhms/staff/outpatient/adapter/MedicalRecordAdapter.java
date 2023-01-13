@@ -1,11 +1,7 @@
 package com.example.androidhms.staff.outpatient.adapter;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,11 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ItemStaffMedicalRecordBinding;
-import com.example.androidhms.databinding.ItemStaffMypatientBinding;
 import com.example.androidhms.staff.outpatient.MedicalRecordFragment;
 import com.example.androidhms.staff.vo.MedicalRecordVO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdapter.MedicalRecordViewHolder> {

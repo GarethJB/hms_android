@@ -8,7 +8,6 @@ import android.view.View;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffBinding;
 import com.example.androidhms.staff.lookup.LookupActivity;
-import com.example.androidhms.staff.messenger.ChatActivity;
 import com.example.androidhms.staff.messenger.MessengerActivity;
 import com.example.androidhms.staff.outpatient.OutpatientActivity;
 import com.example.androidhms.staff.schedule.ScheduleActivity;
