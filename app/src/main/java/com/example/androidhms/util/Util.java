@@ -27,6 +27,7 @@ public class Util {
 
     public static StaffVO staff;
     public static boolean isStaffActivityForeground = false;
+    public static String sharedContent;
 
     private Util() {
 

@@ -18,9 +18,12 @@ import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityChatBinding;
 import com.example.androidhms.databinding.NavChatHeaderBinding;
 import com.example.androidhms.staff.StaffBaseActivity;
+import com.example.androidhms.staff.lookup.LookupActivity;
 import com.example.androidhms.staff.messenger.adapter.ChatAdapter;
 import com.example.androidhms.staff.messenger.dialog.AddMemberDialog;
+import com.example.androidhms.staff.outpatient.PrescriptionActivity;
 import com.example.androidhms.staff.vo.ChatVO;
+import com.example.androidhms.staff.vo.PrescriptionVO;
 import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
@@ -68,13 +71,16 @@ public class ChatActivity extends StaffBaseActivity {
         } else bind.tvChatroom.setText(title);
 
         bind.btSend.setOnClickListener(onSendClick());
-        bind.etContent.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) new Handler().postDelayed(
-                    () -> bind.rvChat.scrollToPosition(chatList.size() - 1), 200);
-        });
-        bind.etContent.setOnClickListener(v ->
-                new Handler().postDelayed(() ->
-                        bind.rvChat.scrollToPosition(chatList.size() - 1), 200));
+
+        bind.imgvShare.setOnClickListener(onShareClick());
+        // 채팅 입력 칸을 눌렀을때 맨 아래가 보이게
+//        bind.etContent.setOnFocusChangeListener((v, hasFocus) -> {
+//            if (hasFocus) new Handler().postDelayed(
+//                    () -> bind.rvChat.scrollToPosition(chatList.size() - 1), 200);
+//        });
+//        bind.etContent.setOnClickListener(v ->
+//                new Handler().postDelayed(() ->
+//                        bind.rvChat.scrollToPosition(chatList.size() - 1), 200));
         fb.getChat(key);
         fb.getChatMember(key);
         fb.getNoticeChat(key);
@@ -192,6 +198,8 @@ public class ChatActivity extends StaffBaseActivity {
         return v -> {
             if (bind.etContent.getText().toString().trim().isEmpty()) {
                 Toast.makeText(this, "채팅을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            } else if (bind.etContent.getText().toString().contains("##")){
+                Toast.makeText(this, "'##'은 입력할 수 없습니다.", Toast.LENGTH_SHORT).show();
             } else if (chatList.isEmpty() || !Util.getDate(Timestamp.valueOf(chatList.get(chatList.size() - 1).getTime()))
                     .equals(Util.getDate(new Timestamp(System.currentTimeMillis())))) {
                 fb.sendDateBeforeSendChat(key, title,
@@ -255,6 +263,34 @@ public class ChatActivity extends StaffBaseActivity {
                         dialog.dismiss();
                     }
                 }).setYesText("등록").show();
+    }
+
+    public void getSharedChat(String content) {
+        String[] shared = content.split("##");
+        if (shared[1].equals("patient")) {
+            Intent intent = new Intent(this, LookupActivity.class);
+            intent.putExtra("patient_id", Integer.parseInt(shared[2]));
+            startActivity(intent);
+        } else if (shared[1].equals("prescription")) {
+            Intent intent = new Intent(this, PrescriptionActivity.class);
+            intent.putExtra("medical_record_id", Integer.parseInt(shared[2]));
+            startActivity(intent);
+        }
+    }
+
+    private View.OnClickListener onShareClick() {
+        return v -> {
+            if (Util.sharedContent == null) {
+                Toast.makeText(this, "저장된 공유 내용이 없습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                if (chatList.isEmpty() || !Util.getDate(Timestamp.valueOf(chatList.get(chatList.size() - 1).getTime()))
+                        .equals(Util.getDate(new Timestamp(System.currentTimeMillis())))) {
+                    fb.sendDateBeforeSendChat(key, title,
+                            new ChatVO(String.valueOf(staff.getStaff_id()), staff.getName(), Util.sharedContent)
+                            , new Timestamp(System.currentTimeMillis()));
+                } else fb.sendChat(key, title, new ChatVO(String.valueOf(staff.getStaff_id()), staff.getName(), Util.sharedContent));
+            }
+        };
     }
 
 }

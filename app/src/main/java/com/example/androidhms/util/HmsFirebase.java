@@ -344,7 +344,6 @@ public class HmsFirebase {
                                     SendPush.sendPushNotification(snapshot.child("token").getValue(String.class), vo, key, title);
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
 

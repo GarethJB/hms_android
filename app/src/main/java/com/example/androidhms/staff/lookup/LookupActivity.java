@@ -58,6 +58,9 @@ public class LookupActivity extends StaffBaseActivity {
 
         // 메모저장
         bind.btnMemosave.setOnClickListener(onMemoSaveClick());
+
+        // 공유버튼
+        bind.imgvShare.setOnClickListener(onShareClick());
     }
 
     @Override
@@ -122,6 +125,7 @@ public class LookupActivity extends StaffBaseActivity {
     }
 
     public void selectPatient(PatientVO vo) {
+        this.vo = vo;
         bindPatientInfo(vo);
         bind.rvSearchResult.setVisibility(View.GONE);
     }
@@ -144,5 +148,15 @@ public class LookupActivity extends StaffBaseActivity {
         bind.etMemo.setText(vo.getMemo());
     }
 
+    private View.OnClickListener onShareClick() {
+        return v -> {
+            if (vo != null) {
+                Util.sharedContent = "##patient##" + vo.getPatient_id() + "##" + vo.getName();
+                Toast.makeText(this, "환자 정보가 저장되었습니다.\n메신저를 통해 다른 의료진들과 공유할 수 있습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "공유할 내용이 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
 
 }

@@ -56,6 +56,10 @@ public class HmsFirebaseMessaging extends FirebaseMessagingService {
             channelId = "fcm_high_channel";
         } else channelId = "fcm_default_channel";
 
+        if (content.contains("##")) {
+            content = name + "님이 링크를 공유했습니다.";
+        }
+
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)

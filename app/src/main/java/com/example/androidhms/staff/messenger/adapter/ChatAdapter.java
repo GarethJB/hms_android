@@ -1,10 +1,14 @@
 package com.example.androidhms.staff.messenger.adapter;
 
+import android.graphics.Typeface;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
@@ -49,12 +53,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                 holder.tvName.setVisibility(View.VISIBLE);
                 holder.tvName.setText(vo.getName());
             }
-            holder.tvContent.setText(vo.getContent());
             holder.tvTime.setText(time);
-            holder.itemView.setOnLongClickListener(v -> {
-                activity.setNoticeChat(holder.getAdapterPosition());
-                return false;
-            });
+            if (vo.getContent().contains("##")) {
+                holder.tvContent.setText(setSharedContent(vo.getContent()));
+                holder.tvContent.setTypeface(Typeface.DEFAULT_BOLD);
+                SpannableString content = new SpannableString(holder.tvContent.getText().toString());
+                content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                holder.tvContent.setText(content);
+                holder.itemView.setOnClickListener(v -> activity.getSharedChat(vo.getContent()));
+            } else  {
+                holder.tvContent.setText(vo.getContent());
+                holder.itemView.setOnLongClickListener(v -> {
+                    activity.setNoticeChat(holder.getAdapterPosition());
+                    return false;
+                });
+            }
         }
         // 시스템 메시지
         else if (holder.getItemViewType() == 2) {
@@ -77,6 +90,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         if (chatList.get(position).getId().equals("0")) return 2;
         else if (chatList.get(position).getId().equals(myId)) return 1;
         else return 0;
+    }
+
+    private String setSharedContent(String content) {
+        String[] shared = content.split("##");
+        StringBuilder sb = new StringBuilder();
+        if (shared[1].equals("patient")) {
+            sb.append("→ 환자정보(").append(shared[3]).append(")");
+        } else if (shared[1].equals("prescription")) {
+            sb.append("→ 처방전(").append(shared[3]).append(")");
+        }
+        return sb.toString();
     }
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder {

@@ -45,7 +45,9 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
             holder.bind.tvTitle.setText(title);
             holder.bind.imgvGroup.setImageResource(R.drawable.icon_group);
         }
-        holder.bind.tvLastchat.setText(vo.getLastChat());
+        if (vo.getLastChat().contains("##")) {
+            holder.bind.tvLastchat.setText("공유된 링크");
+        } else holder.bind.tvLastchat.setText(vo.getLastChat());
         holder.bind.tvTime.setText(Util.getTime(vo.getLastChatTime()));
         if (vo.getCount().equals("0")) holder.bind.tvCount.setVisibility(View.GONE);
         else holder.bind.tvCount.setText(vo.getCount());

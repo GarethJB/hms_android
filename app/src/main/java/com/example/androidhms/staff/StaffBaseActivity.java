@@ -128,7 +128,9 @@ public abstract class StaffBaseActivity extends AppCompatActivity {
             if (strArr[1].contains("#")) titleView = vo.getName();
             else titleView = strArr[1] + " / " + vo.getName();
             sbBind.tvName.setText(titleView);
-            sbBind.tvContent.setText(vo.getContent());
+            if (vo.getContent().contains("##")) {
+                sbBind.tvContent.setText(vo.getName() + "님이 링크를 공유했습니다.");
+            } else sbBind.tvContent.setText(vo.getContent());
             sbBind.imgvExit.setOnClickListener(v -> snackbar.dismiss());
             sbBind.view.setOnClickListener(v -> {
                 Intent intent = new Intent(getActivity(), ChatActivity.class);

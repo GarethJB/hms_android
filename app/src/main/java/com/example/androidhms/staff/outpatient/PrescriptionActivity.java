@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 public class PrescriptionActivity extends AppCompatActivity {
 
     private ActivityStaffPrescriptionBinding bind;
+    private PrescriptionVO vo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class PrescriptionActivity extends AppCompatActivity {
             new RetrofitMethod().setParams("id", mrId)
                     .sendGet("getPrescription.ap", (isResult, data) -> {
                         if (isResult && data != null) {
-                            PrescriptionVO vo = new Gson().fromJson(data, PrescriptionVO.class);
+                            vo = new Gson().fromJson(data, PrescriptionVO.class);
                             String date = Util.dateFormat(Timestamp.valueOf(vo.getTreatment_date()), "yyyy년 MM월 dd일 ")
                                     + vo.getPrescription_record_id() + "호";
                             bind.tvPrescriptionDate.setText(date);
@@ -63,6 +64,7 @@ public class PrescriptionActivity extends AppCompatActivity {
                             }
                             bind.rlProgress.view.setVisibility(View.GONE);
                             bind.zlPrescription.setVisibility(View.VISIBLE);
+                            bind.imgvShare.setOnClickListener(onShareClickListener());
                         } else {
                             Toast.makeText(PrescriptionActivity.this, "처방전을 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                             finish();
@@ -70,6 +72,15 @@ public class PrescriptionActivity extends AppCompatActivity {
                     });
         }
 
+    }
+
+    private View.OnClickListener onShareClickListener() {
+        return v -> {
+            if (vo != null) {
+                Util.sharedContent = "##prescription##" + getIntent().getIntExtra("medical_record_id", 0) + "##" + vo.getPatient_name();
+                Toast.makeText(this, "처방전 정보가 저장되었습니다.\n메신저를 통해 다른 의료진들과 공유할 수 있습니다.", Toast.LENGTH_SHORT).show();
+            } else Toast.makeText(this, "처방전 정보를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+        };
     }
 
 
