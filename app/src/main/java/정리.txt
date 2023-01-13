@@ -141,51 +141,10 @@ public class SearchFragment extends Fragment {
                   android:layout_height="wrap_content"/>
           </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_marginLeft="20dp"
-                            android:textStyle="bold"
-                            android:padding="5dp"
-                            android:text="예약정보"
-                            android:layout_marginRight="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <TextView
-                            android:id="@+id/tv_appoint_date"
-                            android:layout_marginRight="10dp"
-                            android:text="22-01-05"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:id="@+id/tv_appoint_day"
-                            android:layout_marginRight="10dp"
-                            android:text="금"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:id="@+id/tv_appoint_time"
-                            android:layout_marginRight="10dp"
-                            android:text="11: 30 "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:id="@+id/tv_department_name"
-                            android:layout_marginRight="10dp"
-                            android:text="신경외과 "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:id="@+id/tv_doctor_name"
-                            android:layout_marginRight="10dp"
-                            android:text="김홍준"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:text="교수"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
+==================================
+tab레이아웃 에 텍스트 넣기
+ mainactivity에서 넣으면 nullpoint exception발생 대신
+ xml파일에서 tabItem 속성으로 넣기
+        bind.tabLayout.addTab(new TabLayout.Tab().setText("3개월"));
+        bind.tabLayout.addTab(new TabLayout.Tab().setText("6개월"));
+        bind.tabLayout.addTab(new TabLayout.Tab().setText("1년"));

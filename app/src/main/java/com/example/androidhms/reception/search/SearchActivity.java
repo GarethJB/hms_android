@@ -1,37 +1,29 @@
 package com.example.androidhms.reception.search;
 
-import static android.graphics.Insets.add;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.androidhms.MainActivity;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivitySearchBinding;
 import com.example.androidhms.reception.search.appointment.SearchAppointmentAdapter;
 import com.example.androidhms.reception.search.prescription.PrescriptionAdapter;
-import com.example.androidhms.reception.search.record.DetailMediRecordActivity;
+import com.example.androidhms.reception.search.record.DetailRecordActivity;
 import com.example.androidhms.reception.search.record.SearchMedicalRecordAdapter;
 import com.example.androidhms.reception.vo.MedicalReceiptVO;
 import com.example.androidhms.reception.vo.MedicalRecordVO;
-import com.example.androidhms.reception.vo.PatientNameVO;
 import com.example.androidhms.reception.vo.PrescriptionVO;
 import com.example.androidhms.staff.vo.PatientVO;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
@@ -92,7 +84,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         //진료기록 상세보기
         bind.detailRecord.setOnClickListener(v -> {
-            Intent record_intent = new Intent(SearchActivity.this, DetailMediRecordActivity.class);
+            Intent record_intent = new Intent(SearchActivity.this, DetailRecordActivity.class);
             startActivity(record_intent);
 
         });
