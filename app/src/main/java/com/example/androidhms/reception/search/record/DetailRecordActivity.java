@@ -76,7 +76,7 @@ public class DetailRecordActivity extends AppCompatActivity {
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
                          list = gson.fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
                         }.getType());
-
+                        bind.term.setText(date);
 
 
                     });
