@@ -18,7 +18,7 @@ public class ApiClient {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASEURL)
-                .client( new OkHttpClient.Builder().connectTimeout(10 , TimeUnit.SECONDS).build())
+                .client( new OkHttpClient.Builder().connectTimeout(60 , TimeUnit.SECONDS).build())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
 

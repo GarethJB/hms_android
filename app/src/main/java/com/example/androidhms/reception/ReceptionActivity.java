@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.androidhms.R;
@@ -13,22 +14,32 @@ import com.example.androidhms.databinding.ActivityReceptionBinding;
 import com.example.androidhms.reception.appointment.AppointmentActivity;
 import com.example.androidhms.reception.home.NewsActivity;
 import com.example.androidhms.reception.search.SearchActivity;
+import com.example.androidhms.staff.vo.StaffVO;
+import com.example.conn.ApiClient;
 
 public class ReceptionActivity extends AppCompatActivity implements View.OnClickListener {
 
         ActivityReceptionBinding bind;
+        StaffVO staff_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind= ActivityReceptionBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
+        //사원이름 받아오기
         Intent intent =getIntent();
+         staff_name =(StaffVO)intent.getSerializableExtra("staff_name");
+        Log.d("로그", "onCreate: " + staff_name.getName());
+        bind.tvName.setText(staff_name.getName());
+        //로그인하면 상단바에 로그아웃뜨기
+        bind.toolbar.tvLogin.setVisibility(View.VISIBLE);
 
         bind.clAppointmentSearch.setOnClickListener(this);
         bind.clPatientSearch.setOnClickListener(this);
         bind.clNews.setOnClickListener(this);
-
+        bind.toolbar.llLogo.setOnClickListener(this);
+        bind.toolbar.ivLeft.setOnClickListener(this);
     }
 
     @Override
@@ -39,6 +50,10 @@ public class ReceptionActivity extends AppCompatActivity implements View.OnClick
             changeActivity(new SearchActivity());
         }else if(v.getId() == R.id.cl_news){
             changeActivity(new NewsActivity());
+        }else if(v.getId() == R.id.ll_logo){
+            onBackPressed();
+        }else if(v.getId() == R.id.iv_left){
+            onBackPressed();
         }
     }
 
