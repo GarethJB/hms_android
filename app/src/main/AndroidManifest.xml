@@ -38,6 +38,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".customer.join.CustomerCheckActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".customer.CustomerLoginActivity"
             android:exported="false">
             <meta-data
@@ -75,10 +82,10 @@
             </intent-filter>
         </activity> <!-- 고객 페이지 -->
         <activity
-            android:name=".customer.info.acceptance.AcceptanceRecordActivity"
+            android:name=".customer.hospital.acceptance.AcceptanceRecordActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.info.reservation.ReservationRecordActivity"
+            android:name=".customer.info.reservation.ReservationScheduleActivity"
             android:exported="false" />
         <activity
             android:name=".customer.info.medical.MedicalRecordActivity"
@@ -98,13 +105,6 @@
             android:label="@string/title_activity_home" />
         <activity
             android:name=".customer.join.JoinActivity"
-            android:exported="false" />
-        <activity
-            android:name=".customer.ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".customer.info.timetable.TimeTableActivity"
             android:exported="false" /> <!-- 직원 페이지 -->
         <activity
             android:name=".staff.schedule.ScheduleActivity"
@@ -143,9 +143,11 @@
         <activity
             android:name=".reception.home.NewsActivity"
             android:exported="false" />
-        <activity
+        <!--
+    <activity // 임주빈 2023 - 01 -10 프래그먼트라서 주석함.
             android:name=".reception.home.ReceptionHomeFragment"
             android:exported="false" />
+        -->
         <activity
             android:name=".reception.ReceptionLoginActivity"
             android:exported="false" />

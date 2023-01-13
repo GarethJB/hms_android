@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".customer.info.acceptance.AcceptanceRecordActivity">
+    tools:context=".customer.hospital.acceptance.AcceptanceRecordActivity">
     <TextView
         android:text="수납조회"
         android:layout_width="wrap_content"

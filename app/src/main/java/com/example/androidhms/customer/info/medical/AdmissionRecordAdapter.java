@@ -9,14 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
+import com.example.androidhms.customer.vo.AdmissionRecordVO;
+import com.example.androidhms.databinding.ItemCustomerAddmissionRecordBinding;
+
+import java.util.ArrayList;
 
 public class AdmissionRecordAdapter extends RecyclerView.Adapter<AdmissionRecordAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
+    private ArrayList<AdmissionRecordVO> admission_record = new ArrayList<>();
 
-    public AdmissionRecordAdapter(LayoutInflater inflater, Context context) {
+    public AdmissionRecordAdapter(LayoutInflater inflater, Context context, ArrayList<AdmissionRecordVO> admission_record) {
         this.inflater = inflater;
         this.context = context;
+        this.admission_record = admission_record;
     }
 
     @NonNull
@@ -28,8 +34,11 @@ public class AdmissionRecordAdapter extends RecyclerView.Adapter<AdmissionRecord
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ViewHolder h, int i) {
+        h.bind.tvAdmissionDate.setText(admission_record.get(i).getAdmission_date());
+        h.bind.tvDischargeDate.setText(admission_record.get(i).getDischarge_date());
+        h.bind.tvName.setText(admission_record.get(i).getName());
+        h.bind.tvTreatmentName.setText(admission_record.get(i).getTreatment_name());
     }
 
     @Override
@@ -44,14 +53,17 @@ public class AdmissionRecordAdapter extends RecyclerView.Adapter<AdmissionRecord
 
     @Override
     public int getItemCount() {
-        return 10;
+        return admission_record.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public ItemCustomerAddmissionRecordBinding bind;
 
         public ViewHolder(@NonNull View v) {
             super(v);
+            bind = ItemCustomerAddmissionRecordBinding.bind(v);
         }
+
     }
 
 }
