@@ -10,7 +10,7 @@ import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityCustomerReservationBinding;
 
 public class ReservationActivity extends AppCompatActivity {
-    ActivityCustomerReservationBinding bind;
+    private ActivityCustomerReservationBinding bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +22,10 @@ public class ReservationActivity extends AppCompatActivity {
             onBackPressed();
         });
 
+
         StepCnt.cnt = 1;
         changeStep();
+
 
         bind.imgvBefore.setOnClickListener(v -> {
             StepCnt.cnt = StepCnt.cnt - 1;
@@ -58,5 +60,10 @@ public class ReservationActivity extends AppCompatActivity {
                 bind.imgvBefore.setVisibility(View.VISIBLE);
             }
     }
+
+//    public void goStepThree() {
+//        StepCnt.cnt = 3;
+//        changeStep();
+//    }
 
 }

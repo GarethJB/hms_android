@@ -66,7 +66,7 @@ public class StepTwoAdapter extends RecyclerView.Adapter<StepTwoAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ItemCustomerStepTowBinding bind;
+        public ItemCustomerStepTowBinding bind;
         public ViewHolder(@NonNull View v) {
             super(v);
             bind = ItemCustomerStepTowBinding.bind(v);

@@ -7,45 +7,11 @@
     tools:context=".customer.join.JoinActivity"
     android:orientation="vertical"
     android:padding="30dp">
-    <TextView
-        android:text="회원가입"
-        android:textSize="30dp"
-        android:textAlignment="center"
+
+    <FrameLayout
+        android:id="@+id/join_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <EditText
-            android:hint="email"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:text="중복확인"
-            android:textSize="14dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:backgroundTint="@color/main_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <EditText
-        android:hint="비밀번호"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:hint="비밀번호 확인"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:text="실명확인"
-        android:textSize="14dp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:backgroundTint="@color/main_color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
+
 
 </LinearLayout>

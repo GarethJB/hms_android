@@ -1,10 +1,12 @@
-package com.example.androidhms.customer;
+package com.example.androidhms.customer.common;
 
-public class CustomerCommon {
+public class CommonMethod {
 
+    //숫자만 추출
     public static String extractDate(String date) {
         String match = "[^0-9]";
         date = date.replaceAll(match, "");
         return date;
     }
+    
 }

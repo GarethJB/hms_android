@@ -16,7 +16,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
-import com.example.androidhms.customer.CustomerCommon;
+import com.example.androidhms.customer.common.CommonMethod;
 import com.example.androidhms.customer.LoginInfo;
 import com.example.androidhms.customer.vo.MedicalReceiptVO;
 import com.example.androidhms.databinding.FragmentCustomerStepFourBinding;
@@ -67,7 +67,7 @@ public class StepFourFragment extends Fragment {
                 //08:00 ~ 16:45 까지 고정
                 int[] flag = new int[4];
                 for (int j = 0; j < receipt.size(); j++) { // 08:15
-                    int tempTime =  Integer.parseInt(CustomerCommon.extractDate(receipt.get(j).getTime()).substring(8, 12) );
+                    int tempTime =  Integer.parseInt(CommonMethod.extractDate(receipt.get(j).getTime()).substring(8, 12) );
                     if((800 + test) <= tempTime && tempTime  <=  (815 + test) ){
                         flag[0] = flag[0] + 1;
                     }else if((815 + test) <= tempTime  && tempTime  <=  (830 + test) ){

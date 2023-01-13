@@ -15,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:id="@+id/btn_myinfo"
-                android:text="임주빈"
+                android:id="@+id/btn_numberTicket"
+                android:text="번호표"
                 android:textSize="12dp"
                 android:textColor="@color/main_color"
                 android:textStyle="bold"

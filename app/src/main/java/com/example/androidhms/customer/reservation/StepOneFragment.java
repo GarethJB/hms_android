@@ -11,7 +11,7 @@ import com.example.androidhms.databinding.FragmentCustomerStepOneBinding;
 
 
 public class StepOneFragment extends Fragment {
-    FragmentCustomerStepOneBinding bind;
+    private FragmentCustomerStepOneBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

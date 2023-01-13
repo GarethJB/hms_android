@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.customer.LoginInfo;
-import com.example.androidhms.customer.join.JoinActivity;
+import com.example.androidhms.customer.join.CustomerCheckActivity;
 import com.example.androidhms.databinding.FragmentCustomerHomeBinding;
 
 
 public class HomeFragment extends Fragment {
-    FragmentCustomerHomeBinding bind;
+    private FragmentCustomerHomeBinding bind;
 
     // 고객용 메인페이지, 의료진 소개, 회원가입 화면 연결
     @Override
@@ -22,13 +22,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentCustomerHomeBinding.inflate(inflater, container, false);
 
-        if (LoginInfo.check_id > 0) {
-            bind.btnJoin.setText("WELCOME");
-            bind.btnJoin.setEnabled(false);
-        }
+        changeWelcom(LoginInfo.check_id);
 
         bind.btnJoin.setOnClickListener(v1 -> {
-            Intent intent = new Intent(getActivity(), JoinActivity.class);
+            Intent intent = new Intent(getActivity(), CustomerCheckActivity.class);
             startActivity(intent);
         });
 
@@ -41,4 +38,12 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         bind = null;
     }
+
+    public void changeWelcom(int check_id) {
+        if (LoginInfo.check_id > 0) {
+            bind.btnJoin.setText("WELCOME");
+            bind.btnJoin.setEnabled(false);
+        }
+    }
+
 }

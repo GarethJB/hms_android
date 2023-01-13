@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.androidhms.customer.vo.AccountVO;
 import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.databinding.ActivityCustomerLoginBinding;
 import com.example.conn.ApiClient;
@@ -18,7 +17,6 @@ public class CustomerLoginActivity extends AppCompatActivity {
 
     private ActivityCustomerLoginBinding bind;
     private CustomerVO customer;
-    private AccountVO account;
 
 
     @Override

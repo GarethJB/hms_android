@@ -1,6 +1,7 @@
-package com.example.androidhms.customer.location.timetable;
+package com.example.androidhms.customer.hospital;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
+import com.example.androidhms.customer.reservation.ReservationActivity;
 import com.example.androidhms.databinding.ItemCustomerStaffListBinding;
 import com.example.androidhms.staff.vo.StaffVO;
 
@@ -35,8 +37,14 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
-        //h.bind.tvName.setText(staff.get(i).getName());
-        //h.bind.tvIntroduction.setText(staff.get(i).getIntroduction());
+        h.bind.tvName.setText(staff.get(i).getName());
+        h.bind.tvIntroduction.setText(staff.get(i).getIntroduction());
+        h.bind.btnReceipt.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ReservationActivity.class);
+            context.startActivity(intent);
+
+        });
+
 
 
     }

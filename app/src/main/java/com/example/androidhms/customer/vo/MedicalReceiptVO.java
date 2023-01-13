@@ -3,12 +3,13 @@ package com.example.androidhms.customer.vo;
 import java.io.Serializable;
 
 public class MedicalReceiptVO implements Serializable {
-	private int patient_id, staff_id;
+	private int patient_id, staff_id, receipt_id;
 	private String time, memo, name, email, introduction, department_name, location;
 
-	public MedicalReceiptVO(int patient_id, int staff_id, String time, String memo, String name, String email, String introduction, String department_name, String location) {
+	public MedicalReceiptVO(int patient_id, int staff_id, int receipt_id, String time, String memo, String name, String email, String introduction, String department_name, String location) {
 		this.patient_id = patient_id;
 		this.staff_id = staff_id;
+		this.receipt_id = receipt_id;
 		this.time = time;
 		this.memo = memo;
 		this.name = name;
@@ -32,6 +33,14 @@ public class MedicalReceiptVO implements Serializable {
 
 	public void setStaff_id(int staff_id) {
 		this.staff_id = staff_id;
+	}
+
+	public int getReceipt_id() {
+		return receipt_id;
+	}
+
+	public void setReceipt_id(int receipt_id) {
+		this.receipt_id = receipt_id;
 	}
 
 	public String getTime() {

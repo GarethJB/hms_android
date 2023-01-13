@@ -1,4 +1,4 @@
-package com.example.androidhms.customer.info.acceptance;
+package com.example.androidhms.customer.hospital.acceptance;
 
 import android.os.Bundle;
 
