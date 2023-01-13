@@ -56,7 +56,9 @@ public class PatientNameAdapter extends RecyclerView.Adapter<PatientNameAdapter.
             h.bind.tvPatientPhone.setText(list.get(i).getPhone_number());
 
           h.bind.llChoiceName.setOnClickListener(v -> {
+              Log.d("로그", "onBindViewHolder: " + "어댑터");
               activity.patient_id =  h.bind.tvPatientNo.getText().toString();
+              Log.d("로그", "onBindViewHolder: " +  activity.patient_id);
               activity.searchPatientInfo();
               activity.searchAppointment();
               activity.searchMedicalRecord();

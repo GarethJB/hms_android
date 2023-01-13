@@ -47,6 +47,10 @@ public class SearchMedicalRecordAdapter extends RecyclerView.Adapter<SearchMedic
         h.bind.treamentName.setText(recordList.get(i).getTreatment_name());
         h.bind.department.setText(recordList.get(i).getDepartment_name());
         h.bind.doctor.setText(recordList.get(i).getDoctor_name());
+
+        h.bind.llMedicalRecord.setOnClickListener(v -> {
+            //상세목록보기
+        });
     }
 
     @Override

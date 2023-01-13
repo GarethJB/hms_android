@@ -89,3 +89,103 @@ public class SearchFragment extends Fragment {
 어댑터에서 색상 받아오는 방법
    h.bind.tvDepartment.setTextColor(ContextCompat.getColor(activity.getContext(), R.color.gray));
             h.bind.tvDoctorName.setTextColor(ContextCompat.getColor(activity.getContext(), R.color.gray));
+
+===========================
+ 입원정보
+  <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+              <TextView
+                  android:layout_marginLeft="20dp"
+                  android:textStyle="bold"
+                  android:padding="5dp"
+                  android:text="입원정보"
+                  android:layout_marginRight="10dp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+
+              <TextView
+                  android:layout_marginRight="10dp"
+                  android:text="501"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <TextView
+                  android:layout_marginRight="10dp"
+                  android:text="병동"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <TextView
+                  android:layout_marginRight="10dp"
+                  android:text="4"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <TextView
+                  android:layout_marginRight="10dp"
+                  android:text="배드 "
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <TextView
+                  android:layout_marginRight="10dp"
+                  android:text="심장내과"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <TextView
+                  android:layout_marginRight="10dp"
+                  android:text="남경선"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <TextView
+                  android:text="교수"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+          </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            android:text="예약정보"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tv_appoint_date"
+                            android:layout_marginRight="10dp"
+                            android:text="22-01-05"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_appoint_day"
+                            android:layout_marginRight="10dp"
+                            android:text="금"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_appoint_time"
+                            android:layout_marginRight="10dp"
+                            android:text="11: 30 "
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_department_name"
+                            android:layout_marginRight="10dp"
+                            android:text="신경외과 "
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_doctor_name"
+                            android:layout_marginRight="10dp"
+                            android:text="김홍준"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:text="교수"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>

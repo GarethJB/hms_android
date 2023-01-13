@@ -46,8 +46,9 @@ public class SearchAppointmentAdapter extends RecyclerView.Adapter<SearchAppoint
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
         h.bind.date.setText(appointmentList.get(i).getReserve_date());
         h.bind.time.setText(appointmentList.get(i).getReserve_time());
-        h.bind.department.setText(appointmentList.get(i).getDepartment_name());
-        h.bind.doctor.setText(appointmentList.get(i).getDoctor_name());
+        h.bind.day.setText(appointmentList.get(i).getReserve_day());
+        h.bind.departmentName.setText(appointmentList.get(i).getDepartment_name());
+        h.bind.doctorName.setText(appointmentList.get(i).getDoctor_name());
     }
 
     @Override
