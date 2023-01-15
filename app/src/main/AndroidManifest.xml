@@ -156,7 +156,7 @@
         <activity
             android:name=".staff.schedule.ScheduleActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".staff.outpatient.OutpatientActivity"
             android:exported="false"

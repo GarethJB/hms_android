@@ -42,7 +42,7 @@ public class StaffLoginActivity extends AppCompatActivity {
                 .setParams("id", bind.etId.getText().toString())
                 .setParams("pw", bind.etPw.getText().toString())
                 .sendPost("staffLogin.ap", (isResult, data) -> {
-                    if (data.equals("null")) {
+                    if (data != null && data.equals("null")) {
                         Toast.makeText(StaffLoginActivity.this,
                                 "사번 또는 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     } else {
@@ -58,7 +58,7 @@ public class StaffLoginActivity extends AppCompatActivity {
                             editor.putString("staffData", "");
                         }
                         editor.commit();
-                        Util.staff = new Gson().fromJson(data, StaffVO.class);
+                        Util.getStaff(StaffLoginActivity.this);
                         new HmsFirebase(StaffLoginActivity.this).sendToken();
                         Intent intent = new Intent(StaffLoginActivity.this, StaffActivity.class);
                         startActivity(intent);
