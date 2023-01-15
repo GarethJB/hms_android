@@ -13,11 +13,13 @@ import com.example.androidhms.customer.vo.MedicalRecordVO;
 import com.example.androidhms.databinding.ItemCustomerMedicalRecordBinding;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
     private ArrayList<MedicalRecordVO> medical_record = new ArrayList<>();
+    private Date nowDate = new Date();
 
     public MedicalRecordAdapter(LayoutInflater inflater, Context context, ArrayList<MedicalRecordVO> medical_record) {
         this.inflater = inflater;
@@ -35,7 +37,7 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
-        h.bind.tvTreatmentDate.setText(medical_record.get(i).getTreatment_date());
+        h.bind.tvTreatmentDate.setText(medical_record.get(i).getTreatment_date().substring(2, 10));
         h.bind.tvDepartment.setText(medical_record.get(i).getDepartment_name());
         h.bind.tvName.setText(medical_record.get(i).getName());
         h.bind.tvTreatmentName.setText(medical_record.get(i).getTreatment_name());

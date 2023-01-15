@@ -35,8 +35,8 @@ public class AdmissionRecordAdapter extends RecyclerView.Adapter<AdmissionRecord
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
-        h.bind.tvAdmissionDate.setText(admission_record.get(i).getAdmission_date());
-        h.bind.tvDischargeDate.setText(admission_record.get(i).getDischarge_date());
+        h.bind.tvAdmissionDate.setText(admission_record.get(i).getAdmission_date().substring(2, 10));
+        h.bind.tvDischargeDate.setText(admission_record.get(i).getDischarge_date().substring(2, 10));
         h.bind.tvName.setText(admission_record.get(i).getName());
         h.bind.tvTreatmentName.setText(admission_record.get(i).getTreatment_name());
     }

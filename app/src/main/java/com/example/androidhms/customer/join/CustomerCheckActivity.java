@@ -21,7 +21,7 @@ public class CustomerCheckActivity extends AppCompatActivity {
         bind = ActivityCustomerCheckBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
-        Intent intent = new Intent(CustomerCheckActivity.this, JoinActivity.class);
+
 
 
         bind.btnCheck.setOnClickListener(v -> {
@@ -30,19 +30,16 @@ public class CustomerCheckActivity extends AppCompatActivity {
             new RetrofitMethod().setParams("name", name).setParams("social_id", socail_id)
                     .sendPost("customer_check.cu", (isResult, data) -> {
                         if (data.equals("null")) {
-                            intent.putExtra("result", 1);
+                            Intent intent = new Intent(CustomerCheckActivity.this, PatientRegisterActivity.class);
                             startActivity(intent);
                             finish();
                         }else {
                             customer = new Gson().fromJson(data, CustomerVO.class);
-                            intent.putExtra("result", 2);
+                            Intent intent = new Intent(CustomerCheckActivity.this, JoinActivity.class);
                             intent.putExtra("customer", customer);
                             startActivity(intent);
                             finish();
                         }
-
-                        //startActivity(intent);
-                        
                     });
 
         });

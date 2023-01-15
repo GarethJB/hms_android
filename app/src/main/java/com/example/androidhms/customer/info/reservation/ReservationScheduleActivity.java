@@ -43,8 +43,8 @@ public class ReservationScheduleActivity extends AppCompatActivity {
             try {
                 bind.tvDepartment.setText(admission.getDepartment_name());
                 bind.tvName.setText(admission.getName());
-                bind.tvAdmissionDate.setText(admission.getAdmission_date());
-                bind.tvDischargeDate.setText(admission.getDischarge_date());
+                bind.tvAdmissionDate.setText(admission.getAdmission_date().substring(0, 10));
+                bind.tvDischargeDate.setText(admission.getDischarge_date().substring(0, 10));
                 bind.tvWardNumber.setText(admission.getWard_number() + "호");
                 bind.tvBed.setText(admission.getBed() + "번 침대");
 
