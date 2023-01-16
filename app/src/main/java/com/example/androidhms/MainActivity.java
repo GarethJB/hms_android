@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(bind.getRoot());
 
         // Jungwon
-        //ApiClient.setBASEURL("http://192.168.0.36/hms/");
-        ApiClient.setBASEURL("http://192.168.0.25/hms/");
+        ApiClient.setBASEURL("http://192.168.0.36/hms/");
+        //ApiClient.setBASEURL("http://192.168.0.25/hms/");
         //ApiClient.setBASEURL("http://192.168.0.116/middle/");
 
         // 의료진 자동 로그인 정보가 있을경우 바로 StaffActivity 로 이동

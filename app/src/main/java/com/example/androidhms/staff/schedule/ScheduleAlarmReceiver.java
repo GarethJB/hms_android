@@ -1,79 +1,56 @@
-package com.example.androidhms.util;
+package com.example.androidhms.staff.schedule;
 
-import static com.example.androidhms.util.Util.staff;
+import static android.content.ContentValues.TAG;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.example.androidhms.MainActivity;
 import com.example.androidhms.R;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
+import com.example.androidhms.util.Util;
 
-import java.util.Map;
+public class ScheduleAlarmReceiver extends BroadcastReceiver {
 
-public class HmsFirebaseMessaging extends FirebaseMessagingService {
 
     @Override
-    public void onMessageReceived(@NonNull RemoteMessage message) {
-        super.onMessageReceived(message);
-        Map<String, String> map = message.getData();
-        getNotification(map.get("key"),
-                map.get("title"),
-                map.get("content"),
-                map.get("name"));
+    public void onReceive(Context context, Intent intent) {
+        getNotification(context, intent);
+        Log.d(TAG, "onReceive: 알람" );
     }
 
-    @Override
-    public void onNewToken(@NonNull String token) {
-        super.onNewToken(token);
-        if (staff != null) new HmsFirebase(this).sendToken(token);
-    }
-
-    private void getNotification(String key, String title, String content, String name) {
-        String titleView = "";
-        if (title.contains("#")) titleView = name;
-        else titleView = title + " / " + name;
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("key", key);
+    private void getNotification(Context context, Intent intent) {
+        Intent mainIntent = new Intent(context, MainActivity.class);
         // PendingIntent 가 알림에 따라 update 되지 않는 오류때문에 cancel 후 한번 더 선언 (임시방편)
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mainIntent,
                 PendingIntent.FLAG_MUTABLE);
         pendingIntent.cancel();
-        pendingIntent = PendingIntent.getActivity(this, 0, intent,
+        pendingIntent = PendingIntent.getActivity(context, 0, mainIntent,
                 PendingIntent.FLAG_MUTABLE);
 
-        String channelId;
-        if (!Util.isStaffActivityForeground) {
-            channelId = "fcm_high_channel";
-        } else channelId = "fcm_default_channel";
-
-        if (content.contains("##")) {
-            content = name + "님이 링크를 공유했습니다.";
-        }
+        String channelId = "fcm_high_channel";
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this, channelId)
+                new NotificationCompat.Builder(context, channelId)
                         .setSmallIcon(R.drawable.icon_message)
-                        .setContentTitle(titleView)
-                        .setContentText(content)
+                        .setContentTitle(intent.getStringExtra("time"))
+                        .setContentText(intent.getStringExtra("content"))
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel;
@@ -97,5 +74,6 @@ public class HmsFirebaseMessaging extends FirebaseMessagingService {
         }
         notificationManager.notify(0, notificationBuilder.build());
     }
+
 
 }

@@ -32,8 +32,8 @@ public class TimeDialog {
 
         b.imgvExit.setOnClickListener(v -> dialog.dismiss());
         b.timePicker.setOnTimeChangedListener((view, hourOfDay, minute) -> {
-            String hh = hourOfDay > 10 ? "" + hourOfDay : "0" + hourOfDay;
-            String mm = minute > 10 ? "" + minute : "0" + minute;
+            String hh = hourOfDay >= 10 ? "" + hourOfDay : "0" + hourOfDay;
+            String mm = minute >= 10 ? "" + minute : "0" + minute;
             time = hh + ":" + mm;
         });
         b.btnSave.setOnClickListener(v -> listener.onSelectClick(this, time));

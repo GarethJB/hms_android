@@ -31,10 +31,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
+        <ImageView
+            android:id="@+id/imgv_alarm"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.2"
+            android:src="@drawable/icon_alarm"
+            android:scaleType="center"
+            android:visibility="invisible"/>
+
         <CheckBox
             android:id="@+id/cb_complete"
             android:layout_width="0dp"
-            android:layout_height="18dp"
+            android:layout_height="20dp"
             android:layout_weight="0.2"/>
 
     </LinearLayout>

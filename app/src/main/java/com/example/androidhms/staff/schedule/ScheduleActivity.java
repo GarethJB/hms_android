@@ -1,12 +1,21 @@
 package com.example.androidhms.staff.schedule;
 
+import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
+import static android.content.ContentValues.TAG;
 import static com.example.androidhms.util.Util.staff;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffScheduleBinding;
 import com.example.androidhms.staff.StaffBaseActivity;
 import com.example.androidhms.staff.schedule.adapter.ScheduleAdapter;
@@ -28,12 +37,16 @@ public class ScheduleActivity extends StaffBaseActivity {
     private Timestamp tsDate = new Timestamp(System.currentTimeMillis());
     private ArrayList<ScheduleVO> scList;
     private int selectedId = -1;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind.etDate.setText(Util.getDate(tsDate));
         bind.clNotfound.tvNotfound.setText("저장된 일정이 없습니다.");
+        preferences = getSharedPreferences("scheduleAlarm", MODE_PRIVATE);
+        editor = preferences.edit();
 
         Util.setEditTextDate(this, getLayoutInflater(), bind.etDate, (date, dialog) -> {
             tsDate = Timestamp.valueOf(date.getYear() + "-" + date.getMonth() + "-" + date.getDay() + " 00:00:00");
@@ -46,6 +59,7 @@ public class ScheduleActivity extends StaffBaseActivity {
         bind.btnPreday.setOnClickListener(onDayClick(false));
 
         bind.etTime.setOnClickListener(onTimeClick());
+        bind.imgvAlarm.setOnClickListener(onAlarmClick());
         bind.btnDelete.setOnClickListener(onDeleteClick());
         bind.btnSave.setOnClickListener(onSaveClick());
 
@@ -112,10 +126,15 @@ public class ScheduleActivity extends StaffBaseActivity {
             selectedId = -1;
             clearSchedule();
         }
-        else selectedId = vo.getSchedule_id();
-        selectedId = vo.getSchedule_id();
-        bind.etTime.setText(vo.getTime());
-        bind.etContent.setText(vo.getContent());
+        else {
+            selectedId = vo.getSchedule_id();
+            bind.etTime.setText(vo.getTime());
+            bind.etContent.setText(vo.getContent());
+            if (preferences.getBoolean(String.valueOf(selectedId), false)) {
+                bind.imgvAlarm.setImageResource(R.drawable.icon_alarm);
+            } else bind.imgvAlarm.setImageResource(R.drawable.icon_alarm_off);
+        }
+
     }
 
     private boolean timeCheck() {
@@ -128,6 +147,7 @@ public class ScheduleActivity extends StaffBaseActivity {
     private void clearSchedule() {
         bind.etContent.setText("");
         bind.etTime.setText("");
+        bind.imgvAlarm.setImageResource(R.drawable.icon_alarm_off);
     }
 
     private View.OnClickListener onSaveClick() {
@@ -157,6 +177,7 @@ public class ScheduleActivity extends StaffBaseActivity {
                                 getSchedule();
                             } else
                                 Toast.makeText(this, "일정을 수정하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                            selectedId = -1;
                         });
             }
         };
@@ -188,6 +209,52 @@ public class ScheduleActivity extends StaffBaseActivity {
                         }).setYesText("삭제").show();
             }
         };
+    }
+
+    public void onCompleteClick(int position, boolean isChecked) {
+        ScheduleVO vo = scList.get(position);
+        new RetrofitMethod().setParams("id", vo.getSchedule_id())
+                .setParams("complete", isChecked ? "Y" : "N")
+                .sendPost("updateScheduleComplete.ap", (isResult, data) -> {
+                    if (isResult && data.equals("1")) {
+                        Toast.makeText(ScheduleActivity.this, "완료 여부를 수정했습니다.", Toast.LENGTH_SHORT).show();
+                    } else Toast.makeText(ScheduleActivity.this, "완료 여부를 수정하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private View.OnClickListener onAlarmClick() {
+        return v -> {
+            Toast.makeText(this, "준비중입니다.", Toast.LENGTH_SHORT).show();
+//            if (selectedId == -1) {
+//                Toast.makeText(ScheduleActivity.this, "일정을 먼저 입력해주세요.", Toast.LENGTH_SHORT).show();
+//            } else {
+//                if (!preferences.getBoolean(String.valueOf(selectedId), false)) {
+//                    editor.putBoolean(String.valueOf(selectedId), true);
+//                    bind.imgvAlarm.setImageResource(R.drawable.icon_alarm);
+//                    setAlarm(true);
+//                } else {
+//                    editor.putBoolean(String.valueOf(selectedId), false);
+//                    bind.imgvAlarm.setImageResource(R.drawable.icon_alarm_off);
+//                    setAlarm(false);
+//                }
+//                editor.commit();
+//                bind.rvSchedule.getAdapter().notifyDataSetChanged();
+//                Toast.makeText(this, "알람이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+//            }
+
+        };
+    }
+
+    private void setAlarm(boolean create) {
+//        Intent intent = new Intent(this, ScheduleAlarmReceiver.class);
+//        intent.putExtra("time", bind.etTime.getText().toString());
+//        intent.putExtra("content", bind.etContent.getText().toString());
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE);
+//        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        if (create) {
+//            am.setExact(ELAPSED_REALTIME_WAKEUP, Timestamp.valueOf(Util.getDate(tsDate) + " " + bind.etTime.getText().toString() + ":00").getTime(), pendingIntent);
+//            Log.d(TAG, "setAlarm: " + Timestamp.valueOf(Util.getDate(tsDate) + " " + bind.etTime.getText().toString() + ":00").getTime());
+//        } else am.cancel(pendingIntent);
     }
 
 
