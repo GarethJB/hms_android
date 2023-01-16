@@ -29,9 +29,7 @@ public class Util {
     public static boolean isStaffActivityForeground = false;
     public static String sharedContent;
 
-    private Util() {
-
-    }
+    private Util() {}
 
     /**
      * 자동로그인시 SharedPreferences 에 저장된 staff 데이터를 불러옴

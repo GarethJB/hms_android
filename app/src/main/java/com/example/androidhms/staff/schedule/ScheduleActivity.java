@@ -1,7 +1,6 @@
 package com.example.androidhms.staff.schedule;
 
-import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
-import static android.content.ContentValues.TAG;
+import static android.app.AlarmManager.RTC_WAKEUP;
 import static com.example.androidhms.util.Util.staff;
 
 import android.app.Activity;
@@ -10,8 +9,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,6 +29,7 @@ import com.google.gson.reflect.TypeToken;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class ScheduleActivity extends StaffBaseActivity {
 
@@ -39,6 +39,8 @@ public class ScheduleActivity extends StaffBaseActivity {
     private int selectedId = -1;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private String time;
+    private String content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +57,11 @@ public class ScheduleActivity extends StaffBaseActivity {
             getSchedule();
         });
 
+        // 이전날, 다음날 조회
         bind.btnNextday.setOnClickListener(onDayClick(true));
         bind.btnPreday.setOnClickListener(onDayClick(false));
 
+        // 일정 입력창
         bind.etTime.setOnClickListener(onTimeClick());
         bind.imgvAlarm.setOnClickListener(onAlarmClick());
         bind.btnDelete.setOnClickListener(onDeleteClick());
@@ -95,6 +99,7 @@ public class ScheduleActivity extends StaffBaseActivity {
         bind.rlProgress.view.setVisibility(View.VISIBLE);
         bind.clNotfound.view.setVisibility(View.GONE);
         clearSchedule();
+        selectedId = -1;
         new RetrofitMethod().setParams("id", staff.getStaff_id())
                 .setParams("staff_level", staff.getStaff_level())
                 .setParams("date", Util.getDate(tsDate))
@@ -130,6 +135,8 @@ public class ScheduleActivity extends StaffBaseActivity {
             selectedId = vo.getSchedule_id();
             bind.etTime.setText(vo.getTime());
             bind.etContent.setText(vo.getContent());
+            time = vo.getTime();
+            content = vo.getContent();
             if (preferences.getBoolean(String.valueOf(selectedId), false)) {
                 bind.imgvAlarm.setImageResource(R.drawable.icon_alarm);
             } else bind.imgvAlarm.setImageResource(R.drawable.icon_alarm_off);
@@ -148,6 +155,8 @@ public class ScheduleActivity extends StaffBaseActivity {
         bind.etContent.setText("");
         bind.etTime.setText("");
         bind.imgvAlarm.setImageResource(R.drawable.icon_alarm_off);
+        time = "";
+        content = "";
     }
 
     private View.OnClickListener onSaveClick() {
@@ -174,10 +183,10 @@ public class ScheduleActivity extends StaffBaseActivity {
                         .sendPost("updateSchedule.ap", (isResult, data) -> {
                             if (isResult && data.equals("1")) {
                                 Toast.makeText(this, "일정이 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                                setAlarm(true);
                                 getSchedule();
                             } else
                                 Toast.makeText(this, "일정을 수정하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
-                            selectedId = -1;
                         });
             }
         };
@@ -224,37 +233,47 @@ public class ScheduleActivity extends StaffBaseActivity {
 
     private View.OnClickListener onAlarmClick() {
         return v -> {
-            Toast.makeText(this, "준비중입니다.", Toast.LENGTH_SHORT).show();
-//            if (selectedId == -1) {
-//                Toast.makeText(ScheduleActivity.this, "일정을 먼저 입력해주세요.", Toast.LENGTH_SHORT).show();
-//            } else {
-//                if (!preferences.getBoolean(String.valueOf(selectedId), false)) {
-//                    editor.putBoolean(String.valueOf(selectedId), true);
-//                    bind.imgvAlarm.setImageResource(R.drawable.icon_alarm);
-//                    setAlarm(true);
-//                } else {
-//                    editor.putBoolean(String.valueOf(selectedId), false);
-//                    bind.imgvAlarm.setImageResource(R.drawable.icon_alarm_off);
-//                    setAlarm(false);
-//                }
-//                editor.commit();
-//                bind.rvSchedule.getAdapter().notifyDataSetChanged();
-//                Toast.makeText(this, "알람이 설정되었습니다.", Toast.LENGTH_SHORT).show();
-//            }
+            if (!timeCheck()) {
+                Toast.makeText(this, "과거의 일정에 알람을 설정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!time.equals(bind.etTime.getText().toString()) || !content.equals(bind.etContent.getText().toString())) {
+                Toast.makeText(this, "알람을 설정하기 전에 일정을 저장해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (selectedId == -1) {
+                Toast.makeText(ScheduleActivity.this, "일정을 먼저 입력해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+                if (!preferences.getBoolean(String.valueOf(selectedId), false)) {
+                    editor.putBoolean(String.valueOf(selectedId), true);
+                    bind.imgvAlarm.setImageResource(R.drawable.icon_alarm);
+                    setAlarm(true);
+                    Toast.makeText(this, "알람이 설정되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    editor.putBoolean(String.valueOf(selectedId), false);
+                    bind.imgvAlarm.setImageResource(R.drawable.icon_alarm_off);
+                    setAlarm(false);
+                    Toast.makeText(this, "알람이 해제되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+                editor.commit();
+                bind.rvSchedule.getAdapter().notifyDataSetChanged();
+            }
 
         };
     }
 
-    private void setAlarm(boolean create) {
-//        Intent intent = new Intent(this, ScheduleAlarmReceiver.class);
-//        intent.putExtra("time", bind.etTime.getText().toString());
-//        intent.putExtra("content", bind.etContent.getText().toString());
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE);
-//        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        if (create) {
-//            am.setExact(ELAPSED_REALTIME_WAKEUP, Timestamp.valueOf(Util.getDate(tsDate) + " " + bind.etTime.getText().toString() + ":00").getTime(), pendingIntent);
-//            Log.d(TAG, "setAlarm: " + Timestamp.valueOf(Util.getDate(tsDate) + " " + bind.etTime.getText().toString() + ":00").getTime());
-//        } else am.cancel(pendingIntent);
+    private void setAlarm(boolean enable) {
+        Intent intent = new Intent(this, ScheduleAlarmReceiver.class);
+        intent.putExtra("time", bind.etTime.getText().toString());
+        intent.putExtra("content", bind.etContent.getText().toString());
+        PendingIntent pendingIntent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getBroadcast(this, selectedId, intent, PendingIntent.FLAG_MUTABLE);
+        } else pendingIntent = PendingIntent.getBroadcast(this, selectedId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (enable) {
+            am.setExact(RTC_WAKEUP, Timestamp.valueOf(Util.getDate(tsDate) + " " + bind.etTime.getText().toString() + ":00").getTime(), pendingIntent);
+        } else am.cancel(pendingIntent);
     }
 
 
