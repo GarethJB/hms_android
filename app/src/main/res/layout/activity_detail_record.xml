@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_customer" />
    <!-- app:tabRippleColor="#00000000"-->
     <!--진료기록 조회-->
     <com.google.android.material.tabs.TabLayout

@@ -10,7 +10,7 @@
     <!-- 상단메뉴 툴바 삽입 -->
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_customer_info" />
 
     <LinearLayout
         android:padding="20dp"

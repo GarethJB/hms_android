@@ -16,8 +16,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
-import com.example.androidhms.customer.common.CommonMethod;
 import com.example.androidhms.customer.LoginInfo;
+import com.example.androidhms.customer.common.CommonMethod;
 import com.example.androidhms.customer.vo.MedicalReceiptVO;
 import com.example.androidhms.databinding.FragmentCustomerStepFourBinding;
 import com.example.conn.ApiClient;
@@ -36,6 +36,7 @@ public class StepFourFragment extends Fragment {
     TextView tv_department, tv_name, tv_date, tv_time;
     EditText et_memo;
     Button btn_back, btn_insert;
+    private int nowTime;
 
     private int[] count = new int[26];
     private int tempTime;
@@ -258,6 +259,8 @@ public class StepFourFragment extends Fragment {
         b = Integer.toString(time).substring(Integer.toString(time).length()-2, Integer.toString(time).length());
 
         textView.setText(a + " : " + b);
+
+
         if(flag >= 3){
             textView.setTextColor(Color.LTGRAY);
             textView.setEnabled(false);
@@ -313,7 +316,8 @@ public class StepFourFragment extends Fragment {
                     .setParams("time", date)
                     .setParams("memo", String.valueOf(et_memo.getText()))
                     .sendPost("insert_medical.cu", (isResult1, data1) -> {
-
+                        getActivity().onBackPressed();
+                        getActivity().finish();
                     });
         });
 

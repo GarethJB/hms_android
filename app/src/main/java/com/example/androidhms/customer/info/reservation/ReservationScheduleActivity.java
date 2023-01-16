@@ -34,7 +34,13 @@ public class ReservationScheduleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        patient_id = intent.getIntExtra("patient_id", 0);
+        bind.toolbar.tvPage.setText("예약 조회");
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+            finish();
+        });
+
+       patient_id = intent.getIntExtra("patient_id", 0);
 
         //입원일정 조회
         new RetrofitMethod().setParams("patient_id", patient_id).sendPost("admission_schedule.cu", (isResult, data) -> {

@@ -33,6 +33,13 @@ public class MedicalRecordActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        bind.toolbar.tvPage.setText("진료·입원 기록");
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+            finish();
+        });
+
+
         //진료기록 받아오기
         new RetrofitMethod().setParams("patient_id", intent.getIntExtra("patient_id", 0)).sendPost("medical_record.cu", (isResult, data) -> {
             medical_record = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalRecordVO>>(){}.getType());

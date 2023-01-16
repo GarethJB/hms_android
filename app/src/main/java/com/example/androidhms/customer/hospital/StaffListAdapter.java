@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
 import com.example.androidhms.customer.reservation.ReservationActivity;
+import com.example.androidhms.customer.vo.StaffSearchVO;
 import com.example.androidhms.databinding.ItemCustomerStaffListBinding;
-import com.example.androidhms.staff.vo.StaffVO;
 
 import java.util.ArrayList;
 
 public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
-    ArrayList<StaffVO> staff = new ArrayList<>();
+    ArrayList<StaffSearchVO> staff = new ArrayList<>();
 
-    public StaffListAdapter(LayoutInflater inflater, Context context, ArrayList<StaffVO> staff) {
+    public StaffListAdapter(LayoutInflater inflater, Context context, ArrayList<StaffSearchVO> staff) {
         this.inflater = inflater;
         this.context = context;
         this.staff = staff;

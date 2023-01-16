@@ -176,23 +176,10 @@
                     android:layout_height="180dp"
                     android:orientation="vertical">
                     <TextView
-                        android:text="내정보 조회"
+                        android:text="모바일 처방전"
                         android:textSize="20dp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:text="- 건강 정보"
-                        android:textSize="16dp"
-                        android:textColor="#EDEDED"
-                        android:layout_marginTop="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:text="- 계정 정보"
-                        android:textSize="16dp"
-                        android:textColor="#EDEDED"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>

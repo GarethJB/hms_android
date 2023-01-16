@@ -65,7 +65,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
     // Jubin
-    // SnapTabLayout
+    // QR코드
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 
     // Jungwon
     // Firebase

@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidhms.customer.vo.StaffSearchVO;
 import com.example.androidhms.databinding.FragmentCustomerStaffSearchBinding;
-import com.example.androidhms.staff.vo.StaffVO;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class StaffSearchFragment extends Fragment {
     private FragmentCustomerStaffSearchBinding bind;
     private StaffListAdapter staffListAdapter;
-    private ArrayList<StaffVO> staff;
+    private ArrayList<StaffSearchVO> staff;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +41,7 @@ public class StaffSearchFragment extends Fragment {
             Log.d("로그", "검색어 : " +  bind.etSearchWord.getText().toString());
             new RetrofitMethod().setParams("searchWord",  bind.etSearchWord.getText().toString())
                     .sendPost("staffsearch_by_name.cu", (isResult, data) -> {
-                        staff = new Gson().fromJson(data, new TypeToken<ArrayList<StaffVO>>(){}.getType());
+                        staff = new Gson().fromJson(data, new TypeToken<ArrayList<StaffSearchVO>>(){}.getType());
                         if (staff.size() == 0) {
                             Toast.makeText(getContext(), "검색결과가 없습니다", Toast.LENGTH_SHORT);
                         }
