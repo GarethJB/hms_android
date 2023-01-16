@@ -34,7 +34,8 @@ public class ReceptionLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bind = ActivityReceptionLoginBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        ApiClient.setBASEURL("http://192.168.0.22/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
+    //    ApiClient.setBASEURL("http://192.168.0.22/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
+
 
         bind.btnLogin.setOnClickListener(v -> {
             Log.d("로그", "onCreate: " + "클릭");

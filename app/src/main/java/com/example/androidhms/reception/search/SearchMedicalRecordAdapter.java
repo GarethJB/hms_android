@@ -1,4 +1,4 @@
-package com.example.androidhms.reception.search.record;
+package com.example.androidhms.reception.search;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,11 +46,8 @@ public class SearchMedicalRecordAdapter extends RecyclerView.Adapter<SearchMedic
         h.bind.date.setText(recordList.get(i).getRecord_date());
         h.bind.treamentName.setText(recordList.get(i).getTreatment_name());
         h.bind.department.setText(recordList.get(i).getDepartment_name());
-        h.bind.doctor.setText(recordList.get(i).getDoctor_name());
+        h.bind.doctor.setText(recordList.get(i).getDoctor());
 
-        h.bind.llMedicalRecord.setOnClickListener(v -> {
-            //상세목록보기
-        });
     }
 
     @Override

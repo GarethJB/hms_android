@@ -51,7 +51,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         h.bind.tvReserveTime.setText(list.get(i).getReserve_time());
         h.bind.tvReserveName.setText(list.get(i).getPatient_name());
         h.bind.tvDepartment.setText(list.get(i).getDepartment_name());
-        h.bind.tvDoctorName.setText(list.get(i).getDepartment_name());
+        h.bind.tvDoctorName.setText(list.get(i).getDoctor_name());
 
         String current_time =list.get(i).getCurrent_time();
         String reserve_time = list.get(i).getReserve_time_count();

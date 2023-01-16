@@ -1,9 +1,11 @@
 package com.example.androidhms.reception.vo;
 
 
+
 public class MedicalRecordVO {
 	private int medical_record_id, staff_id, patient_id;
-	private String record_date, treatment_name, admission, meno, patient_name, doctor_name, department_name ;
+	private String  record_date, record_time, record_day, treatment_date, prescription_name,
+					treatment_name, admission, meno, patient, doctor, department_name ;
 
 	public int getMedical_record_id() {
 		return medical_record_id;
@@ -37,6 +39,38 @@ public class MedicalRecordVO {
 		this.record_date = record_date;
 	}
 
+	public String getRecord_time() {
+		return record_time;
+	}
+
+	public void setRecord_time(String record_time) {
+		this.record_time = record_time;
+	}
+
+	public String getRecord_day() {
+		return record_day;
+	}
+
+	public void setRecord_day(String record_day) {
+		this.record_day = record_day;
+	}
+
+	public String getTreatment_date() {
+		return treatment_date;
+	}
+
+	public void setTreatment_date(String treatment_date) {
+		this.treatment_date = treatment_date;
+	}
+
+	public String getPrescription_name() {
+		return prescription_name;
+	}
+
+	public void setPrescription_name(String prescription_name) {
+		this.prescription_name = prescription_name;
+	}
+
 	public String getTreatment_name() {
 		return treatment_name;
 	}
@@ -61,20 +95,20 @@ public class MedicalRecordVO {
 		this.meno = meno;
 	}
 
-	public String getPatient_name() {
-		return patient_name;
+	public String getPatient() {
+		return patient;
 	}
 
-	public void setPatient_name(String patient_name) {
-		this.patient_name = patient_name;
+	public void setPatient(String patient) {
+		this.patient = patient;
 	}
 
-	public String getDoctor_name() {
-		return doctor_name;
+	public String getDoctor() {
+		return doctor;
 	}
 
-	public void setDoctor_name(String doctor_name) {
-		this.doctor_name = doctor_name;
+	public void setDoctor(String doctor) {
+		this.doctor = doctor;
 	}
 
 	public String getDepartment_name() {

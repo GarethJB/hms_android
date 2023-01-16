@@ -16,9 +16,9 @@
         android:id="@+id/ll_confirm_date"
         android:gravity="center"
         android:layout_gravity="center"
-        android:background="@color/main_color"
+        android:background="@color/second_color"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:orientation="horizontal">
 
         <TextView
@@ -30,15 +30,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
-            android:id="@+id/imgv_calendar"
             android:layout_marginLeft="20dp"
             android:src="@drawable/icon_calendar_multiselect"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             app:tint="@color/white" />
+        <TextView
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:text="날짜 선택"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+       android:background="@color/second_color"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:paddingLeft="30dp"
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:spinnerMode="dropdown">
+        </Spinner>
+
+
+
     </LinearLayout>
        <LinearLayout
-           android:background="#123"
+          android:background="@color/main_color"
            android:layout_width="match_parent"
            android:layout_height="50dp"
            android:orientation="horizontal">
@@ -111,6 +138,12 @@
         android:text="오늘 예약 현황입니다"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
        android:backgroundTint="@color/second_color"

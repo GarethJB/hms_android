@@ -36,9 +36,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(bind.getRoot());
 
         // Jungwon
-        ApiClient.setBASEURL("http://192.168.0.36/hms/");
+       // ApiClient.setBASEURL("http://192.168.0.36/hms/");
         //ApiClient.setBASEURL("http://192.168.0.25/hms/");
         //ApiClient.setBASEURL("http://192.168.0.116/middle/");
+        ApiClient.setBASEURL("http://192.168.0.22/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
+
 
         // 의료진 자동 로그인 정보가 있을경우 바로 StaffActivity 로 이동
         if (!preferences.getString("staffData", "").equals("")) {
@@ -74,14 +76,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        new RetrofitMethod().setParams("a", "1").setParams("b", "2").sendPost("hmstest", new RetrofitMethod.CallBackResult() {
+
+      /*  new RetrofitMethod().setParams("a", "1").setParams("b", "2").sendPost("hmstest", new RetrofitMethod.CallBackResult() {
             @Override
             public void result(boolean isResult, String data) {
                 Log.d(TAG, "result: " + isResult);
                 Log.d(TAG, "result: " + data);
             }
         });
-
+*/
     }
 
 

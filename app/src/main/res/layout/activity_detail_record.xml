@@ -1,84 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:layout_marginBottom="30dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".reception.search.record.DetailRecordActivity"
+    tools:context=".reception.search.record.detailrecord.DetailRecordActivity"
     android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
     <TextView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:textSize="20dp"
-        android:text="진료이력"
+        android:text="진료이력조회"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-   <!-- app:tabRippleColor="#00000000"-->
-    <!--진료기록 조회-->
-    <com.google.android.material.tabs.TabLayout
-        android:background="@color/second_color"
-        app:tabTextColor="@color/white"
-        app:tabSelectedTextColor="@color/white"
-        app:tabRippleColor="#00000000"
-        app:tabIndicatorColor="@color/main_color"
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <com.google.android.material.tabs.TabItem
-            android:text="3개월"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:text="6개월"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <com.google.android.material.tabs.TabItem
-            android:text="1년"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.tabs.TabLayout>
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
     <LinearLayout
         android:gravity="center"
-       android:layout_margin="15dp"
+        android:paddingTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/second_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:padding="5dp"
+            android:background="@color/white"
             android:id="@+id/term"
             android:paddingLeft="5dp"
             android:textSize="15dp"
-            android:text="기간"
+            android:text=""
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
-        <ImageView
-            android:id="@+id/calendar"
-            android:src="@drawable/icon_calendar_multiselect"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:tint="@color/main_color" />
-        <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:textSize="15dp"
-            android:text="날짜선택"
+        <LinearLayout
+            android:id="@+id/ll_calender"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_calendar_multiselect"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:tint="@color/white" />
+            <TextView
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:textSize="15dp"
+                android:text="날짜선택"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </LinearLayout>
-
-
-
-</>
+  <RadioGroup
+      android:id="@+id/radio_group"
+      android:background="@color/second_color"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+    <RadioButton
+        android:textColor="@color/white"
+        android:id="@+id/rado1"
+        android:textSize="15dp"
+        android:text="6 개월"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"/>
+      <RadioButton
+          android:textColor="@color/white"
+          android:id="@+id/radio2"
+          android:textSize="15dp"
+          android:text="1년"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"/>
+  </RadioGroup>
+    <FrameLayout
+        android:id="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+    </FrameLayout>
+</LinearLayout>
