@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ItemReceptionAppointmentBinding;
 import com.example.androidhms.reception.vo.MedicalReceiptVO;
+import com.example.androidhms.reception.vo.MedicalRecordVO;
 
 import java.util.ArrayList;
 

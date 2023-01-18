@@ -10,7 +10,7 @@
     android:orientation="vertical">
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_reception" />
     <!--검색바-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,7 +60,7 @@
         android:orientation="vertical">
         <LinearLayout
             android:visibility="gone"
-            android:id="@+id/ll_medical_record"
+            android:id="@+id/ll_patient_info"
             android:background="@color/white"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
@@ -115,13 +115,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
         <TextView
             android:textStyle="bold"
             android:padding="5dp"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
             android:text="기본정보"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -129,7 +130,7 @@
       android:layout_gravity="center"
       android:layout_margin="10dp"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="100dp"
       app:cardCornerRadius="10dp">
       <LinearLayout
           android:layout_gravity="center"
@@ -137,16 +138,19 @@
           android:layout_height="wrap_content"
           android:orientation="vertical">
           <LinearLayout
+              android:layout_marginBottom="5dp"
               android:layout_marginLeft="10dp"
-              android:layout_marginTop="10dp"
+              android:layout_marginTop="20dp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:orientation="horizontal">
               <TextView
+                  android:textSize="16dp"
                   android:text="이름 : "
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <TextView
+                  android:textSize="16dp"
                   android:layout_marginLeft="10dp"
                   android:id="@+id/tv_name"
                   android:text=""
@@ -154,10 +158,12 @@
                   android:layout_marginRight="10dp"
                   android:layout_height="wrap_content"/>
               <TextView
+                  android:textSize="16dp"
                   android:text="주민번호: "
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <TextView
+                  android:textSize="16dp"
                   android:layout_marginLeft="10dp"
                   android:layout_marginRight="10dp"
                   android:id="@+id/tv_social_id"
@@ -165,10 +171,12 @@
                   android:layout_width="80dp"
                   android:layout_height="wrap_content"/>
               <TextView
+                  android:textSize="16dp"
                   android:text="성별: "
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <TextView
+                  android:textSize="16dp"
                   android:layout_marginRight="10dp"
                   android:id="@+id/tv_gender"
                   android:text=""
@@ -177,26 +185,32 @@
 
           </LinearLayout>
           <LinearLayout
+             android:gravity="center"
+              android:textSize="16dp"
               android:layout_marginLeft="10dp"
               android:layout_marginTop="10dp"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:orientation="horizontal">
               <TextView
+                  android:textSize="16dp"
                   android:text="환자번호 : "
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <TextView
+                  android:textSize="16dp"
                   android:layout_marginRight="10dp"
                   android:id="@+id/tv_patent_id"
                   android:text=""
                   android:layout_width="50dp"
                   android:layout_height="wrap_content"/>
               <TextView
+                  android:textSize="16dp"
                   android:text="연락처 : "
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <TextView
+                  android:textSize="16dp"
                   android:layout_marginRight="10dp"
                   android:id="@+id/tv_phone"
                   android:text=""
@@ -204,6 +218,7 @@
                   android:layout_height="wrap_content"/>
           </LinearLayout>
           <LinearLayout
+              android:textSize="16dp"
               android:layout_marginLeft="10dp"
               android:layout_marginTop="10dp"
               android:layout_width="wrap_content"
@@ -224,10 +239,60 @@
       </LinearLayout>
   </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/recv_appointment"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_appointment"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_corner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:textStyle="bold"
+                    android:padding="5dp"
+                    android:text="예약"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_marginRight="10dp"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/day"
+                    android:layout_marginRight="10dp"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_marginRight="10dp"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/department_name"
+                    android:layout_marginRight="10dp"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/doctor_name"
+                    android:layout_marginRight="10dp"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="교수"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
     <View
         android:layout_marginTop="5dp"
@@ -236,218 +301,142 @@
         android:background="@color/back_color" />
     <!-- 예약현황 리스트  -->
     <!--진료기록 리스트메뉴-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:padding="5dp"
-            android:text="진료기록"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:visibility="invisible"
-            android:id="@+id/detail_record"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/icon_add"
-            app:tint="@color/second_color" />
-
-
-    </LinearLayout>
     <!--진료기록 리스트-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/second_color"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="방문일자"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="진료내역"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="진료과"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="담당의사"
-            android:textColor="@color/white" />
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recv_medical_record"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <!--android:visibility="invisible"-->
+            <LinearLayout
+                android:visibility="invisible"
+                android:padding="15dp"
+                android:id="@+id/ll_medical_record"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_corner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:textSize="20dp"
+                        android:text="내원이력"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:id="@+id/iv_more"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/icon_add"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:tint="@color/second_color" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:padding="5dp"
-            android:text="처방기록"
-            android:textStyle="bold" />
+                </LinearLayout>
 
-        <ImageView
-            android:visibility="invisible"
-            android:id="@+id/detail_pres"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/icon_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tint="@color/second_color" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/second_color"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="처방일"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="처방내용"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="진료과"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="담당의사"
-            android:textColor="@color/white" />
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_marginRight="10dp"
+                        android:textSize="16dp"
+                        android:text="2023-01-01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:textSize="16dp"
+                        android:text="10:30"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:padding="5dp"
+                        android:background="@drawable/round_textview"
+                        android:id="@+id/tv_select"
+                        android:textSize="14dp"
+                        android:text="10:30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recv_prescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:padding="5dp"
-            android:text="입원기록"
-            android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_department"
+                        android:layout_marginRight="10dp"
+                        android:textSize="16dp"
+                        android:text="신경외과"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_doctor"
+                        android:textSize="16dp"
+                        android:text="신경준 "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textSize="16dp"
+                        android:text="교수"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:visibility="invisible"
-            android:id="@+id/detail_ward"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/icon_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tint="@color/second_color" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/second_color"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="입원일"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="병동"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="침대"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="진료과"
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="담당의사"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recv_ward"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:src="@drawable/icon_write"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"/>
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/tv_symptom"
+                        android:textSize="16dp"
+                        android:text="증상"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_marginLeft="30dp"
+                        android:id="@+id/tv_memo"
+                        android:textSize="16dp"
+                        android:text="메모"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:src="@drawable/icon_medication"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"/>
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/tv_medication"
+                        android:textSize="16dp"
+                        android:text="약이름"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

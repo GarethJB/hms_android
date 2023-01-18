@@ -62,7 +62,7 @@ public class PatientNameAdapter extends RecyclerView.Adapter<PatientNameAdapter.
               activity.searchPatientInfo();
               activity.searchAppointment();
               activity.searchMedicalRecord();
-              activity.searchWard();
+              activity.bind.recvNameList.setVisibility(View.GONE);
 
               //어댑터에서 액티비티로 값 보내기
 //              String patient_id = h.bind.tvPatientNo.getText().toString() ;

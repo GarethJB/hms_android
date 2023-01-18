@@ -2,9 +2,9 @@ package com.example.androidhms.reception.vo;
 
 
 public class MedicalReceiptVO {
-	private int patient_id, staff_id;
-	private String time, reserve_date, reserve_date_short, reserve_time,reserve_today, 
-			reserve_time_count, current_time, reserve_day,
+	private int patient_id, staff_id , floor;
+	private String time, reserve_date, reserve_date_short, reserve_time, reserve_today, 
+			      reserve_time_count, current_time, reserve_day,
 				memo, doctor_name, patient_name, department_name, location;
 
 	public int getPatient_id() {
@@ -21,6 +21,14 @@ public class MedicalReceiptVO {
 
 	public void setStaff_id(int staff_id) {
 		this.staff_id = staff_id;
+	}
+
+	public int getFloor() {
+		return floor;
+	}
+
+	public void setFloor(int floor) {
+		this.floor = floor;
 	}
 
 	public String getTime() {

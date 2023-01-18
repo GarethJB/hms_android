@@ -2,6 +2,11 @@
 
 Hanul3QWER!@#$
 
+    <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/recv_appointment"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"/>
+
 public class HomeFragment extends Fragment {
     FragmentHomeBinding bind;
     //내가 선언한 이름으로
@@ -186,3 +191,7 @@ tab레이아웃 에 텍스트 넣기
                                             bind.tvCountWaiting.setText(count+"");
                                         }
                             });
+
+                                public void changeFragment(Fragment fragment){
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                                }

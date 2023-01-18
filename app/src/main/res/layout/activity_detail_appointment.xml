@@ -10,7 +10,7 @@
 
     <include
     android:id="@+id/toolbar"
-    layout="@layout/toolbar" />
+    layout="@layout/toolbar_reception" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"

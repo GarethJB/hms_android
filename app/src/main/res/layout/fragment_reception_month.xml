@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:background="@color/second_color"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".reception.search.record.detailrecord.MonthFragment"
+    tools:context=".reception.search.record.detailrecord.Month_6Fragment"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView

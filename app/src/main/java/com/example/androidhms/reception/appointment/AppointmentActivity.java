@@ -37,6 +37,7 @@ public class AppointmentActivity extends AppCompatActivity {
     ArrayList<MedicalReceiptVO> list;
     String date2;
     String department_id;
+    String doctor_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +68,37 @@ public class AppointmentActivity extends AppCompatActivity {
         });
 
         //spinner
+        //스피너에 어댑터 붙이기
         ArrayAdapter department = ArrayAdapter.createFromResource(this, R.array.department_list, android.R.layout.simple_spinner_dropdown_item);
-        //내가 지정한 리스트
+        //내가 지정한 리스트department_list, 기본 제공하는 드롬다운 simple_spinner_dropdown_item
         department.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bind.spinner.setAdapter(department);
+        bind.spinnerDeparatment.setAdapter(department);
 
-        bind.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        bind.spinnerDeparatment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("로그", "onItemSelected: " + id);
+                Log.d("로그", "onItemSelected: " + position);
                 department_id= id+"";
                 getAppointment();
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        ArrayAdapter doctor = ArrayAdapter.createFromResource(this,R.array.doctor_list,  android.R.layout.simple_spinner_dropdown_item);
+        doctor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bind.spinnerDoctor.setAdapter(doctor);
+        bind.spinnerDoctor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                 doctor_id= position + "";
+                 String doctor =(String)bind.spinnerDoctor.getSelectedItem();
+
+
+            }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -90,13 +111,13 @@ public class AppointmentActivity extends AppCompatActivity {
             onBackPressed();
         });
 
+
     }
 
-    private void getAppointment(){
+    public void getAppointment(){
         new RetrofitMethod().setParams("time",date2 ).setParams("id",department_id).sendPost("apointmentList.re", (isResult, data) -> {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
-            list = gson.fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
-            }.getType());
+            list = gson.fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {}.getType());
 
             if(list == null || list.size() == 0 ){
                 bind.cardvAppointmentList.setVisibility(View.INVISIBLE);
@@ -104,11 +125,14 @@ public class AppointmentActivity extends AppCompatActivity {
                 bind.tvCountAll.setVisibility(View.INVISIBLE);
                 bind.tvCountWaiting.setVisibility(View.INVISIBLE);
             }else {
+                int a = list.size();
                 bind.cardvAppointmentList.setVisibility(View.VISIBLE);
                 bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(),list, AppointmentActivity.this));
                 bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
                 //int all= list.size();
                 //Log.d("로그", "onDateSet: " +list.size() );
+                bind.tvCountAll.setVisibility(View.VISIBLE);
+                bind.tvCountWaiting.setVisibility(View.VISIBLE);
                 bind.tvCountAll.setText(list.size() + "");
                 int count = 0 ;
                 for(int i = 0  ; i <list.size() ; i ++){

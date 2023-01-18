@@ -1,39 +1,57 @@
 package com.example.androidhms.reception.vo;
 
+
 public class PrescriptionVO {
-	String pres_date,pres_date_short, treatment_day,treatment_day_short, treatment_name, 
-	patient_name,doctor_name ,department_name;
+	int prescription_record_id, medical_record_id, patient_id;
+	String treate_date,treate_day, time, treatment_name, 
+	patient_name,doctor_name ,department_name, memo;
 
-	public String getPres_date() {
-		return pres_date;
+	public int getPrescription_record_id() {
+		return prescription_record_id;
 	}
 
-	public void setPres_date(String pres_date) {
-		this.pres_date = pres_date;
+	public void setPrescription_record_id(int prescription_record_id) {
+		this.prescription_record_id = prescription_record_id;
 	}
 
-	public String getPres_date_short() {
-		return pres_date_short;
+	public int getMedical_record_id() {
+		return medical_record_id;
 	}
 
-	public void setPres_date_short(String pres_date_short) {
-		this.pres_date_short = pres_date_short;
+	public void setMedical_record_id(int medical_record_id) {
+		this.medical_record_id = medical_record_id;
 	}
 
-	public String getTreatment_day() {
-		return treatment_day;
+	public int getPatient_id() {
+		return patient_id;
 	}
 
-	public void setTreatment_day(String treatment_day) {
-		this.treatment_day = treatment_day;
+	public void setPatient_id(int patient_id) {
+		this.patient_id = patient_id;
 	}
 
-	public String getTreatment_day_short() {
-		return treatment_day_short;
+	public String getTreate_date() {
+		return treate_date;
 	}
 
-	public void setTreatment_day_short(String treatment_day_short) {
-		this.treatment_day_short = treatment_day_short;
+	public void setTreate_date(String treate_date) {
+		this.treate_date = treate_date;
+	}
+
+	public String getTreate_day() {
+		return treate_day;
+	}
+
+	public void setTreate_day(String treate_day) {
+		this.treate_day = treate_day;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public String getTreatment_name() {
@@ -66,5 +84,13 @@ public class PrescriptionVO {
 
 	public void setDepartment_name(String department_name) {
 		this.department_name = department_name;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 }

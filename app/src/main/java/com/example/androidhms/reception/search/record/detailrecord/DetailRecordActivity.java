@@ -1,6 +1,9 @@
 package com.example.androidhms.reception.search.record.detailrecord;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -9,14 +12,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityDetailRecordBinding;
+import com.example.androidhms.reception.search.SearchMedicalRecordAdapter;
 import com.example.androidhms.reception.vo.MedicalReceiptVO;
+import com.example.androidhms.reception.vo.MedicalRecordVO;
 import com.example.conn.RetrofitMethod;
-import com.google.android.material.tabs.TabLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,12 +31,15 @@ public class DetailRecordActivity extends AppCompatActivity {
 
     ActivityDetailRecordBinding bind;
     DatePickerDialog datePickerDialog;
-    ArrayList<MedicalReceiptVO> list;
-    int position;
+    ArrayList<MedicalRecordVO> list;
+    MedicalRecordVO vo;
     String date;
     String patient_id;
     String fromMonth;
     String fromYear;
+    String from;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +47,32 @@ public class DetailRecordActivity extends AppCompatActivity {
         bind = ActivityDetailRecordBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         Intent record_intent = getIntent();
-        patient_id = (String) record_intent.getSerializableExtra("id");
-        Log.d("로그", "onCreate: " + patient_id + "아이디 받음");
+        list = (ArrayList<MedicalRecordVO>) record_intent.getSerializableExtra("recordList");
 
+        if(list == null || list.size() == 0){
+            bind.detail.setVisibility(View.INVISIBLE);
+            bind.llSearchPatient.setVisibility(View.VISIBLE);
+        }else{
+            bind.detail.setVisibility(View.INVISIBLE);
+            bind.llSearchPatient.setVisibility(View.INVISIBLE);
+            bind.recvDetailRecord.setAdapter(new SearchMedicalRecordAdapter(getLayoutInflater(),vo,list));
+            bind.recvDetailRecord.setLayoutManager(new LinearLayoutManager(DetailRecordActivity.this, RecyclerView.VERTICAL,false));
+        }
+
+        bind.toolbar.llLogo.setOnClickListener(v -> {
+            onBackPressed();
+        });
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
+
+        bind.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+            }
+        });
         bind.llCalender.setOnClickListener(v -> {
             Calendar c = Calendar.getInstance();
             int year = c.get(c.YEAR);
@@ -58,11 +87,11 @@ public class DetailRecordActivity extends AppCompatActivity {
                         @Override
                         public void onCheckedChanged(RadioGroup group, int checkedId) {
                             switch (checkedId){
-                                case R.id.rado1:
+                                case R.id.radio1:
                                     try {
-                                        fromMonth = CalculationDate(date,0,-6,0);
+                                        from= CalculationDate(date,0,-1,0);
                                         bind.term.setText(fromMonth+"~"+date);
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.detail,new MonthFragment()).commit();
+                                        sendInfo(new Month_1Fragment());
 
                                     } catch (ParseException e) {
                                         e.printStackTrace();
@@ -70,15 +99,32 @@ public class DetailRecordActivity extends AppCompatActivity {
                                     break;
                                 case R.id.radio2:
                                     try {
-                                        fromYear = CalculationDate(date, -1,0,0);
+                                        from = CalculationDate(date, 0,-3,0);
                                         bind.term.setText(fromYear +"~"+ date);
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.detail,new YearFragment()).commit();
-                                        Toast.makeText(DetailRecordActivity.this, "1년", Toast.LENGTH_SHORT).show();
-                                        Log.d("로그", "onCheckedChanged: "+"1");
+                                        sendInfo(new Month_3Fragment());
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
                                     break;
+                                case R.id.radio3:
+                                    try {
+                                        from = CalculationDate(date, 0,-6,0);
+                                        bind.term.setText(fromYear +"~"+ date);
+                                        sendInfo(new Month_6Fragment());
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    break;
+                                case R.id.radio4:
+                                    try {
+                                        from = CalculationDate(date, -1,0,0);
+                                        bind.term.setText(fromYear +"~"+ date);
+                                        sendInfo(new YearFragment());
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    break;
+
                                 default:
                                     break;
                             }
@@ -104,16 +150,13 @@ public class DetailRecordActivity extends AppCompatActivity {
 
         return sdf.format(cal.getTime());
     }
-
-    private void getTerm(){
-        new RetrofitMethod().setParams("id", patient_id).setParams("from",fromMonth).setParams("to",date)
-                .sendPost("medical_record.re", new RetrofitMethod.CallBackResult() {
-                    @Override
-                    public void result(boolean isResult, String data) throws Exception {
-                        Log.d("로그", "result: " + "기간구하기");
-
-                    }
-                });
+    private void sendInfo(Fragment fragment){
+        Bundle bundle = new Bundle();
+        bundle.putString("id", patient_id);
+        bundle.putString("to", date);
+        bundle.putString("from", from);
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.detail,fragment).commit();
     }
 
 }

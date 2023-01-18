@@ -1,8 +1,13 @@
 package com.example.androidhms.reception.vo;
 
+
 public class WardVO {
-	int admission_record_id, ward_id, medical_record_id, bed;
-	String admission_date, ward_number, doctor_name, department_name,patient_name, discharge_date;
+	int admission_record_id, ward_id, medical_record_id, bed, ward_number;
+	String doctor_name, department_name,patient_name, 
+	admission_date, admission_time,admission_day,
+	discharge_date,discharge_time, discharge_day	
+	;
+
 
 	public int getAdmission_record_id() {
 		return admission_record_id;
@@ -36,19 +41,11 @@ public class WardVO {
 		this.bed = bed;
 	}
 
-	public String getAdmission_date() {
-		return admission_date;
-	}
-
-	public void setAdmission_date(String admission_date) {
-		this.admission_date = admission_date;
-	}
-
-	public String getWard_number() {
+	public int getWard_number() {
 		return ward_number;
 	}
 
-	public void setWard_number(String ward_number) {
+	public void setWard_number(int ward_number) {
 		this.ward_number = ward_number;
 	}
 
@@ -76,11 +73,51 @@ public class WardVO {
 		this.patient_name = patient_name;
 	}
 
+	public String getAdmission_date() {
+		return admission_date;
+	}
+
+	public void setAdmission_date(String admission_date) {
+		this.admission_date = admission_date;
+	}
+
+	public String getAdmission_time() {
+		return admission_time;
+	}
+
+	public void setAdmission_time(String admission_time) {
+		this.admission_time = admission_time;
+	}
+
+	public String getAdmission_day() {
+		return admission_day;
+	}
+
+	public void setAdmission_day(String admission_day) {
+		this.admission_day = admission_day;
+	}
+
 	public String getDischarge_date() {
 		return discharge_date;
 	}
 
 	public void setDischarge_date(String discharge_date) {
 		this.discharge_date = discharge_date;
+	}
+
+	public String getDischarge_time() {
+		return discharge_time;
+	}
+
+	public void setDischarge_time(String discharge_time) {
+		this.discharge_time = discharge_time;
+	}
+
+	public String getDischarge_day() {
+		return discharge_day;
+	}
+
+	public void setDischarge_day(String discharge_day) {
+		this.discharge_day = discharge_day;
 	}
 }
