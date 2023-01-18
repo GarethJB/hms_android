@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidhms.R;
 import com.example.androidhms.customer.reservation.ReservationActivity;
 import com.example.androidhms.customer.vo.StaffSearchVO;
-import com.example.androidhms.databinding.ItemCustomerStaffListBinding;
+import com.example.androidhms.databinding.ItemCustomerDepartmentSearchBinding;
 
 import java.util.ArrayList;
 
-public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.ViewHolder> {
+public class DepartmentSearchAdapter extends RecyclerView.Adapter<DepartmentSearchAdapter.ViewHolder> {
     LayoutInflater inflater;
     Context context;
     ArrayList<StaffSearchVO> staff = new ArrayList<>();
 
-    public StaffListAdapter(LayoutInflater inflater, Context context, ArrayList<StaffSearchVO> staff) {
+    public DepartmentSearchAdapter(LayoutInflater inflater, Context context, ArrayList<StaffSearchVO> staff) {
         this.inflater = inflater;
         this.context = context;
         this.staff = staff;
@@ -30,7 +30,7 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.item_customer_staff_list, parent, false);
+        View v = inflater.inflate(R.layout.item_customer_staff_search, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -66,11 +66,11 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ItemCustomerStaffListBinding bind;
+        public ItemCustomerDepartmentSearchBinding bind;
 
         public ViewHolder(@NonNull View v) {
             super(v);
-            bind = ItemCustomerStaffListBinding.bind(v);
+            bind = ItemCustomerDepartmentSearchBinding.bind(v);
         }
     }
 

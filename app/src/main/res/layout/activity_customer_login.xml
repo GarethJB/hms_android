@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
-    tools:context=".customer.ui.login.LoginActivity">
+    tools:context=".customer.CustomerLoginActivity">
 
     <EditText
         android:id="@+id/et_email"
@@ -48,7 +48,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#FFEB3B"
-        android:enabled="false"
         android:text="kakao login"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#4CAF50"
-        android:enabled="false"
         android:text="naver login"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -32,6 +32,7 @@ public class CustomerActivity extends AppCompatActivity {
     private HospitalFragment hospitalFragment;
     private InfoFragment infoFragment;
     private FragmentControl control;
+    static final String TAG = "로그";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class CustomerActivity extends AppCompatActivity {
                     control.hideFragment(hospitalFragment);
                     if (LoginInfo.check_id > 0) {
                         control.hideFragment(infoFragment);
+
                     }
                 } else if(item.getItemId() == R.id.btm_item2){
                     if (LoginInfo.check_id > 0) {

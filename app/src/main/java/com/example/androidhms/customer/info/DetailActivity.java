@@ -31,11 +31,17 @@ public class DetailActivity extends AppCompatActivity {
 
         bind.tvIdNumber.setText(medicalRecord.getMedical_record_id()+"");
         bind.tvPatientName.setText(medicalRecord.getPatient_name());
-        bind.tvTreatmentDate.setText(medicalRecord.getTreatment_date()+"");
+        bind.tvTreatmentDate.setText(medicalRecord.getTreatment_date().substring(0, 10));
         bind.tvDepartmentName.setText(medicalRecord.getDepartment_name());
         bind.tvStaffName.setText(medicalRecord.getStaff_name());
         bind.tvTreatmentName.setText(medicalRecord.getTreatment_name());
-        bind.tvAdmission.setText(medicalRecord.getAdmission());
+        if (medicalRecord.getAdmission().equals("Y")) {
+            bind.tvAdmission.setText("입원");
+        }else if (medicalRecord.getAdmission().equals("N")) {
+            bind.tvAdmission.setText("미입원");
+        }else {
+            bind.tvAdmission.setText("미입원");
+        }
         bind.tvPrescriptionName.setText(medicalRecord.getPrescription_name());
 
     }

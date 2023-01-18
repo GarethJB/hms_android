@@ -1,10 +1,13 @@
 package com.example.androidhms.customer.join;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class JoinActivity extends AppCompatActivity {
     private ActivityJoinBinding bind;
-    private String email, pw;
+    private String email, pw, getEmail;
     private int validEmail, validPassword, validPasswordCheck;
     private CustomerVO customer;
 
@@ -28,6 +31,7 @@ public class JoinActivity extends AppCompatActivity {
         setContentView(bind.getRoot());
 
         Intent intent = getIntent();
+
         customer = (CustomerVO) intent.getSerializableExtra("customer");
 
         bind.tvName.setText(customer.getName());
@@ -35,9 +39,29 @@ public class JoinActivity extends AppCompatActivity {
         bind.tvGender.setText(customer.getGender());
         bind.tvPhone.setText(customer.getPhone_number());
 
+        if (intent.getStringExtra("email") == null) {
+            getEmail = bind.etEmail.getText().toString();
+        }else if (intent.getStringExtra("email") != null) {
+            getEmail = intent.getStringExtra("email");
+            Log.d(TAG, "소셜회원 가입 : " + getEmail);
+            bind.etEmail.setVisibility(View.GONE);
+            bind.tvEmail.setVisibility(View.VISIBLE);
+            bind.tvEmail.setText(getEmail);
+        }
+
+
+
         bind.btnCheck.setOnClickListener(v -> {
-            if (isValidEmail(bind.etEmail.getText().toString()) == true) {
-                new RetrofitMethod().setParams("email", bind.etEmail.getText().toString())
+            if (intent.getStringExtra("email") == null) {
+                getEmail = bind.etEmail.getText().toString();
+            }else if (intent.getStringExtra("email") != null) {
+                getEmail = intent.getStringExtra("email");
+                Log.d(TAG, "소셜회원 가입 : " + getEmail);
+            }
+
+
+            if (isValidEmail(getEmail) == true) {
+                new RetrofitMethod().setParams("email", getEmail)
                         .sendPost("email_check.cu", (isResult, data) -> {
                             Log.d("로그", data);
                             if (data.equals("null")) {

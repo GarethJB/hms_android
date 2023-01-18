@@ -1,6 +1,10 @@
 package com.example.androidhms.customer.join;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,6 +20,7 @@ public class PatientRegisterActivity extends AppCompatActivity {
     private AdditionalFragment additional;
     int social_id;
     String name;
+    private String email = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +28,20 @@ public class PatientRegisterActivity extends AppCompatActivity {
         bind = ActivityCustomerPatientRegisterBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
+        Intent intent = getIntent();
+
+        if (intent.getStringExtra("email") == null) {
+            Log.d(TAG, "일반회원 환자등록");
+        }else if (intent.getStringExtra("email") != null) {
+            Log.d(TAG, "소셜회원 환자등록");
+            email = intent.getStringExtra("email");
+        }
+
         control = new FragmentControl(this);
         patientRegister = new PatientRegisterFragment();
-        additional = new AdditionalFragment();
+        additional = new AdditionalFragment(email);
+
+
 
 
         change(1);

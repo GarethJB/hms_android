@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class DepartmentSearchFragment extends Fragment {
     private FragmentCustomerDepartmentSearchBinding bind;
-    private StaffListAdapter staffListAdapter;
+    private DepartmentSearchAdapter departmentSearchAdapter;
     private String result;
     private ArrayList<StaffSearchVO> staff;
 
@@ -56,8 +56,8 @@ public class DepartmentSearchFragment extends Fragment {
                         .sendPost("staffsearch_by_department.cu", (isResult, data) -> {
                             staff = new Gson().fromJson(data, new TypeToken<ArrayList<StaffSearchVO>>(){}.getType());
 
-                            staffListAdapter = new StaffListAdapter(inflater, getContext(), staff);
-                            bind.rcvStaffSearch.setAdapter(staffListAdapter);
+                            departmentSearchAdapter = new DepartmentSearchAdapter(inflater, getContext(), staff);
+                            bind.rcvStaffSearch.setAdapter(departmentSearchAdapter);
                             bind.rcvStaffSearch.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
                         });
             }

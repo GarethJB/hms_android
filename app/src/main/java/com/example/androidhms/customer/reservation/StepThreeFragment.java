@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -56,10 +57,8 @@ public class StepThreeFragment extends Fragment {
                     StepCnt.cnt = 4;
                     ((ReservationActivity)getActivity()).changeStep();
                 }else {
-                    Log.d("로그", "예약할 수 없습니다");
+                    Toast.makeText(getActivity(), "해당 날짜는 예약할 수 없습니다.", Toast.LENGTH_LONG).show();
                 }
-
-
 
             });
 

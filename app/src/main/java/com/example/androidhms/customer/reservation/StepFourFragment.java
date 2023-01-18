@@ -55,7 +55,11 @@ public class StepFourFragment extends Fragment {
 
         dialog = new Dialog(getActivity());
 
-        new RetrofitMethod().setParams("staff_id", 1051).sendPost("medical_schedule.cu", (isResult, data) -> {
+
+
+        new RetrofitMethod().setParams("staff_id", ReservationSelect.selectedStaff_id)
+                .setParams("date", ReservationSelect.selectedDate)
+                .sendPost("medical_schedule.cu", (isResult, data) -> {
             receipt = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
             }.getType());
 
@@ -316,6 +320,7 @@ public class StepFourFragment extends Fragment {
                     .setParams("time", date)
                     .setParams("memo", String.valueOf(et_memo.getText()))
                     .sendPost("insert_medical.cu", (isResult1, data1) -> {
+                        dialog.dismiss();
                         getActivity().onBackPressed();
                         getActivity().finish();
                     });

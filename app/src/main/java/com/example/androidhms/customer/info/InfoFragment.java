@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.androidhms.R;
 import com.example.androidhms.customer.LoginInfo;
@@ -52,7 +51,9 @@ public class InfoFragment extends Fragment {
     private Dialog dialog_qr;
     private ImageView imgv_qr;
     private String patient_id;
+    private int num;
     private int number;
+
 
     public InfoFragment(CustomerVO customer) {
         this.customer = customer;
@@ -62,6 +63,56 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         bind = FragmentCustomerInfoBinding.inflate(inflater, container, false);
+
+        Date curTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        String nowTime = format.format(curTime);
+        Log.d("로그", "오늘 : " + nowTime);
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int tn = 1;
+                while (true) {
+                    new RetrofitMethod().setParams("patient_id", customer.getPatient_id())
+                            .sendPost("number_ticket.cu", (isResult, data) -> {
+                                medicalReceipt = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>(){}.getType());
+                                for (int i = 0; i <= medicalReceipt.size()-1; i++) {
+                                    if (customer.getPatient_id() == medicalReceipt.get(i).getPatient_id()) {
+                                        num = i;
+                                    }
+                                }
+                                if (medicalReceipt.size() != 0) {
+                                    Log.d("로그", "일치 " + num);
+                                    Log.d("로그", "환자ID : " + LoginInfo.check_id);
+                                    bind.tvDepartment.setText(medicalReceipt.get(num).getDepartment_name());
+                                    bind.tvName.setText(medicalReceipt.get(num).getName());
+                                    bind.tvWaiting.setText(num+"");
+                                }else if (medicalReceipt.size() == 0) {
+                                    Toast.makeText(getContext(), "접수내역이 없습니다", Toast.LENGTH_SHORT );
+                                }
+                            });
+
+                    try{
+                        Thread.sleep(10000);
+                    }catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        thread.start();
+
+
+
+
+
+
+
+
+
+
 
         dialog_number = new Dialog(getActivity());
         dialog_number.setContentView(R.layout.dialog_number_ticket);
@@ -90,23 +141,22 @@ public class InfoFragment extends Fragment {
         btn_c_back = dialog_card.findViewById(R.id.btn_back);
 
 
-        //예약현황 어댑터
-        ReservationAdapter reservationAdapter = new ReservationAdapter(inflater, getContext());
-        bind.rcvReservation.setAdapter(reservationAdapter);
-        bind.rcvReservation.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+
+
 
 
         //클릭시 번호표 조회
         bind.btnNumberTicket.setOnClickListener(v1 -> {
             Date currentTime = Calendar.getInstance().getTime();
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-            String now = format.format(currentTime);
+            SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+            String now = formatDate.format(currentTime);
             Log.d("로그", "오늘 : " + now);
-            new RetrofitMethod().setParams("today", now)
+            new RetrofitMethod().setParams("patient_id", customer.getPatient_id())
                     .sendPost("number_ticket.cu", (isResult, data) -> {
                         medicalReceipt = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>(){}.getType());
                         for (int i = 0; i <= medicalReceipt.size()-1; i++) {
-                            if (LoginInfo.check_id == medicalReceipt.get(i).getPatient_id()) {
+                            if (customer.getPatient_id() == medicalReceipt.get(i).getPatient_id()) {
                                 number = i;
                             }
                         }
@@ -192,10 +242,10 @@ public class InfoFragment extends Fragment {
             startActivity(intent);
         });
 
-        //클릭시 의료진 소개
+        //클릭시 처방전 조회
         bind.llTimetable.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), PrescriptionActivity.class);
-            intent.putExtra("medical_record_id", 21);
+            intent.putExtra("medical_record_id", 23);
             startActivity(intent);
         });
 
@@ -220,4 +270,6 @@ public class InfoFragment extends Fragment {
         super.onDestroyView();
         bind = null;
     }
+
+
 }

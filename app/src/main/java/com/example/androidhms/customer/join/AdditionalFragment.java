@@ -18,6 +18,11 @@ public class AdditionalFragment extends Fragment {
     private CustomerVO customer;
     private int social_id;
     private String name;
+    private String email;
+
+    public AdditionalFragment(String email) {
+        this.email = email;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,11 +41,13 @@ public class AdditionalFragment extends Fragment {
 
                     bind.btnLater.setOnClickListener(v -> {
                         intent.putExtra("customer", customer);
+                        intent.putExtra("email", email);
                         startActivity(intent);
                     });
 
                     bind.btnRegister.setOnClickListener(v -> {
-
+                        intent.putExtra("customer", customer);
+                        intent.putExtra("email", email);
                         startActivity(intent);
                     });
 

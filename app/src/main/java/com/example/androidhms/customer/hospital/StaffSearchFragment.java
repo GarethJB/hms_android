@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class StaffSearchFragment extends Fragment {
     private FragmentCustomerStaffSearchBinding bind;
-    private StaffListAdapter staffListAdapter;
+    private StaffSearchAdapter staffListAdapter;
     private ArrayList<StaffSearchVO> staff;
 
     @Override
@@ -45,7 +45,7 @@ public class StaffSearchFragment extends Fragment {
                         if (staff.size() == 0) {
                             Toast.makeText(getContext(), "검색결과가 없습니다", Toast.LENGTH_SHORT);
                         }
-                        staffListAdapter = new StaffListAdapter(inflater, getContext(), staff);
+                        staffListAdapter = new StaffSearchAdapter(inflater, getContext(), staff);
                         bind.rcvStaffSearch.setAdapter(staffListAdapter);
                         bind.rcvStaffSearch.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
