@@ -3,6 +3,7 @@ package com.example.androidhms.staff;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,9 +35,8 @@ public class StaffLoginActivity extends AppCompatActivity {
             bind.cbAutologin.setChecked(true);
         }
 
-        bind.toolbar.ivLeft.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        bind.toolbar.imgvBefore.setOnClickListener(v -> finish());
+        bind.toolbar.imgvMessenger.setVisibility(View.GONE);
 
         bind.btLogin.setOnClickListener(v -> new RetrofitMethod()
                 .setParams("id", bind.etId.getText().toString())
