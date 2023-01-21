@@ -11,6 +11,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androidhms.customer.CustomerLoginActivity;
 import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.databinding.ActivityJoinBinding;
 import com.example.conn.RetrofitMethod;
@@ -20,6 +21,7 @@ import java.util.regex.Pattern;
 
 public class JoinActivity extends AppCompatActivity {
     private ActivityJoinBinding bind;
+    private int social;
     private String email, pw, getEmail;
     private int validEmail, validPassword, validPasswordCheck;
     private CustomerVO customer;
@@ -34,17 +36,27 @@ public class JoinActivity extends AppCompatActivity {
 
         customer = (CustomerVO) intent.getSerializableExtra("customer");
 
-        bind.tvName.setText(customer.getName());
-        bind.tvSocialId.setText(customer.getSocial_id()+"");
-        bind.tvGender.setText(customer.getGender());
-        bind.tvPhone.setText(customer.getPhone_number());
+        Log.d(TAG, "테스트 : " + intent.getStringExtra("email"));
 
-        if (intent.getStringExtra("email") == null) {
+        if (intent.getStringExtra("email").equals("")) {
             getEmail = bind.etEmail.getText().toString();
-        }else if (intent.getStringExtra("email") != null) {
+            bind.tvName.setText(customer.getName());
+            bind.tvSocialId.setText(customer.getSocial_id()+"");
+            if (customer.getGender().equals("M")) {
+                bind.tvGender.setText("남자");
+            }else if (customer.getGender().equals("F")) {
+                bind.tvGender.setText("여자");
+            }
+            bind.tvPhone.setText(customer.getPhone_number());
+        }else {
             getEmail = intent.getStringExtra("email");
+            social = 2;
             Log.d(TAG, "소셜회원 가입 : " + getEmail);
             bind.etEmail.setVisibility(View.GONE);
+            bind.btnCheck.setVisibility(View.GONE);
+            bind.etPassword.setVisibility(View.GONE);
+            bind.etPasswordCheck.setVisibility(View.GONE);
+            bind.tvMessage.setVisibility(View.VISIBLE);
             bind.tvEmail.setVisibility(View.VISIBLE);
             bind.tvEmail.setText(getEmail);
         }
@@ -52,9 +64,9 @@ public class JoinActivity extends AppCompatActivity {
 
 
         bind.btnCheck.setOnClickListener(v -> {
-            if (intent.getStringExtra("email") == null) {
+            if (intent.getStringExtra("email").equals("")) {
                 getEmail = bind.etEmail.getText().toString();
-            }else if (intent.getStringExtra("email") != null) {
+            }else {
                 getEmail = intent.getStringExtra("email");
                 Log.d(TAG, "소셜회원 가입 : " + getEmail);
             }
@@ -124,20 +136,39 @@ public class JoinActivity extends AppCompatActivity {
         });
 
         bind.btnJoin.setOnClickListener(v -> {
-            if (validEmail == 0) {
-                bind.tvJoinCheck.setText("이메일을 확인해주세요");
-            }else if (validPassword == 0) {
-                bind.tvJoinCheck.setText("비밀번호를 확인해주세요");
-            }else if (validPasswordCheck == 0) {
-                bind.tvJoinCheck.setText("비밀번호가 일치하지 않습니다");
-            }else if (validEmail == 1 && validPassword == 1 && validPasswordCheck == 1) {
+            if (social == 2) {
+                email = getEmail;
+                pw = "0000";
                 new RetrofitMethod().setParams("email", email)
                         .setParams("pw", pw)
                         .setParams("patient_id", customer.getPatient_id())
                         .sendPost("customer_join.cu", (isResult, data) -> {
                             Log.d("로그", "회원가입 완료 : " + email + " " + pw);
+                            Intent joinAfter = new Intent(JoinActivity.this, CustomerLoginActivity.class);
+                            startActivity(joinAfter);
                         });
+
+            }else {
+                if (validEmail == 0) {
+                    bind.tvJoinCheck.setText("이메일을 확인해주세요");
+                }else if (validPassword == 0) {
+                    bind.tvJoinCheck.setText("비밀번호를 확인해주세요");
+                }else if (validPasswordCheck == 0) {
+                    bind.tvJoinCheck.setText("비밀번호가 일치하지 않습니다");
+                }else if (validEmail == 1 && validPassword == 1 && validPasswordCheck == 1) {
+                    new RetrofitMethod().setParams("email", email)
+                            .setParams("pw", pw)
+                            .setParams("patient_id", customer.getPatient_id())
+                            .sendPost("customer_join.cu", (isResult, data) -> {
+                                Log.d("로그", "회원가입 완료 : " + email + " " + pw);
+                                Intent joinAfter = new Intent(JoinActivity.this, CustomerLoginActivity.class);
+                                startActivity(joinAfter);
+                            });
+                }
             }
+
+
+
 
         });
 
@@ -232,5 +263,7 @@ public class JoinActivity extends AppCompatActivity {
         validPassword = 1;
         return "사용가능한 비밀번호 입니다";
     }
+
+
 
 }

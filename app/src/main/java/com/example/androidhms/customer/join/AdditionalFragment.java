@@ -34,25 +34,31 @@ public class AdditionalFragment extends Fragment {
 
         Intent intent = new Intent(getActivity(), JoinActivity.class);
 
-        new RetrofitMethod().setParams("social_id", social_id)
-                .setParams("name", name)
-                .sendPost("customer_check.cu", (isResult, data) -> {
-                    customer = new Gson().fromJson(data, CustomerVO.class);
-
-                    bind.btnLater.setOnClickListener(v -> {
+        bind.btnLater.setOnClickListener(v -> {
+            new RetrofitMethod().setParams("social_id", social_id)
+                    .setParams("name", name)
+                    .sendPost("customer_check.cu", (isResult, data) -> {
+                        customer = new Gson().fromJson(data, CustomerVO.class);
                         intent.putExtra("customer", customer);
                         intent.putExtra("email", email);
                         startActivity(intent);
                     });
 
-                    bind.btnRegister.setOnClickListener(v -> {
+        });
+
+        bind.btnRegister.setOnClickListener(v -> {
+            new RetrofitMethod().setParams("social_id", social_id)
+                    .setParams("name", name)
+                    .sendPost("customer_check.cu", (isResult, data) -> {
+                        customer = new Gson().fromJson(data, CustomerVO.class);
                         intent.putExtra("customer", customer);
                         intent.putExtra("email", email);
                         startActivity(intent);
                     });
 
+        });
 
-                });
+
 
 
 

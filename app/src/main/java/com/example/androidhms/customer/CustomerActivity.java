@@ -3,6 +3,7 @@ package com.example.androidhms.customer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -23,7 +24,10 @@ import com.example.androidhms.customer.reservation.ReservationActivity;
 import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.databinding.ActivityCustomerBinding;
 import com.example.conn.ApiClient;
+import com.example.conn.RetrofitMethod;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
 
 public class CustomerActivity extends AppCompatActivity {
     private ActivityCustomerBinding bind;
@@ -54,6 +58,10 @@ public class CustomerActivity extends AppCompatActivity {
 
 
 
+
+
+
+
         //뒤로가기
         bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
@@ -62,7 +70,7 @@ public class CustomerActivity extends AppCompatActivity {
         //로그아웃
         bind.toolbar.ivLogout.setOnClickListener(v -> {
             LoginInfo.check_id = 0;
-            this.recreate();
+            this.finish();
         });
 
         //로그인 액티비티 띄우기
@@ -115,6 +123,7 @@ public class CustomerActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(CustomerActivity.this,
                                 "로그인시 이용 가능합니다.", Toast.LENGTH_SHORT).show();
+                        return false;
                     }
                 }
                 return true;
@@ -139,6 +148,14 @@ public class CustomerActivity extends AppCompatActivity {
                 control.hideFragment(infoFragment);
                 homeFragment.changeWelcom(LoginInfo.check_id);
 
+                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+                    new RetrofitMethod().setParams("patient_id", customer.getPatient_id())
+                            .setParams("token", task.getResult())
+                            .sendPost("token_update.cu", (isResult, data) -> {
+                                Log.d(TAG, "토큰값 저장");
+                            });
+                });
+
                 checkLogin();
             }
         }
@@ -147,11 +164,15 @@ public class CustomerActivity extends AppCompatActivity {
     //로그인 확인
     public void checkLogin(){
         if (LoginInfo.check_id > 0) {
-            bind.toolbar.tvLogin.setVisibility(View.GONE);
-            bind.toolbar.ivLeft.setVisibility(View.GONE);
-            bind.toolbar.ivLogout.setVisibility(View.VISIBLE);
-            bind.toolbar.tvAccount.setVisibility(View.VISIBLE);
-            bind.toolbar.tvAccount.setText(customer.getName() + "님");
+            new RetrofitMethod().setParams("patient_id", LoginInfo.check_id)
+                            .sendPost("customer_info.cu", (isResult, data) -> {
+                                customer = new Gson().fromJson(data, CustomerVO.class);
+                                bind.toolbar.tvLogin.setVisibility(View.GONE);
+                                bind.toolbar.ivLeft.setVisibility(View.GONE);
+                                bind.toolbar.ivLogout.setVisibility(View.VISIBLE);
+                                bind.toolbar.tvAccount.setVisibility(View.VISIBLE);
+                                bind.toolbar.tvAccount.setText(customer.getName() + "님");
+                            });
         }
     }
 }

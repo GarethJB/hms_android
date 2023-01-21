@@ -40,6 +40,7 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
+
         h.bind.tvTreatmentDate.setText(medical_record.get(i).getTreatment_date().substring(2, 10));
         h.bind.tvDepartment.setText(medical_record.get(i).getDepartment_name());
         h.bind.tvName.setText(medical_record.get(i).getStaff_name());

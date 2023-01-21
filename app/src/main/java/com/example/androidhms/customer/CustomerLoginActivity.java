@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androidhms.customer.join.CustomerCheckActivity;
 import com.example.androidhms.customer.join.PatientRegisterActivity;
 import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.databinding.ActivityCustomerLoginBinding;
@@ -81,6 +82,11 @@ public class CustomerLoginActivity extends AppCompatActivity {
             kakaoLogin();
         });
 
+        //회원가입
+        bind.btnJoin.setOnClickListener(v -> {
+            Intent intent = new Intent(CustomerLoginActivity.this, CustomerCheckActivity.class);
+            startActivity(intent);
+        });
 
 
     }
@@ -122,11 +128,19 @@ public class CustomerLoginActivity extends AppCompatActivity {
             try {
                 Log.d(TAG, "socialLogin: " + customer.getEmail());
                 Log.d(TAG, "socialLogin: " + customer.getName());
+                customer = new Gson().fromJson(data, CustomerVO.class);
+                LoginInfo.check_id = customer.getPatient_id();
+                Intent intent = new Intent();
+                intent.putExtra("customer", customer);
+                setResult(RESULT_OK, intent);
+                finish();
             }catch (NullPointerException e) {
                 Log.d(TAG, "Exception : " + e);
                 Intent intent = new Intent(CustomerLoginActivity.this, PatientRegisterActivity.class);
                 intent.putExtra("email", email);
                 startActivity(intent);
+                finish();
+
             }
             if (data == null) {
 

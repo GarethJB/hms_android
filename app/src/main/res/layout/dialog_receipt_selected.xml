@@ -114,10 +114,11 @@
         android:layout_height="wrap_content">
         <EditText
             android:id="@+id/et_memo"
-            android:hint="증상을 간단하게 적어주세요"
+            android:hint="증상을 간단히 적어주세요"
             android:textSize="14dp"
             android:textColor="@color/main_color"
             android:textStyle="bold"
+            android:layout_marginTop="3dp"
             android:layout_alignParentRight="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

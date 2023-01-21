@@ -59,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <LinearLayout
+                android:id="@+id/ll_receipt_exist"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,6 +112,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+            <TextView
+                android:id="@+id/tv_receipt_none"
+                android:visibility="gone"
+                android:text="오늘 접수한 내역이 없습니다"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:textAlignment="textEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:paddingHorizontal="10dp"

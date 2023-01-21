@@ -55,7 +55,6 @@ public class DepartmentSearchFragment extends Fragment {
                 new RetrofitMethod().setParams("searchWord", result)
                         .sendPost("staffsearch_by_department.cu", (isResult, data) -> {
                             staff = new Gson().fromJson(data, new TypeToken<ArrayList<StaffSearchVO>>(){}.getType());
-
                             departmentSearchAdapter = new DepartmentSearchAdapter(inflater, getContext(), staff);
                             bind.rcvStaffSearch.setAdapter(departmentSearchAdapter);
                             bind.rcvStaffSearch.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));

@@ -89,19 +89,19 @@ public class InfoFragment extends Fragment {
                                     bind.tvName.setText(medicalReceipt.get(num).getName());
                                     bind.tvWaiting.setText(num+"");
                                 }else if (medicalReceipt.size() == 0) {
-                                    Toast.makeText(getContext(), "접수내역이 없습니다", Toast.LENGTH_SHORT );
+                                    bind.llReceiptExist.setVisibility(View.GONE);
+                                    bind.tvReceiptNone.setVisibility(View.VISIBLE);
                                 }
                             });
 
                     try{
-                        Thread.sleep(10000);
+                        Thread.sleep(30000);
                     }catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
-
         thread.start();
 
 
@@ -130,7 +130,6 @@ public class InfoFragment extends Fragment {
         tv_n_waiting = dialog_number.findViewById(R.id.tv_waiting);
 
         tv_c_name = dialog_card.findViewById(R.id.tv_name);
-        tv_c_patient_id = dialog_card.findViewById(R.id.tv_patient_id);
         tv_c_social_id = dialog_card.findViewById(R.id.tv_social_id);
         tv_c_gender = dialog_card.findViewById(R.id.tv_gender);
         tv_c_bloodtype = dialog_card.findViewById(R.id.tv_bloodtype);
@@ -173,7 +172,7 @@ public class InfoFragment extends Fragment {
                                 dialog_number.dismiss();
                             });
                         }else if (medicalReceipt.size() == 0) {
-                            Toast.makeText(getContext(), "접수내역이 없습니다", Toast.LENGTH_SHORT );
+                            Toast.makeText(getContext(), "접수내역이 없습니다", Toast.LENGTH_SHORT ).show();
                         }
                     });
         });
@@ -181,19 +180,34 @@ public class InfoFragment extends Fragment {
         //클릭시 카드전환
         bind.btnCard.setOnClickListener(v1 -> {
             tv_c_name.setText(customer.getName());
-            tv_c_patient_id.setText(customer.getPatient_id()+"");
             tv_c_social_id.setText(customer.getSocial_id()+"");
-            tv_c_gender.setText(customer.getGender());
-            tv_c_bloodtype.setText(customer.getBlood_type());
-            tv_c_height.setText(customer.getHeight()+"");
-            tv_c_weight.setText(customer.getWeight()+"");
+            if (customer.getGender().equals("M")) {
+                tv_c_gender.setText("남자");
+            }else if (customer.getGender().equals("F")) {
+                tv_c_gender.setText("여자");
+            }
+            if (customer.getBlood_type() == null) {
+                tv_c_bloodtype.setText("미입력");
+            }else {
+                tv_c_bloodtype.setText(customer.getBlood_type());
+            }
+            if (customer.getHeight() == 0) {
+                tv_c_height.setText("미입력");
+            }else {
+                tv_c_height.setText(customer.getHeight()+"");
+            }
+            if (customer.getWeight() == 0) {
+                tv_c_weight.setText("미입력");
+            }else {
+                tv_c_weight.setText(customer.getWeight()+"");
+            }
             if (customer.getAllergy() == null) {
-                tv_c_allergy.setText("없음");
+                tv_c_allergy.setText("미입력");
             }else {
                 tv_c_allergy.setText(customer.getAllergy());
             }
             if (customer.getUnderlying_disease() == null) {
-                tv_c_underlying.setText("없음");
+                tv_c_underlying.setText("미입력");
             }else {
                 tv_c_underlying.setText(customer.getUnderlying_disease());
             }
@@ -253,7 +267,7 @@ public class InfoFragment extends Fragment {
 
 
 
-      
+
 
 
 

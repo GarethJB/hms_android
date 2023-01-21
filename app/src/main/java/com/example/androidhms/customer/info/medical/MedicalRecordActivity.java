@@ -2,7 +2,7 @@ package com.example.androidhms.customer.info.medical;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,7 +48,8 @@ public class MedicalRecordActivity extends AppCompatActivity {
                 bind.rcvMedicalRecord.setAdapter(medicalRecordAdapter);
                 bind.rcvMedicalRecord.setLayoutManager(new LinearLayoutManager(MedicalRecordActivity.this, RecyclerView.VERTICAL, false));
             }else {
-                Log.d("진료기록", "받아올 수 없음");
+                bind.cvMedicalExist.setVisibility(View.GONE);
+                bind.cvMedicalNone.setVisibility(View.VISIBLE);
             }
  
 
@@ -62,7 +63,8 @@ public class MedicalRecordActivity extends AppCompatActivity {
                 bind.rcvAdmissionRecord.setAdapter(admissionRecordAdapter);
                 bind.rcvAdmissionRecord.setLayoutManager(new LinearLayoutManager(MedicalRecordActivity.this, RecyclerView.VERTICAL, false));
             }else {
-                Log.d("입원기록", "받아올 수 없음");
+                bind.cvAdmissionExist.setVisibility(View.GONE);
+                bind.cvAdmissionNone.setVisibility(View.VISIBLE);
             }
      
 
