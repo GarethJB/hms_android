@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.databinding.ActivityReceptionLoginBinding;
-import com.example.androidhms.reception.vo.StaffVO;
+import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.HmsFirebase;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;

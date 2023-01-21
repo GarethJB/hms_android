@@ -11,12 +11,12 @@ import android.view.View;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityReceptionBinding;
-import com.example.androidhms.databinding.ActivityStaffLookupBinding;
 import com.example.androidhms.reception.appointment.AppointmentActivity;
 
 import com.example.androidhms.reception.search.SearchActivity;
 
 import com.example.androidhms.reception.search.record.detailrecord.DetailRecordActivity;
+
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.util.Util;
 import com.example.conn.ApiClient;
@@ -32,7 +32,7 @@ public class ReceptionActivity extends AppCompatActivity  {
         bind= ActivityReceptionBinding.inflate(getLayoutInflater());
        setContentView(bind.getRoot());
 
-    /*    if (staff == null) staff = Util.getStaff(this);
+    /* if (staff == null) staff = Util.getStaff(this);
         bind.tvName.setText(staff.getName());*/
 
         //사원이름 받아오기

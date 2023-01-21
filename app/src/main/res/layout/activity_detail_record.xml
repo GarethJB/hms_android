@@ -22,20 +22,22 @@
         android:layout_height="wrap_content"/>
     <LinearLayout
         android:id="@+id/ll_search_patient"
-        android:visibility="gone"
         android:gravity="center"
         android:background="@color/second_color"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:orientation="horizontal">
         <RelativeLayout
             android:background="@drawable/round_corner"
             android:layout_width="270dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:orientation="horizontal">
             <EditText
+                android:gravity="bottom"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                android:id="@+id/edit_name"
                 android:layout_width="260dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="50dp"/>
 
             <ImageView
                 android:id="@+id/close"
@@ -47,6 +49,7 @@
                 app:tint="@color/gray" />
         </RelativeLayout>
             <Button
+                android:id="@+id/btn_click"
                 android:layout_marginLeft="10dp"
                 android:padding="0dp"
                 android:text="검색"
@@ -99,21 +102,12 @@
     </LinearLayout>
   <RadioGroup
       android:id="@+id/radio_group"
-      android:background="@color/second_color"
       android:gravity="center"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal">
+
       <RadioButton
-          android:textColor="@color/white"
-          android:id="@+id/radio1"
-          android:textSize="15dp"
-          android:text="1 개월"
-          android:layout_weight="1"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"/>
-      <RadioButton
-          android:textColor="@color/white"
           android:id="@+id/radio2"
           android:textSize="15dp"
           android:text="3 개월"
@@ -121,7 +115,6 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"/>
     <RadioButton
-        android:textColor="@color/white"
         android:id="@+id/radio3"
         android:textSize="15dp"
         android:text="6 개월"
@@ -129,7 +122,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
       <RadioButton
-          android:textColor="@color/white"
           android:id="@+id/radio4"
           android:textSize="15dp"
           android:text="1년"
@@ -142,10 +134,42 @@
           android:background="@color/main_color"
           android:layout_marginRight="10dp"
           android:textColor="@color/white"
-          android:text="날짜선택"
+          android:text="직접선택"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
+
   </RadioGroup>
+    <LinearLayout
+        android:visibility="gone"
+        android:background="@color/back_color"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <TextView
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="시작"
+            android:layout_width="150dp"
+            android:layout_height="30dp"/>
+        <ImageView
+            android:id="@+id/tv_item1"
+            android:src="@drawable/icon_calendar_multiselect"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+        <TextView
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="끝"
+            android:layout_width="150dp"
+            android:layout_height="30dp"/>
+        <ImageView
+            android:id="@+id/tv_item2"
+            android:src="@drawable/icon_calendar_multiselect"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recv_detail_record"
         android:layout_width="match_parent"

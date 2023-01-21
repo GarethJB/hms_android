@@ -16,10 +16,14 @@ import android.widget.Toast;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityDetailRecordBinding;
+import com.example.androidhms.reception.search.SearchActivity;
 import com.example.androidhms.reception.search.SearchMedicalRecordAdapter;
 import com.example.androidhms.reception.vo.MedicalReceiptVO;
 import com.example.androidhms.reception.vo.MedicalRecordVO;
+import com.example.androidhms.staff.vo.PatientVO;
 import com.example.conn.RetrofitMethod;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -65,14 +69,46 @@ public class DetailRecordActivity extends AppCompatActivity {
         bind.toolbar.ivLeft.setOnClickListener(v -> {
             onBackPressed();
         });
+        //환자이름으로 검색
+        bind.btnClick.setOnClickListener(v -> {
+                    new RetrofitMethod().setParams("name", bind.editName.getText().toString()).sendPost("patient.re", new RetrofitMethod.CallBackResult() {
+                        @Override
+                        public void result(boolean isResult, String data) throws Exception {
+                            ArrayList<PatientVO> patientList = new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>() {
+                            }.getType());
+                            if (patientList.size() == 0 || patientList == null) {
+                                Toast.makeText(DetailRecordActivity.this, "검색 기록이 없습니다", Toast.LENGTH_SHORT).show();
+                            } else if (patientList.size() == 1) {
+                                patient_id = patientList.get(0).getPatient_id() + "";
+                                new RetrofitMethod().setParams("id", patient_id).sendPost("medical_record_id.re", new RetrofitMethod.CallBackResult() {
+                                    @Override
+                                    public void result(boolean isResult, String data) {
+                                        Log.d("로그", "result: " + "진료기록" + data);
+                                        ArrayList<MedicalRecordVO> recordList = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalRecordVO>>() {
+                                        }.getType());
+                                        if (recordList == null || recordList.size() == 0) {
+                                            Toast.makeText(DetailRecordActivity.this, "진료이력이 없습니다", Toast.LENGTH_SHORT).show();
+
+                                        } else {
+                                            bind.recvDetailRecord.setAdapter(new SearchMedicalRecordAdapter(getLayoutInflater(), vo, recordList));
+                                            bind.recvDetailRecord.setLayoutManager(new LinearLayoutManager(DetailRecordActivity.this, RecyclerView.VERTICAL, false));
+                                        }
+                                    }
+                                });
+                            }
+
+                        }
+                    });
 
 
-        bind.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    bind.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-            }
-        });
+                        }
+                    });
+
+                });
         bind.llCalender.setOnClickListener(v -> {
             Calendar c = Calendar.getInstance();
             int year = c.get(c.YEAR);
@@ -87,16 +123,7 @@ public class DetailRecordActivity extends AppCompatActivity {
                         @Override
                         public void onCheckedChanged(RadioGroup group, int checkedId) {
                             switch (checkedId){
-                                case R.id.radio1:
-                                    try {
-                                        from= CalculationDate(date,0,-1,0);
-                                        bind.term.setText(fromMonth+"~"+date);
-                                        sendInfo(new Month_1Fragment());
 
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    break;
                                 case R.id.radio2:
                                     try {
                                         from = CalculationDate(date, 0,-3,0);
@@ -158,5 +185,5 @@ public class DetailRecordActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.detail,fragment).commit();
     }
+    }
 
-}

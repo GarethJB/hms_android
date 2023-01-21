@@ -46,16 +46,14 @@ public class Month_6Fragment extends Fragment {
                         if(list == null||list.size()==0) {
                             Toast.makeText(getContext(), "값이 없습니다", Toast.LENGTH_SHORT).show();
                         }else {
-
                             bind.recvDetailRecord.setAdapter(new SearchMedicalRecordAdapter(inflater, vo, list));
                             bind.recvDetailRecord.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
                         }
                     }
                 });
 
-
-
         return  bind.getRoot();
+
     }
     @Override
     public void onDestroyView() {

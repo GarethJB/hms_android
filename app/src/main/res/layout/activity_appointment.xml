@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:background="#E7ECF3"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,21 +11,21 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_reception" />
+
     <LinearLayout
         android:id="@+id/ll_confirm_date"
         android:gravity="center"
         android:layout_gravity="center"
         android:background="@color/second_color"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="40dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_show_date"
             android:gravity="center"
-            android:textSize="20dp"
             android:textColor="@color/white"
-            android:text="예약현황을 확인하세요"
+            android:text="날짜를 선택하세요"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
@@ -35,115 +34,17 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:tint="@color/white" />
-        <TextView
-            android:layout_marginRight="10dp"
-            android:textColor="@color/white"
-            android:text="날짜 선택"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
     </LinearLayout>
-    <LinearLayout
-        android:backgroundTint="@color/white"
+    <Spinner
+
         android:gravity="center"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
+        android:id="@+id/spinner_deparatment"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:spinnerMode="dropdown">
+    </Spinner>
 
-        <Spinner
-            android:paddingLeft="10dp"
-            android:id="@+id/spinner_deparatment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:spinnerMode="dropdown">
-        </Spinner>
-        <Spinner
-            android:paddingLeft="10dp"
-            android:id="@+id/spinner_doctor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:spinnerMode="dropdown">
-        </Spinner>
-
-
-
-    </LinearLayout>
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="50dp"
-           android:orientation="horizontal">
-           <LinearLayout
-               android:layout_marginRight="10dp"
-               android:layout_marginLeft="10dp"
-               android:padding="10dp"
-               android:background="@color/main_color"
-               android:gravity="center"
-               android:layout_gravity="center"
-               android:layout_weight="1"
-               android:layout_width="0dp"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal">
-               <TextView
-                   android:textColor="@color/white"
-                   android:text="예약현황"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"/>
-               <TextView
-                   android:id="@+id/tv_count_all"
-                   android:background="@color/white"
-                   android:gravity="right"
-                   android:layout_marginLeft="10dp"
-                   android:layout_marginRight="10dp"
-                   android:textStyle="bold"
-                   android:paddingRight="10dp"
-                   android:text=""
-                   android:layout_width="50dp"
-                   android:layout_height="wrap_content"/>
-               <TextView
-                   android:textColor="@color/white"
-                   android:text="명"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"/>
-           </LinearLayout>
-           <LinearLayout
-               android:background="@color/main_color"
-               android:layout_marginRight="10dp"
-               android:layout_marginLeft="10dp"
-               android:padding="10dp"
-               android:gravity="center"
-               android:layout_gravity="center"
-               android:layout_weight="1"
-               android:layout_width="0dp"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal">
-               <TextView
-                   android:textColor="@color/white"
-                   android:text="대기인원"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"/>
-               <TextView
-                   android:id="@+id/tv_count_waiting"
-                   android:background="@color/white"
-                   android:gravity="right"
-                   android:textStyle="bold"
-                   android:paddingRight="10dp"
-                   android:layout_marginLeft="10dp"
-                   android:layout_marginRight="10dp"
-                   android:text=""
-                   android:layout_width="50dp"
-                   android:layout_height="wrap_content"/>
-               <TextView
-                   android:textColor="@color/white"
-                   android:text="명"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"/>
-
-           </LinearLayout>
-       </LinearLayout>
     <TextView
         android:id="@+id/tv_today"
         android:textColor="@color/main_color"
@@ -153,15 +54,82 @@
         android:text="오늘 예약 현황입니다"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal">
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textColor="@color/white"
+                android:text="예약현황"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_count_all"
+                android:background="@color/white"
+                android:gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:text=""
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="@color/white"
+                android:text="명"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:background="@color/main_color"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textColor="@color/white"
+                android:text="대기인원"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_count_waiting"
+                android:background="@color/white"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text=""
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="@color/white"
+                android:text="명"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
 
     </LinearLayout>
-
     <androidx.cardview.widget.CardView
-       android:backgroundTint="@color/second_color"
+        android:backgroundTint="@color/second_color"
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -217,7 +185,6 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardv_appointment_list"
         android:layout_marginLeft="20dp"
