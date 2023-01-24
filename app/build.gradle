@@ -64,6 +64,7 @@ dependencies {
     // 2022. 12. 29. Jubin : 글리드
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
+
     // Jubin
     // QR코드
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
