@@ -57,6 +57,11 @@ public class CustomerActivity extends AppCompatActivity {
         control.showFragment(homeFragment);
 
 
+        Log.d(TAG, "onCreate: ");
+
+
+
+
 
 
 
@@ -148,11 +153,14 @@ public class CustomerActivity extends AppCompatActivity {
                 control.hideFragment(infoFragment);
                 homeFragment.changeWelcom(LoginInfo.check_id);
 
+
+
                 FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
                     new RetrofitMethod().setParams("patient_id", customer.getPatient_id())
                             .setParams("token", task.getResult())
                             .sendPost("token_update.cu", (isResult, data) -> {
                                 Log.d(TAG, "토큰값 저장");
+                                Log.d(TAG, "토큰 : " + task.getResult());
                             });
                 });
 

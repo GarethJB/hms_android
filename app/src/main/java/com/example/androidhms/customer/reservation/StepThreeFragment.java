@@ -53,7 +53,7 @@ public class StepThreeFragment extends Fragment {
 
             bind.btnSelect.setOnClickListener(v -> {
                 selectedDate = Integer.parseInt(setYear + setMonth + setDate);
-                if (selectedDate > nowDate && selectedDate <= nowDate + 10000) {
+                if (selectedDate >= nowDate && selectedDate <= nowDate + 10000) {
                     StepCnt.cnt = 4;
                     ((ReservationActivity)getActivity()).changeStep();
                 }else {

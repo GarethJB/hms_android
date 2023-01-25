@@ -8,6 +8,9 @@
     <!-- 23. 01. 19 Jubin 기기번호 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" android:maxSdkVersion="29"/>
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -38,14 +41,6 @@
 
         <service
             android:name=".util.HmsFirebaseMessaging"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <service
-            android:name=".customer.common.CustomerFirebaseMessaging"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
