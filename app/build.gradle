@@ -27,6 +27,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    
+    // 23. 01. 26 Jubin QR코드 스캐너
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
     viewBinding {
         enabled = true
@@ -68,7 +74,7 @@ dependencies {
 
     // Jubin
     // QR코드
-    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
     //카카오 로그인 API
     implementation "com.kakao.sdk:v2-user:2.12.0"
     //네이버 로그인 API

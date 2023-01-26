@@ -2,7 +2,6 @@ package com.example.androidhms.customer.info;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,8 +16,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
 import com.example.androidhms.customer.LoginInfo;
+import com.example.androidhms.customer.common.SendNumber;
 import com.example.androidhms.customer.hospital.acceptance.AcceptanceRecordActivity;
 import com.example.androidhms.customer.info.medical.MedicalRecordActivity;
+import com.example.androidhms.customer.info.qr.QrActivity;
 import com.example.androidhms.customer.info.reservation.ReservationScheduleActivity;
 import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.customer.vo.MedicalReceiptVO;
@@ -27,10 +28,6 @@ import com.example.androidhms.staff.outpatient.PrescriptionActivity;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,10 +42,9 @@ public class InfoFragment extends Fragment {
     private ArrayList<MedicalReceiptVO> medicalReceipt = new ArrayList<>();
     private TextView tv_n_number, tv_n_department, tv_n_name, tv_n_time, tv_n_waiting;
     private TextView tv_c_name, tv_c_patient_id, tv_c_social_id, tv_c_gender, tv_c_bloodtype, tv_c_height, tv_c_weight, tv_c_allergy, tv_c_underlying;
-    private Button btn_c_back, btn_q_back;
+    private Button btn_c_back;
     private Dialog dialog_number;
     private Dialog dialog_card;
-    private Dialog dialog_qr;
     private ImageView imgv_qr;
     private String patient_id;
     private int num;
@@ -83,11 +79,21 @@ public class InfoFragment extends Fragment {
                                     }
                                 }
                                 if (medicalReceipt.size() != 0) {
-                                    Log.d("로그", "일치 " + num);
-                                    Log.d("로그", "환자ID : " + LoginInfo.check_id);
-                                    bind.tvDepartment.setText(medicalReceipt.get(num).getDepartment_name());
-                                    bind.tvName.setText(medicalReceipt.get(num).getName());
-                                    bind.tvWaiting.setText(num+"");
+                                    Log.d("로그", "모바일 번호표 " + num + " 반복횟수 : " + LoginInfo.push_check);
+                                    if (num != 0) {
+                                        bind.tvDepartment.setText(medicalReceipt.get(num).getDepartment_name());
+                                        bind.tvName.setText(medicalReceipt.get(num).getName());
+                                        bind.tvWaiting.setText(num+"");
+                                    }else if (num == 0) {
+                                        LoginInfo.push_check++;
+                                        if (LoginInfo.push_check == 2) {
+                                            SendNumber.sendPushNotification(LoginInfo.token);
+                                        }
+                                        bind.llReceiptExist.setVisibility(View.GONE);
+                                        bind.tvReceiptNone.setVisibility(View.VISIBLE);
+                                        bind.tvReceiptNone.setText("[" + medicalReceipt.get(num).getDepartment_name() + " " + medicalReceipt.get(num).getName()
+                                            + "교수] 진료실로 들어오세요");
+                                    }
                                 }else if (medicalReceipt.size() == 0) {
                                     bind.llReceiptExist.setVisibility(View.GONE);
                                     bind.tvReceiptNone.setVisibility(View.VISIBLE);
@@ -119,9 +125,6 @@ public class InfoFragment extends Fragment {
 
         dialog_card = new Dialog(getActivity());
         dialog_card.setContentView(R.layout.dialog_card);
-
-        dialog_qr = new Dialog(getActivity());
-        dialog_qr.setContentView(R.layout.dialog_qr);
 
         tv_n_number = dialog_number.findViewById(R.id.tv_number);
         tv_n_department = dialog_number.findViewById(R.id.tv_department);
@@ -219,21 +222,9 @@ public class InfoFragment extends Fragment {
 
         //클릭시 큐알화면 전환
         bind.btnQr.setOnClickListener(v1 -> {
-            imgv_qr = dialog_qr.findViewById(R.id.imgv_qr);
-            patient_id = Integer.toString(customer.getPatient_id());
-
-            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-            try {
-                BitMatrix bitMatrix = multiFormatWriter.encode(patient_id, BarcodeFormat.QR_CODE,200,200);
-                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-                imgv_qr.setImageBitmap(bitmap);
-            }catch (Exception e){}
-            btn_q_back = dialog_qr.findViewById(R.id.btn_back);
-            btn_q_back.setOnClickListener(v -> {
-                dialog_qr.dismiss();
-            });
-            dialog_qr.show();
+            Intent intent = new Intent(getActivity(), QrActivity.class);
+            intent.putExtra("patient_id", customer.getPatient_id());
+            startActivity(intent);
         });
 
         //기록 조회

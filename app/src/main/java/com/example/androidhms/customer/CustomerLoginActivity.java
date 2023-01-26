@@ -99,7 +99,7 @@ public class CustomerLoginActivity extends AppCompatActivity {
             public Unit invoke(OAuthToken oAuthToken, Throwable throwable) {
                 if (oAuthToken != null)
                     Log.d("로그", "invoke: " + oAuthToken.toString());
-                UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {
+                    UserApiClient.getInstance().me(new Function2<User, Throwable, Unit>() {
                     @Override
                     public Unit invoke(User user, Throwable throwable) {
                         socialLogin(user.getKakaoAccount().getEmail());
@@ -123,11 +123,9 @@ public class CustomerLoginActivity extends AppCompatActivity {
         Log.d("로그", "socialLogin: " + email);
         // setParams → 파라미터에 담는다  /  sendPost & senGet → 전송한다
         new RetrofitMethod().setParams("email" , email).sendPost("social.cu", (isResult, data) -> {
-            Log.d(TAG, "소셜로그인 : " + data);
+            Log.d(TAG, "환자정보 : " + data);
             customer = new Gson().fromJson(data, CustomerVO.class);
             try {
-                Log.d(TAG, "socialLogin: " + customer.getEmail());
-                Log.d(TAG, "socialLogin: " + customer.getName());
                 customer = new Gson().fromJson(data, CustomerVO.class);
                 LoginInfo.check_id = customer.getPatient_id();
                 Intent intent = new Intent();

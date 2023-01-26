@@ -4,12 +4,14 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 카메라추가 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 23. 01. 19 Jubin 기기번호 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" android:maxSdkVersion="29"/>
-    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 23. 01. 19 Jubin 기기번호 -->
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"
+    <uses-permission
+        android:name="android.permission.WRITE_APN_SETTINGS"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -24,6 +26,13 @@
         android:theme="@style/Theme.AndroidHMS"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".customer.info.qr.QrActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".customer.info.DetailActivity"
             android:exported="false">
@@ -75,10 +84,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -91,7 +99,6 @@
                     android:scheme="kakaoc1d3d1509c7d3139f08c5b05080e86d9" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".reception.search.appointment.DetailAppointmentActivity"
             android:exported="false">
@@ -137,14 +144,13 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-<!--        <activity-->
-<!--            android:name=".customer.CustomerLoginActivity"-->
-<!--            android:exported="false">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-<!--        </activity>-->
+        </activity> <!-- <activity -->
+        <!-- android:name=".customer.CustomerLoginActivity" -->
+        <!-- android:exported="false"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.app.lib_name" -->
+        <!-- android:value="" /> -->
+        <!-- </activity> -->
         <activity
             android:name=".reception.appointment.AppointmentActivity"
             android:exported="false">

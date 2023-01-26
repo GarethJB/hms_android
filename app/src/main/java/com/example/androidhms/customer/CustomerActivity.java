@@ -57,7 +57,7 @@ public class CustomerActivity extends AppCompatActivity {
         control.showFragment(homeFragment);
 
 
-        Log.d(TAG, "onCreate: ");
+        Log.d(TAG, "onCreate");
 
 
 
@@ -75,6 +75,8 @@ public class CustomerActivity extends AppCompatActivity {
         //로그아웃
         bind.toolbar.ivLogout.setOnClickListener(v -> {
             LoginInfo.check_id = 0;
+            LoginInfo.token = null;
+            LoginInfo.push_check = 0;
             this.finish();
         });
 
@@ -153,16 +155,20 @@ public class CustomerActivity extends AppCompatActivity {
                 control.hideFragment(infoFragment);
                 homeFragment.changeWelcom(LoginInfo.check_id);
 
-
+                Log.d(TAG, "patient_id : " + LoginInfo.check_id);
+                Log.d(TAG, "push_check : " + LoginInfo.push_check);
 
                 FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
                     new RetrofitMethod().setParams("patient_id", customer.getPatient_id())
                             .setParams("token", task.getResult())
                             .sendPost("token_update.cu", (isResult, data) -> {
-                                Log.d(TAG, "토큰값 저장");
                                 Log.d(TAG, "토큰 : " + task.getResult());
+                                LoginInfo.token = task.getResult();
+                                Log.d(TAG, "토큰값 저장");
                             });
                 });
+
+
 
                 checkLogin();
             }
