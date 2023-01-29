@@ -21,9 +21,6 @@ public class QrSacnnerActivity extends AppCompatActivity {
         setContentView(bind.getRoot());
         Intent scan_intent = getIntent();
 
-        bind.ivClose.setOnClickListener(v -> {
-            onBackPressed();
-        });
 
         IntentIntegrator integrator = new IntentIntegrator(this);
 

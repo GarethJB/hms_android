@@ -3,9 +3,10 @@ package com.example.androidhms.reception.vo;
 
 import java.io.Serializable;
 
-public class MedicalRecordVO implements Serializable {
+public class MedicalRecordVO  implements Serializable {
 	private int medical_record_id, staff_id, patient_id;
-	private String  record_date, record_time, record_day, treatment_date, prescription_name,
+	private String  record_date, record_time, record_day,record_today,
+					treatment_date, prescription_name,
 					treatment_name, admission, memo, patient, doctor, department_name ;
 
 	public int getMedical_record_id() {
@@ -54,6 +55,14 @@ public class MedicalRecordVO implements Serializable {
 
 	public void setRecord_day(String record_day) {
 		this.record_day = record_day;
+	}
+
+	public String getRecord_today() {
+		return record_today;
+	}
+
+	public void setRecord_today(String record_today) {
+		this.record_today = record_today;
 	}
 
 	public String getTreatment_date() {

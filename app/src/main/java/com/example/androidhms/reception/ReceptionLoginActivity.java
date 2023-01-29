@@ -62,7 +62,6 @@ public class ReceptionLoginActivity extends AppCompatActivity {
                         }
                         editor.commit();
                         Util.staff = new Gson().fromJson(data, (Type) StaffVO.class);
-                        new HmsFirebase(ReceptionLoginActivity.this).sendToken();
                         Intent intent = new Intent(ReceptionLoginActivity.this, ReceptionActivity.class);
                         startActivity(intent);
                         finish();

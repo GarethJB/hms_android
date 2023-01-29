@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ItemReceptionNamelistBinding;
+import com.example.androidhms.reception.search.record.detailrecord.DetailRecordActivity;
 import com.example.androidhms.staff.vo.PatientVO;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class PatientNameAdapter extends RecyclerView.Adapter<PatientNameAdapter.
         this.inflater = inflater;
         this.list = list;
         this.activity = activity;
+
     }
     public PatientNameAdapter(LayoutInflater inflater, PatientVO vo, ArrayList<PatientVO> list ) {
         this.inflater = inflater;

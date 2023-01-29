@@ -3,6 +3,7 @@ package com.example.androidhms.reception;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,13 +27,14 @@ public class ReceptionActivity extends AppCompatActivity  {
         ActivityReceptionBinding bind;
         private StaffVO staff = Util.staff;
 
+    @SuppressLint("SuspiciousIndentation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind= ActivityReceptionBinding.inflate(getLayoutInflater());
        setContentView(bind.getRoot());
 
-    /* if (staff == null) staff = Util.getStaff(this);
+/*     if (staff == null) staff = Util.getStaff(this);
         bind.tvName.setText(staff.getName());*/
 
         //사원이름 받아오기

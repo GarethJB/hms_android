@@ -14,49 +14,11 @@
         layout="@layout/toolbar_reception" />
     <TextView
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:textSize="20dp"
         android:text="진료이력조회"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <LinearLayout
-        android:id="@+id/ll_search_patient"
-        android:gravity="center"
-        android:background="@color/second_color"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:background="@drawable/round_corner"
-            android:layout_width="270dp"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-            <EditText
-                android:gravity="bottom"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-                android:id="@+id/edit_name"
-                android:layout_width="260dp"
-                android:layout_height="50dp"/>
-
-            <ImageView
-                android:id="@+id/close"
-                android:layout_marginRight="5dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/icon_close"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:tint="@color/gray" />
-        </RelativeLayout>
-            <Button
-                android:id="@+id/btn_click"
-                android:layout_marginLeft="10dp"
-                android:padding="0dp"
-                android:text="검색"
-                android:backgroundTint="@color/second_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -141,91 +103,90 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
-  <RadioGroup
-      android:id="@+id/radio_group"
-      android:gravity="center"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/ll_name_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_patient_info"
+            android:background="@color/white"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-      <RadioButton
-          android:id="@+id/radio2"
-          android:textSize="15dp"
-          android:text="3 개월"
-          android:layout_weight="1"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"/>
-    <RadioButton
-        android:id="@+id/radio3"
-        android:textSize="15dp"
-        android:text="6 개월"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
-      <RadioButton
-          android:id="@+id/radio4"
-          android:textSize="15dp"
-          android:text="1년"
-          android:layout_weight="1"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"/>
-      <TextView
-          android:id="@+id/select_date"
-          android:padding="5dp"
-          android:background="@color/main_color"
-          android:layout_marginRight="10dp"
-          android:textColor="@color/white"
-          android:text="직접선택"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center"
+                android:text="환자번호"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center"
+                android:text="이름"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:padding="10dp"
+                android:gravity="center"
+                android:text="주민번호"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center"
+                android:text="연락처"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
 
-  </RadioGroup>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recv_name_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal">
 
-      <LinearLayout
-          android:gravity="center"
-          android:background="@drawable/round_corner2"
-          android:layout_width="100dp"
-          android:layout_height="50dp"
-          android:orientation="vertical">
-          <TextView
-              android:background="@color/second_color"
-              android:gravity="center"
-              android:text="3개월"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"/>
-
-      </LinearLayout>
   </LinearLayout>
     <LinearLayout
-        android:visibility="gone"
+        android:id="@+id/ll_date"
         android:background="@color/back_color"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/tv_from"
             android:background="@color/white"
             android:gravity="center"
             android:text="시작"
             android:layout_width="150dp"
             android:layout_height="30dp"/>
         <ImageView
-            android:id="@+id/tv_item1"
+            android:id="@+id/iv_from"
             android:src="@drawable/icon_calendar_multiselect"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
         <TextView
+            android:id="@+id/tv_to"
             android:background="@color/white"
             android:gravity="center"
             android:text="끝"
             android:layout_width="150dp"
             android:layout_height="30dp"/>
         <ImageView
-            android:id="@+id/tv_item2"
+            android:id="@+id/iv_to"
             android:src="@drawable/icon_calendar_multiselect"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
