@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 카메라추가 -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -18,6 +19,8 @@
         android:theme="@style/Theme.AndroidHMS"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <receiver android:name=".staff.schedule.ScheduleAlarmReceiver"
+            android:exported="false"/>
         <service
             android:name=".util.HmsFirebaseMessaging"
             android:exported="false">
@@ -156,7 +159,7 @@
         <activity
             android:name=".staff.schedule.ScheduleActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".staff.outpatient.OutpatientActivity"
             android:exported="false"
