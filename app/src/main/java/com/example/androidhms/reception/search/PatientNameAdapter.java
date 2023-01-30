@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ItemReceptionNamelistBinding;
+import com.example.androidhms.reception.search.record.detailrecord.DetailRecordActivity;
 import com.example.androidhms.staff.vo.PatientVO;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class PatientNameAdapter extends RecyclerView.Adapter<PatientNameAdapter.
         this.inflater = inflater;
         this.list = list;
         this.activity = activity;
+
     }
     public PatientNameAdapter(LayoutInflater inflater, PatientVO vo, ArrayList<PatientVO> list ) {
         this.inflater = inflater;
@@ -62,6 +64,7 @@ public class PatientNameAdapter extends RecyclerView.Adapter<PatientNameAdapter.
               activity.searchPatientInfo();
               activity.searchAppointment();
               activity.searchMedicalRecord();
+              activity.bind.recvNameList.setVisibility(View.GONE);
 
               //어댑터에서 액티비티로 값 보내기
 //              String patient_id = h.bind.tvPatientNo.getText().toString() ;

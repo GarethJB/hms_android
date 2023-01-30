@@ -142,7 +142,7 @@ public abstract class StaffBaseActivity extends AppCompatActivity {
             setGetNotificationTime();
             // 진동
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(800); // 0.8초간 진동
+       //     vibrator.vibrate(800); // 0.8초간 진동
         }
     }
 

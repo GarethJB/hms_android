@@ -31,6 +31,13 @@
             android:exported="false"/>
         <activity
             android:name=".customer.info.qr.QrActivity"
+             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".reception.search.record.detailrecord.DetailActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -38,6 +45,13 @@
         </activity>
         <activity
             android:name=".customer.info.DetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".reception.appointment.AppointListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -67,7 +81,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".reception.search.record.DetailRecordActivity"
+            android:name=".reception.search.record.detailrecord.DetailRecordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -75,6 +89,13 @@
         </activity>
         <activity
             android:name=".customer.join.CustomerCheckActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".reception.ReceptionLoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -229,23 +250,7 @@
             android:name=".staff.lookup.LookupActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" /> <!-- 원무과 페이지 -->
-        <activity
-            android:name=".reception.home.VolunteerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".reception.home.NoticeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".reception.home.NewsActivity"
-            android:exported="false" />
-        <!--
-    <activity // 임주빈 2023 - 01 -10 프래그먼트라서 주석함.
-            android:name=".reception.home.ReceptionHomeFragment"
-            android:exported="false" />
-        -->
-        <activity
-            android:name=".reception.ReceptionLoginActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

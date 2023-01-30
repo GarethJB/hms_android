@@ -2,6 +2,11 @@
 
 Hanul3QWER!@#$
 
+    <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/recv_appointment"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"/>
+
 public class HomeFragment extends Fragment {
     FragmentHomeBinding bind;
     //내가 선언한 이름으로
@@ -12,10 +17,10 @@ public class HomeFragment extends Fragment {
       return bind.getRoot();
     }
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        bind = null;
-    }
+        public void onDestroyView() {
+            super.onDestroyView();
+            bind = null;
+      }
 }
 
 //텍스트 사이즈
@@ -148,3 +153,45 @@ tab레이아웃 에 텍스트 넣기
         bind.tabLayout.addTab(new TabLayout.Tab().setText("3개월"));
         bind.tabLayout.addTab(new TabLayout.Tab().setText("6개월"));
         bind.tabLayout.addTab(new TabLayout.Tab().setText("1년"));
+
+        ===========================         SimpleDateFormat transform =new SimpleDateFormat("yyyy.mm.dd");
+                                                       try {
+                                                           Date date1 = transform.parse(date);
+
+                                                           Calendar cal= Calendar.getInstance();
+                                                           cal.setTime(date1);
+                                                           cal.add(Calendar.YEAR, -1);
+                                                           Date  ndate = new Date(cal.getTimeInMillis());
+                                                           Log.d("로그", "onDateSet: " + new Date() + "현재시간");
+                                                           Log.d("로그", "onDateSet: " + ndate + "과거시간");
+                                                       } catch (ParseException e) {
+                                                           e.printStackTrace();
+                                                       }
+
+
+
+                                        if(list == null || list.size() == 0 ){
+                                            bind.cardvAppointmentList.setVisibility(View.INVISIBLE);
+                                            Toast.makeText(AppointmentActivity.this, "오늘 예약이 없습니다", Toast.LENGTH_SHORT).show();
+                                            bind.tvCountAll.setVisibility(View.INVISIBLE);
+                                            bind.tvCountWaiting.setVisibility(View.INVISIBLE);
+                                        }else if(){
+                                            bind.cardvAppointmentList.setVisibility(View.VISIBLE);
+                                            bind.recvAppointmentList.setAdapter(new AppointmentAdapter(getLayoutInflater(),list, AppointmentActivity.this));
+                                            bind.recvAppointmentList.setLayoutManager(new LinearLayoutManager(AppointmentActivity.this, RecyclerView.VERTICAL, false));
+                                            //int all= list.size();
+                                            //Log.d("로그", "onDateSet: " +list.size() );
+                                            bind.tvCountAll.setText(list.size() + "");
+                                            int count = 0 ;
+                                            for(int i = 0  ; i <list.size() ; i ++){
+                                                if(list.get(i).getReserve_time_count().compareTo(list.get(i).getCurrent_time()) > 0) {
+                                                    count ++ ;
+                                                }
+                                            }
+                                            bind.tvCountWaiting.setText(count+"");
+                                        }
+                            });
+
+                                public void changeFragment(Fragment fragment){
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                                }

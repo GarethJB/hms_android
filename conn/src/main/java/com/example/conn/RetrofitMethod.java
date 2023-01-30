@@ -36,12 +36,20 @@ public class RetrofitMethod {
         apiTest.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                callback.result(true , response.body());
+                try {
+                    callback.result(true , response.body());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                callback.result(false , "");
+                try {
+                    callback.result(false , "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 t.printStackTrace();
             }
         });
@@ -53,12 +61,20 @@ public class RetrofitMethod {
         apiTest.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                callback.result(true , response.body());
+                try {
+                    callback.result(true , response.body());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                callback.result(false , "");
+                try {
+                    callback.result(false , "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 t.printStackTrace();
             }
         });
@@ -93,12 +109,20 @@ public class RetrofitMethod {
         apiTest.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                callback.result(true , response.body());
+                try {
+                    callback.result(true , response.body());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                callback.result(false , "");
+                try {
+                    callback.result(false , "");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 t.printStackTrace();
             }
         });
@@ -108,7 +132,7 @@ public class RetrofitMethod {
     public interface CallBackResult{
         // 메인에서 CommonMethod를 통해서 Callback<String> 인터페이스를 넘겨서 실행할때마다
         // 두개의 메소드가 오버라이드가 됨. ( onResponse , onFailure )==> 하나로 합치고싶음.
-        public void result(boolean isResult , String data);
+        public void result(boolean isResult , String data) throws Exception;
     }
 
     // 갤러리에서 가져온 이미지 패스가 URI형태로 실제 물리적인 주소가 x File로 만들 수 없음

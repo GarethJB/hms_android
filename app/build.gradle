@@ -97,4 +97,7 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
     implementation 'com.google.zxing:core:3.4.1'
 
+    //23.01.18 hyewoon expandable-cardview
+    //implementation 'androidx.cardView:cardView:1.0.0'
+
 }

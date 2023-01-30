@@ -44,7 +44,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
 
     @Override
     public void onBindViewHolder(@NonNull PViewHolder h, int i) {
-            h.bind.date.setText(preList.get(i).getPres_date_short());
+            h.bind.date.setText(preList.get(i).getTreate_date());
             h.bind.treamentName.setText(preList.get(i).getTreatment_name());
             h.bind.department.setText(preList.get(i).getDepartment_name());
             h.bind.doctor.setText(preList.get(i).getDoctor_name());
