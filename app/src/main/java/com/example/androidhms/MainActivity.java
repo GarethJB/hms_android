@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 원무과홈페이지로 이동
         bind.btnReceptionoffice.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ReceptionActivity.class);
+            Intent intent = new Intent(MainActivity.this, ReceptionLoginActivity.class);
             startActivity(intent);
         });
 

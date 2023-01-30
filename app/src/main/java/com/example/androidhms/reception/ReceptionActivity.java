@@ -34,8 +34,8 @@ public class ReceptionActivity extends AppCompatActivity  {
         bind= ActivityReceptionBinding.inflate(getLayoutInflater());
        setContentView(bind.getRoot());
 
-/*     if (staff == null) staff = Util.getStaff(this);
-        bind.tvName.setText(staff.getName());*/
+        if (staff == null) staff = Util.getStaff(this);
+        bind.tvName.setText(staff.getName());
 
         //사원이름 받아오기
         /*   Intent intent =getIntent();

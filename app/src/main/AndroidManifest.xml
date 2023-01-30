@@ -206,15 +206,7 @@
             android:name=".staff.lookup.LookupActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" /> <!-- 원무과 페이지 -->
-        <activity
-            android:name=".reception.home.VolunteerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".reception.home.NoticeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".reception.home.NewsActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

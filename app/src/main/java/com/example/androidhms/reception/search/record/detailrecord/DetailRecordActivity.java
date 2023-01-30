@@ -101,7 +101,7 @@ public class DetailRecordActivity extends AppCompatActivity {
             });
         });
 
-        bind.ivFrom.setOnClickListener(v -> {
+      /*  bind.ivFrom.setOnClickListener(v -> {
             Calendar c = Calendar.getInstance();
             int year = c.get(c.YEAR);
             int month = c.get(c.MONTH);
@@ -151,7 +151,7 @@ public class DetailRecordActivity extends AppCompatActivity {
             }, year, month, day);
             datePickerDialog.show();
 
-        });
+        });*/
 
 
     }

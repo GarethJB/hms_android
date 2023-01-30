@@ -37,6 +37,7 @@ public class AppointmentActivity extends AppCompatActivity {
     ArrayList<MedicalReceiptVO> list;
     String date2;
     String doctor_name;
+    int doctor_id;
 
 
     @Override
@@ -75,29 +76,30 @@ public class AppointmentActivity extends AppCompatActivity {
 
 
 
-        ArrayAdapter doctor = ArrayAdapter.createFromResource(this, R.array.doctor_list, android.R.layout.simple_spinner_dropdown_item);
+     /*   ArrayAdapter department_list = ArrayAdapter.createFromResource(this, R.array.department_list, android.R.layout.simple_spinner_dropdown_item);
         //내가 지정한 리스트department_list, 기본 제공하는 드롬다운 simple_spinner_dropdown_item
-        doctor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bind.spinnerDoctor.setAdapter(doctor);
+        department_list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bind.spinnerDoctor.setAdapter(department_list);
 
         bind.spinnerDoctor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                doctor_id = position;
 
-                doctor_name =  bind.spinnerDoctor.getSelectedItem().toString();
-                Log.d("로그", "onItemSelected: " +doctor_name );
+               // doctor_name =  bind.spinnerDoctor.getSelectedItem().toString();
+               // Log.d("로그", "onItemSelected: " +doctor_name );
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });
+        });*/
 
 
     }
 
     public void getAppointment(){
-        new RetrofitMethod().setParams("time",date2 ).setParams("doctor_name",doctor_name).sendPost("apointmentList.re", (isResult, data) -> {
+        new RetrofitMethod().setParams("time",date2 ).sendPost("apointmentList.re", (isResult, data) -> {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
             list = gson.fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {}.getType());
             Log.d("로그", "getAppointment: "+ "이름값" + data);
