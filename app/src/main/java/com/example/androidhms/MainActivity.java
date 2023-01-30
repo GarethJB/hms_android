@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         bind.btnStaff.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StaffLoginActivity.class);
             startActivity(intent);
-            finish();
         });
 
         // 원무과홈페이지로 이동
