@@ -153,10 +153,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 }.getType());
                     bind.tvPatentId.setText(patientList.get(0).getPatient_id()+"");
                     bind.tvName.setText(patientList.get(0).getName());
-                    bind.tvGender.setText(patientList.get(0).getGender());
                     bind.tvSocialId.setText(patientList.get(0).getSocial_id());
                     bind.tvPhone.setText(patientList.get(0).getPhone_number());
                   // bind.tvAdmission.setText(patientList.get(0).);
+
+                String gender = patientList.get(0).getGender();
+                Log.d("로그", "result: " + "gender");
+                if(patientList.get(0).getGender().equals("M")){
+                    bind.tvGender.setText("남");
+                }else if(patientList.get(0).getGender().equals("W")){
+                    bind.tvGender.setText("여");
+                }
             }
         });
     }
