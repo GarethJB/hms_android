@@ -8,16 +8,19 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
-import com.example.androidhms.customer.common.CommonMethod;
 import com.example.androidhms.customer.LoginInfo;
+import com.example.androidhms.customer.common.CommonMethod;
 import com.example.androidhms.customer.vo.MedicalReceiptVO;
 import com.example.androidhms.databinding.FragmentCustomerStepFourBinding;
 import com.example.conn.ApiClient;
@@ -36,6 +39,7 @@ public class StepFourFragment extends Fragment {
     TextView tv_department, tv_name, tv_date, tv_time;
     EditText et_memo;
     Button btn_back, btn_insert;
+    private int nowTime;
 
     private int[] count = new int[26];
     private int tempTime;
@@ -54,7 +58,11 @@ public class StepFourFragment extends Fragment {
 
         dialog = new Dialog(getActivity());
 
-        new RetrofitMethod().setParams("staff_id", 1051).sendPost("medical_schedule.cu", (isResult, data) -> {
+
+
+        new RetrofitMethod().setParams("staff_id", ReservationSelect.selectedStaff_id)
+                .setParams("date", ReservationSelect.selectedDate)
+                .sendPost("medical_schedule.cu", (isResult, data) -> {
             receipt = new Gson().fromJson(data, new TypeToken<ArrayList<MedicalReceiptVO>>() {
             }.getType());
 
@@ -258,6 +266,8 @@ public class StepFourFragment extends Fragment {
         b = Integer.toString(time).substring(Integer.toString(time).length()-2, Integer.toString(time).length());
 
         textView.setText(a + " : " + b);
+
+
         if(flag >= 3){
             textView.setTextColor(Color.LTGRAY);
             textView.setEnabled(false);
@@ -287,7 +297,9 @@ public class StepFourFragment extends Fragment {
     public void goDialog(String date) {
         dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_receipt_selected);
-
+        WindowManager.LayoutParams lp =  new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = 800;
         tv_department = dialog.findViewById(R.id.tv_department);
         tv_name = dialog.findViewById(R.id.tv_name);
         tv_date = dialog.findViewById(R.id.tv_date);
@@ -302,6 +314,8 @@ public class StepFourFragment extends Fragment {
         tv_time.setText(date.substring(10, 16));
 
         dialog.show();
+        Window window = dialog.getWindow();
+        window.setAttributes(lp);
 
         btn_back.setOnClickListener(v -> {
             dialog.dismiss();
@@ -313,7 +327,10 @@ public class StepFourFragment extends Fragment {
                     .setParams("time", date)
                     .setParams("memo", String.valueOf(et_memo.getText()))
                     .sendPost("insert_medical.cu", (isResult1, data1) -> {
-
+                        dialog.dismiss();
+                        getActivity().onBackPressed();
+                        getActivity().finish();
+                        Toast.makeText(getActivity(), "예약이 완료되었습니다.", Toast.LENGTH_LONG).show();
                     });
         });
 

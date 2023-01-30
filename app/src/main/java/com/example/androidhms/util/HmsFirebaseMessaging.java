@@ -27,10 +27,18 @@ public class HmsFirebaseMessaging extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage message) {
         super.onMessageReceived(message);
         Map<String, String> map = message.getData();
-        getNotification(map.get("key"),
-                map.get("title"),
-                map.get("content"),
-                map.get("name"));
+
+
+        if (map.get("key") == null) {
+            getNoti(map.get("title"), map.get("content"));
+        }else {
+            getNotification(map.get("key"),
+                    map.get("title"),
+                    map.get("content"),
+                    map.get("name"));
+        }
+
+
     }
 
     @Override
@@ -106,5 +114,48 @@ public class HmsFirebaseMessaging extends FirebaseMessagingService {
         }
         notificationManager.notify(0, notificationBuilder.build());
     }
+
+    //jubin
+    private void getNoti(String title, String content) {
+        Intent intent = new Intent(this, MainActivity.class);
+        //intent.putExtra("title", title);
+        //intent.putExtra("key", key);
+        // PendingIntent 가 알림에 따라 update 되지 않는 오류때문에 cancel 후 한번 더 선언 (임시방편)
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                PendingIntent.FLAG_MUTABLE);
+        pendingIntent.cancel();
+        pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                PendingIntent.FLAG_MUTABLE);
+
+        String channelId = "fcm_high_channel";
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.drawable.icon_message)
+                        .setContentTitle(title)
+                        .setContentText(content)
+                        .setAutoCancel(true)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel;
+            // 앱이 백그라운드일땐 상단 알림
+            channel = new NotificationChannel("fcm_high_channel",
+                    "fcm_high_channel",
+                    NotificationManager.IMPORTANCE_HIGH);
+            channel.setVibrationPattern(new long[]{500});
+            channel.enableVibration(true);
+            notificationManager.createNotificationChannel(channel);
+        } else {
+
+        }
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+
 
 }

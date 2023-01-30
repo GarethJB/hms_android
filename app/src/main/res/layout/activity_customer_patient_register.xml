@@ -5,16 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#DADADA"
-    tools:context=".customer.info.card.CardActivity">
+    tools:context=".customer.join.PatientRegisterActivity">
 
-    <!-- 상단메뉴 툴바 삽입 -->
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_customer" />
-
-
-
+    <FrameLayout
+        android:id="@+id/register_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>

@@ -4,12 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".customer.join.NewJoinFragment">
+    android:padding="20dp"
+    tools:context=".customer.join.PatientRegisterFragment">
 
     <TextView
-        android:text="일반 회원가입"
-        android:textSize="20dp"
+        android:text="신규환자등록"
+        android:textSize="24dp"
+        android:textColor="@color/main_color"
+        android:textStyle="bold"
         android:textAlignment="center"
+        android:layout_marginVertical="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -21,12 +25,14 @@
 
     <EditText
         android:id="@+id/et_social_id"
-        android:hint="주민번호를 입력하세요"
+        android:hint="주민등록번호를 입력하세요"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <RadioGroup
         android:id="@+id/rg_gender"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -45,6 +51,7 @@
     <EditText
         android:id="@+id/et_phone"
         android:hint="전화번호를 입력하세요"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
@@ -55,11 +62,13 @@
         android:textStyle="bold"
         android:backgroundTint="@color/main_color"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/tv_join_check"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
