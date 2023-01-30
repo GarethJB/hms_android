@@ -27,6 +27,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    
+    // 23. 01. 26 Jubin QR코드 스캐너
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
     viewBinding {
         enabled = true
@@ -48,6 +54,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.4.1'
     implementation 'androidx.navigation:navigation-ui:2.4.1'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'androidx.work:work-runtime:2.7.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -64,8 +71,14 @@ dependencies {
     // 2022. 12. 29. Jubin : 글리드
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
+
     // Jubin
-    // SnapTabLayout
+    // QR코드
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+    //카카오 로그인 API
+    implementation "com.kakao.sdk:v2-user:2.12.0"
+    //네이버 로그인 API
+    implementation 'com.navercorp.nid:oauth:5.3.0'
 
     // Jungwon
     // Firebase

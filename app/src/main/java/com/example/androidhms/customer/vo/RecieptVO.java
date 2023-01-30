@@ -1,6 +1,8 @@
 package com.example.androidhms.customer.vo;
 
-public class RecieptVO {
+import java.io.Serializable;
+
+public class RecieptVO implements Serializable {
     private int staff_id, department_id;
     private String name, social_id, email, phone_number, introduction, department_name;
 

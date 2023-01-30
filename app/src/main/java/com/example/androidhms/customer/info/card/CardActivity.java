@@ -21,7 +21,7 @@ public class CardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         customer = (CustomerVO) intent.getSerializableExtra("customer");
 
-        bind.tvName.setText(customer.getName());
+      /*  bind.tvName.setText(customer.getName());
         bind.tvPatientId.setText(customer.getPatient_id() + "");
         bind.tvSocialId.setText(customer.getSocial_id() + "");
         bind.tvBloodtype.setText(customer.getBlood_type());
@@ -36,7 +36,7 @@ public class CardActivity extends AppCompatActivity {
             bind.tvUnderlying.setText("없음");
         }else {
             bind.tvUnderlying.setText(customer.getUnderlying_disease());
-        }
+        }*/
 
 
 

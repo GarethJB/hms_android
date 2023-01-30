@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidhms.customer.vo.StaffSearchVO;
 import com.example.androidhms.databinding.FragmentCustomerDepartmentSearchBinding;
-import com.example.androidhms.staff.vo.StaffVO;
 import com.example.conn.ApiClient;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 
 public class DepartmentSearchFragment extends Fragment {
     private FragmentCustomerDepartmentSearchBinding bind;
-    private StaffListAdapter staffListAdapter;
+    private DepartmentSearchAdapter departmentSearchAdapter;
     private String result;
-    private ArrayList<StaffVO> staff;
+    private ArrayList<StaffSearchVO> staff;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,10 +54,9 @@ public class DepartmentSearchFragment extends Fragment {
                 Log.d("로그", "선택한 부서 : " + result);
                 new RetrofitMethod().setParams("searchWord", result)
                         .sendPost("staffsearch_by_department.cu", (isResult, data) -> {
-                            staff = new Gson().fromJson(data, new TypeToken<ArrayList<StaffVO>>(){}.getType());
-
-                            staffListAdapter = new StaffListAdapter(inflater, getContext(), staff);
-                            bind.rcvStaffSearch.setAdapter(staffListAdapter);
+                            staff = new Gson().fromJson(data, new TypeToken<ArrayList<StaffSearchVO>>(){}.getType());
+                            departmentSearchAdapter = new DepartmentSearchAdapter(inflater, getContext(), staff);
+                            bind.rcvStaffSearch.setAdapter(departmentSearchAdapter);
                             bind.rcvStaffSearch.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
                         });
             }

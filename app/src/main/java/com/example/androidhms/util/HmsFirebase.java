@@ -50,9 +50,7 @@ public class HmsFirebase {
         FirebaseApp.initializeApp(context);
         chatRoom = dbRef.child("chatRoom");
         member = dbRef.child("member");
-        if (Util.staff == null) {
-            Util.getStaff(context);
-        }
+        if (Util.staff == null) Util.getStaff(context);
         myId = String.valueOf(Util.staff.getStaff_id());
     }
 

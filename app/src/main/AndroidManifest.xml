@@ -3,8 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 카메라추가 -->
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 23. 01. 19 Jubin 기기번호 -->
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.WRITE_APN_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -50,6 +60,7 @@
         </activity>
         <activity
             android:name=".reception.search.record.detailrecord.DetailRecordActivity"
+            android:name=".reception.search.record.DetailRecordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -75,6 +86,21 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+        </activity>
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+                <data
+                    android:host="oauth"
+                    android:scheme="kakaoc1d3d1509c7d3139f08c5b05080e86d9" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".reception.search.appointment.DetailAppointmentActivity"
@@ -121,16 +147,13 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-        <!--
-   <activity
-            android:name=".customer.CustomerLoginActivity"
-            android:exported="false" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        -->
+        </activity> <!-- <activity -->
+        <!-- android:name=".customer.CustomerLoginActivity" -->
+        <!-- android:exported="false"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.app.lib_name" -->
+        <!-- android:value="" /> -->
+        <!-- </activity> -->
         <activity
             android:name=".reception.appointment.AppointmentActivity"
             android:exported="false">
@@ -181,7 +204,7 @@
         <activity
             android:name=".staff.schedule.ScheduleActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".staff.outpatient.OutpatientActivity"
             android:exported="false"
