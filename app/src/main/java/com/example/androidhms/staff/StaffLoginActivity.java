@@ -15,6 +15,8 @@ import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 public class StaffLoginActivity extends AppCompatActivity {
 
     private ActivityStaffLoginBinding bind;
@@ -58,7 +60,7 @@ public class StaffLoginActivity extends AppCompatActivity {
                             editor.putString("staffData", "");
                         }
                         editor.commit();
-                        Util.getStaff(StaffLoginActivity.this);
+                        Util.staff = new Gson().fromJson(data, (Type) StaffVO.class);
                         new HmsFirebase(StaffLoginActivity.this).sendToken();
                         Intent intent = new Intent(StaffLoginActivity.this, StaffActivity.class);
                         startActivity(intent);
