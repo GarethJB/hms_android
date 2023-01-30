@@ -1,5 +1,6 @@
 package com.example.androidhms.customer.reservation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -22,9 +23,18 @@ public class ReservationActivity extends AppCompatActivity {
             onBackPressed();
         });
 
+        Intent intent = getIntent();
 
-        StepCnt.cnt = 1;
-        changeStep();
+        if (intent.getIntExtra("search", 0) == 1) {
+            StepCnt.cnt = 3;
+            changeStep();
+            ReservationSelect.selectedStaff_id = intent.getIntExtra("staff_id", 0);
+            ReservationSelect.selectedDepartment_id = intent.getIntExtra("department_id", 0);
+        }else {
+            StepCnt.cnt = 1;
+            changeStep();
+        }
+
 
 
         bind.imgvBefore.setOnClickListener(v -> {
@@ -61,9 +71,5 @@ public class ReservationActivity extends AppCompatActivity {
             }
     }
 
-//    public void goStepThree() {
-//        StepCnt.cnt = 3;
-//        changeStep();
-//    }
 
 }

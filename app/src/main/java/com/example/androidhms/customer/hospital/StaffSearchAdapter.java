@@ -39,8 +39,16 @@ public class StaffSearchAdapter extends RecyclerView.Adapter<StaffSearchAdapter.
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
         h.bind.tvName.setText(staff.get(i).getName());
         h.bind.tvIntroduction.setText(staff.get(i).getIntroduction());
+        if ((i % 2) != 0) {
+            h.bind.ivProfile.setImageResource(R.drawable.profile3);
+        }else if ((i % 2) == 0) {
+            h.bind.ivProfile.setImageResource(R.drawable.profile4);
+        }
         h.bind.btnReceipt.setOnClickListener(v -> {
             Intent intent = new Intent(context, ReservationActivity.class);
+            intent.putExtra("search", 1);
+            intent.putExtra("staff_id", staff.get(i).getStaff_id());
+            intent.putExtra("department_id", staff.get(i).getDepartment_id());
             context.startActivity(intent);
 
         });
