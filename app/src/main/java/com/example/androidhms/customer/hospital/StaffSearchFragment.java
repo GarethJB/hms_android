@@ -43,7 +43,7 @@ public class StaffSearchFragment extends Fragment {
                     .sendPost("staffsearch_by_name.cu", (isResult, data) -> {
                         staff = new Gson().fromJson(data, new TypeToken<ArrayList<StaffSearchVO>>(){}.getType());
                         if (staff.size() == 0) {
-                            Toast.makeText(getContext(), "검색결과가 없습니다", Toast.LENGTH_SHORT);
+                            Toast.makeText(getContext(), "검색결과가 없습니다", Toast.LENGTH_SHORT).show();
                         }
                         staffListAdapter = new StaffSearchAdapter(inflater, getContext(), staff);
                         bind.rcvStaffSearch.setAdapter(staffListAdapter);

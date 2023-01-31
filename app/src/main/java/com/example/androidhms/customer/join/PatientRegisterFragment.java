@@ -23,6 +23,8 @@ public class PatientRegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentCustomerPatientRegisterBinding.inflate(inflater, container, false);
 
+        bind.tvName.setText(RegisterFactor.getName);
+        bind.tvSocialId.setText(RegisterFactor.getSocial);
 
        bind.btnJoin.setOnClickListener(v -> {
             if (bind.rbMale.isChecked()) {
@@ -30,14 +32,14 @@ public class PatientRegisterFragment extends Fragment {
             }else if (bind.rbFemale.isChecked()) {
                 gender = "F";
             }
-            new RetrofitMethod().setParams("social_id", Integer.parseInt(bind.etSocialId.getText().toString()))
-                    .setParams("name", bind.etName.getText().toString())
+            new RetrofitMethod().setParams("social_id", RegisterFactor.getSocial)
+                    .setParams("name", RegisterFactor.getName)
                     .setParams("gender", gender)
                     .setParams("phone_number", bind.etPhone.getText().toString())
                     .sendPost("patient_insert.cu", (isResult, data) -> {
                         Log.d("로그", "환자등록완료 ");
-                        ((PatientRegisterActivity)getActivity()).social_id = Integer.parseInt(bind.etSocialId.getText().toString());
-                        ((PatientRegisterActivity)getActivity()).name = bind.etName.getText().toString();
+                        ((PatientRegisterActivity)getActivity()).social_id = Integer.parseInt(RegisterFactor.getSocial);
+                        ((PatientRegisterActivity)getActivity()).name = RegisterFactor.getName;
                         ((PatientRegisterActivity)getActivity()).change(2);
             });
 

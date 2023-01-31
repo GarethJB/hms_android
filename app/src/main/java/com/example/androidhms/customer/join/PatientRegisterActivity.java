@@ -34,6 +34,8 @@ public class PatientRegisterActivity extends AppCompatActivity {
         if (intent.getStringExtra("email") == null) {
             Log.d(TAG, "일반회원 환자등록");
             Toast.makeText(PatientRegisterActivity.this,  "신규환자등록 후 가입이 가능합니다.", Toast.LENGTH_LONG).show();
+            RegisterFactor.getName = intent.getStringExtra("name");
+            RegisterFactor.getSocial = intent.getStringExtra("social_id");
         }else if (intent.getStringExtra("email") != null) {
             Log.d(TAG, "소셜회원 환자등록");
             Toast.makeText(PatientRegisterActivity.this,  "신규환자등록 후 가입이 가능합니다.", Toast.LENGTH_LONG).show();

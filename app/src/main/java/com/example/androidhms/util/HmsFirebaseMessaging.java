@@ -16,6 +16,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.androidhms.MainActivity;
 import com.example.androidhms.R;
+import com.example.androidhms.customer.info.reservation.ReservationScheduleActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -117,7 +118,8 @@ public class HmsFirebaseMessaging extends FirebaseMessagingService {
 
     //jubin
     private void getNoti(String title, String content) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ReservationScheduleActivity.class);
+        intent.putExtra("patient_id", 94);
         //intent.putExtra("title", title);
         //intent.putExtra("key", key);
         // PendingIntent 가 알림에 따라 update 되지 않는 오류때문에 cancel 후 한번 더 선언 (임시방편)

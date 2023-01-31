@@ -1,11 +1,14 @@
 package com.example.androidhms.customer.info.reservation;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,16 +43,29 @@ public class MedicalReservationAdapter extends RecyclerView.Adapter<MedicalReser
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
         h.bind.tvDepartment.setText(receipt.get(i).getDepartment_name());
         h.bind.tvName.setText(receipt.get(i).getName());
-        h.bind.tvDate.setText(receipt.get(i).getTime());
+        String receiptTime = receipt.get(i).getTime().substring(0, 16);
+        h.bind.tvDate.setText(receiptTime);
         h.bind.tvLocation.setText(receipt.get(i).getLocation());
-
+        final int index = i;
         h.bind.btnDelete.setOnClickListener(v -> {
-            new RetrofitMethod().setParams("staff_id", receipt.get(i).getStaff_id())
-                    .setParams("time", receipt.get(i).getTime())
-                    .sendPost("delete_medical.cu", (isResult, data) -> {
-                        Log.d("로그", "예약취소 : " + receipt.get(i).getStaff_id() + " " + receipt.get(i).getTime());
-                        ((Activity)context).recreate();
-                    });
+            new AlertDialog.Builder(context)
+                    .setTitle("삭제 하시겠습니까?")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // 확인시 처리 로직
+                            Toast.makeText(context, "삭제를 완료했습니다.", Toast.LENGTH_SHORT).show();
+                            new RetrofitMethod().setParams("staff_id", receipt.get(index).getStaff_id())
+                                    .setParams("time", receipt.get(index).getTime())
+                                    .sendPost("delete_medical.cu", (isResult, data) -> {
+                                        Log.d("로그", "예약취소 : " + receipt.get(index).getStaff_id() + " " + receipt.get(index).getTime());
+                                        ((Activity)context).recreate();
+                                    });
+                        }})
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        }})
+                    .show();
+
         });
 
     }

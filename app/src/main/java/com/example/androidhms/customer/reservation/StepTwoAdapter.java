@@ -37,6 +37,11 @@ public class StepTwoAdapter extends RecyclerView.Adapter<StepTwoAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
         h.bind.tvName.setText(reciept.get(i).getName());
         h.bind.tvIntroduction.setText(reciept.get(i).getIntroduction());
+        if((i % 2) != 0) {
+            h.bind.imgvPic.setImageResource(R.drawable.profile1);
+        }else if ((i % 2) == 0) {
+            h.bind.imgvPic.setImageResource(R.drawable.profile2);
+        }
 
 
 

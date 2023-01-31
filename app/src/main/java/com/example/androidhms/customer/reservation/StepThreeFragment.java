@@ -48,16 +48,17 @@ public class StepThreeFragment extends Fragment {
                 setDate = Integer.toString(dayOfMonth);
             }
 
-            ReservationSelect.selectedDate = setYear + setMonth + setDate;
+
 
 
             bind.btnSelect.setOnClickListener(v -> {
                 selectedDate = Integer.parseInt(setYear + setMonth + setDate);
-                if (selectedDate >= nowDate && selectedDate <= nowDate + 10000) {
+                if (selectedDate >= nowDate && selectedDate < nowDate + 10000) {
+                    ReservationSelect.selectedDate = setYear + setMonth + setDate;
                     StepCnt.cnt = 4;
                     ((ReservationActivity)getActivity()).changeStep();
                 }else {
-                    Toast.makeText(getActivity(), "해당 날짜는 예약할 수 없습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "해당 날짜는 예약할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
 
             });

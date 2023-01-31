@@ -31,9 +31,9 @@ public class ReceptionLoginActivity extends AppCompatActivity {
         preferences = getSharedPreferences("receptionLoginInfo", MODE_PRIVATE);
         editor = preferences.edit();
 
-        bind.etId.setText(preferences.getString("id", ""));
-        bind.etPw.setText(preferences.getString("pw", ""));
-        if (preferences.getString("autoLogin", "N").equals("Y")) {
+        bind.etId.setText(preferences.getString("id_rep", ""));
+        bind.etPw.setText(preferences.getString("pw_rep", ""));
+        if (preferences.getString("autoLogin_rep", "N").equals("Y")) {
             bind.cbAutologin.setChecked(true);
         }
 
@@ -50,15 +50,15 @@ public class ReceptionLoginActivity extends AppCompatActivity {
                                 "사번 또는 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     } else {
                         if (bind.cbAutologin.isChecked()) {
-                            editor.putString("id", bind.etId.getText().toString());
-                            editor.putString("pw", bind.etPw.getText().toString());
-                            editor.putString("autoLogin", "Y");
-                            editor.putString("staffData", data);
+                            editor.putString("id_rep", bind.etId.getText().toString());
+                            editor.putString("pw_rep", bind.etPw.getText().toString());
+                            editor.putString("autoLogin_rep", "Y");
+                            editor.putString("staffData_rep", data);
                         } else {
-                            editor.putString("id", "");
-                            editor.putString("pw", "");
-                            editor.putString("autoLogin", "N");
-                            editor.putString("staffData", "");
+                            editor.putString("id_rep", "");
+                            editor.putString("pw_rep", "");
+                            editor.putString("autoLogin_rep", "N");
+                            editor.putString("staffData_rep", "");
                         }
                         editor.commit();
                         Util.staff = new Gson().fromJson(data, (Type) StaffVO.class);

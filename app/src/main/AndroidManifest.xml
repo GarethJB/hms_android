@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 카메라추가 -->
@@ -28,6 +27,15 @@
         android:theme="@style/Theme.AndroidHMS"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <receiver android:name=".staff.schedule.ScheduleAlarmReceiver"
+            android:exported="false"/>
+        <activity
+            android:name=".customer.info.qr.QrActivity"
+             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".reception.search.record.detailrecord.DetailActivity"
             android:exported="false">
@@ -36,7 +44,21 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".customer.info.DetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".reception.appointment.AppointListActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".customer.join.PatientRegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
