@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
        // 의료진 자동 로그인 정보가 있을경우 바로 StaffActivity 로 이동
         if (!preferences.getString("staffData", "").equals("")) {
             Util.getStaff(this);
-            startActivity(new Intent(this, ReceptionActivity.class));
+            startActivity(new Intent(this, StaffActivity.class));
             if (getIntent().getStringExtra("title") != null) {
                 Intent intent = new Intent(this, ChatActivity.class);
                 intent.putExtra("title", getIntent().getStringExtra("title"));
