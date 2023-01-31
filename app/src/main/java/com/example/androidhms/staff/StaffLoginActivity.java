@@ -27,7 +27,7 @@ public class StaffLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //ApiClient.setBASEURL("http://192.168.0.36/hms/");
+        ApiClient.setBASEURL("http://211.223.59.99:3301/hms/");
         bind = ActivityStaffLoginBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
         preferences = getSharedPreferences("staffLoginInfo", MODE_PRIVATE);
