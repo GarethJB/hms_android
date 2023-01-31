@@ -31,6 +31,8 @@ public class CustomerCheckActivity extends AppCompatActivity {
                     .sendPost("customer_check.cu", (isResult, data) -> {
                         if (data.equals("null")) {
                             Intent intent = new Intent(CustomerCheckActivity.this, PatientRegisterActivity.class);
+                            intent.putExtra("name", bind.etName.getText().toString());
+                            intent.putExtra("social_id", bind.etSocialId.getText().toString());
                             startActivity(intent);
                             finish();
                         }else {

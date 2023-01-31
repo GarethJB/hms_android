@@ -101,7 +101,7 @@ public class InfoFragment extends Fragment {
                             });
 
                     try{
-                        Thread.sleep(30000);
+                        Thread.sleep(300000);
                     }catch (InterruptedException e) {
                         e.printStackTrace();
                     }

@@ -43,7 +43,8 @@ public class MedicalReservationAdapter extends RecyclerView.Adapter<MedicalReser
     public void onBindViewHolder(@NonNull ViewHolder h, int i) {
         h.bind.tvDepartment.setText(receipt.get(i).getDepartment_name());
         h.bind.tvName.setText(receipt.get(i).getName());
-        h.bind.tvDate.setText(receipt.get(i).getTime());
+        String receiptTime = receipt.get(i).getTime().substring(0, 16);
+        h.bind.tvDate.setText(receiptTime);
         h.bind.tvLocation.setText(receipt.get(i).getLocation());
         final int index = i;
         h.bind.btnDelete.setOnClickListener(v -> {
