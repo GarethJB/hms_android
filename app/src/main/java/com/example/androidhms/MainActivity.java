@@ -34,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
        // ApiClient.setBASEURL("http://192.168.0.36/hms/");
         //ApiClient.setBASEURL("http://192.168.0.25/hms/");
         //ApiClient.setBASEURL("http://192.168.0.116/middle/");
-        ApiClient.setBASEURL("http://192.168.0.22/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
+        //ApiClient.setBASEURL("http://192.168.0.22/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
+        ApiClient.setBASEURL("http://211.223.59.99:3301/hms/");
 
-      /*  // 의료진 자동 로그인 정보가 있을경우 바로 StaffActivity 로 이동
+       // 의료진 자동 로그인 정보가 있을경우 바로 StaffActivity 로 이동
         if (!preferences.getString("staffData", "").equals("")) {
             Util.getStaff(this);
             startActivity(new Intent(this, ReceptionActivity.class));
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             finish();
-        }*/
+        }
 
 
         // 고객홈페이지로 이동
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         bind.btnStaff.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, StaffLoginActivity.class);
             startActivity(intent);
+            finish();
         });
 
         // 원무과홈페이지로 이동
