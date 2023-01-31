@@ -54,7 +54,7 @@ public class StepFourFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentCustomerStepFourBinding.inflate(inflater, container, false);
 
-        ApiClient.setBASEURL("http://192.168.0.116/hms/");
+        ApiClient.setBASEURL("http://211.223.59.99:3301/hms/");
 
         dialog = new Dialog(getActivity());
 
