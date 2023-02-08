@@ -28,6 +28,7 @@
             android:textSize="16dp"
             android:textStyle="bold" />
         <EditText
+            android:inputType= "textMultiLine|textNoSuggestions"
             android:id="@+id/edit_patient"
             android:layout_width="0dp"
             android:layout_height="40dp"
