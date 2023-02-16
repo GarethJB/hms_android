@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "146810623714",
+    "project_id": "androidhms-fa607",
+    "storage_bucket": "androidhms-fa607.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146810623714:android:8343ef70b1a79b5019f0bb",
+        "android_client_info": {
+          "package_name": "com.example.androidhms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146810623714-soj1qorumm6k5hfstff000o0ma76t106.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz6CHwYRfSGfPH4K7HWwJ8YZ9XeroZDDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146810623714-soj1qorumm6k5hfstff000o0ma76t106.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
