@@ -44,7 +44,7 @@ public class CustomerActivity extends AppCompatActivity {
         bind = ActivityCustomerBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
-        ApiClient.setBASEURL("http://192.168.0.116/hms/");
+        ApiClient.setBASEURL("http://211.223.59.99:3301/hms/");
 
         homeFragment = new HomeFragment();
         hospitalFragment = new HospitalFragment();

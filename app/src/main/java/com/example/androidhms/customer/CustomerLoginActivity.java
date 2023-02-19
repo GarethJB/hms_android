@@ -37,7 +37,7 @@ public class CustomerLoginActivity extends AppCompatActivity {
         bind = ActivityCustomerLoginBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
-        ApiClient.setBASEURL("http://192.168.0.116/hms/");
+        ApiClient.setBASEURL("http://211.223.59.99:3301/hms/");
 
         NaverIdLoginSDK.INSTANCE.initialize(this, "E_Ez5z_oN4y33fRnHolh", "jPBPbuocrK", "LastProject");
         KakaoSdk.init(this, "c1d3d1509c7d3139f08c5b05080e86d9");

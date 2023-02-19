@@ -14,6 +14,7 @@ import com.example.androidhms.staff.schedule.ScheduleActivity;
 import com.example.androidhms.staff.vo.StaffVO;
 import com.example.androidhms.staff.ward.WardActivity;
 import com.example.androidhms.util.Util;
+import com.example.conn.ApiClient;
 
 public class StaffActivity extends StaffBaseActivity {
 
@@ -23,7 +24,7 @@ public class StaffActivity extends StaffBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ApiClient.setBASEURL("http://211.223.59.99:3301/hms/");
         if (staff == null) staff = Util.getStaff(this);
 
         // 상단 페이지

@@ -31,7 +31,7 @@ public class StaffSearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentCustomerStaffSearchBinding.inflate(inflater, container, false);
 
-        ApiClient.setBASEURL("http://192.168.0.116/hms/");
+        ApiClient.setBASEURL("http://211.223.59.99:3301/hms/");
 
 
 
