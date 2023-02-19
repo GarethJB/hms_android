@@ -1,50 +1,40 @@
 package com.example.androidhms.staff.outpatient;
 
+import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffOutpatientBinding;
-import com.example.androidhms.staff.StaffActivity;
-import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.util.ActivityUtil;
-import com.example.androidhms.util.Util;
+import com.example.androidhms.staff.StaffBaseActivity;
 import com.google.android.material.tabs.TabLayout;
 
-public class OutpatientActivity extends AppCompatActivity {
+public class OutpatientActivity extends StaffBaseActivity {
 
     private ActivityStaffOutpatientBinding bind;
     private MedicalRecordFragment recordFragment;
     private ReceiptFragment receiptFragment;
-    private ActivityUtil aUtil;
-    private StaffVO staff = Util.staff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityStaffOutpatientBinding.inflate(getLayoutInflater());
-        setContentView(bind.getRoot());
-        bind.toolbar.ivLeft.setOnClickListener(v -> finish());
 
         recordFragment = new MedicalRecordFragment();
         receiptFragment = new ReceiptFragment();
-        aUtil = new ActivityUtil(this);
-        aUtil.addFragment(R.id.fl_container, recordFragment);
-        aUtil.addFragment(R.id.fl_container, receiptFragment);
-        aUtil.hideFragment(recordFragment);
-        aUtil.showFragment(receiptFragment);
+        addFragment(R.id.fl_container, recordFragment);
+        addFragment(R.id.fl_container, receiptFragment);
+        hideFragment(recordFragment);
         bind.tlOutpatient.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        aUtil.showFragment(receiptFragment);
-                        aUtil.hideFragment(recordFragment);
+                        showFragment(receiptFragment);
+                        hideFragment(recordFragment);
                         break;
                     case 1:
-                        aUtil.showFragment(recordFragment);
-                        aUtil.hideFragment(receiptFragment);
+                        showFragment(recordFragment);
+                        hideFragment(receiptFragment);
                         break;
                 }
             }
@@ -60,6 +50,17 @@ public class OutpatientActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+    @Override
+    protected View getLayoutResource() {
+        bind = ActivityStaffOutpatientBinding.inflate(getLayoutInflater());
+        return bind.getRoot();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
+    }
+
 }

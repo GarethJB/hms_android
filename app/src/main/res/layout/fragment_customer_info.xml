@@ -15,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:id="@+id/btn_myinfo"
-                android:text="임주빈"
+                android:id="@+id/btn_numberTicket"
+                android:text="번호표"
                 android:textSize="12dp"
                 android:textColor="@color/main_color"
                 android:textStyle="bold"
@@ -46,22 +46,81 @@
         </RelativeLayout>
         <!-- 예약정보 -->
         <LinearLayout
+            android:gravity="center_vertical"
             android:padding="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:text="예약정보"
-                android:textSize="16dp"
+                android:text="오늘 접수"
+                android:textSize="20dp"
                 android:textColor="@color/main_color"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_reservation"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:id="@+id/ll_receipt_exist"
                 android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_department"
+                    android:text="진료과"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:text="의사이름"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="교수"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="대기인수"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_waiting"
+                    android:text="8"
+                    android:textSize="20dp"
+                    android:textColor="@color/main_color"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="명"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_receipt_none"
+                android:visibility="gone"
+                android:text="오늘 접수한 내역이 없습니다"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:textAlignment="textEnd"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:paddingHorizontal="10dp"
@@ -176,23 +235,10 @@
                     android:layout_height="180dp"
                     android:orientation="vertical">
                     <TextView
-                        android:text="의료진"
+                        android:text="모바일 처방전"
                         android:textSize="20dp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:text="- 의료진 소개"
-                        android:textSize="16dp"
-                        android:textColor="#EDEDED"
-                        android:layout_marginTop="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:text="- 진료시간표 조회"
-                        android:textSize="16dp"
-                        android:textColor="#EDEDED"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>

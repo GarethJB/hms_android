@@ -1,52 +1,72 @@
 package com.example.androidhms.reception;
-//datepicker
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityReceptionLoginBinding;
 import com.example.androidhms.staff.vo.StaffVO;
-import com.example.conn.ApiClient;
+import com.example.androidhms.util.HmsFirebase;
+import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
-import com.google.firebase.internal.InternalTokenProvider;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 public class ReceptionLoginActivity extends AppCompatActivity {
-    ActivityReceptionLoginBinding bind;
+
+    private ActivityReceptionLoginBinding bind;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bind = ActivityReceptionLoginBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
-        ApiClient.setBASEURL("http://192.168.0.14/hms/"); //안드로이드 시작 점에 실시 *경로정확하게 지정*
 
-        bind.btnLogin.setOnClickListener(v -> {
-            Log.d("로그", "onCreate: " + "클릭");
-            new RetrofitMethod().setParams("id",bind.editId.getText().toString()).setParams("pw",bind.editPw.getText().toString())
-                    .sendPost("login.re", new RetrofitMethod.CallBackResult() {
-                        @Override
-                        public void result(boolean isResult, String data) {
-                            Log.d("로그", "result: " +data);
-                            if(data.equals("null")){
-                                Toast.makeText(ReceptionLoginActivity.this, "사번과 비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
-                            }else {
-                                Intent intent = new Intent(ReceptionLoginActivity.this, ReceptionActivity.class);
-                                intent.putExtra("staff_name",  new Gson().fromJson(data, StaffVO.class));
-                                startActivity(intent);
-                            }
-                        }
-                    });
+        preferences = getSharedPreferences("receptionLoginInfo", MODE_PRIVATE);
+        editor = preferences.edit();
+
+        bind.etId.setText(preferences.getString("id_rep", ""));
+        bind.etPw.setText(preferences.getString("pw_rep", ""));
+        if (preferences.getString("autoLogin_rep", "N").equals("Y")) {
+            bind.cbAutologin.setChecked(true);
+        }
+
+        bind.toolbar.ivLeft.setOnClickListener(v -> {
+            onBackPressed();
         });
-        
+
+        bind.btLogin.setOnClickListener(v -> new RetrofitMethod()
+                .setParams("id", bind.etId.getText().toString())
+                .setParams("pw", bind.etPw.getText().toString())
+                .sendPost("login.re", (isResult, data) -> {
+                    if (data.equals("null")) {
+                        Toast.makeText(ReceptionLoginActivity.this,
+                                "사번 또는 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (bind.cbAutologin.isChecked()) {
+                            editor.putString("id_rep", bind.etId.getText().toString());
+                            editor.putString("pw_rep", bind.etPw.getText().toString());
+                            editor.putString("autoLogin_rep", "Y");
+                            editor.putString("staffData_rep", data);
+                        } else {
+                            editor.putString("id_rep", "");
+                            editor.putString("pw_rep", "");
+                            editor.putString("autoLogin_rep", "N");
+                            editor.putString("staffData_rep", "");
+                        }
+                        editor.commit();
+                        Util.staff = new Gson().fromJson(data, (Type) StaffVO.class);
+                        Intent intent = new Intent(ReceptionLoginActivity.this, ReceptionActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }));
     }
-    public void changeFragment(Fragment fragment){
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
-    }
+
 }

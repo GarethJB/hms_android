@@ -8,14 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidhms.R;
-import com.example.androidhms.customer.vo.AccountVO;
+import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.databinding.ActivityCustomerMyinfoBinding;
-import com.example.androidhms.staff.vo.PatientVO;
 
 public class MyinfoActivity extends AppCompatActivity {
     private ActivityCustomerMyinfoBinding bind;
-    private PatientVO patient;
-    private AccountVO account;
+    private CustomerVO customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,34 +21,33 @@ public class MyinfoActivity extends AppCompatActivity {
         bind = ActivityCustomerMyinfoBinding.inflate(getLayoutInflater());
         setContentView(bind.getRoot());
 
-        bind.toolbar.ivLeft.setOnClickListener(v -> {
-            onBackPressed();
-        });
 
-        // vo 받아오는 처리
+
+        //고객정보 받아오기
         Intent intent = getIntent();
-        patient = (PatientVO) intent.getSerializableExtra("patient");
-        account = (AccountVO) intent.getSerializableExtra("account");
-
+        customer = (CustomerVO) intent.getSerializableExtra("customer");
 
         bind.btnBack.setVisibility(View.GONE);
         bind.btnOk.setVisibility(View.GONE);
 
-        changeFragment(new SelectFragment(patient, account));
+        //고객정보 조회창
+        changeFragment(new SelectFragment(customer));
+
+        bind.btnBack.setOnClickListener(v -> {
+            changeFragment(new SelectFragment(customer));
+            bind.btnUpdate.setVisibility(View.VISIBLE);
+            bind.btnBack.setVisibility(View.GONE);
+            bind.btnOk.setVisibility(View.GONE);
+        });
 
         bind.btnUpdate.setOnClickListener(v -> {
-            changeFragment(new UpdateFragment(patient, account));
+            changeFragment(new UpdateFragment(customer));
             bind.btnUpdate.setVisibility(View.GONE);
             bind.btnBack.setVisibility(View.VISIBLE);
             bind.btnOk.setVisibility(View.VISIBLE);
         });
 
-        bind.btnBack.setOnClickListener(v -> {
-            changeFragment(new SelectFragment(patient, account));
-            bind.btnUpdate.setVisibility(View.VISIBLE);
-            bind.btnBack.setVisibility(View.GONE);
-            bind.btnOk.setVisibility(View.GONE);
-        });
+
     }
 
     public void changeFragment(Fragment fragment){

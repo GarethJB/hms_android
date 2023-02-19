@@ -7,18 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.androidhms.customer.vo.AccountVO;
+import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.databinding.FragmentCustomerMyinfoSelectBinding;
-import com.example.androidhms.staff.vo.PatientVO;
 
 public class SelectFragment extends Fragment {
     private FragmentCustomerMyinfoSelectBinding bind;
-    private PatientVO patient;
-    private AccountVO account;
+    private CustomerVO customer;
 
-    public SelectFragment(PatientVO patient, AccountVO account) {
-        this.patient = patient;
-        this.account = account;
+    public SelectFragment(CustomerVO customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -26,11 +23,16 @@ public class SelectFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentCustomerMyinfoSelectBinding.inflate(inflater, container, false);
 
-        bind.tvName.setText(patient.getName());
-        bind.tvGender.setText(patient.getGender());
-        bind.tvEmail.setText(account.getEmail());
-        bind.tvPhone.setText(patient.getPhone_number());
-        bind.tvDate.setText(account.getDate());
+        bind.tvName.setText(customer.getName());
+        bind.tvGender.setText(customer.getGender());
+        bind.tvEmail.setText(customer.getEmail());
+        bind.tvPhone.setText(customer.getPhone_number());
+        bind.tvDate.setText(customer.getJoin_date());
+        bind.tvBloodtype.setText(customer.getBlood_type());
+        bind.tvHeight.setText(customer.getHeight() + "cm");
+        bind.tvWeight.setText(customer.getWeight() + "");
+        try {bind.tvAllergy.setText(customer.getAllergy());}catch (Exception e){}
+        try {bind.tvUnderlying.setText(customer.getUnderlying_disease());}catch (Exception e){}
 
 
         return bind.getRoot();

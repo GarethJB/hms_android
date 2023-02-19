@@ -1,20 +1,22 @@
 package com.example.androidhms.util;
 
-import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.util.Log;
+import android.content.SharedPreferences;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidhms.staff.vo.StaffChatDTO;
 import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.util.dialog.CalendarDialog;
+import com.google.gson.Gson;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -23,8 +25,37 @@ import java.util.Locale;
 
 public class Util {
 
-    public static StaffVO staff = null;
+    public static StaffVO staff;
+    public static boolean isStaffActivityForeground = false;
+    public static String sharedContent;
 
+    private Util() {}
+
+    /**
+     * 자동로그인시 SharedPreferences 에 저장된 staff 데이터를 불러옴
+     */
+    public static StaffVO getStaff(Context context) {
+        if (staff == null) {
+            SharedPreferences preferences = context.getSharedPreferences("staffLoginInfo", MODE_PRIVATE);
+            String staffJson = preferences.getString("staffData", null);
+            staff = new Gson().fromJson(staffJson, StaffVO.class);
+        }
+        return staff;
+    }
+
+    /**
+     * 메신저 Activity 에서 사용되는 StaffChatDTO 로 변환
+     */
+    public static StaffChatDTO getStaffChatDTO(Context context) {
+        if (staff == null) getStaff(context);
+        return new StaffChatDTO(staff.getStaff_id(),
+                staff.getStaff_level(), staff.getDepartment_id(), staff.getName(),
+                staff.getDepartment_name());
+    }
+
+    /**
+     * RecyclerView 설정
+     */
     public static void setRecyclerView(Context context, RecyclerView rv, RecyclerView.Adapter<?> adapter, boolean vertical) {
         RecyclerView.LayoutManager lm;
         if (vertical) lm = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -35,37 +66,47 @@ public class Util {
         rv.setItemAnimator(null);
     }
 
+    /**
+     * dp -> px 변환
+     */
+    public static int getPxFromDp(Activity activity, int dp) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        float density = displayMetrics.density;
+        return (int) (dp * density);
+    }
+
+    /**
+     * MaterialCalendar Dialog 설정
+     */
     public static void setEditTextDate(Context context, LayoutInflater inflater, EditText edit, CalendarDialog.SetDateClickListener listener) {
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edit.getText().toString().equals(""))
-                    new CalendarDialog(context, inflater, listener).show();
-                else
-                    new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString()).show();
-            }
+        edit.setOnClickListener(v -> {
+            if (edit.getText().toString().equals(""))
+                new CalendarDialog(context, inflater, listener).show();
+            else
+                new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString()).show();
         });
     }
 
     public static void setEditTextDate(Context context, LayoutInflater inflater, EditText edit,
-                                       CalendarDialog.SetDateClickListener listener, Timestamp maxtime, Timestamp mintime) {
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (maxtime != null && mintime != null)
-                    new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
-                            .setMaxDate(maxtime).setMinDate(mintime).show();
-                else if (mintime == null) {
-                    new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
-                            .setMaxDate(maxtime).show();
-                }
+                                       CalendarDialog.SetDateClickListener listener, Timestamp maxTime, Timestamp minTime) {
+        edit.setOnClickListener(v -> {
+            if (maxTime == null && minTime != null) {
+                new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
+                        .setMinDate(minTime).show();
+            } else if (maxTime != null && minTime != null)
+                new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
+                        .setMaxDate(maxTime).setMinDate(minTime).show();
+            else if (maxTime != null) {
+                new CalendarDialog(context, inflater, listener).setDate(edit.getText().toString())
+                        .setMaxDate(maxTime).show();
             }
         });
     }
 
     /**
      * Timestamp 시간 연산<br>
-     * ex) timestampOperator(time, Calendar.YEAR, 1);
+     * ex) Util.timestampOperator(time, Calendar.YEAR, 1);
      */
     public static Timestamp timestampOperator(Timestamp time, int pattern, int number) {
         Calendar cal = Calendar.getInstance();
@@ -76,7 +117,7 @@ public class Util {
 
     /**
      * Timestamp 포맷<br>
-     * ex) timestampOperator(time, "yyyy-MM-dd HH:mm:ss"); -> 2022-01-01 00:00:00
+     * ex) Util.timestampOperator(time, "yyyy-MM-dd HH:mm:ss"); -> 2022-01-01 00:00:00
      */
     public static String dateFormat(Timestamp time, String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.KOREA);
@@ -106,7 +147,7 @@ public class Util {
      * 채팅시간에서 시,분만 추출<br>
      * 2022-01-01 08:05:00.111 -> 08:05
      */
-    public static String getChatTime(String time) {
+    public static String getTime(String time) {
         return new StringBuilder(time).substring(11, 16);
     }
 

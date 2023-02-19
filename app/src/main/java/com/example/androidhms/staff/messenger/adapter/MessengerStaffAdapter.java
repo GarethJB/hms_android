@@ -7,18 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidhms.R;
-import com.example.androidhms.databinding.RvMessengerStaffBinding;
+import com.example.androidhms.databinding.ItemMessengerStaffBinding;
 import com.example.androidhms.staff.messenger.MessengerStaffFragment;
-import com.example.androidhms.staff.vo.StaffVO;
+import com.example.androidhms.staff.vo.StaffChatDTO;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAdapter.MessengerStaffViewHolder> {
 
     private final MessengerStaffFragment fragment;
-    private final ArrayList<StaffVO> staffList;
+    private final List<StaffChatDTO> staffList;
 
-    public MessengerStaffAdapter(MessengerStaffFragment fragment, ArrayList<StaffVO> staffList) {
+    public MessengerStaffAdapter(MessengerStaffFragment fragment, List<StaffChatDTO> staffList) {
         this.fragment = fragment;
         this.staffList = staffList;
     }
@@ -27,12 +27,12 @@ public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAd
     @Override
     public MessengerStaffViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MessengerStaffViewHolder(
-                fragment.getLayoutInflater().inflate(R.layout.rv_messenger_staff, parent, false));
+                fragment.getLayoutInflater().inflate(R.layout.item_messenger_staff, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MessengerStaffViewHolder holder, int position) {
-        StaffVO vo = staffList.get(position);
+        StaffChatDTO vo = staffList.get(position);
         holder.bind.tvStaffname.setText(vo.getName());
         String department = vo.getDepartment_name();
         if (vo.getStaff_level() == 1) department += " 의사";
@@ -58,11 +58,11 @@ public class MessengerStaffAdapter extends RecyclerView.Adapter<MessengerStaffAd
 
     public static class MessengerStaffViewHolder extends RecyclerView.ViewHolder {
 
-        public RvMessengerStaffBinding bind;
+        private final ItemMessengerStaffBinding bind;
 
         public MessengerStaffViewHolder(@NonNull View itemView) {
             super(itemView);
-            bind = RvMessengerStaffBinding.bind(itemView);
+            bind = ItemMessengerStaffBinding.bind(itemView);
 
         }
     }

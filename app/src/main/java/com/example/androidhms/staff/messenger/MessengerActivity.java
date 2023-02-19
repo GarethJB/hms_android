@@ -1,66 +1,78 @@
 package com.example.androidhms.staff.messenger;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import android.content.Intent;
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
+
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityMessengerBinding;
-import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.util.ActivityUtil;
-import com.example.androidhms.util.Util;
+import com.example.androidhms.staff.StaffBaseActivity;
 
-public class MessengerActivity extends AppCompatActivity {
+public class MessengerActivity extends StaffBaseActivity {
 
     private ActivityMessengerBinding bind;
     private MessengerFragment messengerFragment;
     private MessengerStaffFragment messengerStaffFragment;
-    private ActivityUtil util;
-    private StaffVO staff = Util.staff;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityMessengerBinding.inflate(getLayoutInflater());
-        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
-        setContentView(bind.getRoot());
+        preferences = this.getSharedPreferences("messengerInfo", MODE_PRIVATE);
+        editor = preferences.edit();
 
-        util = new ActivityUtil(this);
         messengerStaffFragment = new MessengerStaffFragment();
-
-        util.addFragment(bind.flContainer.getId(), messengerStaffFragment);
-        util.showFragment(messengerStaffFragment);
+        messengerFragment = new MessengerFragment();
+        addFragment(bind.flContainer.getId(), messengerStaffFragment);
+        addFragment(bind.flContainer.getId(), messengerFragment);
 
         bind.ivMessenger.setOnClickListener(onBnvClick());
         bind.ivMessengerStaff.setOnClickListener(onBnvClick());
+
+        if (preferences.getInt("selected", 0) == 0) {
+            bind.ivMessengerStaff.performClick();
+        } else bind.ivMessenger.performClick();
+
+        if (getIntent().getBooleanExtra("toolbar", false)) {
+            bind.ivMessenger.performClick();
+        }
+    }
+
+    @Override
+    protected View getLayoutResource() {
+        bind = ActivityMessengerBinding.inflate(getLayoutInflater());
+        return bind.getRoot();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 
     private View.OnClickListener onBnvClick() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getId() == R.id.iv_messenger_staff) {
-                    if (messengerFragment != null) util.hideFragment(messengerFragment);
-                    util.showFragment(messengerStaffFragment);
-                    bind.ivMessengerStaff.setColorFilter(
-                            ContextCompat.getColor(MessengerActivity.this, R.color.text_color));
-                    bind.ivMessenger.setColorFilter(
-                            ContextCompat.getColor(MessengerActivity.this, R.color.gray));
-                } else if (v.getId() == R.id.iv_messenger) {
-                    if (messengerFragment == null) {
-                        messengerFragment = new MessengerFragment();
-                        util.addFragment(bind.flContainer.getId(), messengerFragment);
-                    }
-                    util.hideFragment(messengerStaffFragment);
-                    util.showFragment(messengerFragment);
-                    bind.ivMessenger.setColorFilter(
-                            ContextCompat.getColor(MessengerActivity.this, R.color.text_color));
-                    bind.ivMessengerStaff.setColorFilter(
-                            ContextCompat.getColor(MessengerActivity.this, R.color.gray));
-                }
+        return v -> {
+            if (v.getId() == R.id.iv_messenger_staff) {
+                hideFragment(messengerFragment);
+                showFragment(messengerStaffFragment);
+                bind.ivMessengerStaff.setColorFilter(
+                        ContextCompat.getColor(MessengerActivity.this, R.color.text_color));
+                bind.ivMessenger.setColorFilter(
+                        ContextCompat.getColor(MessengerActivity.this, R.color.gray));
+                editor.putInt("selected", 0);
+                editor.commit();
+            } else if (v.getId() == R.id.iv_messenger) {
+                hideFragment(messengerStaffFragment);
+                showFragment(messengerFragment);
+                bind.ivMessenger.setColorFilter(
+                        ContextCompat.getColor(MessengerActivity.this, R.color.text_color));
+                bind.ivMessengerStaff.setColorFilter(
+                        ContextCompat.getColor(MessengerActivity.this, R.color.gray));
+                editor.putInt("selected", 1);
+                editor.commit();
             }
         };
     }

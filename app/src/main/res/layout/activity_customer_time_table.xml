@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".customer.info.timetable.TimeTableActivity">
+    tools:context=".customer.hospital.timetable.TimeTableActivity">
 
     <!-- 상단메뉴 툴바 삽입 -->
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_customer" />
 
     <LinearLayout
         android:padding="20dp"

@@ -1,21 +1,17 @@
 package com.example.androidhms.staff.lookup;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.androidhms.databinding.ActivityStaffLookupBinding;
+import com.example.androidhms.staff.StaffBaseActivity;
+import com.example.androidhms.staff.lookup.adapter.LookupAdapter;
 import com.example.androidhms.staff.vo.PatientVO;
 import com.example.androidhms.util.Util;
 import com.example.conn.RetrofitMethod;
@@ -24,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
-public class LookupActivity extends AppCompatActivity {
+public class LookupActivity extends StaffBaseActivity {
 
     private ActivityStaffLookupBinding bind;
     private PatientVO vo;
@@ -32,9 +28,22 @@ public class LookupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityStaffLookupBinding.inflate(getLayoutInflater());
-        bind.toolbar.ivLeft.setOnClickListener((v) -> finish());
-        setContentView(bind.getRoot());
+
+        if (getIntent().getIntExtra("patient_id", 0) != 0) {
+            new RetrofitMethod().setParams("id", getIntent().getIntExtra("patient_id", 0))
+                    .sendGet("getPatientFromId.ap", (isResult, data) -> {
+                        if (isResult) {
+                            vo = new Gson().fromJson(data, PatientVO.class);
+                            if (vo == null) {
+                                Toast.makeText(LookupActivity.this, "검색 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                bindPatientInfo(vo);
+                                bind.etName.setText(vo.getName());
+                            }
+                        } else
+                            Toast.makeText(LookupActivity.this, "검색 결과를 불러오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    });
+        }
 
         // 환자 검색
         bind.btnSearch.setOnClickListener(onSearchClick());
@@ -43,10 +52,26 @@ public class LookupActivity extends AppCompatActivity {
             bind.btnSearch.performClick();
             return false;
         });
-        // 전화걸기 (다이얼까지만)
+
+        // 전화걸기
         bind.tvPhone.setOnClickListener(onPhoneClick());
+
         // 메모저장
         bind.btnMemosave.setOnClickListener(onMemoSaveClick());
+
+        // 공유버튼
+        bind.imgvShare.setOnClickListener(onShareClick());
+    }
+
+    @Override
+    protected View getLayoutResource() {
+        bind = ActivityStaffLookupBinding.inflate(getLayoutInflater());
+        return bind.getRoot();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 
     private View.OnClickListener onPhoneClick() {
@@ -61,22 +86,27 @@ public class LookupActivity extends AppCompatActivity {
 
     private View.OnClickListener onSearchClick() {
         return v -> {
-            Util.keyboardDown(LookupActivity.this);
-            new RetrofitMethod().setParams("name", bind.etName.getText().toString())
-                    .sendPost("searchpatient.ap", (isResult, data) -> {
-                        if (isResult) {
-                            ArrayList<PatientVO> patientList =
-                                    new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>(){}.getType());
-                            if (patientList.isEmpty()) {
-                                Toast.makeText(LookupActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                if (patientList.size() == 1) {
-                                    vo = patientList.get(0);
-                                    bindPatientInfo(vo);
+            if (bind.etName.getText().toString().trim().equals("")) {
+                Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
+                Util.keyboardDown(LookupActivity.this);
+                new RetrofitMethod().setParams("name", bind.etName.getText().toString())
+                        .sendGet("getPatient.ap", (isResult, data) -> {
+                            if (isResult) {
+                                ArrayList<PatientVO> patientList =
+                                        new Gson().fromJson(data, new TypeToken<ArrayList<PatientVO>>() {
+                                        }.getType());
+                                if (patientList.isEmpty()) {
+                                    Toast.makeText(LookupActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                                    bind.rvSearchResult.setVisibility(View.GONE);
+                                } else {
+                                    Util.setRecyclerView(LookupActivity.this, bind.rvSearchResult,
+                                            new LookupAdapter(patientList, LookupActivity.this), true);
+                                    bind.rvSearchResult.post(() -> bind.rvSearchResult.setVisibility(View.VISIBLE));
                                 }
                             }
-                        }
-                    });
+                        });
+            }
         };
     }
 
@@ -85,12 +115,19 @@ public class LookupActivity extends AppCompatActivity {
             Util.keyboardDown(LookupActivity.this);
             new RetrofitMethod().setParams("id", vo.getPatient_id())
                     .setParams("memo", bind.etMemo.getText().toString())
-                    .sendPost("updatepatientmemo.ap", (isResult, data) -> {
+                    .sendPost("updatePatientMemo.ap", (isResult, data) -> {
                         if (isResult && data.equals("1")) {
                             Toast.makeText(LookupActivity.this, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                        } else Toast.makeText(LookupActivity.this, "메모저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(LookupActivity.this, "메모저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
                     });
         };
+    }
+
+    public void selectPatient(PatientVO vo) {
+        this.vo = vo;
+        bindPatientInfo(vo);
+        bind.rvSearchResult.setVisibility(View.GONE);
     }
 
     private void bindPatientInfo(PatientVO vo) {
@@ -111,5 +148,15 @@ public class LookupActivity extends AppCompatActivity {
         bind.etMemo.setText(vo.getMemo());
     }
 
+    private View.OnClickListener onShareClick() {
+        return v -> {
+            if (vo != null) {
+                Util.sharedContent = "##patient##" + vo.getPatient_id() + "##" + vo.getName();
+                Toast.makeText(this, "환자 정보가 저장되었습니다.\n메신저를 통해 다른 의료진들과 공유할 수 있습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "공유할 내용이 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
 
 }

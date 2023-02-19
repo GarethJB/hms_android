@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#DADADA"
+    android:background="@color/second_color"
     tools:context=".customer.info.myinfo.MyinfoActivity">
 
     <!-- 상단메뉴 툴바 삽입 -->
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_customer" />
 
 
     <!-- 컨테이너 -->
@@ -33,7 +33,7 @@
             android:textSize="16dp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:backgroundTint="@color/second_color"
+            android:backgroundTint="@color/main_color"
             android:layout_marginHorizontal="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

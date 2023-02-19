@@ -6,6 +6,10 @@ public class ChatVO {
 
     private String id, name, content, time;
 
+    public ChatVO() {
+
+    }
+
     public ChatVO(String id, String name, String content) {
         this.id = id;
         this.name = name;

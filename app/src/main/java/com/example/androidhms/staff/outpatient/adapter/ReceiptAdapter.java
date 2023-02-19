@@ -13,14 +13,14 @@ import com.example.androidhms.staff.vo.MedicalReceiptVO;
 import com.example.androidhms.util.Util;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ReceiptViewHolder> {
 
-    private ReceiptFragment fragment;
-    private ArrayList<MedicalReceiptVO> mrList;
+    private final ReceiptFragment fragment;
+    private final List<MedicalReceiptVO> mrList;
 
-    public ReceiptAdapter(ReceiptFragment fragment, ArrayList<MedicalReceiptVO> mrList) {
+    public ReceiptAdapter(ReceiptFragment fragment, List<MedicalReceiptVO> mrList) {
         this.fragment = fragment;
         this.mrList = mrList;
     }
@@ -57,9 +57,9 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ReceiptV
         return position;
     }
 
-    public class ReceiptViewHolder extends RecyclerView.ViewHolder {
+    public static class ReceiptViewHolder extends RecyclerView.ViewHolder {
 
-        public ItemStaffMedicalReceiptBinding bind;
+        private final ItemStaffMedicalReceiptBinding bind;
 
         public ReceiptViewHolder(@NonNull View itemView) {
             super(itemView);

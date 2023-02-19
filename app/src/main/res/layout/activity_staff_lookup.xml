@@ -5,13 +5,13 @@
     android:id="@+id/ll_staff_lookup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/back_color"
+    android:background="@color/lightgray"
     android:orientation="vertical"
     tools:context=".staff.lookup.LookupActivity">
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_staff" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,17 +70,50 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_result"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="20dp"
-                android:text="인적사항"
-                android:textColor="@color/text_color"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/box_round_lightgray"
+                android:backgroundTint="@color/white"
+                android:padding="10dp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_vertical"
+                    android:text="인적사항"
+                    android:textColor="@color/text_color"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imgv_share"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_share"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    app:tint="@color/gray3" />
+
+            </RelativeLayout>
+
 
             <ScrollView
                 android:id="@+id/sv_info"
@@ -132,14 +165,15 @@
                             android:layout_marginBottom="5dp"
                             android:layout_weight="0.8"
                             android:textColor="@color/second_color"
-                            android:textSize="16dp"
+                            android:textSize="14dp"
                             android:textStyle="bold" />
 
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="0.2"
-                            android:scaleType="fitXY"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/icon_tel"
                             app:tint="@color/second_color" />
 
@@ -306,7 +340,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_centerVertical="true"
                     android:text="메모"
                     android:textColor="@color/text_color"
@@ -319,7 +352,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:backgroundTint="@color/main_color"
+                    android:backgroundTint="@color/second_color"
                     android:text="저장"
                     android:textSize="16dp" />
 
@@ -342,9 +375,10 @@
 
         </LinearLayout>
 
-        <include android:id="@+id/rl_progress"
-            android:visibility="gone"
-            layout="@layout/view_progress_circle"/>
+        <include
+            android:id="@+id/rl_progress"
+            layout="@layout/view_progress_circle"
+            android:visibility="gone" />
 
     </FrameLayout>
 

@@ -1,10 +1,9 @@
 package com.example.androidhms.staff;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidhms.R;
 import com.example.androidhms.databinding.ActivityStaffBinding;
@@ -13,33 +12,62 @@ import com.example.androidhms.staff.messenger.MessengerActivity;
 import com.example.androidhms.staff.outpatient.OutpatientActivity;
 import com.example.androidhms.staff.schedule.ScheduleActivity;
 import com.example.androidhms.staff.vo.StaffVO;
-import com.example.androidhms.staff.ward.DoctorWardActivity;
-import com.example.androidhms.staff.ward.NurseWardActivity;
+import com.example.androidhms.staff.ward.WardActivity;
 import com.example.androidhms.util.Util;
 
-public class StaffActivity extends AppCompatActivity {
+public class StaffActivity extends StaffBaseActivity {
 
     private ActivityStaffBinding bind;
-    private final StaffVO staff = Util.staff;
+    private StaffVO staff = Util.staff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bind = ActivityStaffBinding.inflate(getLayoutInflater());
-        setContentView(bind.getRoot());
 
+        if (staff == null) staff = Util.getStaff(this);
+
+        // 상단 페이지
         bind.tvName.setText(staff.getName());
+
+        // 항목 클릭
         bind.clLookup.setOnClickListener(onMenuClick());
         bind.clOutpatient.setOnClickListener(onMenuClick());
         bind.clWard.setOnClickListener(onMenuClick());
         bind.clSchedule.setOnClickListener(onMenuClick());
         bind.clMessanger.setOnClickListener(onMenuClick());
 
-        //임시
-        bind.toolbar.ivLeft.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        // 마이 페이지
+        bind.rlMypage.setOnClickListener(v ->
+                startActivity(new Intent(this, StaffMyPageActivity.class)));
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Util.isStaffActivityForeground = true;
+        // 로그아웃시 finish
+        if (Util.staff == null) {
+            startActivity(new Intent(this, StaffLoginActivity.class));
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getNotificationTime = null;
+        Util.isStaffActivityForeground = false;
+    }
+
+    @Override
+    protected View getLayoutResource() {
+        bind = ActivityStaffBinding.inflate(getLayoutInflater());
+        return bind.getRoot();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 
     private View.OnClickListener onMenuClick() {
@@ -50,12 +78,7 @@ public class StaffActivity extends AppCompatActivity {
             } else if (v.getId() == R.id.cl_outpatient) {
                 intent = new Intent(StaffActivity.this, OutpatientActivity.class);
             } else if (v.getId() == R.id.cl_ward) {
-                // 진료과 간호사, 병동 간호사 구분
-                if (staff.getDepartment_id() < 150) {
-                    intent = new Intent(StaffActivity.this, DoctorWardActivity.class);
-                } else {
-                    intent = new Intent(StaffActivity.this, NurseWardActivity.class);
-                }
+                intent = new Intent(StaffActivity.this, WardActivity.class);
             } else if (v.getId() == R.id.cl_messanger) {
                 intent = new Intent(StaffActivity.this, MessengerActivity.class);
             } else if (v.getId() == R.id.cl_schedule) {

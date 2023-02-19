@@ -7,18 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.androidhms.customer.vo.AccountVO;
+import com.example.androidhms.customer.vo.CustomerVO;
 import com.example.androidhms.databinding.FragmentCustomerMyinfoUpdateBinding;
-import com.example.androidhms.staff.vo.PatientVO;
 
 public class UpdateFragment extends Fragment {
     private FragmentCustomerMyinfoUpdateBinding bind;
-    private PatientVO patient;
-    private AccountVO account;
+    private CustomerVO customer;
 
-    public UpdateFragment(PatientVO patient, AccountVO account) {
-        this.patient = patient;
-        this.account = account;
+    public UpdateFragment(CustomerVO customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -26,10 +23,16 @@ public class UpdateFragment extends Fragment {
                              Bundle savedInstanceState) {
         bind = FragmentCustomerMyinfoUpdateBinding.inflate(inflater, container, false);
 
-        bind.tvName.setText(patient.getName());
-        bind.tvGender.setHint(patient.getGender());
-        bind.tvEmail.setHint(account.getEmail());
-        bind.tvPhone.setHint(patient.getPhone_number());
+        bind.tvName.setText(customer.getName());
+        bind.tvGender.setText(customer.getGender());
+        bind.tvEmail.setText(customer.getEmail());
+        bind.etPhone.setHint(customer.getPhone_number());
+        bind.tvDate.setText(customer.getJoin_date());
+        bind.tvBloodtype.setText(customer.getBlood_type());
+        bind.tvHeight.setText(customer.getHeight() + "cm");
+        bind.etWeight.setHint(customer.getWeight() + "");
+        try {bind.etAllergy.setHint(customer.getAllergy());}catch (Exception e){}
+        try {bind.etUnderlying.setHint(customer.getUnderlying_disease());}catch (Exception e){}
 
 
         return bind.getRoot();
